@@ -1,0 +1,19 @@
+/** Initial Setting for the Site **/
+
+/** making the 'X' icon and eye icon shown in the input invisible for IE10+ and Edge browsers **/
+::-ms-clear,::-ms-reveal{
+
+  display:none;
+
+}
+
+/** Force set the background color of the body **/
+/** Set the min width of the body, not allow to lower than the width of iPhone 5 **/
+/** .pushable is from Semantic UI for sidebar functionality **/
+body.pushable {
+
+  background:#fff!important;
+
+  min-width: 320px;
+
+}

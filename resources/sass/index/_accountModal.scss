@@ -1,0 +1,77 @@
+/** Account Modal Section **/
+#account_modal {
+
+  max-width: 30rem;
+
+  section.close_button {
+
+    position: absolute;
+
+    top: 1.5rem;
+
+    right: 1.5rem;
+
+    padding-top: 0;
+
+    width: auto;
+
+    height: auto;
+
+    .close.icon {
+
+      font-size: 1.3rem;
+
+      margin-right: 0;
+
+      opacity: 0.85;
+
+    }
+
+  }
+
+  .header {
+
+    padding: 4.286rem;
+
+    padding-bottom: 0;
+
+    text-align: center;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    border-bottom: none;
+
+    font-size:1.8rem;
+
+    .icon {
+
+      margin: 1rem;
+
+      transform: translateX(-0.15rem);
+
+
+    }
+
+    .title {
+
+      transform: translateY(-0.2rem);
+
+      letter-spacing: 0.2rem;
+
+    }
+
+  }
+
+  .content {
+
+    padding-left: 4.286rem;
+
+    padding-right: 4.286rem;
+
+  }
+
+}

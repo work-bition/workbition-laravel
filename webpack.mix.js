@@ -11,5 +11,74 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+
+mix.webpackConfig(webpack => {
+
+    return {
+
+        plugins: [
+
+            new webpack.ProvidePlugin({
+
+                $: 'jquery',
+
+                jQuery: 'jquery',
+
+                'window.jQuery': 'jquery'
+
+            })
+
+        ]
+
+    };
+
+});
+
+
+
+mix.js('resources/js/index/main.js', 'public/js')
+
+   .extract(['jquery', 'enquire.js', 'slick-carousel'])
+
+   .sass('resources/sass/index/main.scss', 'public/css')
+
+     .options({
+
+        postCss: [
+
+            require('postcss-sorting')({
+
+              'properties-order': 'alphabetical'
+
+            })
+
+        ]
+
+      })
+
+   .version()
+
+   .browserSync('https://workbition.test');
+
+
+
+
+
+
+mix.copy('semantic-ui/dist/themes', 'public/css/themes');
+
+mix.copy([
+
+    'semantic-ui/dist/semantic.min.css',
+
+    'node_modules/slick-carousel/slick/slick.css',
+
+    'node_modules/slick-carousel/slick/slick-theme.css',
+
+    'node_modules/slick-carousel/slick/ajax-loader.gif'
+
+    ],
+
+    'public/css'
+
+);

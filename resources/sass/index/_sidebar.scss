@@ -1,0 +1,186 @@
+/** Sidebar Section **/
+.ui.sidebar {
+
+  /** animation speed for the popup of the sidebar **/
+  transition-duration: 0.2s !important;
+
+  .content_wrapper {
+
+    /** preventing the second scroll to be shown up for desktop browsers **/
+    height: 100vh;
+
+    background-color: #fff;
+
+    .sidebar_header {
+
+      height: 3.5rem;
+
+      border-bottom: #f2f2f2 solid 1px;
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      a {
+
+        transform: translateY(0.2rem);
+
+        .logo {
+
+          width: 8rem;
+
+        }
+
+      }
+
+    }
+
+    .menu {
+
+      font-size: 0.9rem;
+
+      border: 0;
+
+      width: 100%;
+
+      position:fixed;
+
+      top:50px;
+
+      bottom:50px;
+
+      overflow:auto;
+
+      overflow-x: hidden;
+
+      ul {
+
+        list-style: none;
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        padding-left: 0;
+
+        margin: 1rem auto 1rem auto;
+
+        width: 10.5rem;
+
+        li {
+
+          flex-basis: 100vw;
+
+          padding-top:0.5rem;
+
+          a {
+
+            color: #000;
+
+          }
+
+          a.active {
+
+          color: #0a7dab;
+
+          background-color: white!important;
+
+          &:hover {
+
+            color: #0a7dab;
+
+          }
+
+          }
+
+          &:first-child {
+
+            padding-top:0;
+
+          }
+
+        }
+
+
+
+      }
+
+      .login_register_buttons {
+
+        transform: translateX(-0.15rem);
+
+        margin-top: 2rem;
+
+        margin-bottom: 1.5rem;
+
+        .login_button {
+
+          margin-bottom: 1.5rem;
+
+        }
+
+      }
+
+    }
+
+    .close_layer {
+
+      border-top: #F2F2F2 solid 1px;
+
+      border-bottom: #F2F2F2 solid 1px;
+
+      background-color: #f7f8f9;
+
+      height: 3.2rem;
+
+      line-height: 3.2rem;
+
+      text-align: center;
+
+      font-size: 1.14rem;
+
+      font-weight: bold;
+
+      position: fixed;
+
+      bottom: 0;
+
+      left: 0;
+
+      right: 0;
+
+      a {
+
+        display: block;
+
+        color: #757575;
+
+        letter-spacing: 0.4rem;
+
+        text-indent: 0.4rem;
+
+      }
+
+    }
+
+  }
+
+}
+
+/** When opening the sidebar, programmatically add this class to the background
+element in order to prevent the background layer from moving **/
+.fixed_layer {
+
+  position: fixed;
+
+  width: 100%;
+
+  top: 0;
+
+  left: 0;
+
+  right: 0;
+
+}

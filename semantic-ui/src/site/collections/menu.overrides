@@ -1,0 +1,17 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+.ui.menu {
+
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+
+}
+
+.ui.menu .item {
+
+  letter-spacing: 0.2rem;
+
+}

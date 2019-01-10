@@ -1,0 +1,76 @@
+/** Main Navigation Section **/
+#main_nav {
+
+ box-shadow: 0 8px 24px rgba(0,0,0,.13);
+
+ background: linear-gradient(-45deg, #0f99d0, #2a6ea8);
+
+  .content {
+
+    height: 3.5rem;
+
+    display: flex;
+
+    align-items: center;
+
+    .left.menu {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      width: 65%;
+
+      .item i {
+
+        /** hiding i elements under the results panel of the search box when it opens in iOS devices **/
+        overflow: hidden;
+
+      }
+
+      .item.active {
+
+        color: #ffea75;
+
+      }
+
+    }
+
+    @media only screen and (max-width: 1262px) {
+
+      .left.menu {
+
+        width: 75%;
+
+      }
+
+    }
+
+    @media only screen and (max-width: 991px) {
+
+      .left.menu {
+
+        width: 100%;
+
+      }
+
+    }
+
+    .left.menu > a {
+
+      color: white;
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 767px) {
+
+  #main_nav {
+
+    display: none;
+
+  }
+
+}

@@ -1,0 +1,422 @@
+@import 'accountModal';
+
+@import 'sidebar';
+
+
+/** Header Section **/
+#header {
+
+  .header_content  {
+
+    height: 5rem;
+
+    align-items: center;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    .logo_section {
+
+      transform: translateY(0.25rem);
+
+      .logo {
+
+        width: 9rem;
+
+        height: auto;
+
+      }
+
+    }
+
+    .right_wrap {
+
+      .right.menu {
+
+        display: flex;
+
+        align-items: center;
+
+        .login.button {
+
+          text-align: center;
+
+          letter-spacing: 0.5rem;
+
+          text-indent: 0.5rem;
+
+          color: #222;
+
+        }
+
+        .divider_item {
+
+          padding: 0 1rem 0 0.3rem;
+
+        }
+
+        .register_button {
+
+          display: inline-block;
+
+        }
+
+        .ui.search.item {
+
+          display: inline-block;
+
+          .search.icon {
+
+            transform: translateY(0.1rem);
+
+          }
+
+          .search.icon.negative_mg_lft {
+
+            margin-left: -0.85rem;
+
+          }
+
+          .prompt {
+
+            visibility: hidden;
+
+            width: 0;
+
+          }
+
+          /* When the width of the window is greater than 769px, chaging the width of the search input to 35rem */
+          @media only screen and (min-width: 769px) {
+
+            .search.icon.negative_mg_lft + .prompt {
+
+              width: 35rem !important;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 768px, chaging the width of the search input to 20rem */
+          @media only screen and (max-width: 768px) {
+
+            .search.icon.negative_mg_lft + .prompt {
+
+              width: 20rem !important;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 467px, chaging the width of the search input to 13rem */
+          @media only screen and (max-width: 467px) {
+
+            .search.icon.negative_mg_lft + .prompt {
+
+              width: 13rem !important;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 369px, chaging the width of the search input to 12rem */
+          @media only screen and (max-width: 369px) {
+
+            .search.icon.negative_mg_lft + .prompt {
+
+              width: 12rem !important;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 348px, chaging the width of the search input to 9rem */
+          @media only screen and (max-width: 348px) {
+
+            .search.icon.negative_mg_lft + .prompt {
+
+              width: 9rem !important;
+
+            }
+
+          }
+
+          .close.icon {
+
+            display: none;
+
+            position: relative;
+
+            right: 1.25rem;
+
+            transform: translateY(0.05rem);
+
+          }
+
+          /* css hack for IE browsers */
+          /* fixing navigation icons offset problems in IE browsers */
+          @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+             .search.icon{
+
+               transform: translateY(0.25rem);
+
+             }
+
+             .search.icon.negative_mg_lft {
+
+               transform: translateY(0.1rem);
+
+             }
+
+             .close.icon {
+
+               transform: translateY(-0.65rem);
+
+             }
+
+          }
+
+          .results {
+
+            .result {
+
+              letter-spacing: 0.15rem;
+
+              word-spacing: 0.25rem;
+
+              .title {
+
+                line-height: 2rem;
+
+              }
+
+            }
+
+            .message.empty {
+
+              .header {
+
+                line-height: 2rem;
+
+                /** avoid words overflowing the header container **/
+                overflow-wrap: break-word;
+
+                /** support for IE browsers **/
+                word-wrap: break-word;
+
+                font-size: 1.15rem;
+
+                text-align: center;
+
+                span {
+
+                  color:#2a6ea8;
+
+                  font-style:italic;
+
+                  margin-left:0.1rem;
+
+                  margin-right:0.3rem;
+
+                }
+
+              }
+
+              .description {
+
+                line-height: 2rem;
+
+                a {
+
+                  color:#2a6ea8;
+
+                  font-weight:bold;
+
+                }
+
+              }
+
+            }
+
+          }
+
+          /* When the width of the window is greater than 769px, chaging the width
+          of the results panel of the search box to 96% of that of its container */
+          @media only screen and (min-width: 769px) {
+
+            .results {
+
+              width: 96%;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 768px, chaging the width
+          of the results panel of the search box to 93% of that of its container */
+          @media only screen and (max-width: 768px) {
+
+            .results {
+
+              width: 93%;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 467px, chaging the width
+          of the results panel of the search box to 89% of that of its container */
+          @media only screen and (max-width: 467px) {
+
+            .results {
+
+              width: 89%;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 369px, chaging the width
+          of the results panel of the search box to 88% of that of its container */
+          @media only screen and (max-width: 369px) {
+
+            .results {
+
+              width: 88%;
+
+            }
+
+          }
+
+          /* When the width of the window is less than 348px, chaging the width
+          of the results panel of the search box to 84% of that of its container */
+          @media only screen and (max-width: 348px) {
+
+            .results {
+
+              width: 84%;
+
+            }
+
+          }
+
+          .hide_results {
+
+            visibility: hidden!important;
+
+          }
+
+        }
+
+        .align.justify.link.icon {
+
+          display: none;
+
+        }
+
+       }
+
+      /** Media Queries for .right.menu **/
+
+      @media only screen and (max-width: 995px) {
+
+        .right.menu {
+
+          transform: translateX(1.6rem);
+
+        }
+
+      }
+
+      /** Media Queries for .right.menu **/
+      @media only screen and (max-width: 767px) {
+
+        .right.menu {
+
+          .align.justify.link.icon {
+
+            display: inline-block;
+
+          }
+
+        }
+
+      }
+
+    }
+
+    @media only screen and (min-width: 996px) {
+
+      .right_wrap {
+
+      margin-right: -1.75rem;
+
+      }
+
+    }
+
+  }
+
+  @media only screen and (max-width: 767px) {
+
+    .header_content {
+
+      height: 3.5rem;
+
+      .logo_section .logo {
+
+        width: 7rem;
+
+      }
+
+      .right.menu {
+
+        .login.button, .divider_item, .register_button {
+
+          display: none!important;
+
+        }
+
+      }
+
+    }
+
+
+
+  }
+
+
+}
+@media only screen and (max-width: 767px) {
+
+  #header {
+
+    border-bottom: #f2f2f2 solid 1px;
+
+    .right.menu .align.justify.link.icon {
+
+      margin-left: -1rem;
+
+      transform: translateY(0.07rem);
+
+      margin-right: 1.5rem;
+
+
+    }
+
+    /* css hack for IE browsers */
+    /* fixing navigation icons offset problems in IE browsers */
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+
+      .right.menu .close.link.icon {
+
+        transform: translateY(-0.5rem)!important;
+
+      }
+
+    }
+
+  }
+
+}

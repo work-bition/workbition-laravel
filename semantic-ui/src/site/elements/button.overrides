@@ -1,0 +1,51 @@
+/*******************************
+         Site Overrides
+*******************************/
+
+.ui.primary.button, .ui.secondary.button {
+
+  letter-spacing: 0.3rem;
+
+  text-indent:0.3rem;
+
+  background: linear-gradient(-45deg,#2185D0,#2A6EA8);
+
+  margin-right: 0;
+
+
+}
+
+.ui.primary.button {
+
+  border: 1px solid #2185D0;
+
+}
+
+.ui.secondary.button {
+
+  background: none;
+
+  background-color: white;
+
+  border: 1px solid grey;
+
+  color: grey;
+
+  width: 8.5rem;
+
+
+}
+
+.ui.primary.button:hover, .ui.secondary.button:hover {
+
+  box-shadow:0 6px 6px 0 rgba(36,10,147,.13);
+
+}
+
+.ui.secondary.button:hover {
+
+  background: none;
+
+  color: grey;
+
+}
