@@ -17,6 +17,8 @@ import enquire from  'enquire.js'
 * header - sidebar
 **/
 
+
+
 /** Clone Some Html Codes for Reducing the Page Size **/
 /** Cloning the logo section into sidebar **/
 $('#header .logo_section a.logo_link')
@@ -74,6 +76,8 @@ $('#main_sidebar')
    mobileTransition: 'overlay',
 
    dimPage: false,
+
+   context:'body',
 
    onVisible: () => {
 

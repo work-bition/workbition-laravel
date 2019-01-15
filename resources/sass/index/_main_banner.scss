@@ -1,0 +1,409 @@
+.featured_label {
+
+  padding: 0.75em;
+
+  opacity: 0.8;
+
+  top: calc(#{nth($pageBannersBorder,3)} + #{$mainBannerPadding-normal});
+
+  left: calc(#{nth($pageBannersBorder,3)} + #{$mainBannerPadding-normal});
+
+  border-radius: 0;
+
+  box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+
+  letter-spacing: 0.2rem;
+
+  z-index: 1;
+
+  font-size: 1rem;
+
+  background: linear-gradient(to right, #ffcc33, #ffb347);
+
+}
+@media only screen and (max-width: 579px) {
+
+  .featured_label {
+
+    font-size: 10px;
+
+  }
+
+}
+
+.main_banner.featured_carousel {
+
+  cursor: pointer;
+
+  width: 70%;
+
+  height: auto;
+
+  margin-top: 3rem;
+
+  /** Eliminating the blue border when clicking on the slides **/
+  .slick-slide, .slick-slide *{ outline: none !important; }
+
+  .ui.button {
+
+    margin-right: 0;
+
+    opacity: 0;
+
+    position: absolute;
+
+    top: 50%;
+
+    width: 40px;
+
+    height: 40px;
+
+    z-index: 2;
+
+    transform: translateY(-50%);
+
+    background-color: rgba(31,45,61,.11);
+
+    color: #fff;
+
+    text-align: center;
+
+    transition: all .3s ease 0s;
+
+    &:hover {
+
+      background-color: rgba(31,45,61,.23);
+
+    }
+
+  }
+
+  .prev.button {
+
+    left: calc(#{$mainBannerPadding-normal} + #{nth($pageBannersBorder,3)});
+
+  }
+
+  .slick-list {
+
+    border: $pageBannersBorder;
+
+    border-right: none;
+
+    padding: $mainBannerPadding-normal;
+
+    padding-right:0;
+
+    padding-bottom: 0.55rem;
+
+  }
+
+  .next.button {
+
+    right: 0;
+
+  }
+
+  .slick-dots {
+
+    top: calc(100% - #{$mainBannerPadding-normal} - #{nth($pageBannersBorder,3)} - #{$navDotsFromBottom});
+
+    bottom: auto;
+
+    cursor: default;
+
+    li {
+
+      opacity: 0.7;
+
+      border: 0;
+
+      display: inline-block;
+
+      width: 12px;
+
+      height: 12px;
+
+      background-color: #0096d0;
+
+      border-radius: 10px;
+
+      &.slick-active {
+
+        border: 0;
+
+        display: inline-block;
+
+        width: 25px;
+
+        height: 12px;
+
+        border-radius: 10px;
+
+        background-color: #ffea75;
+
+      }
+
+      button:before {
+
+        content: '';
+
+      }
+
+    }
+
+  }
+
+  .item {
+
+    display: block!important;
+
+    .image_holder {
+
+      position: relative;
+
+      top: 0;
+
+      bottom: 0;
+
+      height: 25rem;
+
+      display: block;
+
+      visibility: hidden;
+
+      background-size: cover!important;
+
+      width: 100%;
+
+      &.banner1 {
+
+        background: url(../../images/featured_carousel_item1.png) 50% 50% no-repeat;
+
+      }
+
+      &.banner2 {
+
+        background: url(../../images/featured_carousel_item2.png) 50% 50% no-repeat;
+
+      }
+
+      &.banner3 {
+
+        background: url(../../images/featured_carousel_item3.png) 50% 50% no-repeat;
+
+      }
+
+      &.banner4 {
+
+        background: url(../../images/featured_carousel_item4.png) 50% 50% no-repeat;
+
+      }
+
+      &.banner5 {
+
+        background: url(../../images/featured_carousel_item5.png) 50% 50% no-repeat;
+
+      }
+
+      &.banner6 {
+
+        background: url(../../images/featured_carousel_item6.png) 50% 50% no-repeat;
+
+      }
+
+      .overlay {
+
+        position: absolute;
+
+        top: 0;
+
+        bottom: 0;
+
+        width: 100%;
+
+        transition: all 1s ease;
+
+        background-color: #000;
+
+        opacity: 0.2;
+
+      }
+
+      .header {
+
+        width: 100%;
+
+        font-size: 2rem;
+
+        line-height: 1.5;
+
+        color: #fff;
+
+        position: absolute;
+
+        top: 50%;
+
+        left: 50%;
+
+        transform: translate(-50%,-50%);
+
+        padding: 60px;
+
+        text-shadow: 1px 1px 10px #000;
+
+        text-align: center;
+
+        font-weight: bold;
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 1262px) {
+
+  .main_banner.featured_carousel {
+
+    .item {
+
+      .image_holder {
+
+        height: 22rem;
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 991px) {
+
+  .main_banner.featured_carousel {
+
+    width: 100%;
+
+    .ui.button {
+
+      top: calc((100% - #{$mainBannerPaddingBottom-pad} + #{$mainBannerPadding-normal}) / 2);
+
+    }
+
+    .slick-list {
+
+      padding-right: $mainBannerPadding-normal;
+
+      border-right: $pageBannersBorder;
+
+      padding-bottom: $mainBannerPaddingBottom-pad;
+
+    }
+
+    .next.button {
+
+      right: calc(#{nth($pageBannersBorder,3)} + #{$mainBannerPadding-normal});
+
+    }
+
+    .slick-dots {
+
+      top: calc(100% - #{$mainBannerPaddingBottom-pad} - #{nth($pageBannersBorder,3)} - #{$navDotsFromBottom});
+
+      bottom: auto;
+
+    }
+
+    .item {
+
+      .image_holder {
+
+        height: 20rem;
+
+        .header {
+
+          font-size: 1.8rem;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 579px) {
+
+  .main_banner.featured_carousel {
+
+    .ui.button {
+
+      top: calc((100% - #{$mainBannerPaddingBottom-mobile} + #{$mainBannerPadding-normal}) / 2);
+
+    }
+
+    .slick-list {
+
+      padding-bottom: $mainBannerPaddingBottom-mobile;
+
+    }
+
+    .slick-dots {
+
+      top: calc(100% - #{$mainBannerPaddingBottom-mobile} - #{nth($pageBannersBorder,3)} - #{$navDotsFromBottom});
+
+      bottom: auto;
+
+    }
+
+    .item {
+
+      .image_holder {
+
+        height: 13rem;
+
+        .header {
+
+          font-size: 1.2rem;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 360px) {
+
+  .main_banner.featured_carousel {
+
+    .ui.button {
+
+      display: none!important;
+
+    }
+
+    .item {
+
+      .image_holder {
+
+        height: 10rem;
+
+        .header {
+
+          font-size: 1rem;
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

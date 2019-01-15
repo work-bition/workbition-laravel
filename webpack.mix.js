@@ -11,6 +11,49 @@ const mix = require('laravel-mix');
  |
  */
 
+ Mix.listen('configReady', (webpackConfig) => {
+
+     // Create SVG sprites
+     webpackConfig.module.rules.unshift({
+
+         test: /\.svg$/,
+
+         loaders: [
+
+           {
+
+             loader: 'svg-sprite-loader',
+
+             options: {
+
+                 symbolId: 'icon-[name]',
+
+             },
+
+           },
+
+           {
+
+             loader: 'svgo-loader',
+
+             options: {
+
+             }
+
+           }
+
+         ],
+
+         include: /(resources\/js\/icons\/svg)/
+
+     });
+
+     // Exclude 'svg' folder from the default Laravel Mix svg loader
+     let fontLoaderConfig = webpackConfig.module.rules.find(rule => String(rule.test) === String(/(\.(png|jpe?g|gif)$|^((?!font).)*\.svg$)/));
+
+     fontLoaderConfig.exclude = /(resources\/js\/icons\/svg)/;
+
+ });
 
 mix.webpackConfig(webpack => {
 
@@ -38,11 +81,11 @@ mix.webpackConfig(webpack => {
 
 mix.js('resources/js/index/main.js', 'public/js')
 
-   .extract(['jquery', 'enquire.js', 'slick-carousel'])
+      .extract(['jquery', 'enquire.js', 'slick-carousel'])
 
    .sass('resources/sass/index/main.scss', 'public/css')
 
-     .options({
+      .options({
 
         postCss: [
 
@@ -62,23 +105,6 @@ mix.js('resources/js/index/main.js', 'public/js')
 
 
 
-
-
-
 mix.copy('semantic-ui/dist/themes', 'public/css/themes');
 
-mix.copy([
-
-    'semantic-ui/dist/semantic.min.css',
-
-    'node_modules/slick-carousel/slick/slick.css',
-
-    'node_modules/slick-carousel/slick/slick-theme.css',
-
-    'node_modules/slick-carousel/slick/ajax-loader.gif'
-
-    ],
-
-    'public/css'
-
-);
+mix.copy(['node_modules/slick-carousel/slick/ajax-loader.gif'], 'public/css');
