@@ -17,3 +17,10 @@ body.pushable {
   min-width: 320px;
 
 }
+
+/** Solving the problem that a grey background will show up when clicking on some elements like links in iOS devices **/
+html,body {
+
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+}
