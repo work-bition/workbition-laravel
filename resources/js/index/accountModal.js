@@ -34,6 +34,7 @@ $('#account_modal .account-login .password-login .register-link')
    .appendTo('#account_modal .account-login .phone-code-login')
 
 
+
 /** Initializing the functionality of the account modal **/
 $('#account_modal')
 
@@ -52,6 +53,7 @@ $('#account_modal')
   .modal('attach events', '#account_modal .close_button', 'hide')
 
 
+
 /** Switching between the password login and phone code login tabs  **/
 $('.tabs-control .password-login-title')
 
@@ -66,6 +68,8 @@ $('.tabs-control .password-login-title')
 
   })
 
+
+
 /** Switching between the password login and phone code login tabs  **/
 $('.tabs-control .phone-code-login-title')
 
@@ -79,6 +83,7 @@ $('.tabs-control .phone-code-login-title')
     $('#account_modal .account-login .password-login-title').addClass('not-active-tab-title')
 
   })
+
 
 
 /** Swiching account register and account login modal **/
@@ -104,18 +109,22 @@ function moveAccountModal(disToMove) {
 
 }
 
-$('#header .login.button, #account_modal .account-register .switch-login')
 
-  .click(function(event) {
 
-    moveAccountModal('0')
-
-})
-
-$('#header .register.button, #account_modal .account-login .switch-register')
+$('#main_sidebar .register.button, #header .register.button, #account_modal .account-login .switch-register')
 
   .click(function(event) {
 
     moveAccountModal('-100%')
+
+})
+
+
+
+$('#main_sidebar .login.button, #header .login.button, #account_modal .account-register .switch-login')
+
+  .click(function(event) {
+
+    moveAccountModal('0')
 
 })

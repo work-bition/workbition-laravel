@@ -39,7 +39,7 @@ $('#main_nav .left.menu a.item')
 /** Cloning the register button into sidebar **/
 $('#header .right.menu .register_button')
 
-   .clone()/** optional parameter: includeEvents **/
+   .clone(true)/** optional parameter: includeEvents **/
 
    .appendTo('#main_sidebar .ui.menu .login_register_buttons')
 

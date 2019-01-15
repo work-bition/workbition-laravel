@@ -244,7 +244,7 @@
                 <div class="login_button">
 
                   <!-- chrome浏览器需要四个文字，负责圆角无法正常显示 -->
-                  <div class="ui secondary button">登录</div>
+                  <div class="ui secondary login button">登录</div>
 
                 </div>
                 <!-- Register button will be cloned here -->

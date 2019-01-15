@@ -1612,11 +1612,11 @@ function moveAccountModal(disToMove) {
   $('#account_modal').modal('show');
 }
 
-$('#header .login.button, #account_modal .account-register .switch-login').click(function (event) {
-  moveAccountModal('0');
-});
-$('#header .register.button, #account_modal .account-login .switch-register').click(function (event) {
+$('#main_sidebar .register.button, #header .register.button, #account_modal .account-login .switch-register').click(function (event) {
   moveAccountModal('-100%');
+});
+$('#main_sidebar .login.button, #header .login.button, #account_modal .account-register .switch-login').click(function (event) {
+  moveAccountModal('0');
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
@@ -2180,7 +2180,7 @@ $('#main_nav .left.menu a.item').clone()
 .appendTo('#main_sidebar section.ui.menu ul').wrap('<li></li>');
 /** Cloning the register button into sidebar **/
 
-$('#header .right.menu .register_button').clone()
+$('#header .right.menu .register_button').clone(true)
 /** optional parameter: includeEvents **/
 .appendTo('#main_sidebar .ui.menu .login_register_buttons');
 /** Resizing the height for iOS and Android devices **/
