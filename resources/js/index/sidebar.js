@@ -20,13 +20,6 @@ import enquire from  'enquire.js'
 
 
 /** Clone Some Html Codes for Reducing the Page Size **/
-/** Cloning the logo section into sidebar **/
-$('#header .logo_section a.logo_link')
-
-   .clone()/** optional parameter: includeEvents **/
-
-   .appendTo('#main_sidebar section.sidebar_header')
-
 /** Cloning the items of the main navigation into sidebar **/
 $('#main_nav .left.menu a.item')
 

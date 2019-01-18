@@ -15,7 +15,7 @@
     },
     "clean": "dist/"
   },
-  "components": ["reset", "site", "container", "grid", "icon", "search", "input", "button", "sidebar", "menu", "api", "transition", "label", "dimmer", "modal", "divider", "form", "tab"],
+  "components": ["reset", "site", "container", "grid", "icon", "search", "input", "button", "sidebar", "menu", "api", "transition", "label", "dimmer", "modal", "divider", "form", "tab", "card"],
   "permission": false,
   "autoInstall": false,
   "rtl": false,

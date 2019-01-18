@@ -20,7 +20,7 @@
 
       transform: translateY(0.25rem);
 
-      .logo {
+      .icon-logo {
 
         width: 9rem;
 
@@ -362,9 +362,13 @@
 
       height: 3.5rem;
 
-      .logo_section .logo {
+      .logo_section {
 
-        width: 7rem;
+        .icon-logo {
+
+          width: 7rem;
+
+        }
 
       }
 

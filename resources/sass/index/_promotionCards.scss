@@ -1,0 +1,436 @@
+#main_content {
+
+  .promotion-cards {
+
+    .ui.grid {
+
+      margin: 0;
+
+      .row {
+
+        position: relative;
+
+        padding-left: 2rem;
+
+        padding-right: 2rem;
+
+        padding-top: 0rem;
+
+        .column {
+
+          .ui.card {
+
+            border-radius: 8px;
+
+            box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+
+            &:hover {
+
+              transform: translateY(-0.3rem);
+
+              cursor: pointer;
+
+            }
+
+            .card-area {
+
+              .card-image {
+
+                background-size: cover!important;
+
+                height: 0;
+
+                width: 100%;
+
+                padding-top: 42.681%;
+
+                border-radius: 8px;
+
+                &.banner1 {
+
+                  background: url(../../images/promotion-cards-item1.jpg) 50% 50%;
+
+                }
+
+                &.banner2 {
+
+                  background: url(../../images/promotion-cards-item2.jpg) 50% 50%;
+
+                }
+
+                &.banner3 {
+
+                  background: url(../../images/promotion-cards-item3.jpg) 50% 50%;
+
+                }
+
+                &.banner4 {
+
+                  background: url(../../images/promotion-cards-item4.jpg) 50% 50%;
+
+                }
+
+                .overlay {
+
+                  background-color: #000;
+
+                  position: absolute;
+
+                  top: 0;
+
+                  bottom: 0;
+
+                  width: 100%;
+
+                  opacity: 0.15;
+
+                  border-radius: 8px;
+
+                }
+
+                .header {
+
+                  padding: 1rem;
+
+                  position: absolute;
+
+                  left: 50%;
+
+                  top: 50%;
+
+                  width: 100%;
+
+                  transform: translate(-50%, -50%);
+
+                  line-height: 1.5;
+
+                  text-align: center;
+
+                  color: #fff;
+
+                  text-shadow: 1px 1px 10px #000;
+
+                  font-weight: bold;
+
+                  .title {
+
+                    font-size: 1.1rem;
+
+                    margin-bottom: 0.3rem;
+
+
+                  }
+
+                  .description {
+
+                      transform: translateY(1rem);
+
+                      font-size: 12px;
+
+                      display: inline;
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 1262px){
+
+  #main_content {
+
+    .promotion-cards {
+
+      .ui.grid {
+
+        .row {
+
+          .column {
+
+            .ui.card {
+
+              .card-area {
+
+                .card-image {
+
+                  padding-top: 50%;
+
+                  .header {
+
+                    .title {
+
+                      font-size: 1rem;
+
+                    }
+
+                    .description {
+
+                        font-size: 12px;
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+}
+@media only screen and (max-width: 991px){
+
+  #main_content {
+
+    .promotion-cards {
+
+      .ui.grid {
+
+        .row {
+
+          .column {
+
+            .ui.card {
+
+              .card-area {
+
+                .card-image {
+
+                  padding-top: 42.681%;
+
+                  .header {
+
+                    .title {
+
+                      font-size: 1.4rem;
+
+                    }
+
+                    .description {
+
+                        font-size: 1rem;
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+}
+@media only screen and (max-width: 711px){
+
+  #main_content {
+
+    .promotion-cards {
+
+      .ui.grid {
+
+        .row {
+
+          .column {
+
+            .ui.card {
+
+              .card-area {
+
+                .card-image {
+
+                  padding-top: 42.681%;
+
+                  .header {
+
+                    .title {
+
+                      font-size: 1.2rem;
+
+                    }
+
+                    .description {
+
+                        font-size: 13px;
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+}
+@media only screen and (max-width: 629px){
+
+  #main_content {
+
+    .promotion-cards {
+
+      transform: translateY(-1rem);
+
+      .ui.grid {
+
+        .row {
+
+          .column {
+
+            padding: 0.5rem!important;
+
+            .ui.card {
+
+              .card-area {
+
+                .card-image {
+
+                  padding-top: 55%;
+
+                  .header {
+
+                    .title {
+
+                      font-size: 1.1rem;
+
+                      font-weight: bold;
+
+                    }
+
+                    .description {
+
+                        font-size: 12px;
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+}
+@media only screen and (max-width: 430px){
+
+  #main_content {
+
+    .promotion-cards {
+
+      transform: translateY(-1rem);
+
+      .ui.grid {
+
+        .row {
+
+          .column {
+
+            padding: 0.5rem!important;
+
+            .ui.card {
+
+              .card-area {
+
+                .card-image {
+
+                  padding-top: 50%;
+
+                  .header {
+
+                    .title {
+
+                      font-size: 12px;
+
+                      font-weight: bold;
+
+                      margin-bottom: 0;
+
+                    }
+
+                    .description {
+
+                      display: none;
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+
+}
