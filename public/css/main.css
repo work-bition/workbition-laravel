@@ -1806,7 +1806,7 @@ element in order to prevent the background layer from moving **/
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image {
-    padding-top: 58%;
+    padding-top: 50%;
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .title {
