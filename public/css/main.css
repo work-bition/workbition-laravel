@@ -1696,7 +1696,7 @@ element in order to prevent the background layer from moving **/
   background-size: cover !important;
   border-radius: 8px;
   height: 0;
-  padding-top: 42.681%;
+  padding-top: 46%;
   width: 100%;
 }
 
@@ -1743,12 +1743,12 @@ element in order to prevent the background layer from moving **/
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .title {
   font-size: 1.1rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 0.5rem;
 }
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .description {
   display: inline;
-  font-size: 12px;
+  font-size: 13px;
   -webkit-transform: translateY(1rem);
           transform: translateY(1rem);
 }
@@ -1769,7 +1769,7 @@ element in order to prevent the background layer from moving **/
 
 @media only screen and (max-width: 991px) {
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image {
-    padding-top: 42.681%;
+    padding-top: 46%;
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .title {
@@ -1783,7 +1783,7 @@ element in order to prevent the background layer from moving **/
 
 @media only screen and (max-width: 711px) {
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image {
-    padding-top: 42.681%;
+    padding-top: 46%;
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .title {
@@ -1806,12 +1806,11 @@ element in order to prevent the background layer from moving **/
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image {
-    padding-top: 55%;
+    padding-top: 58%;
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .title {
     font-size: 1.1rem;
-    font-weight: bold;
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .description {
@@ -1819,7 +1818,7 @@ element in order to prevent the background layer from moving **/
   }
 }
 
-@media only screen and (max-width: 430px) {
+@media only screen and (max-width: 460px) {
   #main_content .promotion-cards {
     -webkit-transform: translateY(-1rem);
             transform: translateY(-1rem);
@@ -1835,7 +1834,6 @@ element in order to prevent the background layer from moving **/
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .title {
     font-size: 12px;
-    font-weight: bold;
     margin-bottom: 0;
   }
 
