@@ -1171,9 +1171,10 @@ element in order to prevent the background layer from moving **/
   }
 }
 
-/** Page Banners Section **/
-
-/**Responsive Points: 1262px | 991px(Pad) | 579px(Mobile) | 360px(Extra Small Mobile) **/
+#main_content {
+  /** Page Banners Section **/
+  /**Responsive Points: 1262px | 991px(Pad) | 579px(Mobile) | 360px(Extra Small Mobile) **/
+}
 
 #main_content .page_banners {
   box-shadow: none;

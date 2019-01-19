@@ -12,14 +12,16 @@ $mainBannerPaddingBottom-mobile: 14rem;
 
 $navDotsFromBottom: 2rem;
 
-#main_content .page_banners {
+
+
+.page_banners {
 
   position: relative;
 
   box-shadow: none;
 
-  @import 'main_banner';
+  @import 'mainBanner';
 
-  @import 'corner_banners';
+  @import 'cornerBanners';
 
 }
