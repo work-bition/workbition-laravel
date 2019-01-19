@@ -1439,6 +1439,11 @@ element in order to prevent the background layer from moving **/
   border-color: #fbbd08 !important;
 }
 
+#main_content .page_banners .corner_banners .ui.corner.label i {
+  -webkit-transform: translateX(-0.05rem);
+          transform: translateX(-0.05rem);
+}
+
 #main_content .page_banners .corner_banners .corner_banner {
   box-sizing: border-box;
   cursor: pointer;
