@@ -1,3 +1,14 @@
 /*******************************
     User Variable Overrides
 *******************************/
+@invertedBackground: #0f99d0;
+
+@invertedColor: white;
+
+@invertedBoxShadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+
+@verticalPadding: 0.5rem;
+
+@horizontalPadding: 0.5rem;
+
+@fontWeight: bold;

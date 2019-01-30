@@ -24,7 +24,7 @@
 
         width: 9rem;
 
-        height: auto;
+        height: 3rem;
 
       }
 
@@ -38,27 +38,65 @@
 
         align-items: center;
 
-        .login.button {
+        .wechat-official-platform, .account-buttons {
 
-          text-align: center;
+          .text.button {
 
-          letter-spacing: 0.5rem;
+            text-align: center;
 
-          text-indent: 0.5rem;
+            letter-spacing: 0.5rem;
 
-          color: #222;
+            text-indent: 0.5rem;
+
+            color: #222;
+
+          }
+
+          .divider_item {
+
+            padding: 0 1rem 0 0.3rem;
+
+          }
+
+        }
+
+        .wechat-official-platform {
+
+          display: flex;
+
+          align-items: center;
+
+          .text.button {
+
+            display: flex;
+
+            align-items: center;
+
+          }
 
         }
 
         .divider_item {
 
-          padding: 0 1rem 0 0.3rem;
+          padding-left:1rem;
+
+          padding-right:1rem;
+
+          font-size:1.3rem;
 
         }
 
-        .register_button {
+        .account-buttons {
 
-          display: inline-block;
+          display: flex;
+
+          align-items: center;
+
+          .register_button {
+
+            display: inline-block;
+
+          }
 
         }
 
@@ -388,6 +426,33 @@
 
   }
 
+
+}
+@media only screen and (max-width: 991px) {
+
+  #header {
+
+
+
+      .header_content {
+
+        .right_wrap {
+
+          .right.menu {
+
+            .wechat-official-platform, &>.divider_item {
+
+              display: none!important;
+
+            }
+
+          }
+
+        }
+
+      }
+
+  }
 
 }
 @media only screen and (max-width: 767px) {

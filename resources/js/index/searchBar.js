@@ -211,19 +211,23 @@ $('#header .right.menu .ui.search i.search.icon').click((event) => {
 
 
 
+  /** making wechat official platform buttons invisible **/
+
+  let wechat_official_platform = $('#header .right.menu .wechat-official-platform')
+
+  wechat_official_platform[0].style.display='none'
+
+  /** making the divider invisible **/
+
+  let divider_item = $('#header .right.menu>.divider_item')
+
+  divider_item[0].style.display='none'
+
   /** making login and register buttons invisible **/
 
-  let login_button = $('#header .right.menu .login.button')
+  let account_buttons = $('#header .right.menu .account-buttons')
 
-  let divider = $('#header .right.menu .divider_item')
-
-  let register_button = $('#header .right.menu .register_button')
-
-  login_button[0].style.display='none'
-
-  divider[0].style.display='none'
-
-  register_button[0].style.display='none'
+  account_buttons[0].style.display='none'
 
   /** removing 'link' class via jQuery **/
 
@@ -275,19 +279,19 @@ $('#header .right.menu .ui.search i.close.icon').click((event) => {
 
     close_icon.style.display = 'none'
 
-    /* making login and register buttons visible */
+    /* making wechat public platform, the divider, the login and register buttons visible */
 
-    let login_button = $('#header .right.menu .login.button')
+    let wechat_official_platform = $('#header .right.menu .wechat-official-platform')
 
-    let divider = $('#header .right.menu .divider_item')
+    let divider_item = $('#header .right.menu>.divider_item')
 
-    let register_button = $('#header .right.menu .register_button')
+    let account_buttons = $('#header .right.menu .account-buttons')
 
-    login_button[0].style.display='inline-block'
+    wechat_official_platform[0].style.display='flex'
 
-    divider[0].style.display='inline-block'
+    divider_item[0].style.display='block'
 
-    register_button[0].style.display='inline-block'
+    account_buttons[0].style.display='flex'
 
     /* adding 'link' class to search icon via jQuery */
     $('#header .right.menu .ui.search i.search.icon').addClass('link')

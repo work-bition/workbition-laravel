@@ -1,6 +1,6 @@
 .featured_label {
 
-  padding: 0.75em;
+  padding: 0.55em;
 
   opacity: 0.8;
 
@@ -16,7 +16,7 @@
 
   z-index: 1;
 
-  font-size: 1rem;
+  font-size: 12px;
 
   background: linear-gradient(to right, #ffcc33, #ffb347);
 
@@ -39,7 +39,9 @@
 
   height: auto;
 
-  margin-top: 3rem;
+  margin-top: 0!important;
+
+  margin-bottom: 0;
 
   /** Eliminating the blue border when clicking on the slides **/
   .slick-slide, .slick-slide *{ outline: none !important; }

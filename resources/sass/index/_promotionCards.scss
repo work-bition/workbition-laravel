@@ -1,24 +1,28 @@
+$card-border-radius: 1rem;
+
 .promotion-cards {
+
+  margin-top: 2rem;
 
     .ui.grid {
 
-      margin: 0;
+        margin: 0;
 
       .row {
 
         position: relative;
 
-        padding-left: 2rem;
+        padding: 0;
 
-        padding-right: 2rem;
+        //padding-left: 2rem;
 
-        padding-top: 0rem;
+        //padding-right: 2rem;
 
         .column {
 
           .ui.card {
 
-            border-radius: 8px;
+            border-radius: $card-border-radius;
 
             box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
 
@@ -42,7 +46,7 @@
 
                 padding-top: 46%;
 
-                border-radius: 8px;
+                border-radius: $card-border-radius;
 
                 &.banner1 {
 
@@ -82,7 +86,7 @@
 
                   opacity: 0.15;
 
-                  border-radius: 8px;
+                  border-radius: $card-border-radius;
 
                 }
 
@@ -146,8 +150,6 @@
     }
 
   }
-
-
 @media only screen and (max-width: 1262px){
 
   .promotion-cards {
@@ -200,6 +202,8 @@
 @media only screen and (max-width: 991px){
 
   .promotion-cards {
+
+    margin-top: 1rem;
 
       .ui.grid {
 
@@ -299,7 +303,7 @@
 
   .promotion-cards {
 
-      transform: translateY(-1rem);
+    margin-top: 1.5rem;
 
       .ui.grid {
 
@@ -321,7 +325,7 @@
 
                     .title {
 
-                      font-size: 1.1rem;
+                      font-size: 13px;
 
                     }
 
@@ -348,11 +352,9 @@
     }
 
 }
-@media only screen and (max-width: 460px){
+@media only screen and (max-width: 491px){
 
   .promotion-cards {
-
-      transform: translateY(-1rem);
 
       .ui.grid {
 

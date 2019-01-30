@@ -1,0 +1,284 @@
+$ratio-of-image-width-to-its-container: 50%;
+
+$ratio-of-image-heigh-to-its-width: 56.25%;
+
+$article-content-right-gutter: 2rem;
+
+$article-content-left-gutter: 2rem;
+
+$articles-column-right-gutter: 6rem;
+
+$article-item-border-radius: 0rem;
+
+.articles.column {
+
+  padding-left: 0;
+
+  padding-right: $articles-column-right-gutter;
+
+  //border: 1px solid purple;
+
+  .articles-list {
+
+    //border: 1px solid grey;
+
+    .ui.items {
+
+      .item {
+
+        border-radius: $article-item-border-radius;
+
+        //border: 1px solid green;
+
+        &:hover {
+
+          //border: 1px solid black;
+
+          background-color: #fdfdfd;
+
+          box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+
+        }
+
+        .item-image {
+
+          width: $ratio-of-image-width-to-its-container;
+
+          height: 100%;
+
+          .image-holder {
+
+            border-radius: $article-item-border-radius;
+
+            border-top-right-radius: 0!important;
+
+            border-bottom-right-radius: 0!important;
+
+            width: 100%;
+
+            height: 0;
+
+            padding-top: $ratio-of-image-heigh-to-its-width;
+
+            background-size: cover!important;
+
+            &.banner1 {
+
+              background: url(../../images/article-feed-item1.png) 50% 50%;
+
+            }
+            &.banner2 {
+
+              background: url(../../images/article-feed-item2.png) 50% 50%;
+
+            }
+            &.banner3 {
+
+              background: url(../../images/article-feed-item3.png) 50% 50%;
+
+            }
+            &.banner4 {
+
+              background: url(../../images/article-feed-item4.png) 50% 50%;
+
+            }
+            &.banner5 {
+
+              background: url(../../images/article-feed-item5.png) 50% 50%;
+
+            }
+            &.banner6 {
+
+              background: url(../../images/article-feed-item6.png) 50% 50%;
+
+            }
+            &.banner7 {
+
+              background: url(../../images/article-feed-item7.png) 50% 50%;
+
+            }
+            &.banner8 {
+
+              background: url(../../images/article-feed-item8.png) 50% 50%;
+
+            }
+            &.banner9 {
+
+              background: url(../../images/article-feed-item9.png) 50% 50%;
+
+            }
+            &.banner10 {
+
+              background: url(../../images/article-feed-item10.png) 50% 50%;
+
+            }
+            &.banner11 {
+
+              background: url(../../images/article-feed-item11.png) 50% 50%;
+
+            }
+            &.banner12 {
+
+              background: url(../../images/article-feed-item12.png) 50% 50%;
+
+            }
+
+          }
+
+        }
+
+        .content {
+
+          width: 100% - $ratio-of-image-width-to-its-container;
+
+          margin: auto 0rem;
+
+          padding: 0 $article-content-right-gutter;
+
+          padding-left: $article-content-left-gutter;
+
+          .header {
+
+            font-weight: normal;
+
+            text-align: justify;
+
+            margin-top: 0;
+
+            line-height: 2.2rem;
+
+            &:hover {
+
+              color: #0097d2;
+
+            }
+
+          }
+
+          .meta {
+
+            margin: 1rem 0;
+
+            display: flex;
+
+            align-items: center;
+
+            .vertical-divider {
+
+              margin: 0 0.5rem;
+
+            }
+
+            .author {
+
+              cursor: pointer;
+
+              display: flex;
+
+              justify-content: center;
+
+              align-items: center;
+
+              margin-right: 0rem;
+
+              //font-weight: bold;
+
+              .avatar {
+
+                margin-right: 0;
+
+                display: inline-block;
+
+                img {
+
+                  width: 1.5rem;
+
+                  height: 1.5rem;
+
+                }
+
+              }
+
+              .name {
+
+                margin-left: 0.2rem;
+
+              }
+
+            }
+
+            .publish-date {
+
+              display: flex;
+
+              align-items: center;
+
+            }
+
+            .authorization {
+
+              margin-right: 0rem;
+
+              display: flex;
+
+              align-items: center;
+
+              cursor: pointer;
+
+              .icon {
+
+                width: 1.2rem;
+
+                height: 1.2rem;
+
+              }
+
+            }
+
+          }
+
+          .extra {
+
+            margin-top: 1rem;
+
+            .article-options {
+
+              display: inline-flex;
+
+              .option {
+
+                font-weight: bold;
+
+                margin-right: 2rem;
+
+                font-size: 1rem;
+
+                cursor: pointer;
+
+                .icon {
+
+                  margin-right: 0.5rem;
+
+                }
+
+              }
+
+              .bookmark.option .icon, .share.option .icon {
+
+
+
+              }
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}

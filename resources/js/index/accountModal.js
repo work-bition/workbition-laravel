@@ -42,11 +42,13 @@ $('#account_modal')
 
     closable: false,
 
-    transition: 'zoom',
+    transition: 'fade',
 
     duration: 100,
 
-    context: 'body'
+    context: 'body',
+
+    blurring: true
 
   })
 

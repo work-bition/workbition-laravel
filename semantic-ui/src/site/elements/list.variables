@@ -1,3 +1,7 @@
 /*******************************
     User Variable Overrides
 *******************************/
+
+@itemHeaderLinkColor: #2A2A2A;
+
+@itemHeaderLinkHoverColor: #0097d2;

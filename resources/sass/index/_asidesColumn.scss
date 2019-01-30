@@ -1,0 +1,274 @@
+.asides.column {
+
+  padding-left: 0;
+
+  padding-right: 0;
+
+  .asides-wrapper {
+
+    /** 必须指定固定宽度，防止在iOS设备下sticky滑动抖动的问题 **/
+    width: 21.25rem;
+
+    .aside1, .aside2 {
+
+      .ui.header {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: center;
+
+        .content {
+
+          padding-left: 0;
+
+          position: relative;
+
+          letter-spacing: 0.5rem;
+
+          text-indent: 0.5rem;
+
+          font-size: 1.4rem;
+
+          &::after {
+
+            border: 4px solid #ffcc55;
+
+            content: "";
+
+            display: block;
+
+            height: 0;
+
+            width: 4rem;
+
+            position: absolute;
+
+            top: 88%;
+
+            left: 50%;
+
+            opacity: 0.5;
+
+            z-index: -1;
+
+            transform: translate(-50%,-50%);
+
+          }
+
+        }
+
+        .icon {
+
+          width: 2.5rem;
+
+          height: 2.5rem;
+
+        }
+
+      }
+
+      .ui.list {
+
+        margin-top: 1.5rem;
+
+        .item {
+
+          padding-bottom: 1.5rem;
+
+          .icon {
+
+            transform: skewX(-20deg) translateY(0rem);
+
+            width: 1.8rem;
+
+            height: 1.8rem;
+
+            float: left;
+
+          }
+
+          .content {
+
+            padding-left: 1rem;
+
+            .header {
+
+              text-align: justify;
+
+              line-height: 1.6rem;
+
+              color: #000;
+
+            }
+
+            .description {
+
+              margin-top: 0.5rem;
+
+              display: inline-block;
+
+              padding-bottom: 0.6rem;
+
+              border-bottom: #E2E2E2 solid 1px;
+
+            }
+
+          }
+
+        }
+
+
+      }
+
+    }
+
+    .aside1 {
+
+      .ui.header {
+
+        transform: translateY(0.2rem);
+
+      }
+
+      .ui.list {
+
+        .item {
+
+          .content {
+
+            .header {
+
+              font-size: 1.1rem;
+
+              font-weight: normal;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    .aside2 {
+
+      margin-top: 1rem;
+
+      .ui.header {
+
+        .content {
+
+          &::after {
+
+            border: 4px solid #ff5f2c;
+
+          }
+
+        }
+
+      }
+
+      .ui.list {
+
+        text-align: center;
+
+        .item {
+
+          font-weight: bold;
+
+          margin: 0.5rem;
+
+          margin-top: 0;
+
+          margin-bottom: 1rem;
+
+          cursor: pointer;
+
+          z-index: 2;
+
+          font-size: 12px;
+
+          display: inline-block;
+
+          padding: 0.4rem 0.6rem;
+
+          color: #fff;
+
+          position: relative;
+
+          font-style: italic;
+
+          &::before {
+
+            z-index: -1;
+
+            background-image: linear-gradient(45deg, #FFA366 0%, #FF5831 100%);
+
+            transform: skewX(-8deg);
+
+          }
+
+          &::after {
+
+            z-index: -2;
+
+            background: #FFE6E0;
+
+            transform: skewX(-8deg) translate(3px, 3px);
+
+            visibility: visible;
+
+          }
+
+          &::before, &::after {
+
+            border-radius: 3px;
+
+            content: '';
+
+            width: 100%;
+
+            height: 100%;
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+          }
+
+        }
+
+        .item:hover {
+
+          transform: scale(1.05);
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 1262px) {
+
+  .asides.column {
+
+    .asides-wrapper {
+
+      width: 233.25px!important;
+
+
+
+    }
+
+  }
+
+}

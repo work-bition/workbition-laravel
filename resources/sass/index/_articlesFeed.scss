@@ -1,0 +1,19 @@
+.articles-feed {
+
+  margin-top: 2rem;
+
+  .ui.grid {
+
+    margin: 0;
+
+    .row {
+
+      @import 'articlesColumn';
+
+      @import 'asidesColumn';
+
+    }
+
+  }
+
+}
