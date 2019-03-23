@@ -20,7 +20,7 @@ $article-item-border-radius: 0rem;
 
     .ui.items {
 
-      .item {
+      &>.item {
 
         border-radius: $article-item-border-radius;
 
