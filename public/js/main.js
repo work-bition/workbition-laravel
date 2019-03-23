@@ -1773,9 +1773,12 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 **/
 
 /** Providing the popup functionality to the authorization icons **/
-$('#main_content .articles-feed .articles.column .item .content .meta .authorization .icon').popup({
-  inline: false,
-  transition: 'fade'
+$('#main_content .articles-feed .articles.column .item .content .meta .authorization .popup-icon-wrapper').popup({
+  inline: true,
+  position: 'top center',
+  transition: 'fade',
+  hoverable: true,
+  variation: 'inverted'
 });
 /** Providing the popup functionality when clicking on the share option icons **/
 

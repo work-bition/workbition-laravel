@@ -4,13 +4,19 @@
 **/
 
 /** Providing the popup functionality to the authorization icons **/
-$('#main_content .articles-feed .articles.column .item .content .meta .authorization .icon')
+$('#main_content .articles-feed .articles.column .item .content .meta .authorization .popup-icon-wrapper')
 
   .popup({
 
-    inline: false,
+    inline: true,
 
-    transition: 'fade'
+    position: 'top center',
+
+    transition: 'fade',
+
+    hoverable: true,
+
+    variation: 'inverted'
 
 })
 
