@@ -18,11 +18,27 @@ body.pushable {
 
 }
 
-/** Solving the problem that a grey background will show up when clicking on some elements like links in iOS devices **/
+
+
 html,body {
 
+  /** Solving the problem that a grey background will show up when clicking on some elements like links in iOS devices **/
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  height: 100%; 
+  /** Solving the problem that the postion of the popup components provided by the SUI Framework does not right **/
+  height: 100%;
 
+
+}
+
+.pusher {
+
+  /** Solving the problem that the header will flash when scroll to the top of the browser window in Safari **/
+  position: static!important;
+
+}
+
+//// Show the scrollbar to avoid the width jumping when toggling modals
+body.animating.in.dimmable, body.dimmed.dimmable {
+    overflow: inherit;
 }

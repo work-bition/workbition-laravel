@@ -28,8 +28,6 @@
       </section>
       <section class="login-register-box">
 
-
-
         <section class="account-login">
 
           <div class="tabs-control account-login-tabs">
@@ -71,7 +69,7 @@
                     </section>
 
                     <section class="forget-password-option">
-                       <a href="#">忘记密码？</a>
+                       <a target="_blank" href="/forget">忘记密码？</a>
                     </section>
 
                     <section class="submit">
@@ -87,7 +85,7 @@
               </section>
 
               <section class="register-link">
-                <p>还没有账号?<a class="switch-register" href="#">立即注册</a></p>
+                <p>还没有账号?<a class="switch-register">立即注册</a></p>
               </section>
 
             </section>
@@ -116,7 +114,7 @@
                         <input type="text" name="phoneCode" placeholder="短信验证码">
                       </section>
                       <section class="get-phone-code">
-                        <a href="#">获取短信验证码</a>
+                        <a target="_blank" href="/getcode">获取短信验证码</a>
                       </section>
                     </section>
 
@@ -186,7 +184,7 @@
                     <input type="text" name="phoneCode" placeholder="短信验证码">
                   </section>
                   <section class="get-phone-code">
-                    <a href="#">获取短信验证码</a>
+                    <a target="_blank" href="/getcode">获取短信验证码</a>
                   </section>
                 </section>
 
@@ -204,10 +202,10 @@
               </div>
               <section class="third-list">
                 <section class="weibo item">
-                  <a href="#"><svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg></a>
+                  <a target="_blank" href="/thirdlogin"><svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg></a>
                 </section>
                 <section class="weichat item">
-                    <a href="#"><svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg></a>
+                    <a target="_blank" href="/thirdlogin"><svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg></a>
                 </section>
               </section>
             </section>
@@ -215,7 +213,7 @@
           </section>
 
           <section class="login-link">
-            <p>已有账号?<a class="switch-login" href="#">立即登录</a></p>
+            <p>已有账号?<a class="switch-login">立即登录</a></p>
           </section>
 
         </section>
@@ -316,7 +314,7 @@
 
                       <div class="account-buttons">
 
-                        <a class="login text button" href="#">登录</a>
+                        <a class="login text button">登录</a>
 
                         <span class="divider_item"> / </span>
 
@@ -488,7 +486,7 @@
 
                            <h6 class="red">办公专家系列</h6>
 
-                           <p class="card__content--h5 slate strong">零基础入门 AI，跟随硅谷导师迈出高薪第一步</p>
+                           <p class="description"><span>零基础入门 AI，跟随硅谷导师迈出高薪第一步</span></p>
 
                          </div>
 
@@ -510,7 +508,7 @@
 
                            <h6 class="red">效率高手系列</h6>
 
-                           <p class="card__content--h5 slate strong">零基础入门 AI，跟随硅谷导师迈出高薪第一步</p>
+                           <p class="description"><span>零基础入门 AI，跟随硅谷导师迈出高薪第一步</span></p>
 
                          </div>
 
@@ -532,7 +530,7 @@
 
                            <h6 class="red">P图达人系列</h6>
 
-                           <p class="card__content--h5 slate strong">零基础入门 AI，跟随硅谷导师迈出高薪第一步</p>
+                           <p class="description"><span>零基础入门 AI，跟随硅谷导师迈出高薪第一步</span></p>
 
                          </div>
 
@@ -676,13 +674,15 @@
 
                                 <div class="item-image">
 
+                                   <div class="ui top left attached category label">高效之选</div>
+
                                    <a href="#"><div class="image-holder banner1"></div></a>
 
                                 </div>
 
                                 <div class="content">
 
-                                  <a href="#" class="header">微信深夜放大招！小游戏群聊分享又有新套路，小程序实现全面布局</a>
+                                  <a href="#" class="header">微信深夜放大招！小游戏群聊<span>分享</span>又有新套路，小程序实现全面布局</a>
 
                                   <div class="meta">
 
@@ -709,10 +709,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span><span>20000赞</span></span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span><span>20000评论</span></span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span><span>收藏</span></span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -725,7 +748,9 @@
 
                                 <div class="item-image">
 
-                                 <a href="#"><div class="image-holder banner2"></div></a>
+                                  <div class="ui top left attached category label">高效之选</div>
+
+                                  <a href="#"><div class="image-holder banner2"></div></a>
 
                                 </div>
 
@@ -758,10 +783,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span><span>分享</span></span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -774,7 +822,9 @@
 
                                 <div class="item-image">
 
-                                 <a href="#"><div class="image-holder banner3"></div></a>
+                                  <div class="ui top left attached category label">高效之选</div>
+
+                                  <a href="#"><div class="image-holder banner3"></div></a>
 
                                 </div>
 
@@ -807,10 +857,32 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -822,6 +894,8 @@
                               <div class="item">
 
                                 <div class="item-image">
+
+                                   <div class="ui top left attached category label">高效之选</div>
 
                                    <a href="#"><div class="image-holder banner4"></div></a>
 
@@ -856,10 +930,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -872,7 +969,9 @@
 
                                 <div class="item-image">
 
-                                 <a href="#"><div class="image-holder banner5"></div></a>
+                                  <div class="ui top left attached category label">高效之选</div>
+
+                                  <a href="#"><div class="image-holder banner5"></div></a>
 
                                 </div>
 
@@ -905,10 +1004,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -920,6 +1042,8 @@
                               <div class="item">
 
                                 <div class="item-image">
+
+                                   <div class="ui top left attached category label">高效之选</div>
 
                                    <a href="#"><div class="image-holder banner6"></div></a>
 
@@ -954,10 +1078,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -970,7 +1117,9 @@
 
                                 <div class="item-image">
 
-                                 <a href="#"><div class="image-holder banner7"></div></a>
+                                  <div class="ui top left attached category label">高效之选</div>
+
+                                  <a href="#"><div class="image-holder banner7"></div></a>
 
                                 </div>
 
@@ -1003,10 +1152,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -1018,6 +1190,8 @@
                               <div class="item">
 
                                 <div class="item-image">
+
+                                   <div class="ui top left attached category label">高效之选</div>
 
                                    <a href="#"><div class="image-holder banner8"></div></a>
 
@@ -1052,10 +1226,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -1068,7 +1265,9 @@
 
                                 <div class="item-image">
 
-                                 <a href="#"><div class="image-holder banner9"></div></a>
+                                  <div class="ui top left attached category label">高效之选</div>
+
+                                  <a href="#"><div class="image-holder banner9"></div></a>
 
                                 </div>
 
@@ -1101,10 +1300,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -1116,6 +1338,8 @@
                               <div class="item">
 
                                 <div class="item-image">
+
+                                   <div class="ui top left attached category label">高效之选</div>
 
                                    <a href="#"><div class="image-holder banner10"></div></a>
 
@@ -1150,10 +1374,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -1165,6 +1412,8 @@
                               <div class="item">
 
                                 <div class="item-image">
+
+                                   <div class="ui top left attached category label">高效之选</div>
 
                                    <a href="#"><div class="image-holder banner11"></div></a>
 
@@ -1199,10 +1448,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -1214,6 +1486,8 @@
                               <div class="item">
 
                                 <div class="item-image">
+
+                                   <div class="ui top left attached category label">高效之选</div>
 
                                    <a href="#"><div class="image-holder banner12"></div></a>
 
@@ -1248,10 +1522,33 @@
 
                                   <div class="extra">
                                     <section class="article-options">
-                                      <span class="like option"><i class="ui red heart outline icon"></i>0 赞</span>
-                                      <span class="comment option"><i class="ui green comment alternate icon"></i>0 评论</span>
-                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i>收藏</span>
-                                      <span class="share option"><i class="ui blue share square icon"></i>分享</span>
+                                      <span class="like option"><i class="ui red heart outline icon"></i><span>20000赞</span></span>
+                                      <span class="comment option"><i class="ui green comment alternate icon"></i><span>20000评论</span></span>
+                                      <span class="bookmark option"><i class="ui yellow bookmark outline icon"></i><span>收藏</span></span>
+                                      <span class="share option"><i class="ui blue share square icon"></i><span>分享</span></span>
+
+                                      <div class="ui social-share popup">
+
+                                        <div class="ui social-share list">
+
+                                          <div class="item">
+                                            <svg class="icon icon-weibo"><use xlink:href="#icon-weibo"></use></svg>
+                                            <div class="content">
+                                              <span>微博</span>
+                                            </div>
+                                          </div>
+
+                                          <div class="item">
+                                            <svg class="icon icon-wechat"><use xlink:href="#icon-wechat"></use></svg>
+                                            <div class="content">
+                                              <span>微信</span>
+                                            </div>
+                                          </div>
+
+                                        </div>
+
+                                      </div>
+
                                     </section>
 
                                   </div>
@@ -1288,7 +1585,9 @@
 
                                 <div class="item">
 
-                                  <svg class="icon icon-num01"><use xlink:href="#icon-num01"></use></svg>
+                                  <!--   <svg class="icon icon-num01"><use xlink:href="#icon-num01"></use></svg> -->
+
+                                  <h3 class="ui header">01</h3>
 
                                   <div class="content">
 
@@ -1302,7 +1601,9 @@
 
                                 <div class="item">
 
-                                  <svg class="icon icon-num02"><use xlink:href="#icon-num02"></use></svg>
+                                  <!-- <svg class="icon icon-num02"><use xlink:href="#icon-num02"></use></svg> -->
+
+                                  <h3 class="ui header">02</h3>
 
                                   <div class="content">
 
@@ -1316,7 +1617,9 @@
 
                                 <div class="item">
 
-                                  <svg class="icon icon-num03"><use xlink:href="#icon-num03"></use></svg>
+                                  <!-- <svg class="icon icon-num03"><use xlink:href="#icon-num03"></use></svg> -->
+
+                                  <h3 class="ui header">03</h3>
 
                                   <div class="content">
 
@@ -1330,7 +1633,9 @@
 
                                 <div class="item">
 
-                                  <svg class="icon icon-num04"><use xlink:href="#icon-num04"></use></svg>
+                                  <!-- <svg class="icon icon-num04"><use xlink:href="#icon-num04"></use></svg> -->
+
+                                  <h3 class="ui header">04</h3>
 
                                   <div class="content">
 
@@ -1344,13 +1649,95 @@
 
                                 <div class="item">
 
-                                  <svg class="icon icon-num05"><use xlink:href="#icon-num05"></use></svg>
+                                  <!-- <svg class="icon icon-num05"><use xlink:href="#icon-num05"></use></svg> -->
+
+                                  <h3 class="ui header">05</h3>
 
                                   <div class="content">
 
                                     <a class="header">星巴克2019财年第一季度营收66亿美元，同比增长9.2%</a>
 
                                     <div class="description">3月前</div>
+
+                                  </div>
+
+                                </div>
+
+                                <div class="item">
+
+                                  <!--   <svg class="icon icon-num01"><use xlink:href="#icon-num01"></use></svg> -->
+
+                                  <h3 class="ui header">06</h3>
+
+                                  <div class="content">
+
+                                    <a class="header">视频会议软件公司Zoom提交IPO招股书 拟融资1亿美元</a>
+
+                                    <div class="description">4月前</div>
+
+                                  </div>
+
+                                </div>
+
+                                <div class="item">
+
+                                  <!-- <svg class="icon icon-num02"><use xlink:href="#icon-num02"></use></svg> -->
+
+                                  <h3 class="ui header">07</h3>
+
+                                  <div class="content">
+
+                                    <a class="header">苹果CEO库克参加“中国发展高层论坛2019年会”并发表演讲</a>
+
+                                    <div class="description">1年前</div>
+
+                                  </div>
+
+                                </div>
+
+                                <div class="item">
+
+                                  <!-- <svg class="icon icon-num03"><use xlink:href="#icon-num03"></use></svg> -->
+
+                                  <h3 class="ui header">08</h3>
+
+                                  <div class="content">
+
+                                    <a class="header">恒大健康去年亏损14.28亿元 与法拉第未来重组协议有关</a>
+
+                                    <div class="description">1年前</div>
+
+                                  </div>
+
+                                </div>
+
+                                <div class="item">
+
+                                  <!-- <svg class="icon icon-num04"><use xlink:href="#icon-num04"></use></svg> -->
+
+                                  <h3 class="ui header">09</h3>
+
+                                  <div class="content">
+
+                                    <a class="header">于谦真是一个窝囊废吗？</a>
+
+                                    <div class="description">1年前</div>
+
+                                  </div>
+
+                                </div>
+
+                                <div class="item">
+
+                                  <!-- <svg class="icon icon-num05"><use xlink:href="#icon-num05"></use></svg> -->
+
+                                  <h3 class="ui header">10</h3>
+
+                                  <div class="content">
+
+                                    <a class="header">Pinterest终于要上市了，但它已经讲不好社交故事</a>
+
+                                    <div class="description">1年前</div>
 
                                   </div>
 
@@ -1386,8 +1773,6 @@
 
                                 <div class="item">Office</div>
 
-                                <div class="item">工作流</div>
-
                               </div>
 
                             </div>
@@ -1400,7 +1785,121 @@
 
                   </div>
 
+                </div>
 
+                <div class="promotion-cards">
+
+                  <div class="ui grid">
+
+                    <div class="doubling four column row">
+
+                        <div class="column">
+
+                          <div class="ui fluid card">
+
+                            <a class="card-area" href="#">
+
+                              <div class="card-image banner1">
+
+                                <div class="overlay"></div>
+
+                                <div class="header">
+
+                                  <div class="title">全新的思维导图利器xMind：Zen</div>
+
+                                  <p class="description">桌面端 + 移动端1年高级账户</p>
+
+                                </div>
+
+                              </div>
+
+                            </a>
+
+                          </div>
+
+                        </div>
+
+                        <div class="column">
+
+                          <div class="ui fluid card">
+
+                            <a class="card-area" href="#">
+
+                              <div class="card-image banner2">
+
+                                <div class="overlay"></div>
+
+                                <div class="header">
+
+                                  <div class="title">全新的思维导图利器xMind：Zen</div>
+
+                                  <p class="description">桌面端 + 移动端1年高级账户</p>
+
+                                </div>
+
+                              </div>
+
+                            </a>
+
+                          </div>
+
+                        </div>
+
+                        <div class="column">
+
+                          <div class="ui fluid card">
+
+                            <a class="card-area" href="#">
+
+                              <div class="card-image banner3">
+
+                                <div class="overlay"></div>
+
+                                <div class="header">
+
+                                  <div class="title">全新的思维导图利器xMind：Zen</div>
+
+                                  <p class="description">桌面端 + 移动端1年高级账户</p>
+
+                                </div>
+
+                              </div>
+
+                            </a>
+
+                          </div>
+
+                        </div>
+
+                        <div class="column">
+
+                          <div class="ui fluid card">
+
+                            <a class="card-area" href="#">
+
+                              <div class="card-image banner4">
+
+                                <div class="overlay"></div>
+
+                                <div class="header">
+
+                                  <div class="title">全新的思维导图利器xMind：Zen</div>
+
+                                  <p class="description">桌面端 + 移动端1年高级账户</p>
+
+                                </div>
+
+                              </div>
+
+                            </a>
+
+                          </div>
+
+                        </div>
+
+                    </div>
+
+                  </div>
 
                 </div>
 

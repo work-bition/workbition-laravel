@@ -23,8 +23,6 @@ $('#main_content .page_banners .featured_carousel').slick({
 
     fade: true,
 
-    cssEase: 'linear',
-
     dots: true,
 
     prevArrow: '<button type="button" class="prev circular ui icon button"><i class="chevron left icon"></i></button>',

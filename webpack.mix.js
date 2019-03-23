@@ -81,7 +81,7 @@ mix.webpackConfig(webpack => {
 
 mix.js('resources/js/index/main.js', 'public/js')
 
-      .extract(['jquery', 'enquire.js', 'slick-carousel'])
+      .extract(['jquery', 'enquire.js', 'slick-carousel', 'ellipsis.js'])
 
    .sass('resources/sass/index/main.scss', 'public/css')
 

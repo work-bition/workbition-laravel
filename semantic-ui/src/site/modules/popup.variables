@@ -12,3 +12,5 @@
 @horizontalPadding: 0.5rem;
 
 @fontWeight: bold;
+
+@zIndex: 10;

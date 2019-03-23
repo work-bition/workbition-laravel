@@ -15,7 +15,7 @@
     },
     "clean": "dist/"
   },
-  "components": ["reset", "site", "container", "grid", "icon", "search", "input", "button", "sidebar", "menu", "api", "transition", "label", "dimmer", "modal", "divider", "form", "tab", "card", "item", "image", "sticky", "header", "list", "popup"],
+  "components": ["reset", "site", "container", "grid", "icon", "search", "input", "button", "sidebar", "menu", "api", "transition", "label", "dimmer", "modal", "divider", "form", "tab", "card", "item", "image", "sticky", "header", "list", "popup", "visibility"],
   "permission": false,
   "autoInstall": false,
   "rtl": false,

@@ -1,3 +1,7 @@
+import ellipsisText from './ellipsisText'
+
+
+
 /**
 * Page Banners - Corner Banners
 **/
@@ -28,3 +32,9 @@ $('#main_content .corner_banners .corner_banner').hover(
   }
 
 )
+
+
+
+let cornerBannerDescriptions = $('#main_content .page_banners .corner_banners .corner_banner .card_area .card_content .description span')
+
+ellipsisText(cornerBannerDescriptions)

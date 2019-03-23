@@ -2,7 +2,7 @@
 .ui.sidebar {
 
   /** animation speed for the popup of the sidebar **/
-  transition-duration: 0.2s !important;
+  transition-duration: .4s !important;
 
   .content_wrapper {
 
@@ -53,9 +53,21 @@
 
       bottom:50px;
 
-      overflow:auto;
+      overflow: auto;
 
       overflow-x: hidden;
+
+      /** animation speed for the popup of the sidebar **/
+      -ms-overflow-style: none; //IE 10+
+
+      overflow: -moz-scrollbars-none; //Firefox
+
+      &::-webkit-scrollbar {
+
+        display: none; //Safari and Chrome
+
+      }
+
 
       ul {
 
@@ -80,6 +92,12 @@
           a {
 
             color: #000;
+
+            .icon {
+
+              transform: translateX(0px);
+
+            }
 
           }
 
@@ -129,13 +147,19 @@
 
     .close_layer {
 
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
       border-top: #F2F2F2 solid 1px;
 
       border-bottom: #F2F2F2 solid 1px;
 
       background-color: #f7f8f9;
 
-      height: 3.2rem;
+      height: 3.6rem;
 
       line-height: 3.2rem;
 
@@ -178,8 +202,6 @@ element in order to prevent the background layer from moving **/
   position: fixed;
 
   width: 100%;
-
-  top: 0;
 
   left: 0;
 

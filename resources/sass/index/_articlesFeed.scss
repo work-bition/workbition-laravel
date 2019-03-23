@@ -1,6 +1,6 @@
 .articles-feed {
 
-  margin-top: 2rem;
+  margin-top: 1rem;
 
   .ui.grid {
 
@@ -11,6 +11,43 @@
       @import 'articlesColumn';
 
       @import 'asidesColumn';
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 991px) {
+
+  .articles-feed {
+
+    margin-top: 0;
+
+  }
+
+}
+@media only screen and (max-width: 629px) {
+
+  .articles-feed {
+
+    margin-top: 0.5rem;
+
+  }
+
+}
+@media only screen and (max-width: 461px) {
+
+  .articles-feed {
+
+    .ui.grid {
+
+      .row {
+
+        display: flex;
+
+        flex-direction: column;
+
+      }
 
     }
 

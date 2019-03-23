@@ -1849,7 +1849,10 @@ $('#account_modal').modal({
   transition: 'fade',
   duration: 100,
   context: 'body',
-  blurring: true
+
+  /** BLurring with true will make elements with fixed position disappear **/
+  blurring: false,
+  observeChanges: true
 }).modal('attach events', '#account_modal .close_button', 'hide');
 /** Switching between the password login and phone code login tabs  **/
 
@@ -1893,20 +1896,71 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 /***/ }),
 
+/***/ "./resources/js/index/articlesColumn.js":
+/*!**********************************************!*\
+  !*** ./resources/js/index/articlesColumn.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {/**
+* Articles Column - Articles Feed
+**/
+
+/** Providing the popup functionality to the authorization icons **/
+$('#main_content .articles-feed .articles.column .item .content .meta .authorization .icon').popup({
+  inline: false,
+  transition: 'fade'
+});
+/** Providing the popup functionality when clicking on the share option icons **/
+
+$('#main_content .articles-feed .articles.column .item .content .extra .article-options .share.option').popup({
+  inline: true,
+  position: 'bottom center',
+  hoverable: true,
+  transition: 'fade',
+  on: 'click'
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./resources/js/index/articlesFeed.js":
 /*!********************************************!*\
   !*** ./resources/js/index/articlesFeed.js ***!
   \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {$('#main_content .articles-feed .row .asides.column .asides-wrapper').sticky({
-  context: '#main_content .articles-feed .row .articles.column',
-  offset: 42
-});
-$('#main_content .articles-feed .articles.column .item .content .meta .authorization .icon').popup({
-  transition: 'fade'
-});
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _asidesColumn__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./asidesColumn */ "./resources/js/index/asidesColumn.js");
+/* harmony import */ var _articlesColumn__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./articlesColumn */ "./resources/js/index/articlesColumn.js");
+/* harmony import */ var _articlesColumn__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_articlesColumn__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/index/asidesColumn.js":
+/*!********************************************!*\
+  !*** ./resources/js/index/asidesColumn.js ***!
+  \********************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _ellipsisText__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ellipsisText */ "./resources/js/index/ellipsisText.js");
+
+/**
+* Asides Column - Articles Feed
+**/
+
+/** Providing the ellipsis(...) to the elements when their texts are more than 2 lines **/
+
+var articlesFeedAsideHeaders = $('#main_content .articles-feed .row .asides.column .aside1 .item .content .header');
+Object(_ellipsisText__WEBPACK_IMPORTED_MODULE_0__["default"])(articlesFeedAsideHeaders);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
@@ -1915,14 +1969,19 @@ $('#main_content .articles-feed .articles.column .item .content .meta .authoriza
 /*!*********************************************!*\
   !*** ./resources/js/index/cornerBanners.js ***!
   \*********************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {/**
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _ellipsisText__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ellipsisText */ "./resources/js/index/ellipsisText.js");
+
+/**
 * Page Banners - Corner Banners
 **/
 
 /** When hovering on the corner banner, chaging the shape of the image in it by using CSS commands **/
+
 $('#main_content .corner_banners .corner_banner').hover(
 /** When the mouse enters into the corner banner area, turning the shape of the image into cornered square from circle **/
 function (event) {
@@ -1936,6 +1995,8 @@ function (event) {
     'border-radius': '50%'
   });
 });
+var cornerBannerDescriptions = $('#main_content .page_banners .corner_banners .corner_banner .card_area .card_content .description span');
+Object(_ellipsisText__WEBPACK_IMPORTED_MODULE_0__["default"])(cornerBannerDescriptions);
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
@@ -1975,6 +2036,31 @@ if (window.matchMedia("screen and (-ms-high-contrast: active), (-ms-high-contras
 }
 
 
+
+/***/ }),
+
+/***/ "./resources/js/index/ellipsisText.js":
+/*!********************************************!*\
+  !*** ./resources/js/index/ellipsisText.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return ellipsisText; });
+/* harmony import */ var ellipsis_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ellipsis.js */ "./node_modules/ellipsis.js/ellipsis.js");
+/* harmony import */ var ellipsis_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(ellipsis_js__WEBPACK_IMPORTED_MODULE_0__);
+
+function ellipsisText(ellipsisElements) {
+  var ellipsisOptions = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+    className: false,
+    lines: 2
+  };
+  var ellipsisConf = ellipsisOptions;
+  var ellipsis = Ellipsis(ellipsisConf);
+  ellipsis.add(ellipsisElements);
+}
 
 /***/ }),
 
@@ -2018,7 +2104,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mainNavigation__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mainNavigation__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _pageBanners__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pageBanners */ "./resources/js/index/pageBanners.js");
 /* harmony import */ var _articlesFeed__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./articlesFeed */ "./resources/js/index/articlesFeed.js");
-/* harmony import */ var _articlesFeed__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_articlesFeed__WEBPACK_IMPORTED_MODULE_4__);
 
 
 
@@ -2056,7 +2141,6 @@ $('#main_content .page_banners .featured_carousel').slick({
   autoplay: true,
   autoplaySpeed: 2000,
   fade: true,
-  cssEase: 'linear',
   dots: true,
   prevArrow: '<button type="button" class="prev circular ui icon button"><i class="chevron left icon"></i></button>',
   nextArrow: '<button type="button" class="next circular ui icon button"><i class="chevron right icon"></i></button>'
@@ -2132,7 +2216,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mainBanner_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mainBanner.js */ "./resources/js/index/mainBanner.js");
 /* harmony import */ var _mainBanner_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_mainBanner_js__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _cornerBanners_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./cornerBanners.js */ "./resources/js/index/cornerBanners.js");
-/* harmony import */ var _cornerBanners_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_cornerBanners_js__WEBPACK_IMPORTED_MODULE_2__);
 /*****************************************************************************************************************************
 
                                                         Page Banners
@@ -2268,13 +2351,9 @@ $('#header .right.menu .ui.search').search({
   fullTextSearch: true,
   transition: 'fade',
   maxResults: 10,
-  onResultsOpen: function onResultsOpen() {
-    $('#main_content .page_banners')[0].style.zIndex = -1;
-    $('#main_content .page_banners')[0].style.zIndex = -1;
+  onResultsOpen: function onResultsOpen() {//$('#main_content .page_banners')[0].style.zIndex = -1
   },
-  onResultsClose: function onResultsClose() {
-    $('#main_content .page_banners')[0].style.zIndex = 'auto';
-    $('#main_content .page_banners')[0].style.zIndex = 'auto';
+  onResultsClose: function onResultsClose() {//$('#main_content .page_banners')[0].style.zIndex = 'auto'
   },
   onSearchQuery: function onSearchQuery(query) {
     if ($.trim(query) === '') {
@@ -2516,6 +2595,7 @@ $(window).on('orientationchange', function (event) {
 
   $('#header .right.menu .ui.search').search('hide results');
 });
+var juantop = 0;
 /** toggling the display of the sidebar **/
 
 $('#main_sidebar').sidebar({
@@ -2523,16 +2603,32 @@ $('#main_sidebar').sidebar({
   mobileTransition: 'overlay',
   dimPage: false,
   context: 'body',
+  scrollLock: false,
+  returnScroll: false,
   onVisible: function onVisible() {
+    juantop = $(document).scrollTop();
     /** Resizing the height for iOS devices **/
+
     resizeSidebarHeight();
     /** when opening the sidebar, preventing the body layer from moving **/
 
     $('body').addClass('fixed_layer');
+    $('body').css('top', "-".concat(juantop, "px"));
+  },
+  onShow: function onShow() {
+    /** Solving the problem that the background elements will show up when scrolling beyond the bottom of the sidebar in Chrome browser **/
+    $('body .pusher').css('height', '0');
+  },
+  onHide: function onHide() {
+    $('body .pusher').css('height', 'auto');
   },
   onHidden: function onHidden() {
+    /** Solving the problem that the background elements will show up when scrolling beyond the bottom of the sidebar in Chrome browser **/
+    //$('body .pusher').css('height', 'auto')
+
     /** when closing the sidebar, releasing the original state of the body layer **/
     $('body').removeClass('fixed_layer');
+    $(document).scrollTop(juantop);
   }
 }).sidebar('attach events', '#header .right.menu .menu_button .align.justify.icon');
 /** making the sidebar invisible **/
@@ -2583,8 +2679,8 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
 * http://opensource.org/licenses/MIT
 *
 */
-!function (g, h, b, v) {
-  g.site = g.fn.site = function (e) {
+!function (p, h, b, v) {
+  p.site = p.fn.site = function (e) {
     var s,
         c,
         i = new Date().getTime(),
@@ -2592,19 +2688,19 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         t = e,
         n = "string" == typeof t,
         l = [].slice.call(arguments, 1),
-        u = g.isPlainObject(e) ? g.extend(!0, {}, g.site.settings, e) : g.extend({}, g.site.settings),
+        u = p.isPlainObject(e) ? p.extend(!0, {}, p.site.settings, e) : p.extend({}, p.site.settings),
         r = u.namespace,
         d = u.error,
         a = "module-" + r,
-        f = g(b),
+        f = p(b),
         m = this,
-        p = f.data(a);
+        g = f.data(a);
     return s = {
       initialize: function initialize() {
         s.instantiate();
       },
       instantiate: function instantiate() {
-        s.verbose("Storing instance of site", s), p = s, f.data(a, s);
+        s.verbose("Storing instance of site", s), g = s, f.data(a, s);
       },
       normalize: function normalize() {
         s.fix.console(), s.fix.requestAnimationFrame();
@@ -2633,12 +2729,12 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         }
       },
       moduleExists: function moduleExists(e) {
-        return g.fn[e] !== v && g.fn[e].settings !== v;
+        return p.fn[e] !== v && p.fn[e].settings !== v;
       },
       enabled: {
         modules: function modules(e) {
           var n = [];
-          return e = e || u.modules, g.each(e, function (e, t) {
+          return e = e || u.modules, p.each(e, function (e, t) {
             s.moduleExists(t) && n.push(t);
           }), n;
         }
@@ -2646,23 +2742,23 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       disabled: {
         modules: function modules(e) {
           var n = [];
-          return e = e || u.modules, g.each(e, function (e, t) {
+          return e = e || u.modules, p.each(e, function (e, t) {
             s.moduleExists(t) || n.push(t);
           }), n;
         }
       },
       change: {
         setting: function setting(o, r, e, a) {
-          e = "string" == typeof e ? "all" === e ? u.modules : [e] : e || u.modules, a = a === v || a, g.each(e, function (e, t) {
+          e = "string" == typeof e ? "all" === e ? u.modules : [e] : e || u.modules, a = a === v || a, p.each(e, function (e, t) {
             var n,
-                i = !s.moduleExists(t) || g.fn[t].settings.namespace || !1;
-            s.moduleExists(t) && (s.verbose("Changing default setting", o, r, t), g.fn[t].settings[o] = r, a && i && 0 < (n = g(":data(module-" + i + ")")).length && (s.verbose("Modifying existing settings", n), n[t]("setting", o, r)));
+                i = !s.moduleExists(t) || p.fn[t].settings.namespace || !1;
+            s.moduleExists(t) && (s.verbose("Changing default setting", o, r, t), p.fn[t].settings[o] = r, a && i && 0 < (n = p(":data(module-" + i + ")")).length && (s.verbose("Modifying existing settings", n), n[t]("setting", o, r)));
           });
         },
         settings: function settings(i, e, o) {
-          e = "string" == typeof e ? [e] : e || u.modules, o = o === v || o, g.each(e, function (e, t) {
+          e = "string" == typeof e ? [e] : e || u.modules, o = o === v || o, p.each(e, function (e, t) {
             var n;
-            s.moduleExists(t) && (s.verbose("Changing default setting", i, t), g.extend(!0, g.fn[t].settings, i), o && r && 0 < (n = g(":data(module-" + r + ")")).length && (s.verbose("Modifying existing settings", n), n[t]("setting", i)));
+            s.moduleExists(t) && (s.verbose("Changing default setting", i, t), p.extend(!0, p.fn[t].settings, i), o && r && 0 < (n = p(":data(module-" + r + ")")).length && (s.verbose("Modifying existing settings", n), n[t]("setting", i)));
           });
         }
       },
@@ -2690,9 +2786,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       },
       console: function console(e) {
         if (e) {
-          if (p.cache.console === v) return void s.error(d.console);
-          s.debug("Restoring console function"), h.console = p.cache.console;
-        } else s.debug("Disabling console function"), p.cache.console = h.console, h.console = {
+          if (g.cache.console === v) return void s.error(d.console);
+          s.debug("Restoring console function"), h.console = g.cache.console;
+        } else s.debug("Disabling console function"), g.cache.console = h.console, h.console = {
           clear: function clear() {},
           error: function error() {},
           group: function group() {},
@@ -2709,13 +2805,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       },
       cache: {},
       setting: function setting(e, t) {
-        if (g.isPlainObject(e)) g.extend(!0, u, e);else {
+        if (p.isPlainObject(e)) p.extend(!0, u, e);else {
           if (t === v) return u[e];
           u[e] = t;
         }
       },
       internal: function internal(e, t) {
-        if (g.isPlainObject(e)) g.extend(!0, s, e);else {
+        if (p.isPlainObject(e)) p.extend(!0, s, e);else {
           if (t === v) return s[e];
           s[e] = t;
         }
@@ -2742,9 +2838,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         display: function display() {
           var e = u.name + ":",
               n = 0;
-          i = !1, clearTimeout(s.performance.timer), g.each(o, function (e, t) {
+          i = !1, clearTimeout(s.performance.timer), p.each(o, function (e, t) {
             n += t["Execution Time"];
-          }), e += " " + n + "ms", (console.group !== v || console.table !== v) && 0 < o.length && (console.groupCollapsed(e), console.table ? console.table(o) : g.each(o, function (e, t) {
+          }), e += " " + n + "ms", (console.group !== v || console.table !== v) && 0 < o.length && (console.groupCollapsed(e), console.table ? console.table(o) : p.each(o, function (e, t) {
             console.log(t.Name + ": " + t["Execution Time"] + "ms");
           }), console.groupEnd()), o = [];
         }
@@ -2753,18 +2849,18 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         var o,
             r,
             n,
-            a = p;
-        return e = e || l, t = m || t, "string" == typeof i && a !== v && (i = i.split(/[\. ]/), o = i.length - 1, g.each(i, function (e, t) {
+            a = g;
+        return e = e || l, t = m || t, "string" == typeof i && a !== v && (i = i.split(/[\. ]/), o = i.length - 1, p.each(i, function (e, t) {
           var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
-          if (g.isPlainObject(a[n]) && e != o) a = a[n];else {
+          if (p.isPlainObject(a[n]) && e != o) a = a[n];else {
             if (a[n] !== v) return r = a[n], !1;
-            if (!g.isPlainObject(a[t]) || e == o) return a[t] !== v ? r = a[t] : s.error(d.method, i), !1;
+            if (!p.isPlainObject(a[t]) || e == o) return a[t] !== v ? r = a[t] : s.error(d.method, i), !1;
             a = a[t];
           }
-        })), g.isFunction(r) ? n = r.apply(t, e) : r !== v && (n = r), g.isArray(c) ? c.push(n) : c !== v ? c = [c, n] : n !== v && (c = n), r;
+        })), p.isFunction(r) ? n = r.apply(t, e) : r !== v && (n = r), p.isArray(c) ? c.push(n) : c !== v ? c = [c, n] : n !== v && (c = n), r;
       }
-    }, n ? (p === v && s.initialize(), s.invoke(t)) : (p !== v && s.destroy(), s.initialize()), c !== v ? c : this;
-  }, g.site.settings = {
+    }, n ? (g === v && s.initialize(), s.invoke(t)) : (g !== v && s.destroy(), s.initialize()), c !== v ? c : this;
+  }, p.site.settings = {
     name: "Site",
     namespace: "site",
     error: {
@@ -2783,45 +2879,45 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       section: {},
       utilities: {}
     }
-  }, g.extend(g.expr[":"], {
-    data: g.expr.createPseudo ? g.expr.createPseudo(function (t) {
+  }, p.extend(p.expr[":"], {
+    data: p.expr.createPseudo ? p.expr.createPseudo(function (t) {
       return function (e) {
-        return !!g.data(e, t);
+        return !!p.data(e, t);
       };
     }) : function (e, t, n) {
-      return !!g.data(e, n[3]);
+      return !!p.data(e, n[3]);
     }
   });
-}(jQuery, window, document), function (E, P, O, q) {
+}(jQuery, window, document), function (F, E, O, q) {
   "use strict";
 
-  P = void 0 !== P && P.Math == Math ? P : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), E.fn.search = function (c) {
+  E = void 0 !== E && E.Math == Math ? E : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), F.fn.search = function (c) {
     var C,
-        w = E(this),
-        k = w.selector || "",
-        S = new Date().getTime(),
+        w = F(this),
+        S = w.selector || "",
+        k = new Date().getTime(),
         T = [],
-        A = c,
-        F = "string" == typeof A,
-        R = [].slice.call(arguments, 1);
-    return E(this).each(function () {
+        R = c,
+        A = "string" == typeof R,
+        P = [].slice.call(arguments, 1);
+    return F(this).each(function () {
       var f,
-          l = E.isPlainObject(c) ? E.extend(!0, {}, E.fn.search.settings, c) : E.extend({}, E.fn.search.settings),
+          l = F.isPlainObject(c) ? F.extend(!0, {}, F.fn.search.settings, c) : F.extend({}, F.fn.search.settings),
           m = l.className,
           u = l.metadata,
           d = l.regExp,
           r = l.fields,
-          p = l.selector,
-          g = l.error,
+          g = l.selector,
+          p = l.error,
           e = l.namespace,
           i = "." + e,
           t = e + "-module",
-          h = E(this),
-          b = h.find(p.prompt),
-          n = h.find(p.searchButton),
-          o = h.find(p.results),
-          a = h.find(p.result),
-          v = (h.find(p.category), this),
+          h = F(this),
+          b = h.find(g.prompt),
+          n = h.find(g.searchButton),
+          o = h.find(g.results),
+          a = h.find(g.result),
+          v = (h.find(g.category), this),
           s = h.data(t),
           y = !1,
           x = !1;
@@ -2836,14 +2932,14 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           f.verbose("Destroying instance"), h.off(i).removeData(t);
         },
         refresh: function refresh() {
-          f.debug("Refreshing selector cache"), b = h.find(p.prompt), n = h.find(p.searchButton), h.find(p.category), o = h.find(p.results), a = h.find(p.result);
+          f.debug("Refreshing selector cache"), b = h.find(g.prompt), n = h.find(g.searchButton), h.find(g.category), o = h.find(g.results), a = h.find(g.result);
         },
         refreshResults: function refreshResults() {
-          o = h.find(p.results), a = h.find(p.result);
+          o = h.find(g.results), a = h.find(g.result);
         },
         bind: {
           events: function events() {
-            f.verbose("Binding events to search"), l.automatic && (h.on(f.get.inputEvent() + i, p.prompt, f.event.input), b.attr("autocomplete", "off")), h.on("focus" + i, p.prompt, f.event.focus).on("blur" + i, p.prompt, f.event.blur).on("keydown" + i, p.prompt, f.handleKeyboard).on("click" + i, p.searchButton, f.query).on("mousedown" + i, p.results, f.event.result.mousedown).on("mouseup" + i, p.results, f.event.result.mouseup).on("click" + i, p.result, f.event.result.click);
+            f.verbose("Binding events to search"), l.automatic && (h.on(f.get.inputEvent() + i, g.prompt, f.event.input), b.attr("autocomplete", "off")), h.on("focus" + i, g.prompt, f.event.focus).on("blur" + i, g.prompt, f.event.blur).on("keydown" + i, g.prompt, f.handleKeyboard).on("click" + i, g.searchButton, f.query).on("mousedown" + i, g.results, f.event.result.mousedown).on("mouseup" + i, g.results, f.event.result.mouseup).on("click" + i, g.result, f.event.result.click);
           }
         },
         determine: {
@@ -2868,7 +2964,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               f.cancel.query(), f.remove.focus(), f.timer = setTimeout(f.hideResults, l.hideDelay);
             };
 
-            t || (x = !1, f.resultsClicked ? (f.debug("Determining if user action caused search to close"), h.one("click.close" + i, p.results, function (e) {
+            t || (x = !1, f.resultsClicked ? (f.debug("Determining if user action caused search to close"), h.one("click.close" + i, g.results, function (e) {
               f.is.inMessage(e) || y ? b.focus() : (y = !1, f.is.animating() || f.is.hidden() || n());
             })) : (f.debug("Input blurred without user action, closing results"), n()));
           },
@@ -2881,23 +2977,23 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             },
             click: function click(e) {
               f.debug("Search result selected");
-              var t = E(this),
-                  n = t.find(p.title).eq(0),
+              var t = F(this),
+                  n = t.find(g.title).eq(0),
                   i = t.is("a[href]") ? t : t.find("a[href]").eq(0),
                   o = i.attr("href") || !1,
                   r = i.attr("target") || !1,
                   a = (n.html(), 0 < n.length && n.text()),
                   s = f.get.results(),
                   c = t.data(u.result) || f.get.result(a, s);
-              if (E.isFunction(l.onSelect) && !1 === l.onSelect.call(v, c, s)) return f.debug("Custom onSelect callback cancelled default select action"), void (y = !0);
-              f.hideResults(), a && f.set.value(a), o && (f.verbose("Opening search link found in result", i), "_blank" == r || e.ctrlKey ? P.open(o) : P.location.href = o);
+              if (F.isFunction(l.onSelect) && !1 === l.onSelect.call(v, c, s)) return f.debug("Custom onSelect callback cancelled default select action"), void (y = !0);
+              f.hideResults(), a && f.set.value(a), o && (f.verbose("Opening search link found in result", i), "_blank" == r || e.ctrlKey ? E.open(o) : E.location.href = o);
             }
           }
         },
         handleKeyboard: function handleKeyboard(e) {
           var t,
-              n = h.find(p.result),
-              i = h.find(p.category),
+              n = h.find(g.result),
+              i = h.find(g.category),
               o = n.filter("." + m.active),
               r = n.index(o),
               a = n.length,
@@ -2926,23 +3022,23 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 f.parse.response.call(v, e, t), n();
               },
               onFailure: function onFailure() {
-                f.displayMessage(g.serverError), n();
+                f.displayMessage(p.serverError), n();
               },
               onAbort: function onAbort(e) {},
               onError: f.error
             };
-            E.extend(!0, e, l.apiSettings), f.verbose("Setting up API request", e), h.api(e);
+            F.extend(!0, e, l.apiSettings), f.verbose("Setting up API request", e), h.api(e);
           }
         },
         can: {
           useAPI: function useAPI() {
-            return E.fn.api !== q;
+            return F.fn.api !== q;
           },
           show: function show() {
             return f.is.focused() && !f.is.visible() && !f.is.empty();
           },
           transition: function transition() {
-            return l.transition && E.fn.transition !== q && h.transition("is supported");
+            return l.transition && F.fn.transition !== q && h.transition("is supported");
           }
         },
         is: {
@@ -2954,8 +3050,8 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           },
           inMessage: function inMessage(e) {
             if (e.target) {
-              var t = E(e.target);
-              return E.contains(O.documentElement, e.target) && 0 < t.closest(p.message).length;
+              var t = F(e.target);
+              return F.contains(O.documentElement, e.target) && 0 < t.closest(g.message).length;
             }
           },
           empty: function empty() {
@@ -2970,7 +3066,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         get: {
           settings: function settings() {
-            E.isPlainObject(c) && c.searchFullText && (l.fullTextSearch = c.searchFullText, f.error(l.error.oldSearchSyntax, v));
+            F.isPlainObject(c) && c.searchFullText && (l.fullTextSearch = c.searchFullText, f.error(l.error.oldSearchSyntax, v));
           },
           inputEvent: function inputEvent() {
             var e = b[0];
@@ -2985,8 +3081,8 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           result: function result(n, e) {
             var i = ["title", "id"],
                 o = !1;
-            return n = n !== q ? n : f.get.value(), e = e !== q ? e : f.get.results(), "category" === l.type ? (f.debug("Finding result that matches", n), E.each(e, function (e, t) {
-              if (E.isArray(t.results) && (o = f.search.object(n, t.results, i)[0])) return !1;
+            return n = n !== q ? n : f.get.value(), e = e !== q ? e : f.get.results(), "category" === l.type ? (f.debug("Finding result that matches", n), F.each(e, function (e, t) {
+              if (F.isArray(t.results) && (o = f.search.object(n, t.results, i)[0])) return !1;
             })) : (f.debug("Finding result in results object", n), o = f.search.object(n, e, i)[0]), o || !1;
           }
         },
@@ -3024,10 +3120,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }
         },
         query: function query(e) {
-          e = E.isFunction(e) ? e : function () {};
+          e = F.isFunction(e) ? e : function () {};
           var t = f.get.value(),
               n = f.read.cache(t);
-          e = e || function () {}, f.has.minimumCharacters() ? (n ? (f.debug("Reading result from cache", t), f.save.results(n.results), f.addResults(n.html), f.inject.id(n.results), e()) : (f.debug("Querying for", t), E.isPlainObject(l.source) || E.isArray(l.source) ? (f.search.local(t), e()) : f.can.useAPI() ? f.search.remote(t, e) : (f.error(g.source), e())), l.onSearchQuery.call(v, t)) : f.hideResults();
+          e = e || function () {}, f.has.minimumCharacters() ? (n ? (f.debug("Reading result from cache", t), f.save.results(n.results), f.addResults(n.html), f.inject.id(n.results), e()) : (f.debug("Querying for", t), F.isPlainObject(l.source) || F.isArray(l.source) ? (f.search.local(t), e()) : f.can.useAPI() ? f.search.remote(t, e) : (f.error(p.source), e())), l.onSearchQuery.call(v, t)) : f.hideResults();
         },
         search: {
           local: function local(e) {
@@ -3041,7 +3137,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             });
           },
           remote: function remote(e, t) {
-            t = E.isFunction(t) ? t : function () {}, h.api("is loading") && h.api("abort"), f.setup.api(e, t), h.api("query");
+            t = F.isFunction(t) ? t : function () {}, h.api("is loading") && h.api("abort"), f.setup.api(e, t), h.api("query");
           },
           object: function object(i, t, e) {
             var r = [],
@@ -3050,17 +3146,17 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 n = i.toString().replace(d.escape, "\\$&"),
                 o = new RegExp(d.beginsWith + n, "i"),
                 c = function c(e, t) {
-              var n = -1 == E.inArray(t, r),
-                  i = -1 == E.inArray(t, s),
-                  o = -1 == E.inArray(t, a);
+              var n = -1 == F.inArray(t, r),
+                  i = -1 == F.inArray(t, s),
+                  o = -1 == F.inArray(t, a);
               n && i && o && e.push(t);
             };
 
-            return t = t || l.source, e = e !== q ? e : l.searchFields, E.isArray(e) || (e = [e]), t === q || !1 === t ? (f.error(g.source), []) : (E.each(e, function (e, n) {
-              E.each(t, function (e, t) {
+            return t = t || l.source, e = e !== q ? e : l.searchFields, F.isArray(e) || (e = [e]), t === q || !1 === t ? (f.error(p.source), []) : (F.each(e, function (e, n) {
+              F.each(t, function (e, t) {
                 "string" == typeof t[n] && (-1 !== t[n].search(o) ? c(r, t) : "exact" === l.fullTextSearch && f.exactSearch(i, t[n]) ? c(a, t) : 1 == l.fullTextSearch && f.fuzzySearch(i, t[n]) && c(s, t));
               });
-            }), E.merge(a, s), E.merge(r, a), r);
+            }), F.merge(a, s), F.merge(r, a), r);
           }
         },
         exactSearch: function exactSearch(e, t) {
@@ -3120,7 +3216,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         create: {
           categoryResults: function categoryResults(e) {
             var n = {};
-            return E.each(e, function (e, t) {
+            return F.each(e, function (e, t) {
               t.category && (n[t.category] === q ? (f.verbose("Creating new category of results", t.category), n[t.category] = {
                 name: t.category,
                 results: [t]
@@ -3133,25 +3229,25 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return t !== q ? (n = String.fromCharCode(97 + t) + i, f.verbose("Creating category result id", n)) : (n = i, f.verbose("Creating result id", n)), n;
           },
           results: function results() {
-            0 === o.length && (o = E("<div />").addClass(m.results).appendTo(h));
+            0 === o.length && (o = F("<div />").addClass(m.results).appendTo(h));
           }
         },
         inject: {
           result: function result(e, t, n) {
             f.verbose("Injecting result into results");
-            var i = n !== q ? o.children().eq(n).children(p.results).first().children(p.result).eq(t) : o.children(p.result).eq(t);
+            var i = n !== q ? o.children().eq(n).children(g.results).first().children(g.result).eq(t) : o.children(g.result).eq(t);
             f.verbose("Injecting results metadata", i), i.data(u.result, e);
           },
           id: function id(i) {
             f.debug("Injecting unique ids into results");
             var o = 0,
                 r = 0;
-            return "category" === l.type ? E.each(i, function (e, i) {
-              r = 0, E.each(i.results, function (e, t) {
+            return "category" === l.type ? F.each(i, function (e, i) {
+              r = 0, F.each(i.results, function (e, t) {
                 var n = i.results[e];
                 n.id === q && (n.id = f.create.id(r, o)), f.inject.result(n, r, o), r++;
               }), o++;
-            }) : E.each(i, function (e, t) {
+            }) : F.each(i, function (e, t) {
               var n = i[e];
               n.id === q && (n.id = f.create.id(r)), f.inject.result(n, r), r++;
             }), i;
@@ -3169,13 +3265,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }
         },
         addResults: function addResults(e) {
-          if (E.isFunction(l.onResultsAdd) && !1 === l.onResultsAdd.call(o, e)) return f.debug("onResultsAdd callback cancelled default action"), !1;
+          if (F.isFunction(l.onResultsAdd) && !1 === l.onResultsAdd.call(o, e)) return f.debug("onResultsAdd callback cancelled default action"), !1;
           e ? (o.html(e), f.refreshResults(), l.selectFirstResult && f.select.firstResult(), f.showResults()) : f.hideResults(function () {
             o.empty();
           });
         },
         showResults: function showResults(e) {
-          e = E.isFunction(e) ? e : function () {}, x || !f.is.visible() && f.has.results() && (f.can.transition() ? (f.debug("Showing results with css animations"), o.transition({
+          e = F.isFunction(e) ? e : function () {}, x || !f.is.visible() && f.has.results() && (f.can.transition() ? (f.debug("Showing results with css animations"), o.transition({
             animation: l.transition + " in",
             debug: l.debug,
             verbose: l.verbose,
@@ -3187,7 +3283,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           })) : (f.debug("Showing results with javascript"), o.stop().fadeIn(l.duration, l.easing)), l.onResultsOpen.call(o));
         },
         hideResults: function hideResults(e) {
-          e = E.isFunction(e) ? e : function () {}, f.is.visible() && (f.can.transition() ? (f.debug("Hiding results with css animations"), o.transition({
+          e = F.isFunction(e) ? e : function () {}, f.is.visible() && (f.can.transition() ? (f.debug("Hiding results with css animations"), o.transition({
             animation: l.transition + " out",
             debug: l.debug,
             verbose: l.verbose,
@@ -3201,22 +3297,22 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         generateResults: function generateResults(e) {
           f.debug("Generating html from response", e);
           var t = l.templates[l.type],
-              n = E.isPlainObject(e[r.results]) && !E.isEmptyObject(e[r.results]),
-              i = E.isArray(e[r.results]) && 0 < e[r.results].length,
+              n = F.isPlainObject(e[r.results]) && !F.isEmptyObject(e[r.results]),
+              i = F.isArray(e[r.results]) && 0 < e[r.results].length,
               o = "";
-          return n || i ? (0 < l.maxResults && (n ? "standard" == l.type && f.error(g.maxResults) : e[r.results] = e[r.results].slice(0, l.maxResults)), E.isFunction(t) ? o = t(e, r) : f.error(g.noTemplate, !1)) : l.showNoResults && (o = f.displayMessage(g.noResults, "empty")), l.onResults.call(v, e), o;
+          return n || i ? (0 < l.maxResults && (n ? "standard" == l.type && f.error(p.maxResults) : e[r.results] = e[r.results].slice(0, l.maxResults)), F.isFunction(t) ? o = t(e, r) : f.error(p.noTemplate, !1)) : l.showNoResults && (o = f.displayMessage(p.noResults, "empty")), l.onResults.call(v, e), o;
         },
         displayMessage: function displayMessage(e, t) {
           return t = t || "standard", f.debug("Displaying message", e, t), f.addResults(l.templates.message(e, t)), l.templates.message(e, t);
         },
         setting: function setting(e, t) {
-          if (E.isPlainObject(e)) E.extend(!0, l, e);else {
+          if (F.isPlainObject(e)) F.extend(!0, l, e);else {
             if (t === q) return l[e];
             l[e] = t;
           }
         },
         internal: function internal(e, t) {
-          if (E.isPlainObject(e)) E.extend(!0, f, e);else {
+          if (F.isPlainObject(e)) F.extend(!0, f, e);else {
             if (t === q) return f[e];
             f[e] = t;
           }
@@ -3233,7 +3329,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         performance: {
           log: function log(e) {
             var t, n;
-            l.performance && (n = (t = new Date().getTime()) - (S || t), S = t, T.push({
+            l.performance && (n = (t = new Date().getTime()) - (k || t), k = t, T.push({
               Name: e[0],
               Arguments: [].slice.call(e, 1) || "",
               Element: v,
@@ -3243,9 +3339,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = l.name + ":",
                 n = 0;
-            S = !1, clearTimeout(f.performance.timer), E.each(T, function (e, t) {
+            k = !1, clearTimeout(f.performance.timer), F.each(T, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", k && (e += " '" + k + "'"), 1 < w.length && (e += " (" + w.length + ")"), (console.group !== q || console.table !== q) && 0 < T.length && (console.groupCollapsed(e), console.table ? console.table(T) : E.each(T, function (e, t) {
+            }), e += " " + n + "ms", S && (e += " '" + S + "'"), 1 < w.length && (e += " (" + w.length + ")"), (console.group !== q || console.table !== q) && 0 < T.length && (console.groupCollapsed(e), console.table ? console.table(T) : F.each(T, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
             }), console.groupEnd()), T = [];
           }
@@ -3255,18 +3351,18 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               r,
               n,
               a = s;
-          return e = e || R, t = v || t, "string" == typeof i && a !== q && (i = i.split(/[\. ]/), o = i.length - 1, E.each(i, function (e, t) {
+          return e = e || P, t = v || t, "string" == typeof i && a !== q && (i = i.split(/[\. ]/), o = i.length - 1, F.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
-            if (E.isPlainObject(a[n]) && e != o) a = a[n];else {
+            if (F.isPlainObject(a[n]) && e != o) a = a[n];else {
               if (a[n] !== q) return r = a[n], !1;
-              if (!E.isPlainObject(a[t]) || e == o) return a[t] !== q && (r = a[t]), !1;
+              if (!F.isPlainObject(a[t]) || e == o) return a[t] !== q && (r = a[t]), !1;
               a = a[t];
             }
-          })), E.isFunction(r) ? n = r.apply(t, e) : r !== q && (n = r), E.isArray(C) ? C.push(n) : C !== q ? C = [C, n] : n !== q && (C = n), r;
+          })), F.isFunction(r) ? n = r.apply(t, e) : r !== q && (n = r), F.isArray(C) ? C.push(n) : C !== q ? C = [C, n] : n !== q && (C = n), r;
         }
-      }, F ? (s === q && f.initialize(), f.invoke(A)) : (s !== q && s.invoke("destroy"), f.initialize());
+      }, A ? (s === q && f.initialize(), f.invoke(R)) : (s !== q && s.invoke("destroy"), f.initialize());
     }), C !== q ? C : this;
-  }, E.fn.search.settings = {
+  }, F.fn.search.settings = {
     name: "Search",
     namespace: "search",
     silent: !1,
@@ -3370,16 +3466,16 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       },
       category: function category(e, n) {
         var i = "";
-        E.fn.search.settings.templates.escape;
-        return e[n.categoryResults] !== q && (E.each(e[n.categoryResults], function (e, t) {
-          t[n.results] !== q && 0 < t.results.length && (i += '<div class="category">', t[n.categoryName] !== q && (i += '<div class="name">' + t[n.categoryName] + "</div>"), i += '<div class="results">', E.each(t.results, function (e, t) {
+        F.fn.search.settings.templates.escape;
+        return e[n.categoryResults] !== q && (F.each(e[n.categoryResults], function (e, t) {
+          t[n.results] !== q && 0 < t.results.length && (i += '<div class="category">', t[n.categoryName] !== q && (i += '<div class="name">' + t[n.categoryName] + "</div>"), i += '<div class="results">', F.each(t.results, function (e, t) {
             t[n.url] ? i += '<a class="result" href="' + t[n.url] + '">' : i += '<a class="result">', t[n.image] !== q && (i += '<div class="image"> <img src="' + t[n.image] + '"></div>'), i += '<div class="content">', t[n.price] !== q && (i += '<div class="price">' + t[n.price] + "</div>"), t[n.title] !== q && (i += '<div class="title">' + t[n.title] + "</div>"), t[n.description] !== q && (i += '<div class="description">' + t[n.description] + "</div>"), i += "</div>", i += "</a>";
           }), i += "</div>", i += "</div>");
         }), e[n.action] && (i += '<a href="' + e[n.action][n.actionURL] + '" class="action">' + e[n.action][n.actionText] + "</a>"), i);
       },
       standard: function standard(e, n) {
         var i = "";
-        return e[n.results] !== q && (E.each(e[n.results], function (e, t) {
+        return e[n.results] !== q && (F.each(e[n.results], function (e, t) {
           t[n.url] ? i += '<a class="result" href="' + t[n.url] + '">' : i += '<a class="result">', t[n.image] !== q && (i += '<div class="image"> <img src="' + t[n.image] + '"></div>'), i += '<div class="content">', t[n.price] !== q && (i += '<div class="price">' + t[n.price] + "</div>"), t[n.title] !== q && (i += '<div class="title">' + t[n.title] + "</div>"), t[n.description] !== q && (i += '<div class="description">' + t[n.description] + "</div>"), i += "</div>", i += "</a>";
         }), e[n.action] && (i += '<a href="' + e[n.action][n.actionURL] + '" class="action">' + e[n.action][n.actionText] + "</a>"), i);
       }
@@ -3392,14 +3488,14 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
     var C,
         e = j(this),
         w = j(D),
-        k = j(z),
-        S = j("html"),
+        S = j(z),
+        k = j("html"),
         T = j("head"),
-        A = e.selector || "",
-        F = new Date().getTime(),
-        R = [],
-        E = x,
-        P = "string" == typeof E,
+        R = e.selector || "",
+        A = new Date().getTime(),
+        P = [],
+        F = x,
+        E = "string" == typeof F,
         O = [].slice.call(arguments, 1),
         q = D.requestAnimationFrame || D.mozRequestAnimationFrame || D.webkitRequestAnimationFrame || D.msRequestAnimationFrame || function (e) {
       setTimeout(e, 0);
@@ -3420,12 +3516,12 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           d = u.error,
           f = "." + i,
           m = "module-" + i,
-          p = j(this),
-          g = j(u.context),
-          h = p.children(n.sidebar),
-          b = (g.children(n.fixed), g.children(n.pusher)),
+          g = j(this),
+          p = j(u.context),
+          h = g.children(n.sidebar),
+          b = (p.children(n.fixed), p.children(n.pusher)),
           v = this,
-          y = p.data(m);
+          y = g.data(m);
       l = {
         initialize: function initialize() {
           l.debug("Initializing sidebar", x), l.create.id(), c = l.get.transitionEvent(), u.delaySetup ? q(l.setup.layout) : l.setup.layout(), q(function () {
@@ -3433,7 +3529,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }), l.instantiate();
         },
         instantiate: function instantiate() {
-          l.verbose("Storing instance of module", l), y = l, p.data(m, l);
+          l.verbose("Storing instance of module", l), y = l, g.data(m, l);
         },
         create: {
           id: function id() {
@@ -3441,12 +3537,12 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }
         },
         destroy: function destroy() {
-          l.verbose("Destroying previous module for", p), p.off(f).removeData(m), l.is.ios() && l.remove.ios(), g.off(s), w.off(s), k.off(s);
+          l.verbose("Destroying previous module for", g), g.off(f).removeData(m), l.is.ios() && l.remove.ios(), p.off(s), w.off(s), S.off(s);
         },
         event: {
           clickaway: function clickaway(e) {
             var t = 0 < b.find(e.target).length || b.is(e.target),
-                n = g.is(e.target);
+                n = p.is(e.target);
             t && (l.verbose("User clicked on dimmed page"), l.hide()), n && (l.verbose("User clicked on dimmable context (scaled out page)"), l.hide());
           },
           touch: function touch(e) {},
@@ -3459,25 +3555,25 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         bind: {
           clickaway: function clickaway() {
-            l.verbose("Adding clickaway events to context", g), u.closable && g.on("click" + s, l.event.clickaway).on("touchend" + s, l.event.clickaway);
+            l.verbose("Adding clickaway events to context", p), u.closable && p.on("click" + s, l.event.clickaway).on("touchend" + s, l.event.clickaway);
           },
           scrollLock: function scrollLock() {
-            u.scrollLock && (l.debug("Disabling page scroll"), w.on("DOMMouseScroll" + s, l.event.scroll)), l.verbose("Adding events to contain sidebar scroll"), k.on("touchmove" + s, l.event.touch), p.on("scroll" + f, l.event.containScroll);
+            u.scrollLock && (l.debug("Disabling page scroll"), w.on("DOMMouseScroll" + s, l.event.scroll)), l.verbose("Adding events to contain sidebar scroll"), S.on("touchmove" + s, l.event.touch), g.on("scroll" + f, l.event.containScroll);
           }
         },
         unbind: {
           clickaway: function clickaway() {
-            l.verbose("Removing clickaway events from context", g), g.off(s);
+            l.verbose("Removing clickaway events from context", p), p.off(s);
           },
           scrollLock: function scrollLock() {
-            l.verbose("Removing scroll lock from page"), k.off(s), w.off(s), p.off("scroll" + f);
+            l.verbose("Removing scroll lock from page"), S.off(s), w.off(s), g.off("scroll" + f);
           }
         },
         add: {
           inlineCSS: function inlineCSS() {
             var e,
-                t = l.cache.width || p.outerWidth(),
-                n = l.cache.height || p.outerHeight(),
+                t = l.cache.width || g.outerWidth(),
+                n = l.cache.height || g.outerHeight(),
                 i = l.is.rtl(),
                 o = l.get.direction(),
                 r = {
@@ -3490,10 +3586,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }
         },
         refresh: function refresh() {
-          l.verbose("Refreshing selector cache"), g = j(u.context), h = g.children(n.sidebar), b = g.children(n.pusher), g.children(n.fixed), l.clear.cache();
+          l.verbose("Refreshing selector cache"), p = j(u.context), h = p.children(n.sidebar), b = p.children(n.pusher), p.children(n.fixed), l.clear.cache();
         },
         refreshSidebars: function refreshSidebars() {
-          l.verbose("Refreshing other sidebars"), h = g.children(n.sidebar);
+          l.verbose("Refreshing other sidebars"), h = p.children(n.sidebar);
         },
         repaint: function repaint() {
           l.verbose("Forcing repaint event"), v.style.display = "none";
@@ -3503,13 +3599,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         setup: {
           cache: function cache() {
             l.cache = {
-              width: p.outerWidth(),
-              height: p.outerHeight(),
-              rtl: "rtl" == p.css("direction")
+              width: g.outerWidth(),
+              height: g.outerHeight(),
+              rtl: "rtl" == g.css("direction")
             };
           },
           layout: function layout() {
-            0 === g.children(n.pusher).length && (l.debug("Adding wrapper element for sidebar"), l.error(d.pusher), b = j('<div class="pusher" />'), g.children().not(n.omitted).not(h).wrapAll(b), l.refresh()), 0 !== p.nextAll(n.pusher).length && p.nextAll(n.pusher)[0] === b[0] || (l.debug("Moved sidebar to correct parent element"), l.error(d.movedSidebar, v), p.detach().prependTo(g), l.refresh()), l.clear.cache(), l.set.pushable(), l.set.direction();
+            0 === p.children(n.pusher).length && (l.debug("Adding wrapper element for sidebar"), l.error(d.pusher), b = j('<div class="pusher" />'), p.children().not(n.omitted).not(h).wrapAll(b), l.refresh()), 0 !== g.nextAll(n.pusher).length && g.nextAll(n.pusher)[0] === b[0] || (l.debug("Moved sidebar to correct parent element"), l.error(d.movedSidebar, v), g.detach().prependTo(p), l.refresh()), l.clear.cache(), l.set.pushable(), l.set.direction();
           }
         },
         attachEvents: function attachEvents(e, t) {
@@ -3533,16 +3629,16 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }), u.onChange.call(v), u.onHide.call(v));
         },
         othersAnimating: function othersAnimating() {
-          return 0 < h.not(p).filter("." + r.animating).length;
+          return 0 < h.not(g).filter("." + r.animating).length;
         },
         othersVisible: function othersVisible() {
-          return 0 < h.not(p).filter("." + r.visible).length;
+          return 0 < h.not(g).filter("." + r.visible).length;
         },
         othersActive: function othersActive() {
           return l.othersVisible() || l.othersAnimating();
         },
         hideOthers: function hideOthers(e) {
-          var t = h.not(p).filter("." + r.visible),
+          var t = h.not(g).filter("." + r.visible),
               n = t.length,
               i = 0;
           e = e || function () {}, t.sidebar("hide", function () {
@@ -3557,7 +3653,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               n,
               _i,
               o = l.get.transition(),
-              r = "overlay" === o || l.othersActive() ? p : b;
+              r = "overlay" === o || l.othersActive() ? g : b;
 
           t = j.isFunction(t) ? t : function () {}, "scale down" == u.transition && l.scrollToTop(), l.set.transition(o), l.repaint(), e = function e() {
             l.bind.clickaway(), l.add.inlineCSS(), l.set.animating(), l.set.visible();
@@ -3571,7 +3667,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           var e,
               _n,
               i = l.get.transition(),
-              o = "overlay" == i || l.othersActive() ? p : b;
+              o = "overlay" == i || l.othersActive() ? g : b;
 
           t = j.isFunction(t) ? t : function () {}, l.verbose("Removing context push state", l.get.direction()), l.unbind.clickaway(), l.unbind.scrollLock(), e = function e() {
             l.set.transition(i), l.set.animating(), l.remove.visible(), u.dimPage && !l.othersVisible() && b.removeClass(r.dimmed);
@@ -3580,7 +3676,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }, o.off(c + s), o.on(c + s, _n), q(e);
         },
         scrollToTop: function scrollToTop() {
-          l.verbose("Scrolling to top of page to avoid animation issues"), t = j(D).scrollTop(), p.scrollTop(0), D.scrollTo(0, 0);
+          l.verbose("Scrolling to top of page to avoid animation issues"), t = j(D).scrollTop(), g.scrollTop(0), D.scrollTo(0, 0);
         },
         scrollBack: function scrollBack() {
           l.verbose("Scrolling back to original page position"), D.scrollTo(0, t);
@@ -3592,34 +3688,34 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         set: {
           ios: function ios() {
-            S.addClass(r.ios);
+            k.addClass(r.ios);
           },
           pushed: function pushed() {
-            g.addClass(r.pushed);
+            p.addClass(r.pushed);
           },
           pushable: function pushable() {
-            g.addClass(r.pushable);
+            p.addClass(r.pushable);
           },
           dimmed: function dimmed() {
             b.addClass(r.dimmed);
           },
           active: function active() {
-            p.addClass(r.active);
+            g.addClass(r.active);
           },
           animating: function animating() {
-            p.addClass(r.animating);
+            g.addClass(r.animating);
           },
           transition: function transition(e) {
-            e = e || l.get.transition(), p.addClass(e);
+            e = e || l.get.transition(), g.addClass(e);
           },
           direction: function direction(e) {
-            e = e || l.get.direction(), p.addClass(r[e]);
+            e = e || l.get.direction(), g.addClass(r[e]);
           },
           visible: function visible() {
-            p.addClass(r.visible);
+            g.addClass(r.visible);
           },
           overlay: function overlay() {
-            p.addClass(r.overlay);
+            g.addClass(r.overlay);
           }
         },
         remove: {
@@ -3627,36 +3723,36 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             l.debug("Removing inline css styles", a), a && 0 < a.length && a.remove();
           },
           ios: function ios() {
-            S.removeClass(r.ios);
+            k.removeClass(r.ios);
           },
           pushed: function pushed() {
-            g.removeClass(r.pushed);
+            p.removeClass(r.pushed);
           },
           pushable: function pushable() {
-            g.removeClass(r.pushable);
+            p.removeClass(r.pushable);
           },
           active: function active() {
-            p.removeClass(r.active);
+            g.removeClass(r.active);
           },
           animating: function animating() {
-            p.removeClass(r.animating);
+            g.removeClass(r.animating);
           },
           transition: function transition(e) {
-            e = e || l.get.transition(), p.removeClass(e);
+            e = e || l.get.transition(), g.removeClass(e);
           },
           direction: function direction(e) {
-            e = e || l.get.direction(), p.removeClass(r[e]);
+            e = e || l.get.direction(), g.removeClass(r[e]);
           },
           visible: function visible() {
-            p.removeClass(r.visible);
+            g.removeClass(r.visible);
           },
           overlay: function overlay() {
-            p.removeClass(r.overlay);
+            g.removeClass(r.overlay);
           }
         },
         get: {
           direction: function direction() {
-            return p.hasClass(r.top) ? r.top : p.hasClass(r.right) ? r.right : p.hasClass(r.bottom) ? r.bottom : r.left;
+            return g.hasClass(r.top) ? r.top : g.hasClass(r.right) ? r.right : g.hasClass(r.bottom) ? r.bottom : r.left;
           },
           transition: function transition() {
             var e,
@@ -3696,7 +3792,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return !l.is.visible();
           },
           visible: function visible() {
-            return p.hasClass(r.visible);
+            return g.hasClass(r.visible);
           },
           open: function open() {
             return l.is.visible();
@@ -3705,13 +3801,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return l.is.hidden();
           },
           vertical: function vertical() {
-            return p.hasClass(r.top);
+            return g.hasClass(r.top);
           },
           animating: function animating() {
-            return g.hasClass(r.animating);
+            return p.hasClass(r.animating);
           },
           rtl: function rtl() {
-            return l.cache.rtl === M && (l.cache.rtl = "rtl" == p.css("direction")), l.cache.rtl;
+            return l.cache.rtl === M && (l.cache.rtl = "rtl" == g.css("direction")), l.cache.rtl;
           }
         },
         setting: function setting(e, t) {
@@ -3738,7 +3834,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         performance: {
           log: function log(e) {
             var t, n;
-            u.performance && (n = (t = new Date().getTime()) - (F || t), F = t, R.push({
+            u.performance && (n = (t = new Date().getTime()) - (A || t), A = t, P.push({
               Name: e[0],
               Arguments: [].slice.call(e, 1) || "",
               Element: v,
@@ -3748,11 +3844,11 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = u.name + ":",
                 n = 0;
-            F = !1, clearTimeout(l.performance.timer), j.each(R, function (e, t) {
+            A = !1, clearTimeout(l.performance.timer), j.each(P, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", A && (e += " '" + A + "'"), (console.group !== M || console.table !== M) && 0 < R.length && (console.groupCollapsed(e), console.table ? console.table(R) : j.each(R, function (e, t) {
+            }), e += " " + n + "ms", R && (e += " '" + R + "'"), (console.group !== M || console.table !== M) && 0 < P.length && (console.groupCollapsed(e), console.table ? console.table(P) : j.each(P, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
-            }), console.groupEnd()), R = [];
+            }), console.groupEnd()), P = [];
           }
         },
         invoke: function invoke(i, e, t) {
@@ -3769,7 +3865,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             }
           })), j.isFunction(r) ? n = r.apply(t, e) : r !== M && (n = r), j.isArray(C) ? C.push(n) : C !== M ? C = [C, n] : n !== M && (C = n), r;
         }
-      }, P ? (y === M && l.initialize(), l.invoke(E)) : (y !== M && l.invoke("destroy"), l.initialize());
+      }, E ? (y === M && l.initialize(), l.invoke(F)) : (y !== M && l.invoke("destroy"), l.initialize());
     }), C !== M ? C : this;
   }, j.fn.sidebar.settings = {
     name: "Sidebar",
@@ -3839,19 +3935,19 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       notFound: "There were no elements that matched the specified selector"
     }
   };
-}(jQuery, window, document), function (R, E, e, P) {
+}(jQuery, window, document), function (P, F, e, E) {
   "use strict";
 
-  E = void 0 !== E && E.Math == Math ? E : "undefined" != typeof self && self.Math == Math ? self : Function("return this")();
-  R.api = R.fn.api = function (x) {
+  F = void 0 !== F && F.Math == Math ? F : "undefined" != typeof self && self.Math == Math ? self : Function("return this")();
+  P.api = P.fn.api = function (x) {
     var C,
-        e = R.isFunction(this) ? R(E) : R(this),
+        e = P.isFunction(this) ? P(F) : P(this),
         w = e.selector || "",
-        k = new Date().getTime(),
-        S = [],
+        S = new Date().getTime(),
+        k = [],
         T = x,
-        A = "string" == typeof T,
-        F = [].slice.call(arguments, 1);
+        R = "string" == typeof T,
+        A = [].slice.call(arguments, 1);
     return e.each(function () {
       var r,
           a,
@@ -3859,7 +3955,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           e,
           s,
           c,
-          l = R.isPlainObject(x) ? R.extend(!0, {}, R.fn.api.settings, x) : R.extend({}, R.fn.api.settings),
+          l = P.isPlainObject(x) ? P.extend(!0, {}, P.fn.api.settings, x) : P.extend({}, P.fn.api.settings),
           t = l.namespace,
           i = l.metadata,
           o = l.selector,
@@ -3867,31 +3963,31 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           d = l.className,
           f = "." + t,
           m = "module-" + t,
-          p = R(this),
-          g = p.closest(o.form),
-          h = l.stateContext ? R(l.stateContext) : p,
+          g = P(this),
+          p = g.closest(o.form),
+          h = l.stateContext ? P(l.stateContext) : g,
           b = this,
           v = h[0],
-          y = p.data(m);
+          y = g.data(m);
       c = {
         initialize: function initialize() {
-          A || c.bind.events(), c.instantiate();
+          R || c.bind.events(), c.instantiate();
         },
         instantiate: function instantiate() {
-          c.verbose("Storing instance of module", c), y = c, p.data(m, y);
+          c.verbose("Storing instance of module", c), y = c, g.data(m, y);
         },
         destroy: function destroy() {
-          c.verbose("Destroying previous module for", b), p.removeData(m).off(f);
+          c.verbose("Destroying previous module for", b), g.removeData(m).off(f);
         },
         bind: {
           events: function events() {
             var e = c.get.event();
-            e ? (c.verbose("Attaching API events to element", e), p.on(e + f, c.event.trigger)) : "now" == l.on && (c.debug("Querying API endpoint immediately"), c.query());
+            e ? (c.verbose("Attaching API events to element", e), g.on(e + f, c.event.trigger)) : "now" == l.on && (c.debug("Querying API endpoint immediately"), c.query());
           }
         },
         decode: {
           json: function json(e) {
-            if (e !== P && "string" == typeof e) try {
+            if (e !== E && "string" == typeof e) try {
               e = JSON.parse(e);
             } catch (e) {}
             return e;
@@ -3900,13 +3996,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         read: {
           cachedResponse: function cachedResponse(e) {
             var t;
-            if (E.Storage !== P) return t = sessionStorage.getItem(e), c.debug("Using cached response", e, t), t = c.decode.json(t);
+            if (F.Storage !== E) return t = sessionStorage.getItem(e), c.debug("Using cached response", e, t), t = c.decode.json(t);
             c.error(u.noStorage);
           }
         },
         write: {
           cachedResponse: function cachedResponse(e, t) {
-            t && "" === t ? c.debug("Response empty, not caching", t) : E.Storage !== P ? (R.isPlainObject(t) && (t = JSON.stringify(t)), sessionStorage.setItem(e, t), c.verbose("Storing cached response for url", e, t)) : c.error(u.noStorage);
+            t && "" === t ? c.debug("Response empty, not caching", t) : F.Storage !== E ? (P.isPlainObject(t) && (t = JSON.stringify(t)), sessionStorage.setItem(e, t), c.verbose("Storing cached response for url", e, t)) : c.error(u.noStorage);
           }
         },
         query: function query() {
@@ -3916,11 +4012,11 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               c.debug("Interrupting previous request"), c.abort();
             }
 
-            if (l.defaultData && R.extend(!0, l.urlData, c.get.defaultData()), l.serializeForm && (l.data = c.add.formData(l.data)), !1 === (a = c.get.settings())) return c.cancelled = !0, void c.error(u.beforeSend);
+            if (l.defaultData && P.extend(!0, l.urlData, c.get.defaultData()), l.serializeForm && (l.data = c.add.formData(l.data)), !1 === (a = c.get.settings())) return c.cancelled = !0, void c.error(u.beforeSend);
 
             if (c.cancelled = !1, (n = c.get.templatedURL()) || c.is.mocked()) {
               if ((n = c.add.urlData(n)) || c.is.mocked()) {
-                if (a.url = l.base + n, r = R.extend(!0, {}, l, {
+                if (a.url = l.base + n, r = P.extend(!0, {}, l, {
                   type: l.method || l.type,
                   data: e,
                   url: l.base + n,
@@ -3943,28 +4039,28 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         is: {
           disabled: function disabled() {
-            return 0 < p.filter(o.disabled).length;
+            return 0 < g.filter(o.disabled).length;
           },
           expectingJSON: function expectingJSON() {
             return "json" === l.dataType || "jsonp" === l.dataType;
           },
           form: function form() {
-            return p.is("form") || h.is("form");
+            return g.is("form") || h.is("form");
           },
           mocked: function mocked() {
             return l.mockResponse || l.mockResponseAsync || l.response || l.responseAsync;
           },
           input: function input() {
-            return p.is("input");
+            return g.is("input");
           },
           loading: function loading() {
             return !!c.request && "pending" == c.request.state();
           },
           abortedRequest: function abortedRequest(e) {
-            return e && e.readyState !== P && 0 === e.readyState ? (c.verbose("XHR request determined to be aborted"), !0) : (c.verbose("XHR request was not aborted"), !1);
+            return e && e.readyState !== E && 0 === e.readyState ? (c.verbose("XHR request determined to be aborted"), !0) : (c.verbose("XHR request was not aborted"), !1);
           },
           validResponse: function validResponse(e) {
-            return c.is.expectingJSON() && R.isFunction(l.successTest) ? (c.debug("Checking JSON returned success", l.successTest, e), l.successTest(e) ? (c.debug("Response passed success test", e), !0) : (c.debug("Response failed success test", e), !1)) : (c.verbose("Response is not JSON, skipping validation", l.successTest, e), !0);
+            return c.is.expectingJSON() && P.isFunction(l.successTest) ? (c.debug("Checking JSON returned success", l.successTest, e), l.successTest(e) ? (c.debug("Response passed success test", e), !0) : (c.debug("Response failed success test", e), !1)) : (c.verbose("Response is not JSON, skipping validation", l.successTest, e), !0);
           }
         },
         was: {
@@ -3984,21 +4080,21 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         add: {
           urlData: function urlData(o, r) {
             var e, t;
-            return o && (e = o.match(l.regExp.required), t = o.match(l.regExp.optional), r = r || l.urlData, e && (c.debug("Looking for required URL variables", e), R.each(e, function (e, t) {
+            return o && (e = o.match(l.regExp.required), t = o.match(l.regExp.optional), r = r || l.urlData, e && (c.debug("Looking for required URL variables", e), P.each(e, function (e, t) {
               var n = -1 !== t.indexOf("$") ? t.substr(2, t.length - 3) : t.substr(1, t.length - 2),
-                  i = R.isPlainObject(r) && r[n] !== P ? r[n] : p.data(n) !== P ? p.data(n) : h.data(n) !== P ? h.data(n) : r[n];
-              if (i === P) return c.error(u.requiredParameter, n, o), o = !1;
+                  i = P.isPlainObject(r) && r[n] !== E ? r[n] : g.data(n) !== E ? g.data(n) : h.data(n) !== E ? h.data(n) : r[n];
+              if (i === E) return c.error(u.requiredParameter, n, o), o = !1;
               c.verbose("Found required variable", n, i), i = l.encodeParameters ? c.get.urlEncodedValue(i) : i, o = o.replace(t, i);
-            })), t && (c.debug("Looking for optional URL variables", e), R.each(t, function (e, t) {
+            })), t && (c.debug("Looking for optional URL variables", e), P.each(t, function (e, t) {
               var n = -1 !== t.indexOf("$") ? t.substr(3, t.length - 4) : t.substr(2, t.length - 3),
-                  i = R.isPlainObject(r) && r[n] !== P ? r[n] : p.data(n) !== P ? p.data(n) : h.data(n) !== P ? h.data(n) : r[n];
-              o = i !== P ? (c.verbose("Optional variable Found", n, i), o.replace(t, i)) : (c.verbose("Optional variable not found", n), -1 !== o.indexOf("/" + t) ? o.replace("/" + t, "") : o.replace(t, ""));
+                  i = P.isPlainObject(r) && r[n] !== E ? r[n] : g.data(n) !== E ? g.data(n) : h.data(n) !== E ? h.data(n) : r[n];
+              o = i !== E ? (c.verbose("Optional variable Found", n, i), o.replace(t, i)) : (c.verbose("Optional variable not found", n), -1 !== o.indexOf("/" + t) ? o.replace("/" + t, "") : o.replace(t, ""));
             }))), o;
           },
           formData: function formData(e) {
-            var t = R.fn.serializeObject !== P,
-                n = t ? g.serializeObject() : g.serialize();
-            return e = e || l.data, e = R.isPlainObject(e) ? t ? (c.debug("Extending existing data with form data", e, n), R.extend(!0, {}, e, n)) : (c.error(u.missingSerialize), c.debug("Cant extend data. Replacing data with form data", e, n), n) : (c.debug("Adding form data", n), n);
+            var t = P.fn.serializeObject !== E,
+                n = t ? p.serializeObject() : p.serialize();
+            return e = e || l.data, e = P.isPlainObject(e) ? t ? (c.debug("Extending existing data with form data", e, n), P.extend(!0, {}, e, n)) : (c.error(u.missingSerialize), c.debug("Cant extend data. Replacing data with form data", e, n), n) : (c.debug("Adding form data", n), n);
           }
         },
         send: {
@@ -4016,7 +4112,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               var i = this,
                   o = new Date().getTime() - s,
                   r = l.loadingDuration - o,
-                  a = !!R.isFunction(l.onResponse) && (c.is.expectingJSON() ? l.onResponse.call(i, R.extend(!0, {}, e)) : l.onResponse.call(i, e));
+                  a = !!P.isFunction(l.onResponse) && (c.is.expectingJSON() ? l.onResponse.call(i, P.extend(!0, {}, e)) : l.onResponse.call(i, e));
               r = 0 < r ? r : 0, a && (c.debug("Modified API response in onResponse callback", l.onResponse, a, e), e = a), 0 < r && c.debug("Response completed early delaying state change by", r), setTimeout(function () {
                 c.is.validResponse(e) ? c.request.resolveWith(i, [e, n]) : c.request.rejectWith(i, [n, "invalid"]);
               }, r);
@@ -4032,23 +4128,23 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           },
           request: {
             done: function done(e, t) {
-              c.debug("Successful API Response", e), "local" === l.cache && n && (c.write.cachedResponse(n, e), c.debug("Saving server response locally", c.cache)), l.onSuccess.call(v, e, p, t);
+              c.debug("Successful API Response", e), "local" === l.cache && n && (c.write.cachedResponse(n, e), c.debug("Saving server response locally", c.cache)), l.onSuccess.call(v, e, g, t);
             },
             complete: function complete(e, t) {
               var n, i;
-              c.was.succesful() ? (i = e, n = t) : (n = e, i = c.get.responseFromXHR(n)), c.remove.loading(), l.onComplete.call(v, i, p, n);
+              c.was.succesful() ? (i = e, n = t) : (n = e, i = c.get.responseFromXHR(n)), c.remove.loading(), l.onComplete.call(v, i, g, n);
             },
             fail: function fail(e, t, n) {
               var i = c.get.responseFromXHR(e),
                   o = c.get.errorFromRequest(i, t, n);
-              if ("aborted" == t) return c.debug("XHR Aborted (Most likely caused by page navigation or CORS Policy)", t, n), l.onAbort.call(v, t, p, e), !0;
-              "invalid" == t ? c.debug("JSON did not pass success test. A server-side error has most likely occurred", i) : "error" == t && e !== P && (c.debug("XHR produced a server error", t, n), 200 != e.status && n !== P && "" !== n && c.error(u.statusMessage + n, r.url), l.onError.call(v, o, p, e)), l.errorDuration && "aborted" !== t && (c.debug("Adding error state"), c.set.error(), c.should.removeError() && setTimeout(c.remove.error, l.errorDuration)), c.debug("API Request failed", o, e), l.onFailure.call(v, i, p, e);
+              if ("aborted" == t) return c.debug("XHR Aborted (Most likely caused by page navigation or CORS Policy)", t, n), l.onAbort.call(v, t, g, e), !0;
+              "invalid" == t ? c.debug("JSON did not pass success test. A server-side error has most likely occurred", i) : "error" == t && e !== E && (c.debug("XHR produced a server error", t, n), 200 != e.status && n !== E && "" !== n && c.error(u.statusMessage + n, r.url), l.onError.call(v, o, g, e)), l.errorDuration && "aborted" !== t && (c.debug("Adding error state"), c.set.error(), c.should.removeError() && setTimeout(c.remove.error, l.errorDuration)), c.debug("API Request failed", o, e), l.onFailure.call(v, i, g, e);
             }
           }
         },
         create: {
           request: function request() {
-            return R.Deferred().always(c.event.request.complete).done(c.event.request.done).fail(c.event.request.fail);
+            return P.Deferred().always(c.event.request.complete).done(c.event.request.done).fail(c.event.request.fail);
           },
           mockedXHR: function mockedXHR() {
             var e,
@@ -4056,9 +4152,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 n,
                 i = l.mockResponse || l.response,
                 o = l.mockResponseAsync || l.responseAsync;
-            return n = R.Deferred().always(c.event.xhr.complete).done(c.event.xhr.done).fail(c.event.xhr.fail), i ? (t = R.isFunction(i) ? (c.debug("Using specified synchronous callback", i), i.call(v, a)) : (c.debug("Using settings specified response", i), i), n.resolveWith(v, [t, !1, {
+            return n = P.Deferred().always(c.event.xhr.complete).done(c.event.xhr.done).fail(c.event.xhr.fail), i ? (t = P.isFunction(i) ? (c.debug("Using specified synchronous callback", i), i.call(v, a)) : (c.debug("Using settings specified response", i), i), n.resolveWith(v, [t, !1, {
               responseText: t
-            }])) : R.isFunction(o) && (e = function e(_e) {
+            }])) : P.isFunction(o) && (e = function e(_e) {
               c.debug("Async callback returned response", _e), _e ? n.resolveWith(v, [_e, !1, {
                 responseText: _e
               }]) : n.rejectWith(v, [{
@@ -4068,7 +4164,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           },
           xhr: function xhr() {
             var e;
-            return e = R.ajax(r).always(c.event.xhr.always).done(c.event.xhr.done).fail(c.event.xhr.fail), c.verbose("Created server request", e, r), e;
+            return e = P.ajax(r).always(c.event.xhr.always).done(c.event.xhr.done).fail(c.event.xhr.fail), c.verbose("Created server request", e, r), e;
           }
         },
         set: {
@@ -4089,10 +4185,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         get: {
           responseFromXHR: function responseFromXHR(e) {
-            return !!R.isPlainObject(e) && (c.is.expectingJSON() ? c.decode.json(e.responseText) : e.responseText);
+            return !!P.isPlainObject(e) && (c.is.expectingJSON() ? c.decode.json(e.responseText) : e.responseText);
           },
           errorFromRequest: function errorFromRequest(e, t, n) {
-            return R.isPlainObject(e) && e.error !== P ? e.error : l.error[t] !== P ? l.error[t] : n;
+            return P.isPlainObject(e) && e.error !== E ? e.error : l.error[t] !== E ? l.error[t] : n;
           },
           request: function request() {
             return c.request || !1;
@@ -4102,27 +4198,27 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           },
           settings: function settings() {
             var e;
-            return (e = l.beforeSend.call(v, l)) && (e.success !== P && (c.debug("Legacy success callback detected", e), c.error(u.legacyParameters, e.success), e.onSuccess = e.success), e.failure !== P && (c.debug("Legacy failure callback detected", e), c.error(u.legacyParameters, e.failure), e.onFailure = e.failure), e.complete !== P && (c.debug("Legacy complete callback detected", e), c.error(u.legacyParameters, e.complete), e.onComplete = e.complete)), e === P && c.error(u.noReturnedValue), !1 === e ? e : e !== P ? R.extend(!0, {}, e) : R.extend(!0, {}, l);
+            return (e = l.beforeSend.call(v, l)) && (e.success !== E && (c.debug("Legacy success callback detected", e), c.error(u.legacyParameters, e.success), e.onSuccess = e.success), e.failure !== E && (c.debug("Legacy failure callback detected", e), c.error(u.legacyParameters, e.failure), e.onFailure = e.failure), e.complete !== E && (c.debug("Legacy complete callback detected", e), c.error(u.legacyParameters, e.complete), e.onComplete = e.complete)), e === E && c.error(u.noReturnedValue), !1 === e ? e : e !== E ? P.extend(!0, {}, e) : P.extend(!0, {}, l);
           },
           urlEncodedValue: function urlEncodedValue(e) {
-            var t = E.decodeURIComponent(e),
-                n = E.encodeURIComponent(e);
+            var t = F.decodeURIComponent(e),
+                n = F.encodeURIComponent(e);
             return t !== e ? (c.debug("URL value is already encoded, avoiding double encoding", e), e) : (c.verbose("Encoding value using encodeURIComponent", e, n), n);
           },
           defaultData: function defaultData() {
             var e = {};
-            return R.isWindow(b) || (c.is.input() ? e.value = p.val() : c.is.form() || (e.text = p.text())), e;
+            return P.isWindow(b) || (c.is.input() ? e.value = g.val() : c.is.form() || (e.text = g.text())), e;
           },
           event: function event() {
-            return R.isWindow(b) || "now" == l.on ? (c.debug("API called without element, no events attached"), !1) : "auto" == l.on ? p.is("input") ? b.oninput !== P ? "input" : b.onpropertychange !== P ? "propertychange" : "keyup" : p.is("form") ? "submit" : "click" : l.on;
+            return P.isWindow(b) || "now" == l.on ? (c.debug("API called without element, no events attached"), !1) : "auto" == l.on ? g.is("input") ? b.oninput !== E ? "input" : b.onpropertychange !== E ? "propertychange" : "keyup" : g.is("form") ? "submit" : "click" : l.on;
           },
           templatedURL: function templatedURL(e) {
-            if (e = e || p.data(i.action) || l.action || !1, n = p.data(i.url) || l.url || !1) return c.debug("Using specified url", n), n;
+            if (e = e || g.data(i.action) || l.action || !1, n = g.data(i.url) || l.url || !1) return c.debug("Using specified url", n), n;
 
             if (e) {
-              if (c.debug("Looking up url for action", e, l.api), l.api[e] === P && !c.is.mocked()) return void c.error(u.missingAction, l.action, l.api);
+              if (c.debug("Looking up url for action", e, l.api), l.api[e] === E && !c.is.mocked()) return void c.error(u.missingAction, l.action, l.api);
               n = l.api[e];
-            } else c.is.form() && (n = p.attr("action") || h.attr("action") || !1, c.debug("No url or action specified, defaulting to form action", n));
+            } else c.is.form() && (n = g.attr("action") || h.attr("action") || !1, c.debug("No url or action specified, defaulting to form action", n));
 
             return n;
           }
@@ -4135,14 +4231,14 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           c.remove.error(), c.remove.loading();
         },
         setting: function setting(e, t) {
-          if (c.debug("Changing setting", e, t), R.isPlainObject(e)) R.extend(!0, l, e);else {
-            if (t === P) return l[e];
-            R.isPlainObject(l[e]) ? R.extend(!0, l[e], t) : l[e] = t;
+          if (c.debug("Changing setting", e, t), P.isPlainObject(e)) P.extend(!0, l, e);else {
+            if (t === E) return l[e];
+            P.isPlainObject(l[e]) ? P.extend(!0, l[e], t) : l[e] = t;
           }
         },
         internal: function internal(e, t) {
-          if (R.isPlainObject(e)) R.extend(!0, c, e);else {
-            if (t === P) return c[e];
+          if (P.isPlainObject(e)) P.extend(!0, c, e);else {
+            if (t === E) return c[e];
             c[e] = t;
           }
         },
@@ -4158,7 +4254,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         performance: {
           log: function log(e) {
             var t, n;
-            l.performance && (n = (t = new Date().getTime()) - (k || t), k = t, S.push({
+            l.performance && (n = (t = new Date().getTime()) - (S || t), S = t, k.push({
               Name: e[0],
               Arguments: [].slice.call(e, 1) || "",
               "Execution Time": n
@@ -4167,11 +4263,11 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = l.name + ":",
                 n = 0;
-            k = !1, clearTimeout(c.performance.timer), R.each(S, function (e, t) {
+            S = !1, clearTimeout(c.performance.timer), P.each(k, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", w && (e += " '" + w + "'"), (console.group !== P || console.table !== P) && 0 < S.length && (console.groupCollapsed(e), console.table ? console.table(S) : R.each(S, function (e, t) {
+            }), e += " " + n + "ms", w && (e += " '" + w + "'"), (console.group !== E || console.table !== E) && 0 < k.length && (console.groupCollapsed(e), console.table ? console.table(k) : P.each(k, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
-            }), console.groupEnd()), S = [];
+            }), console.groupEnd()), k = [];
           }
         },
         invoke: function invoke(i, e, t) {
@@ -4179,18 +4275,18 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               r,
               n,
               a = y;
-          return e = e || F, t = b || t, "string" == typeof i && a !== P && (i = i.split(/[\. ]/), o = i.length - 1, R.each(i, function (e, t) {
+          return e = e || A, t = b || t, "string" == typeof i && a !== E && (i = i.split(/[\. ]/), o = i.length - 1, P.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
-            if (R.isPlainObject(a[n]) && e != o) a = a[n];else {
-              if (a[n] !== P) return r = a[n], !1;
-              if (!R.isPlainObject(a[t]) || e == o) return a[t] !== P ? r = a[t] : c.error(u.method, i), !1;
+            if (P.isPlainObject(a[n]) && e != o) a = a[n];else {
+              if (a[n] !== E) return r = a[n], !1;
+              if (!P.isPlainObject(a[t]) || e == o) return a[t] !== E ? r = a[t] : c.error(u.method, i), !1;
               a = a[t];
             }
-          })), R.isFunction(r) ? n = r.apply(t, e) : r !== P && (n = r), R.isArray(C) ? C.push(n) : C !== P ? C = [C, n] : n !== P && (C = n), r;
+          })), P.isFunction(r) ? n = r.apply(t, e) : r !== E && (n = r), P.isArray(C) ? C.push(n) : C !== E ? C = [C, n] : n !== E && (C = n), r;
         }
-      }, A ? (y === P && c.initialize(), c.invoke(T)) : (y !== P && y.invoke("destroy"), c.initialize());
-    }), C !== P ? C : this;
-  }, R.api.settings = {
+      }, R ? (y === E && c.initialize(), c.invoke(T)) : (y !== E && y.invoke("destroy"), c.initialize());
+    }), C !== E ? C : this;
+  }, P.api.settings = {
     name: "API",
     namespace: "api",
     debug: !1,
@@ -4266,14 +4362,14 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       url: "url"
     }
   };
-}(jQuery, window, document), function (C, e, w, k) {
+}(jQuery, window, document), function (C, e, w, S) {
   "use strict";
 
   e = void 0 !== e && e.Math == Math ? e : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), C.fn.transition = function () {
     var l,
         a = C(this),
-        p = a.selector || "",
-        g = new Date().getTime(),
+        g = a.selector || "",
+        p = new Date().getTime(),
         h = [],
         b = arguments,
         v = b[0],
@@ -4318,7 +4414,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         delay: function delay(e) {
           var t,
               n = f.get.animationDirection();
-          n || (n = f.can.transition() ? f.get.direction() : "static"), e = e !== k ? e : u.interval, t = "auto" == u.reverse && n == d.outward || 1 == u.reverse ? (a.length - i) * u.interval : i * u.interval, f.debug("Delaying animation by", t), setTimeout(f.animate, t);
+          n || (n = f.can.transition() ? f.get.direction() : "static"), e = e !== S ? e : u.interval, t = "auto" == u.reverse && n == d.outward || 1 == u.reverse ? (a.length - i) * u.interval : i * u.interval, f.debug("Delaying animation by", t), setTimeout(f.animate, t);
         },
         animate: function animate(e) {
           if (u = e || u, !f.is.supported()) return f.error(t.support), !1;
@@ -4349,13 +4445,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 n = f.get.displayType(),
                 i = t + "display: " + n + " !important;",
                 o = m.css("display"),
-                r = e === k || "" === e;
+                r = e === S || "" === e;
             o !== n ? (f.verbose("Overriding default display to show element", n), m.attr("style", i)) : r && m.removeAttr("style");
           },
           hidden: function hidden() {
             var e = m.attr("style"),
                 t = m.css("display"),
-                n = e === k || "" === e;
+                n = e === S || "" === e;
             "none" === t || f.is.hidden() ? n && m.removeAttr("style") : (f.verbose("Overriding default display to hide element"), m.css("display", "none"));
           }
         },
@@ -4492,7 +4588,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return d.animating + " " + d.transition + " " + n + t;
           },
           currentAnimation: function currentAnimation() {
-            return !(!f.cache || f.cache.animation === k) && f.cache.animation;
+            return !(!f.cache || f.cache.animation === S) && f.cache.animation;
           },
           currentDirection: function currentDirection() {
             return f.is.inward() ? d.inward : d.outward;
@@ -4510,7 +4606,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return !1 === (e = e || u.duration) && (e = m.css("animation-duration") || 0), "string" == typeof e ? -1 < e.indexOf("ms") ? parseFloat(e) : 1e3 * parseFloat(e) : e;
           },
           displayType: function displayType(e) {
-            return e = e === k || e, u.displayType ? u.displayType : (e && m.data(n.displayType) === k && f.can.transition(!0), m.data(n.displayType));
+            return e = e === S || e, u.displayType ? u.displayType : (e && m.data(n.displayType) === S && f.can.transition(!0), m.data(n.displayType));
           },
           userStyle: function userStyle(e) {
             return (e = e || m.attr("style") || "").replace(/display.*?;/, "");
@@ -4529,7 +4625,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             };
 
             for (e in n) {
-              if (t.style[e] !== k) return n[e];
+              if (t.style[e] !== S) return n[e];
             }
 
             return !1;
@@ -4545,7 +4641,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             };
 
             for (e in n) {
-              if (t.style[e] !== k) return n[e];
+              if (t.style[e] !== S) return n[e];
             }
 
             return !1;
@@ -4563,7 +4659,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 c = f.get.transitionExists(s),
                 l = f.get.displayType(!1);
 
-            if (c === k || e) {
+            if (c === S || e) {
               if (f.verbose("Determining whether animation exists"), t = m.attr("class"), n = m.prop("tagName"), o = (i = C("<" + n + " />").addClass(t).insertAfter(m)).addClass(s).removeClass(d.inward).removeClass(d.outward).addClass(d.animating).addClass(d.transition).css("animationName"), r = i.addClass(d.inward).css("animationName"), l || (l = i.attr("class", t).removeAttr("style").removeClass(d.hidden).removeClass(d.visible).show().css("display"), f.verbose("Determining final display state", l), f.save.displayType(l)), i.remove(), o != r) f.debug("Direction exists for animation", s), a = !0;else {
                 if ("none" == o || !o) return void f.debug("No animation defined in css", s);
                 f.debug("Static animation found", s, l), a = !1;
@@ -4571,10 +4667,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               f.save.transitionExists(s, a);
             }
 
-            return c !== k ? c : a;
+            return c !== S ? c : a;
           },
           animate: function animate() {
-            return f.can.transition() !== k;
+            return f.can.transition() !== S;
           }
         },
         is: {
@@ -4631,13 +4727,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         setting: function setting(e, t) {
           if (f.debug("Changing setting", e, t), C.isPlainObject(e)) C.extend(!0, u, e);else {
-            if (t === k) return u[e];
+            if (t === S) return u[e];
             C.isPlainObject(u[e]) ? C.extend(!0, u[e], t) : u[e] = t;
           }
         },
         internal: function internal(e, t) {
           if (C.isPlainObject(e)) C.extend(!0, f, e);else {
-            if (t === k) return f[e];
+            if (t === S) return f[e];
             f[e] = t;
           }
         },
@@ -4653,7 +4749,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         performance: {
           log: function log(e) {
             var t, n;
-            u.performance && (n = (t = new Date().getTime()) - (g || t), g = t, h.push({
+            u.performance && (n = (t = new Date().getTime()) - (p || t), p = t, h.push({
               Name: e[0],
               Arguments: [].slice.call(e, 1) || "",
               Element: c,
@@ -4663,9 +4759,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = u.name + ":",
                 n = 0;
-            g = !1, clearTimeout(f.performance.timer), C.each(h, function (e, t) {
+            p = !1, clearTimeout(f.performance.timer), C.each(h, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", p && (e += " '" + p + "'"), 1 < a.length && (e += " (" + a.length + ")"), (console.group !== k || console.table !== k) && 0 < h.length && (console.groupCollapsed(e), console.table ? console.table(h) : C.each(h, function (e, t) {
+            }), e += " " + n + "ms", g && (e += " '" + g + "'"), 1 < a.length && (e += " (" + a.length + ")"), (console.group !== S || console.table !== S) && 0 < h.length && (console.groupCollapsed(e), console.table ? console.table(h) : C.each(h, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
             }), console.groupEnd()), h = [];
           }
@@ -4675,17 +4771,17 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               r,
               n,
               a = s;
-          return e = e || y, t = c || t, "string" == typeof i && a !== k && (i = i.split(/[\. ]/), o = i.length - 1, C.each(i, function (e, t) {
+          return e = e || y, t = c || t, "string" == typeof i && a !== S && (i = i.split(/[\. ]/), o = i.length - 1, C.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
             if (C.isPlainObject(a[n]) && e != o) a = a[n];else {
-              if (a[n] !== k) return r = a[n], !1;
-              if (!C.isPlainObject(a[t]) || e == o) return a[t] !== k && (r = a[t]), !1;
+              if (a[n] !== S) return r = a[n], !1;
+              if (!C.isPlainObject(a[t]) || e == o) return a[t] !== S && (r = a[t]), !1;
               a = a[t];
             }
-          })), C.isFunction(r) ? n = r.apply(t, e) : r !== k && (n = r), C.isArray(l) ? l.push(n) : l !== k ? l = [l, n] : n !== k && (l = n), r !== k && r;
+          })), C.isFunction(r) ? n = r.apply(t, e) : r !== S && (n = r), C.isArray(l) ? l.push(n) : l !== S ? l = [l, n] : n !== S && (l = n), r !== S && r;
         }
       }).initialize();
-    }), l !== k ? l : this;
+    }), l !== S ? l : this;
   }, C.fn.transition.exists = {}, C.fn.transition.settings = {
     name: "Transition",
     silent: !1,
@@ -4727,22 +4823,22 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       support: "This browser does not support CSS animations"
     }
   };
-}(jQuery, window, document), function (k, e, S, T) {
+}(jQuery, window, document), function (S, e, k, T) {
   "use strict";
 
-  e = void 0 !== e && e.Math == Math ? e : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), k.fn.dimmer = function (g) {
+  e = void 0 !== e && e.Math == Math ? e : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), S.fn.dimmer = function (p) {
     var h,
-        b = k(this),
+        b = S(this),
         v = new Date().getTime(),
         y = [],
-        x = g,
+        x = p,
         C = "string" == typeof x,
         w = [].slice.call(arguments, 1);
     return b.each(function () {
       var r,
           t,
           s,
-          a = k.isPlainObject(g) ? k.extend(!0, {}, k.fn.dimmer.settings, g) : k.extend({}, k.fn.dimmer.settings),
+          a = S.isPlainObject(p) ? S.extend(!0, {}, S.fn.dimmer.settings, p) : S.extend({}, S.fn.dimmer.settings),
           n = a.selector,
           e = a.namespace,
           i = a.className,
@@ -4750,10 +4846,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           o = "." + e,
           l = "module-" + e,
           u = b.selector || "",
-          d = "ontouchstart" in S.documentElement ? "touchstart" : "click",
-          f = k(this),
+          d = "ontouchstart" in k.documentElement ? "touchstart" : "click",
+          f = S(this),
           m = this,
-          p = f.data(l);
+          g = f.data(l);
       (s = {
         preinitialize: function preinitialize() {
           r = s.is.dimmer() ? (t = f.parent(), f) : (t = f, s.has.dimmer() ? a.dimmerName ? t.find(n.dimmer).filter("." + a.dimmerName) : t.find(n.dimmer) : s.create());
@@ -4762,7 +4858,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           s.debug("Initializing dimmer", a), s.bind.events(), s.set.dimmable(), s.instantiate();
         },
         instantiate: function instantiate() {
-          s.verbose("Storing instance of module", s), p = s, f.data(l, p);
+          s.verbose("Storing instance of module", s), g = s, f.data(l, g);
         },
         destroy: function destroy() {
           s.verbose("Destroying previous module", r), s.unbind.events(), s.remove.variation(), t.off(o);
@@ -4779,29 +4875,29 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         event: {
           click: function click(e) {
-            s.verbose("Determining if event occured on dimmer", e), (0 === r.find(e.target).length || k(e.target).is(n.content)) && (s.hide(), e.stopImmediatePropagation());
+            s.verbose("Determining if event occured on dimmer", e), (0 === r.find(e.target).length || S(e.target).is(n.content)) && (s.hide(), e.stopImmediatePropagation());
           }
         },
         addContent: function addContent(e) {
-          var t = k(e);
+          var t = S(e);
           s.debug("Add content to dimmer", t), t.parent()[0] !== r[0] && t.detach().appendTo(r);
         },
         create: function create() {
-          var e = k(a.template.dimmer());
+          var e = S(a.template.dimmer());
           return a.dimmerName && (s.debug("Creating named dimmer", a.dimmerName), e.addClass(a.dimmerName)), e.appendTo(t), e;
         },
         show: function show(e) {
-          e = k.isFunction(e) ? e : function () {}, s.debug("Showing dimmer", r, a), s.set.variation(), s.is.dimmed() && !s.is.animating() || !s.is.enabled() ? s.debug("Dimmer is already shown or disabled") : (s.animate.show(e), a.onShow.call(m), a.onChange.call(m));
+          e = S.isFunction(e) ? e : function () {}, s.debug("Showing dimmer", r, a), s.set.variation(), s.is.dimmed() && !s.is.animating() || !s.is.enabled() ? s.debug("Dimmer is already shown or disabled") : (s.animate.show(e), a.onShow.call(m), a.onChange.call(m));
         },
         hide: function hide(e) {
-          e = k.isFunction(e) ? e : function () {}, s.is.dimmed() || s.is.animating() ? (s.debug("Hiding dimmer", r), s.animate.hide(e), a.onHide.call(m), a.onChange.call(m)) : s.debug("Dimmer is not visible");
+          e = S.isFunction(e) ? e : function () {}, s.is.dimmed() || s.is.animating() ? (s.debug("Hiding dimmer", r), s.animate.hide(e), a.onHide.call(m), a.onChange.call(m)) : s.debug("Dimmer is not visible");
         },
         toggle: function toggle() {
           s.verbose("Toggling dimmer visibility", r), s.is.dimmed() ? s.hide() : s.show();
         },
         animate: {
           show: function show(e) {
-            e = k.isFunction(e) ? e : function () {}, a.useCSS && k.fn.transition !== T && r.transition("is supported") ? (a.useFlex ? (s.debug("Using flex dimmer"), s.remove.legacy()) : (s.debug("Using legacy non-flex dimmer"), s.set.legacy()), "auto" !== a.opacity && s.set.opacity(), r.transition({
+            e = S.isFunction(e) ? e : function () {}, a.useCSS && S.fn.transition !== T && r.transition("is supported") ? (a.useFlex ? (s.debug("Using flex dimmer"), s.remove.legacy()) : (s.debug("Using legacy non-flex dimmer"), s.set.legacy()), "auto" !== a.opacity && s.set.opacity(), r.transition({
               displayType: a.useFlex ? "flex" : "block",
               animation: a.transition + " in",
               queue: !1,
@@ -4822,7 +4918,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             }));
           },
           hide: function hide(e) {
-            e = k.isFunction(e) ? e : function () {}, a.useCSS && k.fn.transition !== T && r.transition("is supported") ? (s.verbose("Hiding dimmer with css"), r.transition({
+            e = S.isFunction(e) ? e : function () {}, a.useCSS && S.fn.transition !== T && r.transition("is supported") ? (s.verbose("Hiding dimmer with css"), r.transition({
               displayType: a.useFlex ? "flex" : "block",
               animation: a.transition + " out",
               queue: !1,
@@ -4937,13 +5033,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }
         },
         setting: function setting(e, t) {
-          if (s.debug("Changing setting", e, t), k.isPlainObject(e)) k.extend(!0, a, e);else {
+          if (s.debug("Changing setting", e, t), S.isPlainObject(e)) S.extend(!0, a, e);else {
             if (t === T) return a[e];
-            k.isPlainObject(a[e]) ? k.extend(!0, a[e], t) : a[e] = t;
+            S.isPlainObject(a[e]) ? S.extend(!0, a[e], t) : a[e] = t;
           }
         },
         internal: function internal(e, t) {
-          if (k.isPlainObject(e)) k.extend(!0, s, e);else {
+          if (S.isPlainObject(e)) S.extend(!0, s, e);else {
             if (t === T) return s[e];
             s[e] = t;
           }
@@ -4970,9 +5066,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = a.name + ":",
                 n = 0;
-            v = !1, clearTimeout(s.performance.timer), k.each(y, function (e, t) {
+            v = !1, clearTimeout(s.performance.timer), S.each(y, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", u && (e += " '" + u + "'"), 1 < b.length && (e += " (" + b.length + ")"), (console.group !== T || console.table !== T) && 0 < y.length && (console.groupCollapsed(e), console.table ? console.table(y) : k.each(y, function (e, t) {
+            }), e += " " + n + "ms", u && (e += " '" + u + "'"), 1 < b.length && (e += " (" + b.length + ")"), (console.group !== T || console.table !== T) && 0 < y.length && (console.groupCollapsed(e), console.table ? console.table(y) : S.each(y, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
             }), console.groupEnd()), y = [];
           }
@@ -4981,19 +5077,19 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           var o,
               r,
               n,
-              a = p;
-          return e = e || w, t = m || t, "string" == typeof i && a !== T && (i = i.split(/[\. ]/), o = i.length - 1, k.each(i, function (e, t) {
+              a = g;
+          return e = e || w, t = m || t, "string" == typeof i && a !== T && (i = i.split(/[\. ]/), o = i.length - 1, S.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
-            if (k.isPlainObject(a[n]) && e != o) a = a[n];else {
+            if (S.isPlainObject(a[n]) && e != o) a = a[n];else {
               if (a[n] !== T) return r = a[n], !1;
-              if (!k.isPlainObject(a[t]) || e == o) return a[t] !== T ? r = a[t] : s.error(c.method, i), !1;
+              if (!S.isPlainObject(a[t]) || e == o) return a[t] !== T ? r = a[t] : s.error(c.method, i), !1;
               a = a[t];
             }
-          })), k.isFunction(r) ? n = r.apply(t, e) : r !== T && (n = r), k.isArray(h) ? h.push(n) : h !== T ? h = [h, n] : n !== T && (h = n), r;
+          })), S.isFunction(r) ? n = r.apply(t, e) : r !== T && (n = r), S.isArray(h) ? h.push(n) : h !== T ? h = [h, n] : n !== T && (h = n), r;
         }
-      }).preinitialize(), C ? (p === T && s.initialize(), s.invoke(x)) : (p !== T && p.invoke("destroy"), s.initialize());
+      }).preinitialize(), C ? (g === T && s.initialize(), s.invoke(x)) : (g !== T && g.invoke("destroy"), s.initialize());
     }), h !== T ? h : this;
-  }, k.fn.dimmer.settings = {
+  }, S.fn.dimmer.settings = {
     name: "Dimmer",
     namespace: "dimmer",
     silent: !1,
@@ -5036,7 +5132,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
     },
     template: {
       dimmer: function dimmer() {
-        return k("<div />").attr("class", "ui dimmer");
+        return S("<div />").attr("class", "ui dimmer");
       }
     }
   };
@@ -5044,16 +5140,16 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
   "use strict";
 
   z = void 0 !== z && z.Math == Math ? z : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), D.fn.modal = function (w) {
-    var k,
+    var S,
         e = D(this),
-        S = D(z),
+        k = D(z),
         T = D(M),
-        A = D("body"),
-        F = e.selector || "",
-        R = new Date().getTime(),
-        E = [],
-        P = w,
-        O = "string" == typeof P,
+        R = D("body"),
+        A = e.selector || "",
+        P = new Date().getTime(),
+        F = [],
+        E = w,
+        O = "string" == typeof E,
         q = [].slice.call(arguments, 1),
         j = z.requestAnimationFrame || z.mozRequestAnimationFrame || z.webkitRequestAnimationFrame || z.msRequestAnimationFrame || function (e) {
       setTimeout(e, 0);
@@ -5074,20 +5170,20 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           d = l.className,
           f = l.namespace,
           m = l.error,
-          p = "." + f,
-          g = "module-" + f,
+          g = "." + f,
+          p = "module-" + f,
           h = D(this),
           b = D(l.context),
           v = h.find(u.close),
           y = this,
-          x = h.data(g),
+          x = h.data(p),
           C = !1;
       c = {
         initialize: function initialize() {
           c.verbose("Initializing dimmer", b), c.create.id(), c.create.dimmer(), c.refreshModals(), c.bind.events(), l.observeChanges && c.observeChanges(), c.instantiate();
         },
         instantiate: function instantiate() {
-          c.verbose("Storing instance of modal"), x = c, h.data(g, x);
+          c.verbose("Storing instance of modal"), x = c, h.data(p, x);
         },
         create: {
           dimmer: function dimmer() {
@@ -5104,7 +5200,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }
         },
         destroy: function destroy() {
-          c.verbose("Destroying previous modal"), h.removeData(g).off(p), S.off(t), r.off(t), v.off(p), b.dimmer("destroy");
+          c.verbose("Destroying previous modal"), h.removeData(p).off(g), k.off(t), r.off(t), v.off(g), b.dimmer("destroy");
         },
         observeChanges: function observeChanges() {
           "MutationObserver" in z && ((s = new MutationObserver(function (e) {
@@ -5122,11 +5218,11 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         attachEvents: function attachEvents(e, t) {
           var n = D(e);
-          t = D.isFunction(c[t]) ? c[t] : c.toggle, 0 < n.length ? (c.debug("Attaching modal events to element", e, t), n.off(p).on("click" + p, t)) : c.error(m.notFound, e);
+          t = D.isFunction(c[t]) ? c[t] : c.toggle, 0 < n.length ? (c.debug("Attaching modal events to element", e, t), n.off(g).on("click" + g, t)) : c.error(m.notFound, e);
         },
         bind: {
           events: function events() {
-            c.verbose("Attaching events"), h.on("click" + p, u.close, c.event.close).on("click" + p, u.approve, c.event.approve).on("click" + p, u.deny, c.event.deny), S.on("resize" + t, c.event.resize);
+            c.verbose("Attaching events"), h.on("click" + g, u.close, c.event.close).on("click" + g, u.approve, c.event.approve).on("click" + g, u.deny, c.event.deny), k.on("resize" + t, c.event.resize);
           },
           scrollLock: function scrollLock() {
             o.get(0).addEventListener("touchmove", c.event.preventScroll, {
@@ -5242,7 +5338,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         add: {
           keyboardShortcuts: function keyboardShortcuts() {
-            c.verbose("Adding keyboard shortcuts"), T.on("keyup" + p, c.event.keyboard);
+            c.verbose("Adding keyboard shortcuts"), T.on("keyup" + g, c.event.keyboard);
           }
         },
         save: {
@@ -5269,13 +5365,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             r.removeClass(d.inverted), o.removeClass(d.blurring);
           },
           bodyStyle: function bodyStyle() {
-            "" === A.attr("style") && (c.verbose("Removing style attribute"), A.removeAttr("style"));
+            "" === R.attr("style") && (c.verbose("Removing style attribute"), R.removeAttr("style"));
           },
           screenHeight: function screenHeight() {
-            c.debug("Removing page height"), A.css("height", "");
+            c.debug("Removing page height"), R.css("height", "");
           },
           keyboardShortcuts: function keyboardShortcuts() {
-            c.verbose("Removing keyboard shortcuts"), T.off("keyup" + p);
+            c.verbose("Removing keyboard shortcuts"), T.off("keyup" + g);
           },
           scrolling: function scrolling() {
             o.removeClass(d.scrolling), h.removeClass(d.scrolling);
@@ -5364,7 +5460,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             }), c.verbose("Setting modal offset for legacy mode");
           },
           screenHeight: function screenHeight() {
-            c.can.fit() ? A.css("height", "") : (c.debug("Modal is taller than page content, resizing page height"), A.css("height", c.cache.height + 2 * l.padding));
+            c.can.fit() ? R.css("height", "") : (c.debug("Modal is taller than page content, resizing page height"), R.css("height", c.cache.height + 2 * l.padding));
           },
           active: function active() {
             h.addClass(d.active);
@@ -5406,7 +5502,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         performance: {
           log: function log(e) {
             var t, n;
-            l.performance && (n = (t = new Date().getTime()) - (R || t), R = t, E.push({
+            l.performance && (n = (t = new Date().getTime()) - (P || t), P = t, F.push({
               Name: e[0],
               Arguments: [].slice.call(e, 1) || "",
               Element: y,
@@ -5416,11 +5512,11 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = l.name + ":",
                 n = 0;
-            R = !1, clearTimeout(c.performance.timer), D.each(E, function (e, t) {
+            P = !1, clearTimeout(c.performance.timer), D.each(F, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", F && (e += " '" + F + "'"), (console.group !== N || console.table !== N) && 0 < E.length && (console.groupCollapsed(e), console.table ? console.table(E) : D.each(E, function (e, t) {
+            }), e += " " + n + "ms", A && (e += " '" + A + "'"), (console.group !== N || console.table !== N) && 0 < F.length && (console.groupCollapsed(e), console.table ? console.table(F) : D.each(F, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
-            }), console.groupEnd()), E = [];
+            }), console.groupEnd()), F = [];
           }
         },
         invoke: function invoke(i, e, t) {
@@ -5435,10 +5531,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               if (!D.isPlainObject(a[t]) || e == o) return a[t] !== N && (r = a[t]), !1;
               a = a[t];
             }
-          })), D.isFunction(r) ? n = r.apply(t, e) : r !== N && (n = r), D.isArray(k) ? k.push(n) : k !== N ? k = [k, n] : n !== N && (k = n), r;
+          })), D.isFunction(r) ? n = r.apply(t, e) : r !== N && (n = r), D.isArray(S) ? S.push(n) : S !== N ? S = [S, n] : n !== N && (S = n), r;
         }
-      }, O ? (x === N && c.initialize(), c.invoke(P)) : (x !== N && x.invoke("destroy"), c.initialize());
-    }), k !== N ? k : this;
+      }, O ? (x === N && c.initialize(), c.invoke(E)) : (x !== N && x.invoke("destroy"), c.initialize());
+    }), S !== N ? S : this;
   }, D.fn.modal.settings = {
     name: "Modal",
     namespace: "modal",
@@ -5500,19 +5596,19 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       undetached: "undetached"
     }
   };
-}(jQuery, window, document), function (P, e, O, q) {
+}(jQuery, window, document), function (E, e, O, q) {
   "use strict";
 
-  e = void 0 !== e && e.Math == Math ? e : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), P.fn.form = function (x) {
+  e = void 0 !== e && e.Math == Math ? e : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), E.fn.form = function (x) {
     var C,
-        w = P(this),
-        k = w.selector || "",
-        S = new Date().getTime(),
+        w = E(this),
+        S = w.selector || "",
+        k = new Date().getTime(),
         T = [],
-        A = x,
-        F = arguments[1],
-        R = "string" == typeof A,
-        E = [].slice.call(arguments, 1);
+        R = x,
+        A = arguments[1],
+        P = "string" == typeof R,
+        F = [].slice.call(arguments, 1);
     return w.each(function () {
       var n,
           c,
@@ -5527,22 +5623,22 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           s,
           o,
           r,
-          p,
           g,
+          p,
           h,
-          a = P(this),
+          a = E(this),
           b = this,
           v = [],
           y = !1;
       (h = {
         initialize: function initialize() {
-          h.get.settings(), R ? (g === q && h.instantiate(), h.invoke(A)) : (g !== q && g.invoke("destroy"), h.verbose("Initializing form validation", a, d), h.bindEvents(), h.set.defaults(), h.instantiate());
+          h.get.settings(), P ? (p === q && h.instantiate(), h.invoke(R)) : (p !== q && p.invoke("destroy"), h.verbose("Initializing form validation", a, d), h.bindEvents(), h.set.defaults(), h.instantiate());
         },
         instantiate: function instantiate() {
-          h.verbose("Storing instance of module", h), g = h, a.data(r, h);
+          h.verbose("Storing instance of module", h), p = h, a.data(r, h);
         },
         destroy: function destroy() {
-          h.verbose("Destroying previous module", g), h.removeEvents(), a.removeData(r);
+          h.verbose("Destroying previous module", p), h.removeEvents(), a.removeData(r);
         },
         refresh: function refresh() {
           h.verbose("Refreshing selector cache"), n = a.find(f.field), c = a.find(f.group), t = a.find(f.message), a.find(f.prompt), e = a.find(f.submit), a.find(f.clear), a.find(f.reset);
@@ -5551,21 +5647,21 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           h.verbose("Submitting form", a), a.submit();
         },
         attachEvents: function attachEvents(e, t) {
-          t = t || "submit", P(e).on("click" + p, function (e) {
+          t = t || "submit", E(e).on("click" + g, function (e) {
             h[t](), e.preventDefault();
           });
         },
         bindEvents: function bindEvents() {
-          h.verbose("Attaching form events"), a.on("submit" + p, h.validate.form).on("blur" + p, f.field, h.event.field.blur).on("click" + p, f.submit, h.submit).on("click" + p, f.reset, h.reset).on("click" + p, f.clear, h.clear), d.keyboardShortcuts && a.on("keydown" + p, f.field, h.event.field.keydown), n.each(function () {
-            var e = P(this),
+          h.verbose("Attaching form events"), a.on("submit" + g, h.validate.form).on("blur" + g, f.field, h.event.field.blur).on("click" + g, f.submit, h.submit).on("click" + g, f.reset, h.reset).on("click" + g, f.clear, h.clear), d.keyboardShortcuts && a.on("keydown" + g, f.field, h.event.field.keydown), n.each(function () {
+            var e = E(this),
                 t = e.prop("type"),
                 n = h.get.changeEvent(t, e);
-            P(this).on(n + p, h.event.field.change);
+            E(this).on(n + g, h.event.field.change);
           });
         },
         clear: function clear() {
           n.each(function () {
-            var e = P(this),
+            var e = E(this),
                 t = e.parent(),
                 n = e.closest(c),
                 i = n.find(f.prompt),
@@ -5577,7 +5673,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         reset: function reset() {
           n.each(function () {
-            var e = P(this),
+            var e = E(this),
                 t = e.parent(),
                 n = e.closest(c),
                 i = n.find(f.prompt),
@@ -5591,7 +5687,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         determine: {
           isValid: function isValid() {
             var n = !0;
-            return P.each(l, function (e, t) {
+            return E.each(l, function (e, t) {
               h.validate.field(t, e, !0) || (n = !1);
             }), n;
           }
@@ -5605,46 +5701,46 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return h.is.shorthandRules(t);
           },
           shorthandRules: function shorthandRules(e) {
-            return "string" == typeof e || P.isArray(e);
+            return "string" == typeof e || E.isArray(e);
           },
           empty: function empty(e) {
             return !e || 0 === e.length || (e.is('input[type="checkbox"]') ? !e.is(":checked") : h.is.blank(e));
           },
           blank: function blank(e) {
-            return "" === P.trim(e.val());
+            return "" === E.trim(e.val());
           },
           valid: function valid(e) {
             var n = !0;
-            return e ? (h.verbose("Checking if field is valid", e), h.validate.field(l[e], e, !1)) : (h.verbose("Checking if form is valid"), P.each(l, function (e, t) {
+            return e ? (h.verbose("Checking if field is valid", e), h.validate.field(l[e], e, !1)) : (h.verbose("Checking if form is valid"), E.each(l, function (e, t) {
               h.is.valid(e) || (n = !1);
             }), n);
           }
         },
         removeEvents: function removeEvents() {
-          a.off(p), n.off(p), e.off(p), n.off(p);
+          a.off(g), n.off(g), e.off(g), n.off(g);
         },
         event: {
           field: {
             keydown: function keydown(e) {
-              var t = P(this),
+              var t = E(this),
                   n = e.which,
                   i = t.is(f.input),
                   o = t.is(f.checkbox),
                   r = 0 < t.closest(f.uiDropdown).length,
                   a = 13;
-              n == 27 && (h.verbose("Escape key pressed blurring field"), t.blur()), e.ctrlKey || n != a || !i || r || o || (y || (t.one("keyup" + p, h.event.field.keyup), h.submit(), h.debug("Enter pressed on input submitting form")), y = !0);
+              n == 27 && (h.verbose("Escape key pressed blurring field"), t.blur()), e.ctrlKey || n != a || !i || r || o || (y || (t.one("keyup" + g, h.event.field.keyup), h.submit(), h.debug("Enter pressed on input submitting form")), y = !0);
             },
             keyup: function keyup() {
               y = !1;
             },
             blur: function blur(e) {
-              var t = P(this),
+              var t = E(this),
                   n = t.closest(c),
                   i = h.get.validation(t);
               n.hasClass(m.error) ? (h.debug("Revalidating field", t, i), i && h.validate.field(i)) : "blur" == d.on && i && h.validate.field(i);
             },
             change: function change(e) {
-              var t = P(this),
+              var t = E(this),
                   n = t.closest(c),
                   i = h.get.validation(t);
               i && ("change" == d.on || n.hasClass(m.error) && d.revalidate) && (clearTimeout(h.timer), h.timer = setTimeout(function () {
@@ -5668,10 +5764,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           },
           fieldsFromShorthand: function fieldsFromShorthand(e) {
             var i = {};
-            return P.each(e, function (n, e) {
+            return E.each(e, function (n, e) {
               "string" == typeof e && (e = [e]), i[n] = {
                 rules: []
-              }, P.each(e, function (e, t) {
+              }, E.each(e, function (e, t) {
                 i[n].rules.push({
                   type: t
                 });
@@ -5685,31 +5781,31 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 r = h.get.ancillaryValue(e),
                 a = h.get.field(t.identifier),
                 s = a.val(),
-                c = P.isFunction(e.prompt) ? e.prompt(s) : e.prompt || d.prompt[o] || d.text.unspecifiedRule,
+                c = E.isFunction(e.prompt) ? e.prompt(s) : e.prompt || d.prompt[o] || d.text.unspecifiedRule,
                 l = -1 !== c.search("{value}"),
                 u = -1 !== c.search("{name}");
             return l && (c = c.replace("{value}", a.val())), u && (i = 1 == (n = a.closest(f.group).find("label").eq(0)).length ? n.text() : a.prop("placeholder") || d.text.unspecifiedField, c = c.replace("{name}", i)), c = (c = c.replace("{identifier}", t.identifier)).replace("{ruleValue}", r), e.prompt || h.verbose("Using default validation prompt for type", c, o), c;
           },
           settings: function settings() {
-            if (P.isPlainObject(x)) {
+            if (E.isPlainObject(x)) {
               var e = Object.keys(x);
-              0 < e.length && x[e[0]].identifier !== q && x[e[0]].rules !== q ? (d = P.extend(!0, {}, P.fn.form.settings, F), l = P.extend({}, P.fn.form.settings.defaults, x), h.error(d.error.oldSyntax, b), h.verbose("Extending settings from legacy parameters", l, d)) : (x.fields && h.is.shorthandFields(x.fields) && (x.fields = h.get.fieldsFromShorthand(x.fields)), d = P.extend(!0, {}, P.fn.form.settings, x), l = P.extend({}, P.fn.form.settings.defaults, d.fields), h.verbose("Extending settings", l, d));
-            } else d = P.fn.form.settings, l = P.fn.form.settings.defaults, h.verbose("Using default form validation", l, d);
+              0 < e.length && x[e[0]].identifier !== q && x[e[0]].rules !== q ? (d = E.extend(!0, {}, E.fn.form.settings, A), l = E.extend({}, E.fn.form.settings.defaults, x), h.error(d.error.oldSyntax, b), h.verbose("Extending settings from legacy parameters", l, d)) : (x.fields && h.is.shorthandFields(x.fields) && (x.fields = h.get.fieldsFromShorthand(x.fields)), d = E.extend(!0, {}, E.fn.form.settings, x), l = E.extend({}, E.fn.form.settings.defaults, d.fields), h.verbose("Extending settings", l, d));
+            } else d = E.fn.form.settings, l = E.fn.form.settings.defaults, h.verbose("Using default form validation", l, d);
 
-            o = d.namespace, u = d.metadata, f = d.selector, m = d.className, i = d.regExp, s = d.error, r = "module-" + o, p = "." + o, g = a.data(r), h.refresh();
+            o = d.namespace, u = d.metadata, f = d.selector, m = d.className, i = d.regExp, s = d.error, r = "module-" + o, g = "." + o, p = a.data(r), h.refresh();
           },
           field: function field(e) {
-            return h.verbose("Finding field with identifier", e), e = h.escape.string(e), 0 < n.filter("#" + e).length ? n.filter("#" + e) : 0 < n.filter('[name="' + e + '"]').length ? n.filter('[name="' + e + '"]') : 0 < n.filter('[name="' + e + '[]"]').length ? n.filter('[name="' + e + '[]"]') : 0 < n.filter("[data-" + u.validate + '="' + e + '"]').length ? n.filter("[data-" + u.validate + '="' + e + '"]') : P("<input/>");
+            return h.verbose("Finding field with identifier", e), e = h.escape.string(e), 0 < n.filter("#" + e).length ? n.filter("#" + e) : 0 < n.filter('[name="' + e + '"]').length ? n.filter('[name="' + e + '"]') : 0 < n.filter('[name="' + e + '[]"]').length ? n.filter('[name="' + e + '[]"]') : 0 < n.filter("[data-" + u.validate + '="' + e + '"]').length ? n.filter("[data-" + u.validate + '="' + e + '"]') : E("<input/>");
           },
           fields: function fields(e) {
-            var n = P();
-            return P.each(e, function (e, t) {
+            var n = E();
+            return E.each(e, function (e, t) {
               n = n.add(h.get.field(t));
             }), n;
           },
           validation: function validation(n) {
             var i, o;
-            return !!l && (P.each(l, function (e, t) {
+            return !!l && (E.each(l, function (e, t) {
               o = t.identifier || e, h.get.field(o)[0] == n[0] && (t.identifier = o, i = t);
             }), i || !1);
           },
@@ -5718,10 +5814,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return t.push(e), h.get.values.call(b, t)[e];
           },
           values: function values(e) {
-            var t = P.isArray(e) ? h.get.fields(e) : n,
+            var t = E.isArray(e) ? h.get.fields(e) : n,
                 l = {};
             return t.each(function (e, t) {
-              var n = P(t),
+              var n = E(t),
                   i = (n.prop("type"), n.prop("name")),
                   o = n.val(),
                   r = n.is(f.checkbox),
@@ -5748,23 +5844,23 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           },
           field: function field(n, e) {
             var i = {};
-            h.is.shorthandRules(e) ? (e = P.isArray(e) ? e : [e], i[n] = {
+            h.is.shorthandRules(e) ? (e = E.isArray(e) ? e : [e], i[n] = {
               rules: []
-            }, P.each(e, function (e, t) {
+            }, E.each(e, function (e, t) {
               i[n].rules.push({
                 type: t
               });
-            })) : i[n] = e, l = P.extend({}, l, i), h.debug("Adding rules", i, l);
+            })) : i[n] = e, l = E.extend({}, l, i), h.debug("Adding rules", i, l);
           },
           fields: function fields(e) {
             var t;
-            t = e && h.is.shorthandFields(e) ? h.get.fieldsFromShorthand(e) : e, l = P.extend({}, l, t);
+            t = e && h.is.shorthandFields(e) ? h.get.fieldsFromShorthand(e) : e, l = E.extend({}, l, t);
           },
           prompt: function prompt(e, t) {
             var n = h.get.field(e).closest(c),
                 i = n.children(f.prompt),
                 o = 0 !== i.length;
-            t = "string" == typeof t ? [t] : t, h.verbose("Adding field error state", e), n.addClass(m.error), d.inline && (o || (i = d.templates.prompt(t)).appendTo(n), i.html(t[0]), o ? h.verbose("Inline errors are disabled, no inline error added", e) : d.transition && P.fn.transition !== q && a.transition("is supported") ? (h.verbose("Displaying error with css transition", d.transition), i.transition(d.transition + " in", d.duration)) : (h.verbose("Displaying error with fallback javascript animation"), i.fadeIn(d.duration)));
+            t = "string" == typeof t ? [t] : t, h.verbose("Adding field error state", e), n.addClass(m.error), d.inline && (o || (i = d.templates.prompt(t)).appendTo(n), i.html(t[0]), o ? h.verbose("Inline errors are disabled, no inline error added", e) : d.transition && E.fn.transition !== q && a.transition("is supported") ? (h.verbose("Displaying error with css transition", d.transition), i.transition(d.transition + " in", d.duration)) : (h.verbose("Displaying error with fallback javascript animation"), i.fadeIn(d.duration)));
           },
           errors: function errors(e) {
             h.debug("Adding form error messages", e), h.set.error(), t.html(d.templates.error(e));
@@ -5772,20 +5868,20 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         remove: {
           rule: function rule(n, e) {
-            var i = P.isArray(e) ? e : [e];
+            var i = E.isArray(e) ? e : [e];
             if (e == q) return h.debug("Removed all rules"), void (l[n].rules = []);
-            l[n] != q && P.isArray(l[n].rules) && P.each(l[n].rules, function (e, t) {
+            l[n] != q && E.isArray(l[n].rules) && E.each(l[n].rules, function (e, t) {
               -1 !== i.indexOf(t.type) && (h.debug("Removed rule", t.type), l[n].rules.splice(e, 1));
             });
           },
           field: function field(e) {
-            var t = P.isArray(e) ? e : [e];
-            P.each(t, function (e, t) {
+            var t = E.isArray(e) ? e : [e];
+            E.each(t, function (e, t) {
               h.remove.rule(t);
             });
           },
           rules: function rules(e, n) {
-            P.isArray(e) ? P.each(fields, function (e, t) {
+            E.isArray(e) ? E.each(fields, function (e, t) {
               h.remove.rule(t, n);
             }) : h.remove.rule(e, n);
           },
@@ -5795,7 +5891,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           prompt: function prompt(e) {
             var t = h.get.field(e).closest(c),
                 n = t.children(f.prompt);
-            t.removeClass(m.error), d.inline && n.is(":visible") && (h.verbose("Removing prompt for field", e), d.transition && P.fn.transition !== q && a.transition("is supported") ? n.transition(d.transition + " out", d.duration, function () {
+            t.removeClass(m.error), d.inline && n.is(":visible") && (h.verbose("Removing prompt for field", e), d.transition && E.fn.transition !== q && a.transition("is supported") ? n.transition(d.transition + " out", d.duration, function () {
               n.remove();
             }) : n.fadeOut(d.duration, function () {
               n.remove();
@@ -5808,7 +5904,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           },
           defaults: function defaults() {
             n.each(function () {
-              var e = P(this),
+              var e = E(this),
                   t = 0 < e.filter(f.checkbox).length ? e.is(":checked") : e.val();
               e.data(u.defaultValue, t);
             });
@@ -5821,15 +5917,15 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return n[e] = t, h.set.values.call(b, n);
           },
           values: function values(e) {
-            P.isEmptyObject(e) || P.each(e, function (e, t) {
+            E.isEmptyObject(e) || E.each(e, function (e, t) {
               var n,
                   i = h.get.field(e),
                   o = i.parent(),
-                  r = P.isArray(t),
+                  r = E.isArray(t),
                   a = o.is(f.uiCheckbox),
                   s = o.is(f.uiDropdown),
                   c = i.is(f.radio) && a;
-              0 < i.length && (r && a ? (h.verbose("Selecting multiple", t, i), o.checkbox("uncheck"), P.each(t, function (e, t) {
+              0 < i.length && (r && a ? (h.verbose("Selecting multiple", t, i), o.checkbox("uncheck"), E.each(t, function (e, t) {
                 n = i.filter('[value="' + t + '"]'), o = n.parent(), 0 < n.length && o.checkbox("check");
               })) : c ? (h.verbose("Selecting radio value", t, i), i.filter('[value="' + t + '"]').parent(f.uiCheckbox).checkbox("check")) : a ? (h.verbose("Setting checkbox value", t, o), !0 === t ? o.checkbox("check") : o.checkbox("uncheck")) : s ? (h.verbose("Setting dropdown value", t, o), o.dropdown("set selected", t)) : (h.verbose("Setting field value", t, i), i.val(t)));
             });
@@ -5851,7 +5947,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 r = !!n.depends && h.get.field(n.depends),
                 a = !0,
                 s = [];
-            return n.identifier || (h.debug("Using field name as identifier", i), n.identifier = i), o.prop("disabled") ? (h.debug("Field is disabled. Skipping", i), a = !0) : n.optional && h.is.blank(o) ? (h.debug("Field is optional and blank. Skipping", i), a = !0) : n.depends && h.is.empty(r) ? (h.debug("Field depends on another value that is not present or empty. Skipping", r), a = !0) : n.rules !== q && P.each(n.rules, function (e, t) {
+            return n.identifier || (h.debug("Using field name as identifier", i), n.identifier = i), o.prop("disabled") ? (h.debug("Field is disabled. Skipping", i), a = !0) : n.optional && h.is.blank(o) ? (h.debug("Field is optional and blank. Skipping", i), a = !0) : n.depends && h.is.empty(r) ? (h.debug("Field depends on another value that is not present or empty. Skipping", r), a = !0) : n.rules !== q && E.each(n.rules, function (e, t) {
               h.has.field(i) && !h.validate.rule(n, t) && (h.debug("Field is invalid", i, t.type), s.push(h.get.prompt(t, n)), a = !1);
             }), a ? (t && (h.remove.prompt(i, s), d.onValid.call(o)), !0) : (t && (v = v.concat(s), h.add.prompt(i, s), d.onInvalid.call(o, s)), !1);
           },
@@ -5861,18 +5957,18 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 o = h.get.ancillaryValue(t),
                 r = h.get.ruleName(t),
                 a = d.rules[r];
-            if (P.isFunction(a)) return i = i === q || "" === i || null === i ? "" : P.trim(i + ""), a.call(n, i, o);
+            if (E.isFunction(a)) return i = i === q || "" === i || null === i ? "" : E.trim(i + ""), a.call(n, i, o);
             h.error(s.noRule, r);
           }
         },
         setting: function setting(e, t) {
-          if (P.isPlainObject(e)) P.extend(!0, d, e);else {
+          if (E.isPlainObject(e)) E.extend(!0, d, e);else {
             if (t === q) return d[e];
             d[e] = t;
           }
         },
         internal: function internal(e, t) {
-          if (P.isPlainObject(e)) P.extend(!0, h, e);else {
+          if (E.isPlainObject(e)) E.extend(!0, h, e);else {
             if (t === q) return h[e];
             h[e] = t;
           }
@@ -5889,7 +5985,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         performance: {
           log: function log(e) {
             var t, n;
-            d.performance && (n = (t = new Date().getTime()) - (S || t), S = t, T.push({
+            d.performance && (n = (t = new Date().getTime()) - (k || t), k = t, T.push({
               Name: e[0],
               Arguments: [].slice.call(e, 1) || "",
               Element: b,
@@ -5899,9 +5995,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = d.name + ":",
                 n = 0;
-            S = !1, clearTimeout(h.performance.timer), P.each(T, function (e, t) {
+            k = !1, clearTimeout(h.performance.timer), E.each(T, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", k && (e += " '" + k + "'"), 1 < w.length && (e += " (" + w.length + ")"), (console.group !== q || console.table !== q) && 0 < T.length && (console.groupCollapsed(e), console.table ? console.table(T) : P.each(T, function (e, t) {
+            }), e += " " + n + "ms", S && (e += " '" + S + "'"), 1 < w.length && (e += " (" + w.length + ")"), (console.group !== q || console.table !== q) && 0 < T.length && (console.groupCollapsed(e), console.table ? console.table(T) : E.each(T, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
             }), console.groupEnd()), T = [];
           }
@@ -5910,19 +6006,19 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           var o,
               r,
               n,
-              a = g;
-          return e = e || E, t = b || t, "string" == typeof i && a !== q && (i = i.split(/[\. ]/), o = i.length - 1, P.each(i, function (e, t) {
+              a = p;
+          return e = e || F, t = b || t, "string" == typeof i && a !== q && (i = i.split(/[\. ]/), o = i.length - 1, E.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
-            if (P.isPlainObject(a[n]) && e != o) a = a[n];else {
+            if (E.isPlainObject(a[n]) && e != o) a = a[n];else {
               if (a[n] !== q) return r = a[n], !1;
-              if (!P.isPlainObject(a[t]) || e == o) return a[t] !== q && (r = a[t]), !1;
+              if (!E.isPlainObject(a[t]) || e == o) return a[t] !== q && (r = a[t]), !1;
               a = a[t];
             }
-          })), P.isFunction(r) ? n = r.apply(t, e) : r !== q && (n = r), P.isArray(C) ? C.push(n) : C !== q ? C = [C, n] : n !== q && (C = n), r;
+          })), E.isFunction(r) ? n = r.apply(t, e) : r !== q && (n = r), E.isArray(C) ? C.push(n) : C !== q ? C = [C, n] : n !== q && (C = n), r;
         }
       }).initialize();
     }), C !== q ? C : this;
-  }, P.fn.form.settings = {
+  }, E.fn.form.settings = {
     name: "Form",
     namespace: "form",
     debug: !1,
@@ -6020,45 +6116,45 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
     templates: {
       error: function error(e) {
         var n = '<ul class="list">';
-        return P.each(e, function (e, t) {
+        return E.each(e, function (e, t) {
           n += "<li>" + t + "</li>";
-        }), P(n += "</ul>");
+        }), E(n += "</ul>");
       },
       prompt: function prompt(e) {
-        return P("<div/>").addClass("ui basic red pointing prompt label").html(e[0]);
+        return E("<div/>").addClass("ui basic red pointing prompt label").html(e[0]);
       }
     },
     rules: {
       empty: function empty(e) {
-        return !(e === q || "" === e || P.isArray(e) && 0 === e.length);
+        return !(e === q || "" === e || E.isArray(e) && 0 === e.length);
       },
       checked: function checked() {
-        return 0 < P(this).filter(":checked").length;
+        return 0 < E(this).filter(":checked").length;
       },
       email: function email(e) {
-        return P.fn.form.settings.regExp.email.test(e);
+        return E.fn.form.settings.regExp.email.test(e);
       },
       url: function url(e) {
-        return P.fn.form.settings.regExp.url.test(e);
+        return E.fn.form.settings.regExp.url.test(e);
       },
       regExp: function regExp(e, t) {
         if (t instanceof RegExp) return e.match(t);
         var n,
-            i = t.match(P.fn.form.settings.regExp.flags);
+            i = t.match(E.fn.form.settings.regExp.flags);
         return i && (t = 2 <= i.length ? i[1] : t, n = 3 <= i.length ? i[2] : ""), e.match(new RegExp(t, n));
       },
       integer: function integer(e, t) {
         var n,
             i,
             o,
-            r = P.fn.form.settings.regExp.integer;
+            r = E.fn.form.settings.regExp.integer;
         return t && -1 === ["", ".."].indexOf(t) && (-1 == t.indexOf("..") ? r.test(t) && (n = i = t - 0) : (o = t.split("..", 2), r.test(o[0]) && (n = o[0] - 0), r.test(o[1]) && (i = o[1] - 0))), r.test(e) && (n === q || n <= e) && (i === q || e <= i);
       },
       decimal: function decimal(e) {
-        return P.fn.form.settings.regExp.decimal.test(e);
+        return E.fn.form.settings.regExp.decimal.test(e);
       },
       number: function number(e) {
-        return P.fn.form.settings.regExp.number.test(e);
+        return E.fn.form.settings.regExp.number.test(e);
       },
       is: function is(e, t) {
         return t = "string" == typeof t ? t.toLowerCase() : t, (e = "string" == typeof e ? e.toLowerCase() : e) == t;
@@ -6073,16 +6169,16 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         return e != t;
       },
       contains: function contains(e, t) {
-        return t = t.replace(P.fn.form.settings.regExp.escape, "\\$&"), -1 !== e.search(new RegExp(t, "i"));
+        return t = t.replace(E.fn.form.settings.regExp.escape, "\\$&"), -1 !== e.search(new RegExp(t, "i"));
       },
       containsExactly: function containsExactly(e, t) {
-        return t = t.replace(P.fn.form.settings.regExp.escape, "\\$&"), -1 !== e.search(new RegExp(t));
+        return t = t.replace(E.fn.form.settings.regExp.escape, "\\$&"), -1 !== e.search(new RegExp(t));
       },
       doesntContain: function doesntContain(e, t) {
-        return t = t.replace(P.fn.form.settings.regExp.escape, "\\$&"), -1 === e.search(new RegExp(t, "i"));
+        return t = t.replace(E.fn.form.settings.regExp.escape, "\\$&"), -1 === e.search(new RegExp(t, "i"));
       },
       doesntContainExactly: function doesntContainExactly(e, t) {
-        return t = t.replace(P.fn.form.settings.regExp.escape, "\\$&"), -1 === e.search(new RegExp(t));
+        return t = t.replace(E.fn.form.settings.regExp.escape, "\\$&"), -1 === e.search(new RegExp(t));
       },
       minLength: function minLength(e, t) {
         return e !== q && e.length >= t;
@@ -6098,13 +6194,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       },
       match: function match(e, t) {
         var n;
-        P(this);
-        return 0 < P('[data-validate="' + t + '"]').length ? n = P('[data-validate="' + t + '"]').val() : 0 < P("#" + t).length ? n = P("#" + t).val() : 0 < P('[name="' + t + '"]').length ? n = P('[name="' + t + '"]').val() : 0 < P('[name="' + t + '[]"]').length && (n = P('[name="' + t + '[]"]')), n !== q && e.toString() == n.toString();
+        E(this);
+        return 0 < E('[data-validate="' + t + '"]').length ? n = E('[data-validate="' + t + '"]').val() : 0 < E("#" + t).length ? n = E("#" + t).val() : 0 < E('[name="' + t + '"]').length ? n = E('[name="' + t + '"]').val() : 0 < E('[name="' + t + '[]"]').length && (n = E('[name="' + t + '[]"]')), n !== q && e.toString() == n.toString();
       },
       different: function different(e, t) {
         var n;
-        P(this);
-        return 0 < P('[data-validate="' + t + '"]').length ? n = P('[data-validate="' + t + '"]').val() : 0 < P("#" + t).length ? n = P("#" + t).val() : 0 < P('[name="' + t + '"]').length ? n = P('[name="' + t + '"]').val() : 0 < P('[name="' + t + '[]"]').length && (n = P('[name="' + t + '[]"]')), n !== q && e.toString() !== n.toString();
+        E(this);
+        return 0 < E('[data-validate="' + t + '"]').length ? n = E('[data-validate="' + t + '"]').val() : 0 < E("#" + t).length ? n = E("#" + t).val() : 0 < E('[name="' + t + '"]').length ? n = E('[name="' + t + '"]').val() : 0 < E('[name="' + t + '[]"]').length && (n = E('[name="' + t + '[]"]')), n !== q && e.toString() !== n.toString();
       },
       creditCard: function creditCard(n, e) {
         var t,
@@ -6156,14 +6252,14 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             s = "string" == typeof e && e.split(",");
 
         if ("string" == typeof n && 0 !== n.length) {
-          if (n = n.replace(/[\-]/g, ""), s && (P.each(s, function (e, t) {
+          if (n = n.replace(/[\-]/g, ""), s && (E.each(s, function (e, t) {
             (i = o[t]) && (r = {
-              length: -1 !== P.inArray(n.length, i.length),
+              length: -1 !== E.inArray(n.length, i.length),
               pattern: -1 !== n.search(i.pattern)
             }).length && r.pattern && (a = !0);
           }), !a)) return !1;
           if ((t = {
-            number: -1 !== P.inArray(n.length, o.unionPay.length),
+            number: -1 !== E.inArray(n.length, o.unionPay.length),
             pattern: -1 !== n.search(o.unionPay.pattern)
           }).number && t.pattern) return !0;
 
@@ -6185,83 +6281,83 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       }
     }
   };
-}(jQuery, window, document), function (E, P, O, q) {
+}(jQuery, window, document), function (F, E, O, q) {
   "use strict";
 
-  P = void 0 !== P && P.Math == Math ? P : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), E.fn.tab = function (a) {
+  E = void 0 !== E && E.Math == Math ? E : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), F.fn.tab = function (a) {
     var l,
-        u = E.isFunction(this) ? E(P) : E(this),
+        u = F.isFunction(this) ? F(E) : F(this),
         d = u.selector || "",
         f = new Date().getTime(),
         m = [],
-        p = a,
-        A = "string" == typeof p,
-        F = [].slice.call(arguments, 1),
-        R = !1;
+        g = a,
+        R = "string" == typeof g,
+        A = [].slice.call(arguments, 1),
+        P = !1;
     return u.each(function () {
-      var g,
+      var p,
           r,
           h,
           b,
           v,
           y,
-          x = E.isPlainObject(a) ? E.extend(!0, {}, E.fn.tab.settings, a) : E.extend({}, E.fn.tab.settings),
+          x = F.isPlainObject(a) ? F.extend(!0, {}, F.fn.tab.settings, a) : F.extend({}, F.fn.tab.settings),
           C = x.className,
           w = x.metadata,
           t = x.selector,
-          k = x.error,
+          S = x.error,
           e = "." + x.namespace,
           n = "module-" + x.namespace,
-          S = E(this),
+          k = F(this),
           i = {},
           T = !0,
           o = 0,
           s = this,
-          c = S.data(n);
+          c = k.data(n);
       v = {
         initialize: function initialize() {
-          v.debug("Initializing tab menu item", S), v.fix.callbacks(), v.determineTabs(), v.debug("Determining tabs", x.context, r), x.auto && v.set.auto(), v.bind.events(), x.history && !R && (v.initializeHistory(), R = !0), v.instantiate();
+          v.debug("Initializing tab menu item", k), v.fix.callbacks(), v.determineTabs(), v.debug("Determining tabs", x.context, r), x.auto && v.set.auto(), v.bind.events(), x.history && !P && (v.initializeHistory(), P = !0), v.instantiate();
         },
         instantiate: function instantiate() {
-          v.verbose("Storing instance of module", v), c = v, S.data(n, v);
+          v.verbose("Storing instance of module", v), c = v, k.data(n, v);
         },
         destroy: function destroy() {
-          v.debug("Destroying tabs", S), S.removeData(n).off(e);
+          v.debug("Destroying tabs", k), k.removeData(n).off(e);
         },
         bind: {
           events: function events() {
-            E.isWindow(s) || (v.debug("Attaching tab activation events to element", S), S.on("click" + e, v.event.click));
+            F.isWindow(s) || (v.debug("Attaching tab activation events to element", k), k.on("click" + e, v.event.click));
           }
         },
         determineTabs: function determineTabs() {
           var e;
-          "parent" === x.context ? (0 < S.closest(t.ui).length ? (e = S.closest(t.ui), v.verbose("Using closest UI element as parent", e)) : e = S, g = e.parent(), v.verbose("Determined parent element for creating context", g)) : x.context ? (g = E(x.context), v.verbose("Using selector for tab context", x.context, g)) : g = E("body"), x.childrenOnly ? (r = g.children(t.tabs), v.debug("Searching tab context children for tabs", g, r)) : (r = g.find(t.tabs), v.debug("Searching tab context for tabs", g, r));
+          "parent" === x.context ? (0 < k.closest(t.ui).length ? (e = k.closest(t.ui), v.verbose("Using closest UI element as parent", e)) : e = k, p = e.parent(), v.verbose("Determined parent element for creating context", p)) : x.context ? (p = F(x.context), v.verbose("Using selector for tab context", x.context, p)) : p = F("body"), x.childrenOnly ? (r = p.children(t.tabs), v.debug("Searching tab context children for tabs", p, r)) : (r = p.find(t.tabs), v.debug("Searching tab context for tabs", p, r));
         },
         fix: {
           callbacks: function callbacks() {
-            E.isPlainObject(a) && (a.onTabLoad || a.onTabInit) && (a.onTabLoad && (a.onLoad = a.onTabLoad, delete a.onTabLoad, v.error(k.legacyLoad, a.onLoad)), a.onTabInit && (a.onFirstLoad = a.onTabInit, delete a.onTabInit, v.error(k.legacyInit, a.onFirstLoad)), x = E.extend(!0, {}, E.fn.tab.settings, a));
+            F.isPlainObject(a) && (a.onTabLoad || a.onTabInit) && (a.onTabLoad && (a.onLoad = a.onTabLoad, delete a.onTabLoad, v.error(S.legacyLoad, a.onLoad)), a.onTabInit && (a.onFirstLoad = a.onTabInit, delete a.onTabInit, v.error(S.legacyInit, a.onFirstLoad)), x = F.extend(!0, {}, F.fn.tab.settings, a));
           }
         },
         initializeHistory: function initializeHistory() {
-          if (v.debug("Initializing page state"), E.address === q) return v.error(k.state), !1;
+          if (v.debug("Initializing page state"), F.address === q) return v.error(S.state), !1;
 
           if ("state" == x.historyType) {
-            if (v.debug("Using HTML5 to manage state"), !1 === x.path) return v.error(k.path), !1;
-            E.address.history(!0).state(x.path);
+            if (v.debug("Using HTML5 to manage state"), !1 === x.path) return v.error(S.path), !1;
+            F.address.history(!0).state(x.path);
           }
 
-          E.address.bind("change", v.event.history.change);
+          F.address.bind("change", v.event.history.change);
         },
         event: {
           click: function click(e) {
-            var t = E(this).data(w.tab);
-            t !== q ? (x.history ? (v.verbose("Updating page state", e), E.address.value(t)) : (v.verbose("Changing tab", e), v.changeTab(t)), e.preventDefault()) : v.debug("No tab specified");
+            var t = F(this).data(w.tab);
+            t !== q ? (x.history ? (v.verbose("Updating page state", e), F.address.value(t)) : (v.verbose("Changing tab", e), v.changeTab(t)), e.preventDefault()) : v.debug("No tab specified");
           },
           history: {
             change: function change(e) {
               var t = e.pathNames.join("/") || v.get.initialPath(),
                   n = x.templates.determineTitle(t) || !1;
-              v.performance.display(), v.debug("History change event", t, e), y = e, t !== q && v.changeTab(t), n && E.address.title(n);
+              v.performance.display(), v.debug("History change event", t, e), y = e, t !== q && v.changeTab(t), n && F.address.title(n);
             }
           }
         },
@@ -6282,7 +6378,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         set: {
           auto: function auto() {
             var e = "string" == typeof x.path ? x.path.replace(/\/$/, "") + "/{$tab}" : "/{$tab}";
-            v.verbose("Setting up automatic tab retrieval from server", e), E.isPlainObject(x.apiSettings) ? x.apiSettings.url = e : x.apiSettings = {
+            v.verbose("Setting up automatic tab retrieval from server", e), F.isPlainObject(x.apiSettings) ? x.apiSettings.url = e : x.apiSettings = {
               url: e
             };
           },
@@ -6291,30 +6387,30 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             t.hasClass(C.loading) || (v.verbose("Setting loading state for", t), t.addClass(C.loading).siblings(r).removeClass(C.active + " " + C.loading), 0 < t.length && x.onRequest.call(t[0], e));
           },
           state: function state(e) {
-            E.address.value(e);
+            F.address.value(e);
           }
         },
         changeTab: function changeTab(d) {
-          var f = P.history && P.history.pushState && x.ignoreFirstLoad && T,
-              m = x.auto || E.isPlainObject(x.apiSettings),
-              p = m && !f ? v.utilities.pathToArray(d) : v.get.defaultPathArray(d);
-          d = v.utilities.arrayToPath(p), E.each(p, function (e, t) {
+          var f = E.history && E.history.pushState && x.ignoreFirstLoad && T,
+              m = x.auto || F.isPlainObject(x.apiSettings),
+              g = m && !f ? v.utilities.pathToArray(d) : v.get.defaultPathArray(d);
+          d = v.utilities.arrayToPath(g), F.each(g, function (e, t) {
             var n,
                 i,
                 o,
                 r,
-                a = p.slice(0, e + 1),
+                a = g.slice(0, e + 1),
                 s = v.utilities.arrayToPath(a),
                 c = v.is.tab(s),
-                l = e + 1 == p.length,
+                l = e + 1 == g.length,
                 u = v.get.tabElement(s);
 
             if (v.verbose("Looking for tab", t), c) {
-              if (v.verbose("Tab was found", t), h = s, b = v.utilities.filterArray(p, a), l ? r = !0 : (i = p.slice(0, e + 2), o = v.utilities.arrayToPath(i), (r = !v.is.tab(o)) && v.verbose("Tab parameters found", i)), r && m) return f ? (v.debug("Ignoring remote content on first tab load", s), T = !1, v.cache.add(d, u.html()), v.activate.all(s), x.onFirstLoad.call(u[0], s, b, y), x.onLoad.call(u[0], s, b, y)) : (v.activate.navigation(s), v.fetch.content(s, d)), !1;
+              if (v.verbose("Tab was found", t), h = s, b = v.utilities.filterArray(g, a), l ? r = !0 : (i = g.slice(0, e + 2), o = v.utilities.arrayToPath(i), (r = !v.is.tab(o)) && v.verbose("Tab parameters found", i)), r && m) return f ? (v.debug("Ignoring remote content on first tab load", s), T = !1, v.cache.add(d, u.html()), v.activate.all(s), x.onFirstLoad.call(u[0], s, b, y), x.onLoad.call(u[0], s, b, y)) : (v.activate.navigation(s), v.fetch.content(s, d)), !1;
               v.debug("Opened local tab", s), v.activate.all(s), v.cache.read(s) || (v.cache.add(s, !0), v.debug("First time tab loaded calling tab init"), x.onFirstLoad.call(u[0], s, b, y)), x.onLoad.call(u[0], s, b, y);
             } else {
-              if (-1 != d.search("/") || "" === d) return v.error(k.missingTab, S, g, s), !1;
-              if (s = (n = E("#" + d + ', a[name="' + d + '"]')).closest("[data-tab]").data(w.tab), u = v.get.tabElement(s), n && 0 < n.length && s) return v.debug("Anchor link used, opening parent tab", u, n), u.hasClass(C.active) || setTimeout(function () {
+              if (-1 != d.search("/") || "" === d) return v.error(S.missingTab, k, p, s), !1;
+              if (s = (n = F("#" + d + ', a[name="' + d + '"]')).closest("[data-tab]").data(w.tab), u = v.get.tabElement(s), n && 0 < n.length && s) return v.debug("Anchor link used, opening parent tab", u, n), u.hasClass(C.active) || setTimeout(function () {
                 v.scrollTo(n);
               }, 0), v.activate.all(s), v.cache.read(s) || (v.cache.add(s, !0), v.debug("First time tab loaded calling tab init"), x.onFirstLoad.call(u[0], s, b, y)), x.onLoad.call(u[0], s, b, y), !1;
             }
@@ -6322,13 +6418,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         scrollTo: function scrollTo(e) {
           var t = !!(e && 0 < e.length) && e.offset().top;
-          !1 !== t && (v.debug("Forcing scroll to an in-page link in a hidden tab", t, e), E(O).scrollTop(t));
+          !1 !== t && (v.debug("Forcing scroll to an in-page link in a hidden tab", t, e), F(O).scrollTop(t));
         },
         update: {
           content: function content(e, t, n) {
             var i = v.get.tabElement(e),
                 o = i[0];
-            n = n !== q ? n : x.evaluateScripts, "string" == typeof x.cacheType && "dom" == x.cacheType.toLowerCase() && "string" != typeof t ? i.empty().append(E(t).clone(!0)) : n ? (v.debug("Updating HTML and evaluating inline scripts", e, t), i.html(t)) : (v.debug("Updating HTML", e, t), o.innerHTML = t);
+            n = n !== q ? n : x.evaluateScripts, "string" == typeof x.cacheType && "dom" == x.cacheType.toLowerCase() && "string" != typeof t ? i.empty().append(F(t).clone(!0)) : n ? (v.debug("Updating HTML and evaluating inline scripts", e, t), i.html(t)) : (v.debug("Updating HTML", e, t), o.innerHTML = t);
           }
         },
         fetch: {
@@ -6356,7 +6452,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             },
                 a = o.api("get request") || !1,
                 s = a && "pending" === a.state();
-            n = n || t, i = v.cache.read(n), x.cache && i ? (v.activate.tab(t), v.debug("Adding cached content", n), x.loadOnce || ("once" == x.evaluateScripts ? v.update.content(t, i, !1) : v.update.content(t, i)), x.onLoad.call(o[0], t, b, y)) : s ? (v.set.loading(t), v.debug("Content is already loading", n)) : E.api !== q ? (e = E.extend(!0, {}, x.apiSettings, r), v.debug("Retrieving remote content", n, e), v.set.loading(t), o.api(e)) : v.error(k.api);
+            n = n || t, i = v.cache.read(n), x.cache && i ? (v.activate.tab(t), v.debug("Adding cached content", n), x.loadOnce || ("once" == x.evaluateScripts ? v.update.content(t, i, !1) : v.update.content(t, i)), x.onLoad.call(o[0], t, b, y)) : s ? (v.set.loading(t), v.debug("Content is already loading", n)) : F.api !== q ? (e = F.extend(!0, {}, x.apiSettings, r), v.debug("Retrieving remote content", n, e), v.set.loading(t), o.api(e)) : v.error(S.api);
           }
         },
         activate: {
@@ -6397,7 +6493,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return u.eq(0).data(w.tab) || r.eq(0).data(w.tab);
           },
           path: function path() {
-            return E.address.value();
+            return F.address.value();
           },
           defaultPathArray: function defaultPathArray(e) {
             return v.utilities.pathToArray(v.get.defaultPath(e));
@@ -6407,7 +6503,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
 
             if (t) {
               if (v.debug("Found default tab", t), o < x.maxDepth) return o++, v.get.defaultPath(t);
-              v.error(k.recursion);
+              v.error(S.recursion);
             } else v.debug("No default tabs found for", e, r);
 
             return o = 0, e;
@@ -6425,28 +6521,28 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         utilities: {
           filterArray: function filterArray(e, t) {
-            return E.grep(e, function (e) {
-              return -1 == E.inArray(e, t);
+            return F.grep(e, function (e) {
+              return -1 == F.inArray(e, t);
             });
           },
           last: function last(e) {
-            return !!E.isArray(e) && e[e.length - 1];
+            return !!F.isArray(e) && e[e.length - 1];
           },
           pathToArray: function pathToArray(e) {
             return e === q && (e = h), "string" == typeof e ? e.split("/") : [e];
           },
           arrayToPath: function arrayToPath(e) {
-            return !!E.isArray(e) && e.join("/");
+            return !!F.isArray(e) && e.join("/");
           }
         },
         setting: function setting(e, t) {
-          if (v.debug("Changing setting", e, t), E.isPlainObject(e)) E.extend(!0, x, e);else {
+          if (v.debug("Changing setting", e, t), F.isPlainObject(e)) F.extend(!0, x, e);else {
             if (t === q) return x[e];
-            E.isPlainObject(x[e]) ? E.extend(!0, x[e], t) : x[e] = t;
+            F.isPlainObject(x[e]) ? F.extend(!0, x[e], t) : x[e] = t;
           }
         },
         internal: function internal(e, t) {
-          if (E.isPlainObject(e)) E.extend(!0, v, e);else {
+          if (F.isPlainObject(e)) F.extend(!0, v, e);else {
             if (t === q) return v[e];
             v[e] = t;
           }
@@ -6473,9 +6569,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = x.name + ":",
                 n = 0;
-            f = !1, clearTimeout(v.performance.timer), E.each(m, function (e, t) {
+            f = !1, clearTimeout(v.performance.timer), F.each(m, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", d && (e += " '" + d + "'"), (console.group !== q || console.table !== q) && 0 < m.length && (console.groupCollapsed(e), console.table ? console.table(m) : E.each(m, function (e, t) {
+            }), e += " " + n + "ms", d && (e += " '" + d + "'"), (console.group !== q || console.table !== q) && 0 < m.length && (console.groupCollapsed(e), console.table ? console.table(m) : F.each(m, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
             }), console.groupEnd()), m = [];
           }
@@ -6485,20 +6581,20 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               r,
               n,
               a = c;
-          return e = e || F, t = s || t, "string" == typeof i && a !== q && (i = i.split(/[\. ]/), o = i.length - 1, E.each(i, function (e, t) {
+          return e = e || A, t = s || t, "string" == typeof i && a !== q && (i = i.split(/[\. ]/), o = i.length - 1, F.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
-            if (E.isPlainObject(a[n]) && e != o) a = a[n];else {
+            if (F.isPlainObject(a[n]) && e != o) a = a[n];else {
               if (a[n] !== q) return r = a[n], !1;
-              if (!E.isPlainObject(a[t]) || e == o) return a[t] !== q ? r = a[t] : v.error(k.method, i), !1;
+              if (!F.isPlainObject(a[t]) || e == o) return a[t] !== q ? r = a[t] : v.error(S.method, i), !1;
               a = a[t];
             }
-          })), E.isFunction(r) ? n = r.apply(t, e) : r !== q && (n = r), E.isArray(l) ? l.push(n) : l !== q ? l = [l, n] : n !== q && (l = n), r;
+          })), F.isFunction(r) ? n = r.apply(t, e) : r !== q && (n = r), F.isArray(l) ? l.push(n) : l !== q ? l = [l, n] : n !== q && (l = n), r;
         }
-      }, A ? (c === q && v.initialize(), v.invoke(p)) : (c !== q && c.invoke("destroy"), v.initialize());
+      }, R ? (c === q && v.initialize(), v.invoke(g)) : (c !== q && c.invoke("destroy"), v.initialize());
     }), l !== q ? l : this;
-  }, E.tab = function () {
-    E(P).tab.apply(this, arguments);
-  }, E.fn.tab.settings = {
+  }, F.tab = function () {
+    F(E).tab.apply(this, arguments);
+  }, F.fn.tab.settings = {
     name: "Tab",
     namespace: "tab",
     silent: !1,
@@ -6552,18 +6648,18 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       ui: ".ui"
     }
   };
-}(jQuery, window, document), function (T, A, F, R) {
+}(jQuery, window, document), function (T, R, A, P) {
   "use strict";
 
-  A = void 0 !== A && A.Math == Math ? A : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), T.fn.sticky = function (b) {
+  R = void 0 !== R && R.Math == Math ? R : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), T.fn.sticky = function (b) {
     var v,
         e = T(this),
         y = e.selector || "",
         x = new Date().getTime(),
         C = [],
         w = b,
-        k = "string" == typeof w,
-        S = [].slice.call(arguments, 1);
+        S = "string" == typeof w,
+        k = [].slice.call(arguments, 1);
     return e.each(function () {
       var i,
           o,
@@ -6577,10 +6673,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           s = "." + r,
           c = "module-" + r,
           l = T(this),
-          u = T(A),
+          u = T(R),
           m = T(f.scrollContext),
-          p = (l.selector, l.data(c)),
-          g = A.requestAnimationFrame || A.mozRequestAnimationFrame || A.webkitRequestAnimationFrame || A.msRequestAnimationFrame || function (e) {
+          g = (l.selector, l.data(c)),
+          p = R.requestAnimationFrame || R.mozRequestAnimationFrame || R.webkitRequestAnimationFrame || R.msRequestAnimationFrame || function (e) {
         setTimeout(e, 0);
       },
           h = this;
@@ -6590,13 +6686,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           d.determineContainer(), d.determineContext(), d.verbose("Initializing sticky", f, i), d.save.positions(), d.checkErrors(), d.bind.events(), f.observeChanges && d.observeChanges(), d.instantiate();
         },
         instantiate: function instantiate() {
-          d.verbose("Storing instance of module", d), p = d, l.data(c, d);
+          d.verbose("Storing instance of module", d), g = d, l.data(c, d);
         },
         destroy: function destroy() {
           d.verbose("Destroying previous instance"), d.reset(), e && e.disconnect(), t && t.disconnect(), u.off("load" + s, d.event.load).off("resize" + s, d.event.resize), m.off("scrollchange" + s, d.event.scrollchange), l.removeData(c);
         },
         observeChanges: function observeChanges() {
-          "MutationObserver" in A && (e = new MutationObserver(d.event.documentChanged), t = new MutationObserver(d.event.changed), e.observe(F, {
+          "MutationObserver" in R && (e = new MutationObserver(d.event.documentChanged), t = new MutationObserver(d.event.changed), e.observe(A, {
             childList: !0,
             subtree: !0
           }), t.observe(h, {
@@ -6635,13 +6731,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             });
           },
           load: function load() {
-            d.verbose("Page contents finished loading"), g(d.refresh);
+            d.verbose("Page contents finished loading"), p(d.refresh);
           },
           resize: function resize() {
-            d.verbose("Window resized"), g(d.refresh);
+            d.verbose("Window resized"), p(d.refresh);
           },
           scroll: function scroll() {
-            g(function () {
+            p(function () {
               m.triggerHandler("scrollchange" + s, m.scrollTop());
             });
           },
@@ -6709,7 +6805,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         get: {
           direction: function direction(e) {
             var t = "down";
-            return e = e || m.scrollTop(), d.lastScroll !== R && (d.lastScroll < e ? t = "down" : d.lastScroll > e && (t = "up")), t;
+            return e = e || m.scrollTop(), d.lastScroll !== P && (d.lastScroll < e ? t = "down" : d.lastScroll > e && (t = "up")), t;
           },
           scrollChange: function scrollChange(e) {
             return e = e || m.scrollTop(), d.lastScroll ? e - d.lastScroll : 0;
@@ -6765,7 +6861,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         is: {
           standardScroll: function standardScroll() {
-            return m[0] == A;
+            return m[0] == R;
           },
           top: function top() {
             return l.hasClass(n.top);
@@ -6851,13 +6947,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         setting: function setting(e, t) {
           if (T.isPlainObject(e)) T.extend(!0, f, e);else {
-            if (t === R) return f[e];
+            if (t === P) return f[e];
             f[e] = t;
           }
         },
         internal: function internal(e, t) {
           if (T.isPlainObject(e)) T.extend(!0, d, e);else {
-            if (t === R) return d[e];
+            if (t === P) return d[e];
             d[e] = t;
           }
         },
@@ -6885,7 +6981,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                 n = 0;
             x = !1, clearTimeout(d.performance.timer), T.each(C, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", y && (e += " '" + y + "'"), (console.group !== R || console.table !== R) && 0 < C.length && (console.groupCollapsed(e), console.table ? console.table(C) : T.each(C, function (e, t) {
+            }), e += " " + n + "ms", y && (e += " '" + y + "'"), (console.group !== P || console.table !== P) && 0 < C.length && (console.groupCollapsed(e), console.table ? console.table(C) : T.each(C, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
             }), console.groupEnd()), C = [];
           }
@@ -6894,18 +6990,18 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           var o,
               r,
               n,
-              a = p;
-          return e = e || S, t = h || t, "string" == typeof i && a !== R && (i = i.split(/[\. ]/), o = i.length - 1, T.each(i, function (e, t) {
+              a = g;
+          return e = e || k, t = h || t, "string" == typeof i && a !== P && (i = i.split(/[\. ]/), o = i.length - 1, T.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
             if (T.isPlainObject(a[n]) && e != o) a = a[n];else {
-              if (a[n] !== R) return r = a[n], !1;
-              if (!T.isPlainObject(a[t]) || e == o) return a[t] !== R && (r = a[t]), !1;
+              if (a[n] !== P) return r = a[n], !1;
+              if (!T.isPlainObject(a[t]) || e == o) return a[t] !== P && (r = a[t]), !1;
               a = a[t];
             }
-          })), T.isFunction(r) ? n = r.apply(t, e) : r !== R && (n = r), T.isArray(v) ? v.push(n) : v !== R ? v = [v, n] : n !== R && (v = n), r;
+          })), T.isFunction(r) ? n = r.apply(t, e) : r !== P && (n = r), T.isArray(v) ? v.push(n) : v !== P ? v = [v, n] : n !== P && (v = n), r;
         }
-      }, k ? (p === R && d.initialize(), d.invoke(w)) : (p !== R && p.invoke("destroy"), d.initialize());
-    }), v !== R ? v : this;
+      }, S ? (g === P && d.initialize(), d.invoke(w)) : (g !== P && g.invoke("destroy"), d.initialize());
+    }), v !== P ? v : this;
   }, T.fn.sticky.settings = {
     name: "Sticky",
     namespace: "sticky",
@@ -6916,7 +7012,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
     pushing: !1,
     context: !1,
     container: !1,
-    scrollContext: A,
+    scrollContext: R,
     offset: 0,
     bottomOffset: 0,
     jitter: 5,
@@ -6943,19 +7039,19 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       bottom: "bottom"
     }
   };
-}(jQuery, window, document), function (z, M, N, H) {
+}(jQuery, window, document), function (z, M, N, L) {
   "use strict";
 
-  M = void 0 !== M && M.Math == Math ? M : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), z.fn.popup = function (S) {
+  M = void 0 !== M && M.Math == Math ? M : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), z.fn.popup = function (k) {
     var T,
         e = z(this),
-        A = z(N),
-        F = z(M),
-        R = z("body"),
-        E = e.selector || "",
-        P = new Date().getTime(),
+        R = z(N),
+        A = z(M),
+        P = z("body"),
+        F = e.selector || "",
+        E = new Date().getTime(),
         O = [],
-        q = S,
+        q = k,
         j = "string" == typeof q,
         D = [].slice.call(arguments, 1);
     return e.each(function () {
@@ -6965,11 +7061,11 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           t,
           n,
           d,
-          f = z.isPlainObject(S) ? z.extend(!0, {}, z.fn.popup.settings, S) : z.extend({}, z.fn.popup.settings),
+          f = z.isPlainObject(k) ? z.extend(!0, {}, z.fn.popup.settings, k) : z.extend({}, z.fn.popup.settings),
           o = f.selector,
           m = f.className,
-          p = f.error,
-          g = f.metadata,
+          g = f.error,
+          p = f.metadata,
           i = f.namespace,
           r = "." + f.namespace,
           a = "module-" + i,
@@ -6982,13 +7078,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           x = !1,
           C = !1,
           w = this,
-          k = h.data(a);
+          S = h.data(a);
       d = {
         initialize: function initialize() {
           d.debug("Initializing", h), d.createID(), d.bind.events(), !d.exists() && f.preserve && d.create(), f.observeChanges && d.observeChanges(), d.instantiate();
         },
         instantiate: function instantiate() {
-          d.verbose("Storing instance", d), k = d, h.data(a, k);
+          d.verbose("Storing instance", d), S = d, h.data(a, S);
         },
         observeChanges: function observeChanges() {
           "MutationObserver" in M && ((e = new MutationObserver(d.event.documentChanged)).observe(N, {
@@ -6997,7 +7093,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }), d.debug("Setting up mutation observer", e));
         },
         refresh: function refresh() {
-          f.popup ? u = z(f.popup).eq(0) : f.inline && (u = v.nextAll(o.popup).eq(0), f.popup = u), f.popup ? (u.addClass(m.loading), l = d.get.offsetParent(), u.removeClass(m.loading), f.movePopup && d.has.popup() && d.get.offsetParent(u)[0] !== l[0] && (d.debug("Moving popup to the same offset parent as target"), u.detach().appendTo(l))) : l = f.inline ? d.get.offsetParent(v) : d.has.popup() ? d.get.offsetParent(u) : R, l.is("html") && l[0] !== R[0] && (d.debug("Setting page as offset parent"), l = R), d.get.variation() && d.set.variation();
+          f.popup ? u = z(f.popup).eq(0) : f.inline && (u = v.nextAll(o.popup).eq(0), f.popup = u), f.popup ? (u.addClass(m.loading), l = d.get.offsetParent(), u.removeClass(m.loading), f.movePopup && d.has.popup() && d.get.offsetParent(u)[0] !== l[0] && (d.debug("Moving popup to the same offset parent as target"), u.detach().appendTo(l))) : l = f.inline ? d.get.offsetParent(v) : d.has.popup() ? d.get.offsetParent(u) : P, l.is("html") && l[0] !== P[0] && (d.debug("Setting page as offset parent"), l = P), d.get.variation() && d.set.variation();
         },
         reposition: function reposition() {
           d.refresh(), d.set.position();
@@ -7041,7 +7137,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           e || n || t ? (d.debug("Creating pop-up html"), e || (e = f.templates.popup({
             title: t,
             content: n
-          })), u = z("<div/>").addClass(m.popup).data(g.activator, h).html(e), f.inline ? (d.verbose("Inserting popup element inline", u), u.insertAfter(h)) : (d.verbose("Appending popup element to body", u), u.appendTo(s)), d.refresh(), d.set.variation(), f.hoverable && d.bind.popup(), f.onCreate.call(u, w)) : 0 !== v.next(o.popup).length ? (d.verbose("Pre-existing popup found"), f.inline = !0, f.popup = v.next(o.popup).data(g.activator, h), d.refresh(), f.hoverable && d.bind.popup()) : f.popup ? (z(f.popup).data(g.activator, h), d.verbose("Used popup specified in settings"), d.refresh(), f.hoverable && d.bind.popup()) : d.debug("No content specified skipping display", w);
+          })), u = z("<div/>").addClass(m.popup).data(p.activator, h).html(e), f.inline ? (d.verbose("Inserting popup element inline", u), u.insertAfter(h)) : (d.verbose("Appending popup element to body", u), u.appendTo(s)), d.refresh(), d.set.variation(), f.hoverable && d.bind.popup(), f.onCreate.call(u, w)) : 0 !== v.next(o.popup).length ? (d.verbose("Pre-existing popup found"), f.inline = !0, f.popup = v.next(o.popup).data(p.activator, h), d.refresh(), f.hoverable && d.bind.popup()) : f.popup ? (z(f.popup).data(p.activator, h), d.verbose("Used popup specified in settings"), d.refresh(), f.hoverable && d.bind.popup()) : d.debug("No content specified skipping display", w);
         },
         createID: function createID() {
           n = (Math.random().toString(16) + "000000000").substr(2, 8), t = "." + n, d.verbose("Creating unique id for element", n);
@@ -7063,14 +7159,14 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         hideAll: function hideAll() {
           z(o.popup).filter("." + m.popupVisible).each(function () {
-            z(this).data(g.activator).popup("hide");
+            z(this).data(p.activator).popup("hide");
           });
         },
         exists: function exists() {
           return !!u && (f.inline || f.popup ? d.has.popup() : 1 <= u.closest(s).length);
         },
         removePopup: function removePopup() {
-          d.has.popup() && !f.popup && (d.debug("Removing popup", u), u.remove(), u = H, f.onRemove.call(u, w));
+          d.has.popup() && !f.popup && (d.debug("Removing popup", u), u.remove(), u = L, f.onRemove.call(u, w));
         },
         save: {
           conditions: function conditions() {
@@ -7091,7 +7187,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         animate: {
           show: function show(e) {
-            e = z.isFunction(e) ? e : function () {}, f.transition && z.fn.transition !== H && h.transition("is supported") ? (d.set.visible(), u.transition({
+            e = z.isFunction(e) ? e : function () {}, f.transition && z.fn.transition !== L && h.transition("is supported") ? (d.set.visible(), u.transition({
               animation: f.transition + " in",
               queue: !1,
               debug: f.debug,
@@ -7100,10 +7196,10 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               onComplete: function onComplete() {
                 d.bind.close(), e.call(u, w), f.onVisible.call(u, w);
               }
-            })) : d.error(p.noTransition);
+            })) : d.error(g.noTransition);
           },
           hide: function hide(e) {
-            e = z.isFunction(e) ? e : function () {}, d.debug("Hiding pop-up"), !1 !== f.onHide.call(u, w) ? f.transition && z.fn.transition !== H && h.transition("is supported") ? u.transition({
+            e = z.isFunction(e) ? e : function () {}, d.debug("Hiding pop-up"), !1 !== f.onHide.call(u, w) ? f.transition && z.fn.transition !== L && h.transition("is supported") ? u.transition({
               animation: f.transition + " out",
               queue: !1,
               duration: f.duration,
@@ -7112,7 +7208,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
               onComplete: function onComplete() {
                 d.reset(), e.call(u, w), f.onHidden.call(u, w);
               }
-            }) : d.error(p.noTransition) : d.debug("onHide callback returned false, cancelling popup animation");
+            }) : d.error(g.noTransition) : d.debug("onHide callback returned false, cancelling popup animation");
           }
         },
         change: {
@@ -7122,16 +7218,16 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         get: {
           html: function html() {
-            return h.removeData(g.html), h.data(g.html) || f.html;
+            return h.removeData(p.html), h.data(p.html) || f.html;
           },
           title: function title() {
-            return h.removeData(g.title), h.data(g.title) || f.title;
+            return h.removeData(p.title), h.data(p.title) || f.title;
           },
           content: function content() {
-            return h.removeData(g.content), h.data(g.content) || f.content || h.attr("title");
+            return h.removeData(p.content), h.data(p.content) || f.content || h.attr("title");
           },
           variation: function variation() {
-            return h.removeData(g.variation), h.data(g.variation) || f.variation;
+            return h.removeData(p.variation), h.data(p.variation) || f.variation;
           },
           popup: function popup() {
             return u;
@@ -7151,8 +7247,8 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             } : b.offset(),
                 a = {},
                 s = i ? {
-              top: F.scrollTop(),
-              left: F.scrollLeft()
+              top: A.scrollTop(),
+              left: A.scrollLeft()
             } : {
               top: 0,
               left: 0
@@ -7223,7 +7319,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             }, d.verbose("Distance from boundaries determined", e, o)), o;
           },
           offsetParent: function offsetParent(e) {
-            var t = (e !== H ? e[0] : v[0]).parentNode,
+            var t = (e !== L ? e[0] : v[0]).parentNode,
                 n = z(t);
             if (t) for (var i = "none" === n.css("transform"), o = "static" === n.css("position"), r = n.is("body"); t && !r && o && i;) {
               t = t.parentNode, i = "none" === (n = z(t)).css("transform"), o = "static" === n.css("position"), r = n.is("body");
@@ -7275,7 +7371,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           position: function position(e, t) {
             if (0 !== v.length && 0 !== u.length) {
               var n, i, o, r, a, s, c, l;
-              if (t = t || d.get.calculations(), e = e || h.data(g.position) || f.position, n = h.data(g.offset) || f.offset, i = f.distanceAway, o = t.target, r = t.popup, a = t.parent, d.should.centerArrow(t) && (d.verbose("Adjusting offset to center arrow on small target element"), "top left" != e && "bottom left" != e || (n += o.width / 2, n -= f.arrowPixelsFromEdge), "top right" != e && "bottom right" != e || (n -= o.width / 2, n += f.arrowPixelsFromEdge)), 0 === o.width && 0 === o.height && !d.is.svg(o.element)) return d.debug("Popup target is hidden, no action taken"), !1;
+              if (t = t || d.get.calculations(), e = e || h.data(p.position) || f.position, n = h.data(p.offset) || f.offset, i = f.distanceAway, o = t.target, r = t.popup, a = t.parent, d.should.centerArrow(t) && (d.verbose("Adjusting offset to center arrow on small target element"), "top left" != e && "bottom left" != e || (n += o.width / 2, n -= f.arrowPixelsFromEdge), "top right" != e && "bottom right" != e || (n -= o.width / 2, n += f.arrowPixelsFromEdge)), 0 === o.width && 0 === o.height && !d.is.svg(o.element)) return d.debug("Popup target is hidden, no action taken"), !1;
 
               switch (f.inline && (d.debug("Adding margin to calculation", o.margin), "left center" == e || "right center" == e ? (n += o.margin.top, i += -o.margin.left) : "top left" == e || "top center" == e || "top right" == e ? (n += o.margin.left, i -= o.margin.top) : (n += o.margin.left, i += o.margin.top)), d.debug("Determining popup position from calculations", e, t), d.is.rtl() && (e = e.replace(/left|right/g, function (e) {
                 return "left" == e ? "right" : "left";
@@ -7352,16 +7448,16 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
                   };
               }
 
-              if (s === H && d.error(p.invalidPosition, e), d.debug("Calculated popup positioning values", s), u.css(s).removeClass(m.position).addClass(e).addClass(m.loading), c = d.get.popupOffset(), l = d.get.distanceFromBoundary(c, t), d.is.offstage(l, e)) {
+              if (s === L && d.error(g.invalidPosition, e), d.debug("Calculated popup positioning values", s), u.css(s).removeClass(m.position).addClass(e).addClass(m.loading), c = d.get.popupOffset(), l = d.get.distanceFromBoundary(c, t), d.is.offstage(l, e)) {
                 if (d.debug("Position is outside viewport", e), y < f.maxSearchDepth) return y++, e = d.get.nextPosition(e), d.debug("Trying new position", e), !!u && d.set.position(e, t);
-                if (!f.lastResort) return d.debug("Popup could not find a position to display", u), d.error(p.cannotPlace, w), d.remove.attempts(), d.remove.loading(), d.reset(), f.onUnplaceable.call(u, w), !1;
+                if (!f.lastResort) return d.debug("Popup could not find a position to display", u), d.error(g.cannotPlace, w), d.remove.attempts(), d.remove.loading(), d.reset(), f.onUnplaceable.call(u, w), !1;
                 d.debug("No position found, showing with last position");
               }
 
               return d.debug("Position is on stage", e), d.remove.attempts(), d.remove.loading(), f.setFluidWidth && d.is.fluid() && d.set.fluidWidth(t), !0;
             }
 
-            d.error(p.notFound);
+            d.error(g.notFound);
           },
           fluidWidth: function fluidWidth(e) {
             e = e || d.get.calculations(), d.debug("Automatically setting element width to parent width", e.parent.width), u.css("width", e.container.width);
@@ -7389,7 +7485,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         },
         bind: {
           events: function events() {
-            d.debug("Binding popup events to module"), "click" == f.on && h.on("click" + r, d.toggle), "hover" == f.on && h.on("touchstart" + r, d.event.touchstart), d.get.startEvent() && h.on(d.get.startEvent() + r, d.event.start).on(d.get.endEvent() + r, d.event.end), f.target && d.debug("Target set to element", v), F.on("resize" + t, d.event.resize);
+            d.debug("Binding popup events to module"), "click" == f.on && h.on("click" + r, d.toggle), "hover" == f.on && h.on("touchstart" + r, d.event.touchstart), d.get.startEvent() && h.on(d.get.startEvent() + r, d.event.start).on(d.get.endEvent() + r, d.event.end), f.target && d.debug("Target set to element", v), A.on("resize" + t, d.event.resize);
           },
           popup: function popup() {
             d.verbose("Allowing hover events on popup to prevent closing"), u && d.has.popup() && u.on("mouseenter" + r, d.event.start).on("mouseleave" + r, d.event.end);
@@ -7401,22 +7497,22 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             d.verbose("Binding scroll close event to document"), c.one(d.get.scrollEvent() + t, d.event.hideGracefully);
           },
           touchClose: function touchClose() {
-            d.verbose("Binding popup touchclose event to document"), A.on("touchstart" + t, function (e) {
+            d.verbose("Binding popup touchclose event to document"), R.on("touchstart" + t, function (e) {
               d.verbose("Touched away from popup"), d.event.hideGracefully.call(w, e);
             });
           },
           clickaway: function clickaway() {
-            d.verbose("Binding popup close event to document"), A.on("click" + t, function (e) {
+            d.verbose("Binding popup close event to document"), R.on("click" + t, function (e) {
               d.verbose("Clicked away from popup"), d.event.hideGracefully.call(w, e);
             });
           }
         },
         unbind: {
           events: function events() {
-            F.off(t), h.off(r);
+            A.off(t), h.off(r);
           },
           close: function close() {
-            A.off(t), c.off(t);
+            R.off(t), c.off(t);
           }
         },
         has: {
@@ -7449,13 +7545,13 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
             return h.hasClass(m.active);
           },
           animating: function animating() {
-            return u !== H && u.hasClass(m.animating);
+            return u !== L && u.hasClass(m.animating);
           },
           fluid: function fluid() {
-            return u !== H && u.hasClass(m.fluid);
+            return u !== L && u.hasClass(m.fluid);
           },
           visible: function visible() {
-            return u !== H && u.hasClass(m.popupVisible);
+            return u !== L && u.hasClass(m.popupVisible);
           },
           dropdown: function dropdown() {
             return h.hasClass(m.dropdown);
@@ -7468,17 +7564,17 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           }
         },
         reset: function reset() {
-          d.remove.visible(), f.preserve ? z.fn.transition !== H && u.transition("remove transition") : d.removePopup();
+          d.remove.visible(), f.preserve ? z.fn.transition !== L && u.transition("remove transition") : d.removePopup();
         },
         setting: function setting(e, t) {
           if (z.isPlainObject(e)) z.extend(!0, f, e);else {
-            if (t === H) return f[e];
+            if (t === L) return f[e];
             f[e] = t;
           }
         },
         internal: function internal(e, t) {
           if (z.isPlainObject(e)) z.extend(!0, d, e);else {
-            if (t === H) return d[e];
+            if (t === L) return d[e];
             d[e] = t;
           }
         },
@@ -7494,7 +7590,7 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
         performance: {
           log: function log(e) {
             var t, n;
-            f.performance && (n = (t = new Date().getTime()) - (P || t), P = t, O.push({
+            f.performance && (n = (t = new Date().getTime()) - (E || t), E = t, O.push({
               Name: e[0],
               Arguments: [].slice.call(e, 1) || "",
               Element: w,
@@ -7504,9 +7600,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           display: function display() {
             var e = f.name + ":",
                 n = 0;
-            P = !1, clearTimeout(d.performance.timer), z.each(O, function (e, t) {
+            E = !1, clearTimeout(d.performance.timer), z.each(O, function (e, t) {
               n += t["Execution Time"];
-            }), e += " " + n + "ms", E && (e += " '" + E + "'"), (console.group !== H || console.table !== H) && 0 < O.length && (console.groupCollapsed(e), console.table ? console.table(O) : z.each(O, function (e, t) {
+            }), e += " " + n + "ms", F && (e += " '" + F + "'"), (console.group !== L || console.table !== L) && 0 < O.length && (console.groupCollapsed(e), console.table ? console.table(O) : z.each(O, function (e, t) {
               console.log(t.Name + ": " + t["Execution Time"] + "ms");
             }), console.groupEnd()), O = [];
           }
@@ -7515,18 +7611,18 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
           var o,
               r,
               n,
-              a = k;
-          return e = e || D, t = w || t, "string" == typeof i && a !== H && (i = i.split(/[\. ]/), o = i.length - 1, z.each(i, function (e, t) {
+              a = S;
+          return e = e || D, t = w || t, "string" == typeof i && a !== L && (i = i.split(/[\. ]/), o = i.length - 1, z.each(i, function (e, t) {
             var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
             if (z.isPlainObject(a[n]) && e != o) a = a[n];else {
-              if (a[n] !== H) return r = a[n], !1;
-              if (!z.isPlainObject(a[t]) || e == o) return a[t] !== H && (r = a[t]), !1;
+              if (a[n] !== L) return r = a[n], !1;
+              if (!z.isPlainObject(a[t]) || e == o) return a[t] !== L && (r = a[t]), !1;
               a = a[t];
             }
-          })), z.isFunction(r) ? n = r.apply(t, e) : r !== H && (n = r), z.isArray(T) ? T.push(n) : T !== H ? T = [T, n] : n !== H && (T = n), r;
+          })), z.isFunction(r) ? n = r.apply(t, e) : r !== L && (n = r), z.isArray(T) ? T.push(n) : T !== L ? T = [T, n] : n !== L && (T = n), r;
         }
-      }, j ? (k === H && d.initialize(), d.invoke(q)) : (k !== H && k.invoke("destroy"), d.initialize());
-    }), T !== H ? T : this;
+      }, j ? (S === L && d.initialize(), d.invoke(q)) : (S !== L && S.invoke("destroy"), d.initialize());
+    }), T !== L ? T : this;
   }, z.fn.popup.settings = {
     name: "Popup",
     silent: !1,
@@ -7623,8 +7719,492 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
       popup: function popup(e) {
         var t = "",
             n = z.fn.popup.settings.templates.escape;
-        return _typeof(e) !== H && (_typeof(e.title) !== H && e.title && (e.title = n(e.title), t += '<div class="header">' + e.title + "</div>"), _typeof(e.content) !== H && e.content && (e.content = n(e.content), t += '<div class="content">' + e.content + "</div>")), t;
+        return _typeof(e) !== L && (_typeof(e.title) !== L && e.title && (e.title = n(e.title), t += '<div class="header">' + e.title + "</div>"), _typeof(e.content) !== L && e.content && (e.content = n(e.content), t += '<div class="content">' + e.content + "</div>")), t;
       }
+    }
+  };
+}(jQuery, window, document), function (P, F, E, O) {
+  "use strict";
+
+  F = void 0 !== F && F.Math == Math ? F : "undefined" != typeof self && self.Math == Math ? self : Function("return this")(), P.fn.visibility = function (v) {
+    var y,
+        e = P(this),
+        x = e.selector || "",
+        C = new Date().getTime(),
+        w = [],
+        S = v,
+        k = "string" == typeof S,
+        T = [].slice.call(arguments, 1),
+        R = e.length,
+        A = 0;
+    return e.each(function () {
+      var e,
+          t,
+          n,
+          s,
+          o = P.isPlainObject(v) ? P.extend(!0, {}, P.fn.visibility.settings, v) : P.extend({}, P.fn.visibility.settings),
+          i = o.className,
+          r = o.namespace,
+          c = o.error,
+          a = o.metadata,
+          l = "." + r,
+          u = "module-" + r,
+          d = P(F),
+          f = P(this),
+          m = P(o.context),
+          g = (f.selector, f.data(u)),
+          p = F.requestAnimationFrame || F.mozRequestAnimationFrame || F.webkitRequestAnimationFrame || F.msRequestAnimationFrame || function (e) {
+        setTimeout(e, 0);
+      },
+          h = this,
+          b = !1;
+
+      s = {
+        initialize: function initialize() {
+          s.debug("Initializing", o), s.setup.cache(), s.should.trackChanges() && ("image" == o.type && s.setup.image(), "fixed" == o.type && s.setup.fixed(), o.observeChanges && s.observeChanges(), s.bind.events()), s.save.position(), s.is.visible() || s.error(c.visible, f), o.initialCheck && s.checkVisibility(), s.instantiate();
+        },
+        instantiate: function instantiate() {
+          s.debug("Storing instance", s), f.data(u, s), g = s;
+        },
+        destroy: function destroy() {
+          s.verbose("Destroying previous module"), n && n.disconnect(), t && t.disconnect(), d.off("load" + l, s.event.load).off("resize" + l, s.event.resize), m.off("scroll" + l, s.event.scroll).off("scrollchange" + l, s.event.scrollchange), "fixed" == o.type && (s.resetFixed(), s.remove.placeholder()), f.off(l).removeData(u);
+        },
+        observeChanges: function observeChanges() {
+          "MutationObserver" in F && (t = new MutationObserver(s.event.contextChanged), n = new MutationObserver(s.event.changed), t.observe(E, {
+            childList: !0,
+            subtree: !0
+          }), n.observe(h, {
+            childList: !0,
+            subtree: !0
+          }), s.debug("Setting up mutation observer", n));
+        },
+        bind: {
+          events: function events() {
+            s.verbose("Binding visibility events to scroll and resize"), o.refreshOnLoad && d.on("load" + l, s.event.load), d.on("resize" + l, s.event.resize), m.off("scroll" + l).on("scroll" + l, s.event.scroll).on("scrollchange" + l, s.event.scrollchange);
+          }
+        },
+        event: {
+          changed: function changed(e) {
+            s.verbose("DOM tree modified, updating visibility calculations"), s.timer = setTimeout(function () {
+              s.verbose("DOM tree modified, updating sticky menu"), s.refresh();
+            }, 100);
+          },
+          contextChanged: function contextChanged(e) {
+            [].forEach.call(e, function (e) {
+              e.removedNodes && [].forEach.call(e.removedNodes, function (e) {
+                (e == h || 0 < P(e).find(h).length) && (s.debug("Element removed from DOM, tearing down events"), s.destroy());
+              });
+            });
+          },
+          resize: function resize() {
+            s.debug("Window resized"), o.refreshOnResize && p(s.refresh);
+          },
+          load: function load() {
+            s.debug("Page finished loading"), p(s.refresh);
+          },
+          scroll: function scroll() {
+            o.throttle ? (clearTimeout(s.timer), s.timer = setTimeout(function () {
+              m.triggerHandler("scrollchange" + l, [m.scrollTop()]);
+            }, o.throttle)) : p(function () {
+              m.triggerHandler("scrollchange" + l, [m.scrollTop()]);
+            });
+          },
+          scrollchange: function scrollchange(e, t) {
+            s.checkVisibility(t);
+          }
+        },
+        precache: function precache(e, t) {
+          e instanceof Array || (e = [e]);
+
+          for (var n = e.length, i = 0, o = [], r = E.createElement("img"), a = function a() {
+            ++i >= e.length && P.isFunction(t) && t();
+          }; n--;) {
+            (r = E.createElement("img")).onload = a, r.onerror = a, r.src = e[n], o.push(r);
+          }
+        },
+        enableCallbacks: function enableCallbacks() {
+          s.debug("Allowing callbacks to occur"), b = !1;
+        },
+        disableCallbacks: function disableCallbacks() {
+          s.debug("Disabling all callbacks temporarily"), b = !0;
+        },
+        should: {
+          trackChanges: function trackChanges() {
+            return k ? (s.debug("One time query, no need to bind events"), !1) : (s.debug("Callbacks being attached"), !0);
+          }
+        },
+        setup: {
+          cache: function cache() {
+            s.cache = {
+              occurred: {},
+              screen: {},
+              element: {}
+            };
+          },
+          image: function image() {
+            var e = f.data(a.src);
+            e && (s.verbose("Lazy loading image", e), o.once = !0, o.observeChanges = !1, o.onOnScreen = function () {
+              s.debug("Image on screen", h), s.precache(e, function () {
+                s.set.image(e, function () {
+                  ++A == R && o.onAllLoaded.call(this), o.onLoad.call(this);
+                });
+              });
+            });
+          },
+          fixed: function fixed() {
+            s.debug("Setting up fixed"), o.once = !1, o.observeChanges = !1, o.initialCheck = !0, o.refreshOnLoad = !0, v.transition || (o.transition = !1), s.create.placeholder(), s.debug("Added placeholder", e), o.onTopPassed = function () {
+              s.debug("Element passed, adding fixed position", f), s.show.placeholder(), s.set.fixed(), o.transition && P.fn.transition !== O && f.transition(o.transition, o.duration);
+            }, o.onTopPassedReverse = function () {
+              s.debug("Element returned to position, removing fixed", f), s.hide.placeholder(), s.remove.fixed();
+            };
+          }
+        },
+        create: {
+          placeholder: function placeholder() {
+            s.verbose("Creating fixed position placeholder"), e = f.clone(!1).css("display", "none").addClass(i.placeholder).insertAfter(f);
+          }
+        },
+        show: {
+          placeholder: function placeholder() {
+            s.verbose("Showing placeholder"), e.css("display", "block").css("visibility", "hidden");
+          }
+        },
+        hide: {
+          placeholder: function placeholder() {
+            s.verbose("Hiding placeholder"), e.css("display", "none").css("visibility", "");
+          }
+        },
+        set: {
+          fixed: function fixed() {
+            s.verbose("Setting element to fixed position"), f.addClass(i.fixed).css({
+              position: "fixed",
+              top: o.offset + "px",
+              left: "auto",
+              zIndex: o.zIndex
+            }), o.onFixed.call(h);
+          },
+          image: function image(e, t) {
+            if (f.attr("src", e), o.transition) {
+              if (P.fn.transition !== O) {
+                if (f.hasClass(i.visible)) return void s.debug("Transition already occurred on this image, skipping animation");
+                f.transition(o.transition, o.duration, t);
+              } else f.fadeIn(o.duration, t);
+            } else f.show();
+          }
+        },
+        is: {
+          onScreen: function onScreen() {
+            return s.get.elementCalculations().onScreen;
+          },
+          offScreen: function offScreen() {
+            return s.get.elementCalculations().offScreen;
+          },
+          visible: function visible() {
+            return !(!s.cache || !s.cache.element) && !(0 === s.cache.element.width && 0 === s.cache.element.offset.top);
+          },
+          verticallyScrollableContext: function verticallyScrollableContext() {
+            var e = m.get(0) !== F && m.css("overflow-y");
+            return "auto" == e || "scroll" == e;
+          },
+          horizontallyScrollableContext: function horizontallyScrollableContext() {
+            var e = m.get(0) !== F && m.css("overflow-x");
+            return "auto" == e || "scroll" == e;
+          }
+        },
+        refresh: function refresh() {
+          s.debug("Refreshing constants (width/height)"), "fixed" == o.type && s.resetFixed(), s.reset(), s.save.position(), o.checkOnRefresh && s.checkVisibility(), o.onRefresh.call(h);
+        },
+        resetFixed: function resetFixed() {
+          s.remove.fixed(), s.remove.occurred();
+        },
+        reset: function reset() {
+          s.verbose("Resetting all cached values"), P.isPlainObject(s.cache) && (s.cache.screen = {}, s.cache.element = {});
+        },
+        checkVisibility: function checkVisibility(e) {
+          s.verbose("Checking visibility of element", s.cache.element), !b && s.is.visible() && (s.save.scroll(e), s.save.calculations(), s.passed(), s.passingReverse(), s.topVisibleReverse(), s.bottomVisibleReverse(), s.topPassedReverse(), s.bottomPassedReverse(), s.onScreen(), s.offScreen(), s.passing(), s.topVisible(), s.bottomVisible(), s.topPassed(), s.bottomPassed(), o.onUpdate && o.onUpdate.call(h, s.get.elementCalculations()));
+        },
+        passed: function passed(e, t) {
+          var n = s.get.elementCalculations();
+          if (e && t) o.onPassed[e] = t;else {
+            if (e !== O) return s.get.pixelsPassed(e) > n.pixelsPassed;
+            n.passing && P.each(o.onPassed, function (e, t) {
+              n.bottomVisible || n.pixelsPassed > s.get.pixelsPassed(e) ? s.execute(t, e) : o.once || s.remove.occurred(t);
+            });
+          }
+        },
+        onScreen: function onScreen(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onOnScreen,
+              i = "onScreen";
+          if (e && (s.debug("Adding callback for onScreen", e), o.onOnScreen = e), t.onScreen ? s.execute(n, i) : o.once || s.remove.occurred(i), e !== O) return t.onOnScreen;
+        },
+        offScreen: function offScreen(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onOffScreen,
+              i = "offScreen";
+          if (e && (s.debug("Adding callback for offScreen", e), o.onOffScreen = e), t.offScreen ? s.execute(n, i) : o.once || s.remove.occurred(i), e !== O) return t.onOffScreen;
+        },
+        passing: function passing(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onPassing,
+              i = "passing";
+          if (e && (s.debug("Adding callback for passing", e), o.onPassing = e), t.passing ? s.execute(n, i) : o.once || s.remove.occurred(i), e !== O) return t.passing;
+        },
+        topVisible: function topVisible(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onTopVisible,
+              i = "topVisible";
+          if (e && (s.debug("Adding callback for top visible", e), o.onTopVisible = e), t.topVisible ? s.execute(n, i) : o.once || s.remove.occurred(i), e === O) return t.topVisible;
+        },
+        bottomVisible: function bottomVisible(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onBottomVisible,
+              i = "bottomVisible";
+          if (e && (s.debug("Adding callback for bottom visible", e), o.onBottomVisible = e), t.bottomVisible ? s.execute(n, i) : o.once || s.remove.occurred(i), e === O) return t.bottomVisible;
+        },
+        topPassed: function topPassed(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onTopPassed,
+              i = "topPassed";
+          if (e && (s.debug("Adding callback for top passed", e), o.onTopPassed = e), t.topPassed ? s.execute(n, i) : o.once || s.remove.occurred(i), e === O) return t.topPassed;
+        },
+        bottomPassed: function bottomPassed(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onBottomPassed,
+              i = "bottomPassed";
+          if (e && (s.debug("Adding callback for bottom passed", e), o.onBottomPassed = e), t.bottomPassed ? s.execute(n, i) : o.once || s.remove.occurred(i), e === O) return t.bottomPassed;
+        },
+        passingReverse: function passingReverse(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onPassingReverse,
+              i = "passingReverse";
+          if (e && (s.debug("Adding callback for passing reverse", e), o.onPassingReverse = e), t.passing ? o.once || s.remove.occurred(i) : s.get.occurred("passing") && s.execute(n, i), e !== O) return !t.passing;
+        },
+        topVisibleReverse: function topVisibleReverse(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onTopVisibleReverse,
+              i = "topVisibleReverse";
+          if (e && (s.debug("Adding callback for top visible reverse", e), o.onTopVisibleReverse = e), t.topVisible ? o.once || s.remove.occurred(i) : s.get.occurred("topVisible") && s.execute(n, i), e === O) return !t.topVisible;
+        },
+        bottomVisibleReverse: function bottomVisibleReverse(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onBottomVisibleReverse,
+              i = "bottomVisibleReverse";
+          if (e && (s.debug("Adding callback for bottom visible reverse", e), o.onBottomVisibleReverse = e), t.bottomVisible ? o.once || s.remove.occurred(i) : s.get.occurred("bottomVisible") && s.execute(n, i), e === O) return !t.bottomVisible;
+        },
+        topPassedReverse: function topPassedReverse(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onTopPassedReverse,
+              i = "topPassedReverse";
+          if (e && (s.debug("Adding callback for top passed reverse", e), o.onTopPassedReverse = e), t.topPassed ? o.once || s.remove.occurred(i) : s.get.occurred("topPassed") && s.execute(n, i), e === O) return !t.onTopPassed;
+        },
+        bottomPassedReverse: function bottomPassedReverse(e) {
+          var t = s.get.elementCalculations(),
+              n = e || o.onBottomPassedReverse,
+              i = "bottomPassedReverse";
+          if (e && (s.debug("Adding callback for bottom passed reverse", e), o.onBottomPassedReverse = e), t.bottomPassed ? o.once || s.remove.occurred(i) : s.get.occurred("bottomPassed") && s.execute(n, i), e === O) return !t.bottomPassed;
+        },
+        execute: function execute(e, t) {
+          var n = s.get.elementCalculations(),
+              i = s.get.screenCalculations();
+          (e = e || !1) && (o.continuous ? (s.debug("Callback being called continuously", t, n), e.call(h, n, i)) : s.get.occurred(t) || (s.debug("Conditions met", t, n), e.call(h, n, i))), s.save.occurred(t);
+        },
+        remove: {
+          fixed: function fixed() {
+            s.debug("Removing fixed position"), f.removeClass(i.fixed).css({
+              position: "",
+              top: "",
+              left: "",
+              zIndex: ""
+            }), o.onUnfixed.call(h);
+          },
+          placeholder: function placeholder() {
+            s.debug("Removing placeholder content"), e && e.remove();
+          },
+          occurred: function occurred(e) {
+            if (e) {
+              var t = s.cache.occurred;
+              t[e] !== O && !0 === t[e] && (s.debug("Callback can now be called again", e), s.cache.occurred[e] = !1);
+            } else s.cache.occurred = {};
+          }
+        },
+        save: {
+          calculations: function calculations() {
+            s.verbose("Saving all calculations necessary to determine positioning"), s.save.direction(), s.save.screenCalculations(), s.save.elementCalculations();
+          },
+          occurred: function occurred(e) {
+            e && (s.cache.occurred[e] !== O && !0 === s.cache.occurred[e] || (s.verbose("Saving callback occurred", e), s.cache.occurred[e] = !0));
+          },
+          scroll: function scroll(e) {
+            e = e + o.offset || m.scrollTop() + o.offset, s.cache.scroll = e;
+          },
+          direction: function direction() {
+            var e,
+                t = s.get.scroll(),
+                n = s.get.lastScroll();
+            return e = n < t && n ? "down" : t < n && n ? "up" : "static", s.cache.direction = e, s.cache.direction;
+          },
+          elementPosition: function elementPosition() {
+            var e = s.cache.element,
+                t = s.get.screenSize();
+            return s.verbose("Saving element position"), e.fits = e.height < t.height, e.offset = f.offset(), e.width = f.outerWidth(), e.height = f.outerHeight(), s.is.verticallyScrollableContext() && (e.offset.top += m.scrollTop() - m.offset().top), s.is.horizontallyScrollableContext() && (e.offset.left += m.scrollLeft - m.offset().left), s.cache.element = e;
+          },
+          elementCalculations: function elementCalculations() {
+            var e = s.get.screenCalculations(),
+                t = s.get.elementPosition();
+            return o.includeMargin ? (t.margin = {}, t.margin.top = parseInt(f.css("margin-top"), 10), t.margin.bottom = parseInt(f.css("margin-bottom"), 10), t.top = t.offset.top - t.margin.top, t.bottom = t.offset.top + t.height + t.margin.bottom) : (t.top = t.offset.top, t.bottom = t.offset.top + t.height), t.topPassed = e.top >= t.top, t.bottomPassed = e.top >= t.bottom, t.topVisible = e.bottom >= t.top && !t.topPassed, t.bottomVisible = e.bottom >= t.bottom && !t.bottomPassed, t.pixelsPassed = 0, t.percentagePassed = 0, t.onScreen = (t.topVisible || t.passing) && !t.bottomPassed, t.passing = t.topPassed && !t.bottomPassed, t.offScreen = !t.onScreen, t.passing && (t.pixelsPassed = e.top - t.top, t.percentagePassed = (e.top - t.top) / t.height), s.cache.element = t, s.verbose("Updated element calculations", t), t;
+          },
+          screenCalculations: function screenCalculations() {
+            var e = s.get.scroll();
+            return s.save.direction(), s.cache.screen.top = e, s.cache.screen.bottom = e + s.cache.screen.height, s.cache.screen;
+          },
+          screenSize: function screenSize() {
+            s.verbose("Saving window position"), s.cache.screen = {
+              height: m.height()
+            };
+          },
+          position: function position() {
+            s.save.screenSize(), s.save.elementPosition();
+          }
+        },
+        get: {
+          pixelsPassed: function pixelsPassed(e) {
+            var t = s.get.elementCalculations();
+            return -1 < e.search("%") ? t.height * (parseInt(e, 10) / 100) : parseInt(e, 10);
+          },
+          occurred: function occurred(e) {
+            return s.cache.occurred !== O && s.cache.occurred[e] || !1;
+          },
+          direction: function direction() {
+            return s.cache.direction === O && s.save.direction(), s.cache.direction;
+          },
+          elementPosition: function elementPosition() {
+            return s.cache.element === O && s.save.elementPosition(), s.cache.element;
+          },
+          elementCalculations: function elementCalculations() {
+            return s.cache.element === O && s.save.elementCalculations(), s.cache.element;
+          },
+          screenCalculations: function screenCalculations() {
+            return s.cache.screen === O && s.save.screenCalculations(), s.cache.screen;
+          },
+          screenSize: function screenSize() {
+            return s.cache.screen === O && s.save.screenSize(), s.cache.screen;
+          },
+          scroll: function scroll() {
+            return s.cache.scroll === O && s.save.scroll(), s.cache.scroll;
+          },
+          lastScroll: function lastScroll() {
+            return s.cache.screen === O ? (s.debug("First scroll event, no last scroll could be found"), !1) : s.cache.screen.top;
+          }
+        },
+        setting: function setting(e, t) {
+          if (P.isPlainObject(e)) P.extend(!0, o, e);else {
+            if (t === O) return o[e];
+            o[e] = t;
+          }
+        },
+        internal: function internal(e, t) {
+          if (P.isPlainObject(e)) P.extend(!0, s, e);else {
+            if (t === O) return s[e];
+            s[e] = t;
+          }
+        },
+        debug: function debug() {
+          !o.silent && o.debug && (o.performance ? s.performance.log(arguments) : (s.debug = Function.prototype.bind.call(console.info, console, o.name + ":"), s.debug.apply(console, arguments)));
+        },
+        verbose: function verbose() {
+          !o.silent && o.verbose && o.debug && (o.performance ? s.performance.log(arguments) : (s.verbose = Function.prototype.bind.call(console.info, console, o.name + ":"), s.verbose.apply(console, arguments)));
+        },
+        error: function error() {
+          o.silent || (s.error = Function.prototype.bind.call(console.error, console, o.name + ":"), s.error.apply(console, arguments));
+        },
+        performance: {
+          log: function log(e) {
+            var t, n;
+            o.performance && (n = (t = new Date().getTime()) - (C || t), C = t, w.push({
+              Name: e[0],
+              Arguments: [].slice.call(e, 1) || "",
+              Element: h,
+              "Execution Time": n
+            })), clearTimeout(s.performance.timer), s.performance.timer = setTimeout(s.performance.display, 500);
+          },
+          display: function display() {
+            var e = o.name + ":",
+                n = 0;
+            C = !1, clearTimeout(s.performance.timer), P.each(w, function (e, t) {
+              n += t["Execution Time"];
+            }), e += " " + n + "ms", x && (e += " '" + x + "'"), (console.group !== O || console.table !== O) && 0 < w.length && (console.groupCollapsed(e), console.table ? console.table(w) : P.each(w, function (e, t) {
+              console.log(t.Name + ": " + t["Execution Time"] + "ms");
+            }), console.groupEnd()), w = [];
+          }
+        },
+        invoke: function invoke(i, e, t) {
+          var o,
+              r,
+              n,
+              a = g;
+          return e = e || T, t = h || t, "string" == typeof i && a !== O && (i = i.split(/[\. ]/), o = i.length - 1, P.each(i, function (e, t) {
+            var n = e != o ? t + i[e + 1].charAt(0).toUpperCase() + i[e + 1].slice(1) : i;
+            if (P.isPlainObject(a[n]) && e != o) a = a[n];else {
+              if (a[n] !== O) return r = a[n], !1;
+              if (!P.isPlainObject(a[t]) || e == o) return a[t] !== O ? r = a[t] : s.error(c.method, i), !1;
+              a = a[t];
+            }
+          })), P.isFunction(r) ? n = r.apply(t, e) : r !== O && (n = r), P.isArray(y) ? y.push(n) : y !== O ? y = [y, n] : n !== O && (y = n), r;
+        }
+      }, k ? (g === O && s.initialize(), g.save.scroll(), g.save.calculations(), s.invoke(S)) : (g !== O && g.invoke("destroy"), s.initialize());
+    }), y !== O ? y : this;
+  }, P.fn.visibility.settings = {
+    name: "Visibility",
+    namespace: "visibility",
+    debug: !1,
+    verbose: !1,
+    performance: !0,
+    observeChanges: !0,
+    initialCheck: !0,
+    refreshOnLoad: !0,
+    refreshOnResize: !0,
+    checkOnRefresh: !0,
+    once: !0,
+    continuous: !1,
+    offset: 0,
+    includeMargin: !1,
+    context: F,
+    throttle: !1,
+    type: !1,
+    zIndex: "10",
+    transition: "fade in",
+    duration: 1e3,
+    onPassed: {},
+    onOnScreen: !1,
+    onOffScreen: !1,
+    onPassing: !1,
+    onTopVisible: !1,
+    onBottomVisible: !1,
+    onTopPassed: !1,
+    onBottomPassed: !1,
+    onPassingReverse: !1,
+    onTopVisibleReverse: !1,
+    onBottomVisibleReverse: !1,
+    onTopPassedReverse: !1,
+    onBottomPassedReverse: !1,
+    onLoad: function onLoad() {},
+    onAllLoaded: function onAllLoaded() {},
+    onFixed: function onFixed() {},
+    onUnfixed: function onUnfixed() {},
+    onUpdate: !1,
+    onRefresh: function onRefresh() {},
+    metadata: {
+      src: "src"
+    },
+    className: {
+      fixed: "fixed",
+      placeholder: "placeholder",
+      visible: "visible"
+    },
+    error: {
+      method: "The method you called is not defined.",
+      visible: "Element is hidden, you must call refresh after element becomes visible"
     }
   };
 }(jQuery, window, document);

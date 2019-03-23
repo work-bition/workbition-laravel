@@ -1,4 +1,4 @@
-$card-border-radius: 1rem;
+$card-border-radius: 0.5rem;
 
 .promotion-cards {
 
@@ -28,9 +28,11 @@ $card-border-radius: 1rem;
 
             &:hover {
 
-              transform: translateY(-0.3rem);
+              margin-top: -0.3rem;
 
               cursor: pointer;
+
+              transition: all 0.2s cubic-bezier(0, 0, 0.2, 1) 0s;
 
             }
 

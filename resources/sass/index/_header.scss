@@ -6,6 +6,23 @@
 /** Header Section **/
 #header {
 
+  /** Solving that the element is selected in blue color by double click **/
+  user-select: none;
+
+  position: fixed;
+
+  z-index: 20;
+
+  top: 0!important;
+
+  left: 0!important;
+
+  right: 0!important;
+
+  background: #fff;
+
+  border: 1px solid #efefef;
+
   .header_content  {
 
     height: 5rem;
@@ -42,6 +59,8 @@
 
           .text.button {
 
+            cursor: pointer;
+
             text-align: center;
 
             letter-spacing: 0.5rem;
@@ -49,6 +68,10 @@
             text-indent: 0.5rem;
 
             color: #222;
+
+            /** Solving the problem that dashed border appears when clicking the links in Edge browsers **/
+
+            outline: none;
 
           }
 
@@ -386,7 +409,7 @@
 
       .right_wrap {
 
-      margin-right: -1.75rem;
+        margin-right: -1.75rem;
 
       }
 

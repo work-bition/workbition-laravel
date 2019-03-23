@@ -48,7 +48,10 @@ $('#account_modal')
 
     context: 'body',
 
-    blurring: true
+    /** BLurring with true will make elements with fixed position disappear **/
+    blurring: false,
+
+    observeChanges: true
 
   })
 

@@ -15,6 +15,8 @@ import { isiOS, isAndroid, isIE11 } from './detectBrowsers'
 * header - search bar
 **/
 
+
+
 /** When using Chinese input, do not show search results before Chinese characters are spell out **/
 
 /** flag showing whether Chinese characters are spell out **/
@@ -129,17 +131,13 @@ $('#header .right.menu .ui.search')
 
     onResultsOpen: () => {
 
-      $('#main_content .page_banners')[0].style.zIndex = -1
-
-      $('#main_content .page_banners')[0].style.zIndex = -1
+      //$('#main_content .page_banners')[0].style.zIndex = -1
 
     },
 
     onResultsClose: () => {
 
-      $('#main_content .page_banners')[0].style.zIndex = 'auto'
-
-      $('#main_content .page_banners')[0].style.zIndex = 'auto'
+      //$('#main_content .page_banners')[0].style.zIndex = 'auto'
 
     },
 

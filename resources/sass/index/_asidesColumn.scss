@@ -6,8 +6,18 @@
 
   .asides-wrapper {
 
+    background-color: #F9F9F9;
+
+    border-radius: 0rem;
+
+    box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+
+    padding: 2rem;
+
+    padding-bottom: 1rem;
+
     /** 必须指定固定宽度，防止在iOS设备下sticky滑动抖动的问题 **/
-    width: 21.25rem;
+    width: 100%!important;
 
     .aside1, .aside2 {
 
@@ -29,11 +39,11 @@
 
           text-indent: 0.5rem;
 
-          font-size: 1.4rem;
+          font-size: 1.2rem;
+
+          z-index: 1;
 
           &::after {
-
-            border: 4px solid #ffcc55;
 
             content: "";
 
@@ -45,7 +55,7 @@
 
             position: absolute;
 
-            top: 88%;
+            top: 85%;
 
             left: 50%;
 
@@ -61,9 +71,9 @@
 
         .icon {
 
-          width: 2.5rem;
+          width: 2rem;
 
-          height: 2.5rem;
+          height: 2rem;
 
         }
 
@@ -75,15 +85,23 @@
 
         .item {
 
-          padding-bottom: 1.5rem;
+          padding-bottom: 1rem;
 
-          .icon {
+          /* .icon {
 
-            transform: skewX(-20deg) translateY(0rem);
+            transform: skewX(0deg) translateY(0.2rem);
 
-            width: 1.8rem;
+            width: 1.3rem;
 
-            height: 1.8rem;
+            height: 1.3rem;
+
+            float: left;
+
+          } */
+
+          .ui.header {
+
+            transform: none;
 
             float: left;
 
@@ -91,7 +109,7 @@
 
           .content {
 
-            padding-left: 1rem;
+            padding-left: 2.2rem;
 
             .header {
 
@@ -104,6 +122,8 @@
             }
 
             .description {
+
+              font-size: 12px;
 
               margin-top: 0.5rem;
 
@@ -129,6 +149,17 @@
       .ui.header {
 
         transform: translateY(0.2rem);
+
+        .content {
+
+          &::after {
+
+            border: 3px solid #ffcc55;
+
+          }
+
+
+        }
 
       }
 
@@ -164,7 +195,7 @@
 
           &::after {
 
-            border: 4px solid #ff5f2c;
+            border: 3px solid #ff5f2c;
 
           }
 
@@ -177,8 +208,6 @@
         text-align: center;
 
         .item {
-
-          font-weight: bold;
 
           margin: 0.5rem;
 
@@ -261,11 +290,223 @@
 
   .asides.column {
 
+    width: 30%!important;
+
     .asides-wrapper {
 
-      width: 233.25px!important;
+      .aside2 {
 
+        .ui.list {
 
+          .item {
+
+            margin: 0.3rem;
+
+            margin-bottom: 0.6rem;
+
+            margin-top: 0;
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 991px) {
+
+  .asides.column {
+
+    width: 40%!important;
+
+  }
+
+}
+@media only screen and (max-width: 538px) {
+
+  .asides.column {
+
+    .asides-wrapper {
+
+      padding-bottom: 2rem;
+
+      .aside1, .aside2 {
+
+        .ui.list {
+
+          margin-top: 0;
+
+        }
+
+      }
+
+      .aside2 {
+
+        .ui.list {
+
+          .item {
+
+            margin: 0.1rem;
+
+            margin-bottom: 0.3rem;
+
+            margin-top: 0;
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 493px) {
+
+  .asides.column {
+
+    .asides-wrapper {
+
+      padding-bottom: 2rem;
+
+      .aside1, .aside2 {
+
+        .ui.header {
+
+          .icon {
+
+            width: 1.6rem;
+
+            height: 1.6rem;
+
+          }
+
+          .content {
+
+            font-size: 1.05rem;
+
+            &::after {
+
+              width: 3rem;
+
+              top: 78%;
+
+            }
+
+          }
+
+        }
+
+      }
+
+      .aside1 {
+
+        .ui.header {
+
+          .content {
+
+            &::after {
+
+              border: 2px solid #ffcc55;
+
+            }
+
+          }
+
+        }
+
+      }
+
+      .aside2 {
+
+        .ui.header {
+
+          .content {
+
+            &::after {
+
+              border: 2px solid #ff5f2c;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
+@media only screen and (max-width: 461px) {
+
+  .asides.column {
+
+    height: auto!important;
+
+    width: 100%!important;
+
+    .asides-wrapper {
+
+      margin-top: 0!important;
+
+      .aside1, .aside2 {
+
+        .ui.header {
+
+          .icon {
+
+            width: 2rem;
+
+            height: 2rem;
+
+          }
+
+          .content {
+
+            font-size: 1.2rem;
+
+            &::after {
+
+              top: 85%;
+
+              width: 4rem;
+
+              border-width: 4px;
+
+            }
+
+          }
+
+        }
+
+      }
+
+      .aside2 {
+
+        .ui.list {
+
+          .item {
+
+            margin: 0.3rem;
+
+            margin-bottom: 0.6rem;
+
+            margin-top: 0;
+
+          }
+
+        }
+
+      }
 
     }
 

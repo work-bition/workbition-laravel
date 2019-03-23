@@ -59,6 +59,8 @@ $(window).on('orientationchange', function(event) {
 
 })
 
+
+let juantop = 0
 /** toggling the display of the sidebar **/
 $('#main_sidebar')
 
@@ -72,7 +74,13 @@ $('#main_sidebar')
 
    context:'body',
 
+   scrollLock: false,
+
+   returnScroll: false,
+
    onVisible: () => {
+
+     juantop=$(document).scrollTop()
 
      /** Resizing the height for iOS devices **/
      resizeSidebarHeight()
@@ -80,12 +88,36 @@ $('#main_sidebar')
      /** when opening the sidebar, preventing the body layer from moving **/
      $('body').addClass('fixed_layer')
 
+     $('body').css('top', `-${juantop}px`)
+
+   },
+
+   onShow: () => {
+
+     /** Solving the problem that the background elements will show up when scrolling beyond the bottom of the sidebar in Chrome browser **/
+     $('body .pusher').css('height', '0')
+
+
+
+   },
+
+   onHide: () => {
+
+     $('body .pusher').css('height', 'auto')
+
+
+
    },
 
    onHidden: () => {
 
+     /** Solving the problem that the background elements will show up when scrolling beyond the bottom of the sidebar in Chrome browser **/
+     //$('body .pusher').css('height', 'auto')
+
      /** when closing the sidebar, releasing the original state of the body layer **/
      $('body').removeClass('fixed_layer')
+
+     $(document).scrollTop(juantop)
 
    }
 
@@ -101,6 +133,7 @@ $('#main_sidebar')
     .sidebar('hide')
 
  })
+
 
 
  /** when the width of the screen is greater than 768px, close the sidebar if it is open **/
