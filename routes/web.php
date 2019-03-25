@@ -11,6 +11,5 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+/* 'root'命名路由 */
+Route::get('/', 'PagesController@root')->name('root');

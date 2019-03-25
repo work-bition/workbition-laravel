@@ -4,7 +4,7 @@
   <head>
     <title>优拾课堂 · 办公与数字生活指南 </title>
     <link rel="stylesheet" href="{{ mix('css/main.css') }}">
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0,viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Start favicon in different devices -->
