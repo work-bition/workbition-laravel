@@ -487,6 +487,8 @@ $article-item-border-radius: 0rem;
 
     padding-right: 3rem;
 
+    padding-bottom: 0!important;
+
     .articles-list {
 
       .ui.items {
@@ -498,6 +500,12 @@ $article-item-border-radius: 0rem;
           flex-direction: column;
 
           margin-bottom: 2rem;
+
+          &:last-child {
+
+            margin-bottom: 0;
+
+          }
 
           .item-image {
 

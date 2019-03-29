@@ -11,5 +11,5 @@
 |
 */
 
-/* 'root'命名路由 */
+/* 将路由命名为'root' */
 Route::get('/', 'PagesController@root')->name('root');

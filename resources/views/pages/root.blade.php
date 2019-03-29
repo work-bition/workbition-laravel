@@ -160,7 +160,7 @@
 
     </div>
 
-    <div class="promotion-cards">
+    <div class="promotion-cards promotion-cards-1">
 
       <div class="ui grid">
 
@@ -178,9 +178,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">超高颜值的笔记应用：Bear熊掌记</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">重新发现写作之美</p>
 
                     </div>
 
@@ -204,9 +204,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">酷炫的思维导图利器xMind:Zen</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">释放创造力 提升专注力</p>
 
                     </div>
 
@@ -230,9 +230,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">优雅的图片管理工具：Eagle</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">高效整理图片素材</p>
 
                     </div>
 
@@ -256,9 +256,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">轻松规划一切的乐趣：滴答清单</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">达成更多 用心生活</p>
 
                     </div>
 
@@ -1478,7 +1478,7 @@
 
     </div>
 
-    <div class="promotion-cards">
+    <div class="promotion-cards promotion-cards-2">
 
       <div class="ui grid">
 
@@ -1496,9 +1496,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">超高颜值的笔记应用：Bear熊掌记</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">重新发现写作之美</p>
 
                     </div>
 
@@ -1522,9 +1522,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">酷炫的思维导图利器xMind:Zen</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">释放创造力 提升专注力</p>
 
                     </div>
 
@@ -1548,9 +1548,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">优雅的图片管理工具：Eagle</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">高效整理图片素材</p>
 
                     </div>
 
@@ -1574,9 +1574,9 @@
 
                     <div class="header">
 
-                      <div class="title">全新的思维导图利器xMind：Zen</div>
+                      <div class="title">轻松规划一切的乐趣：滴答清单</div>
 
-                      <p class="description">桌面端 + 移动端1年高级账户</p>
+                      <p class="description">达成更多 用心生活</p>
 
                     </div>
 

@@ -1830,7 +1830,7 @@ element in order to prevent the background layer from moving **/
 #main_content .promotion-cards .ui.grid .row .column .ui.card:hover {
   cursor: pointer;
   margin-top: -0.3rem;
-  transition: all 0.2s cubic-bezier(0, 0, 0.2, 1) 0s;
+  transition: all 0.3s cubic-bezier(0, 0, 0.2, 1) 0s;
 }
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image {
@@ -1842,19 +1842,19 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image.banner1 {
-  background: url(/images/promotion-cards-item1.jpg?9d672db9d4ee64fff96100e4cbafb018) 50% 50%;
+  background: url(/images/promotion-cards-item1.jpg?06cc6d848dcddf00cc27687ec70f2fef) 50% 50%;
 }
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image.banner2 {
-  background: url(/images/promotion-cards-item2.jpg?45bb46512c3a7cb57fa6ef6784a56d03) 50% 50%;
+  background: url(/images/promotion-cards-item2.jpg?2dd0dfdec634ec7906aea3bed39455c7) 50% 50%;
 }
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image.banner3 {
-  background: url(/images/promotion-cards-item3.jpg?e4ffa26c72e6f45d88848613883c0c67) 50% 50%;
+  background: url(/images/promotion-cards-item3.jpg?868632e5f822ae13a6711de12a50abed) 50% 50%;
 }
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image.banner4 {
-  background: url(/images/promotion-cards-item4.jpg?2c0dbf3223766910b8626331dc404e50) 50% 50%;
+  background: url(/images/promotion-cards-item4.jpg?120c72ce40ec06cf084aa3bd59703db5) 50% 50%;
 }
 
 #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .overlay {
@@ -1924,6 +1924,10 @@ element in order to prevent the background layer from moving **/
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .description {
     font-size: 1rem;
   }
+
+  #main_content .promotion-cards-2 {
+    margin-top: 1rem;
+  }
 }
 
 @media only screen and (max-width: 711px) {
@@ -1987,6 +1991,10 @@ element in order to prevent the background layer from moving **/
 
 #main_content .articles-feed .ui.grid {
   margin: 0;
+}
+
+#main_content .articles-feed .ui.grid .row {
+  padding-bottom: 0;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column {
@@ -2255,6 +2263,7 @@ element in order to prevent the background layer from moving **/
 
 @media only screen and (max-width: 991px) {
   #main_content .articles-feed .ui.grid .row .articles.column {
+    padding-bottom: 0 !important;
     padding-right: 3rem;
     width: 60% !important;
   }
@@ -2263,6 +2272,10 @@ element in order to prevent the background layer from moving **/
     display: flex;
     flex-direction: column;
     margin-bottom: 2rem;
+  }
+
+  #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items .item:last-child {
+    margin-bottom: 0;
   }
 
   #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items .item .item-image {
