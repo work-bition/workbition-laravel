@@ -2638,6 +2638,8 @@ element in order to prevent the background layer from moving **/
 @media only screen and (max-width: 461px) {
   #main_content .articles-feed .ui.grid .row .asides.column {
     height: auto !important;
+    padding-bottom: 0 !important;
+    padding-top: 2rem !important;
     width: 100% !important;
   }
 
