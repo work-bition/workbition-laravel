@@ -18,7 +18,15 @@
 
            <div class="overlay"></div>
 
-           <div class="header">数字管理密码工具1Password完全使用指南</div>
+           <div class="header">
+
+             <div class="main-title">初入职场要学会的二十堂金融思维入门课</div>
+
+             <div class="description">零基础入门金融学 听懂财经新闻 建立财富观念</div>
+
+           </div>
+
+
 
          </a>
 
@@ -104,7 +112,7 @@
 
                <h6 class="red">办公专家系列</h6>
 
-               <p class="description"><span>零基础入门 AI，跟随硅谷导师迈出高薪第一步</span></p>
+               <p class="description"><span>提升办公通用技能，增强职场专业能力</span></p>
 
              </div>
 
@@ -126,7 +134,7 @@
 
                <h6 class="red">效率高手系列</h6>
 
-               <p class="description"><span>零基础入门 AI，跟随硅谷导师迈出高薪第一步</span></p>
+               <p class="description"><span>熟练使用效率工具，快速完成工作目标</span></p>
 
              </div>
 
@@ -146,9 +154,9 @@
 
              <div class="card_content">
 
-               <h6 class="red">P图达人系列</h6>
+               <h6 class="red">职场能力系列</h6>
 
-               <p class="description"><span>零基础入门 AI，跟随硅谷导师迈出高薪第一步</span></p>
+               <p class="description"><span>提高职场思维能力，轻松实现职业晋升</span></p>
 
              </div>
 
@@ -300,7 +308,7 @@
 
                     <div class="content">
 
-                      <a href="#" class="header">微信深夜放大招！小游戏群聊<span>分享</span>又有新套路，小程序实现全面布局</a>
+                      <a href="#" class="header">整页截图哪家强？Mac和Windows平台最好用的截图工具全能评测</a>
 
                       <div class="meta">
 
@@ -1282,9 +1290,9 @@
 
                       <div class="content">
 
-                        <a class="header">皮克斯创始人：创新之前，你需要先重新理解失败这件事</a>
+                        <a class="header">整页截图哪家强？Mac和Windows平台截图工具评测</a>
 
-                        <div class="description">5小时前</div>
+                        <div class="description">1星期前</div>
 
                       </div>
 

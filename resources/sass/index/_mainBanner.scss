@@ -258,6 +258,26 @@
 
         font-weight: bold;
 
+        .main-title {
+
+          letter-spacing: 0.1rem;
+
+        }
+
+        .description {
+
+          font-size: 1.1rem;
+
+          font-weight: normal;
+
+          letter-spacing: 0.5rem;
+
+          margin-top: 2rem;
+
+          //font-style: italic;
+
+        }
+
       }
 
     }
@@ -337,6 +357,35 @@
   }
 
 }
+@media only screen and (max-width: 634px) {
+
+  .main_banner.featured_carousel {
+
+    .item {
+
+      .image_holder {
+
+        .header {
+
+          .description {
+
+            font-size: 12px;
+
+            letter-spacing: 0.2rem;
+
+            margin-top: 1rem;
+
+          }
+
+        }
+
+      }
+
+    }
+
+  }
+
+}
 @media only screen and (max-width: 579px) {
 
   .main_banner.featured_carousel {
@@ -370,6 +419,12 @@
         .header {
 
           font-size: 1.2rem;
+
+          .description {
+
+            display: none;
+
+          }
 
         }
 

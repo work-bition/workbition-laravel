@@ -1412,7 +1412,7 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .page_banners .main_banner.featured_carousel .item .image_holder.banner1 {
-  background: url(/images/featured_carousel_item1.png?19eb5be98832a3b8c3fd6ca199c6a4f5) 50% 50% no-repeat;
+  background: url(/images/featured_carousel_item1.png?ec8ffa368c38efd9b921d8f47b395b33) 50% 50% no-repeat;
 }
 
 #main_content .page_banners .main_banner.featured_carousel .item .image_holder.banner2 {
@@ -1461,6 +1461,17 @@ element in order to prevent the background layer from moving **/
   width: 100%;
 }
 
+#main_content .page_banners .main_banner.featured_carousel .item .image_holder .header .main-title {
+  letter-spacing: 0.1rem;
+}
+
+#main_content .page_banners .main_banner.featured_carousel .item .image_holder .header .description {
+  font-size: 1.1rem;
+  font-weight: normal;
+  letter-spacing: 0.5rem;
+  margin-top: 2rem;
+}
+
 @media only screen and (max-width: 1262px) {
   #main_content .page_banners .main_banner.featured_carousel .item .image_holder {
     height: 22rem;
@@ -1500,6 +1511,14 @@ element in order to prevent the background layer from moving **/
   }
 }
 
+@media only screen and (max-width: 634px) {
+  #main_content .page_banners .main_banner.featured_carousel .item .image_holder .header .description {
+    font-size: 12px;
+    letter-spacing: 0.2rem;
+    margin-top: 1rem;
+  }
+}
+
 @media only screen and (max-width: 579px) {
   #main_content .page_banners .main_banner.featured_carousel .ui.button {
     top: calc((100% - 14rem + 0.6rem) / 2);
@@ -1520,6 +1539,10 @@ element in order to prevent the background layer from moving **/
 
   #main_content .page_banners .main_banner.featured_carousel .item .image_holder .header {
     font-size: 1.2rem;
+  }
+
+  #main_content .page_banners .main_banner.featured_carousel .item .image_holder .header .description {
+    display: none;
   }
 }
 
@@ -1579,17 +1602,17 @@ element in order to prevent the background layer from moving **/
 
 #main_content .page_banners .corner_banners .corner_banner.corner_banner1 .card_image.banner1 {
   /** Removing no-repeat option in order to solve the problem that the edge of the rounded picture is to be cut **/
-  background: url(/images/corner_banners_item1.png?d0dbc30903ab8e201d7abb360549eefb) 50% 50%;
+  background: url(/images/corner_banners_item1.png?dc2f91da1be2b2707e9bba3008f4b4dc) 50% 50%;
 }
 
 #main_content .page_banners .corner_banners .corner_banner.corner_banner2 .card_image.banner2 {
   /** Removing no-repeat option in order to solve the problem that the edge of the rounded picture is to be cut **/
-  background: url(/images/corner_banners_item2.png?64a4c68469be8b89cfc986f94908b5f2) 50% 50%;
+  background: url(/images/corner_banners_item2.png?bd438cbf1ec5907f3ab0f181bcc12fc5) 50% 50%;
 }
 
 #main_content .page_banners .corner_banners .corner_banner.corner_banner3 .card_image.banner3 {
   /** Removing no-repeat option in order to solve the problem that the edge of the rounded picture is to be cut **/
-  background: url(/images/corner_banners_item3.png?ded6817af72fbf1251c794761a88a391) 50% 50%;
+  background: url(/images/corner_banners_item3.png?09577d105630ecef15358da84461960d) 50% 50%;
 }
 
 #main_content .page_banners .corner_banners .corner_banner .card_area {
