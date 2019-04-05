@@ -1010,6 +1010,10 @@ element in order to prevent the background layer from moving **/
   display: inline-block;
 }
 
+#header .header_content .right_wrap .right.menu .account-buttons .register_button .register.button .register-button-link {
+  color: #fff;
+}
+
 #header .header_content .right_wrap .right.menu .ui.search.item {
   display: inline-block;
   /* When the width of the window is greater than 769px, chaging the width of the search input to 35rem */

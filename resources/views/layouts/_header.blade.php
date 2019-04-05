@@ -44,13 +44,13 @@
 
             <div class="account-buttons">
 
-              <a class="login text button">登录</a>
+              <a class="login text button" href="{{ route('login') }}" target="_blank">登录</a>
 
               <span class="divider_item"> / </span>
 
               <div class="register_button">
 
-               <div class="ui primary register button">注册账号</div>
+               <div class="ui primary register button"><a class="register-button-link" href="{{ route('register') }}" target="_blank">注册账号</a></div>
 
               </div>
 
