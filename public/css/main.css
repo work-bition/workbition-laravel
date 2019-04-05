@@ -2063,11 +2063,11 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image .image-holder.banner1 {
-  background: url(/images/article-feed-item1.png?a5f63f2587a1a3b1726b0fee30d99a1d) 50% 50%;
+  background: url(/images/article-feed-item1.png?a0a3b1e3472a9a61072cae69699f6075) 50% 50%;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image .image-holder.banner2 {
-  background: url(/images/article-feed-item2.png?254d33ce9ee68c1ec3b79745d9aa2ae4) 50% 50%;
+  background: url(/images/article-feed-item2.png?3d1c60ba5117256907207231a7e95fcd) 50% 50%;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image .image-holder.banner3 {
@@ -2132,6 +2132,7 @@ element in order to prevent the background layer from moving **/
   align-items: center;
   display: flex;
   margin: 1rem 0;
+  margin-bottom: 2.5rem;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .meta .vertical-divider {
@@ -2175,6 +2176,15 @@ element in order to prevent the background layer from moving **/
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .meta .authorization .icon {
   height: 1.2rem;
   width: 1.2rem;
+}
+
+#main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .description {
+  color: #4a4a4a;
+  font-size: 1.1rem;
+}
+
+#main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .description p {
+  line-height: 1.625;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .extra {
