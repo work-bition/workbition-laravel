@@ -1050,7 +1050,7 @@ element in order to prevent the background layer from moving **/
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu {
-  left: -150%;
+  left: -160%;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item {
@@ -1059,7 +1059,7 @@ element in order to prevent the background layer from moving **/
   font-family: "SF Pro SC";
   font-weight: bold;
   letter-spacing: 0.2rem;
-  padding: 1.2rem 1.5rem !important;
+  padding: 1.2rem 1.8rem !important;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item:hover {
@@ -1089,7 +1089,7 @@ element in order to prevent the background layer from moving **/
   justify-content: flex-end;
   letter-spacing: 0.2rem;
   margin-right: 0;
-  padding: 1.2rem 1.5rem !important;
+  padding: 1.2rem 1.8rem !important;
   width: 100%;
 }
 
