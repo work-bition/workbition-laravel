@@ -31,8 +31,6 @@ $('#main_content .articles-feed .articles.column .item .content .extra .article-
 
     hoverable: true,
 
-    transition: 'fade',
-
-    on: 'click'
+    transition: 'fade'
 
   })

@@ -11,7 +11,7 @@ const mix = require('laravel-mix');
  |
  */
 
- Mix.listen('configReady', (webpackConfig) => {
+Mix.listen('configReady', (webpackConfig) => {
 
      // Create SVG sprites
      webpackConfig.module.rules.unshift({
@@ -81,7 +81,7 @@ mix.webpackConfig(webpack => {
 
 mix.js('resources/js/index/main.js', 'public/js')
 
-      .extract(['jquery', 'enquire.js', 'slick-carousel', 'ellipsis.js'])
+      .extract(['jquery', 'enquire.js', 'slick-carousel', 'ellipsis.js', 'objectFitPolyfill'])
 
    .sass('resources/sass/index/main.scss', 'public/css')
 

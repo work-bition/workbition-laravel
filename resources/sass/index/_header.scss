@@ -3,6 +3,10 @@
 @import 'sidebar';
 
 
+$avatarDropdownPadding: 1.2rem 2rem!important;
+
+$avatarDropdownHorizontalOffset: -150%;
+
 /** Header Section **/
 #header {
 
@@ -55,7 +59,7 @@
 
         align-items: center;
 
-        .wechat-official-platform, .account-buttons {
+        .wechat-official-platform, .authentication-links {
 
           .text.button {
 
@@ -109,7 +113,7 @@
 
         }
 
-        .account-buttons {
+        .authentication-links {
 
           display: flex;
 
@@ -126,6 +130,177 @@
                 color: #fff;
 
               }
+
+            }
+
+          }
+
+          .avatar-container {
+
+            margin: 0 0.6rem;
+
+            /** solve the problem that the avatar image cannot positioned center in IE 11 browsers **/
+            display: flex;
+
+            align-items: center;
+
+            .avatar.dropdown {
+
+              display: flex;
+
+              align-items: center;
+
+              .avatar-link {
+
+                width:2.5rem;
+
+                height:2.5rem;
+
+                border-radius:50%;
+
+                display: inline-block;
+
+                cursor: pointer;
+
+                .avatar.image {
+
+                  width:100%;
+
+                  height:100%;
+
+                  object-fit:cover;
+
+                }
+
+              }
+
+              .menu {
+
+                left: $avatarDropdownHorizontalOffset;
+
+                .item {
+
+                  font-weight: 400;
+
+                  display: flex;
+
+                  align-items: center;
+
+                  padding: $avatarDropdownPadding;
+
+                  &:hover {
+
+                    background-color: #fff;
+
+                  }
+
+                  &.selected {
+
+                    background-color: #fff;
+
+                  }
+
+                  &.logout {
+
+                    padding: 0!important;
+
+                    .logout-form {
+
+                      width: 100%;
+
+                      .button {
+
+                        width: 100%;
+
+                        display: flex;
+
+                        align-items: center;
+
+                        justify-content: flex-end;
+
+                        margin-right: 0;
+
+                        border-radius: 0;
+
+                        box-shadow: none!important;
+
+                        font-size: 1rem;
+
+                        padding: $avatarDropdownPadding;
+
+                      }
+
+                    }
+
+                  }
+
+                  .icon {
+
+                    margin-right: 0.5rem;
+
+                    width: 1.5rem;
+
+                    height: 1.5rem;
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+          .avatar.popup {
+
+            .profile.list {
+
+              .item {
+
+                text-align: center;
+
+                margin: 1.5rem 2rem;
+
+                .content {
+
+                  .link {
+
+                    color: #000;
+
+                    font-weight: 600;
+
+                    &.logout {
+
+                      color: #ae1f2a;
+
+                    }
+
+                  }
+
+                }
+
+              }
+
+            }
+
+          }
+
+          .notification-link {
+
+            display: flex;
+
+            align-items: center;
+
+            margin-left:0.5rem;
+
+            transform:translateY(2px);
+
+            .icon {
+
+              width:1.6rem;
+
+              height:1.6rem;
 
             }
 

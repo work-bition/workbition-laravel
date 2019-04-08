@@ -163,6 +163,10 @@ $article-item-border-radius: 0rem;
 
           .header {
 
+            //color: #0097d2;
+
+            font-size: 1.2rem;
+
             font-weight: normal;
 
             text-align: justify;
@@ -187,7 +191,7 @@ $article-item-border-radius: 0rem;
 
             align-items: center;
 
-            margin-bottom: 2.5rem;
+            //margin-bottom: 2.5rem;
 
             .vertical-divider {
 
@@ -233,6 +237,8 @@ $article-item-border-radius: 0rem;
 
             .publish-date {
 
+              margin-right: 0;
+
               display: flex;
 
               align-items: center;
@@ -249,11 +255,19 @@ $article-item-border-radius: 0rem;
 
               cursor: pointer;
 
-              .icon {
+              .popup-icon-wrapper {
 
-                width: 1.2rem;
+                display: flex;
 
-                height: 1.2rem;
+                align-items: center;
+
+                .icon {
+
+                  width: 1.2rem;
+
+                  height: 1.2rem;
+
+                }
 
               }
 
@@ -263,9 +277,11 @@ $article-item-border-radius: 0rem;
 
           .description {
 
-            font-size: 1.1rem;
+            font-size: 1rem;
 
-            color: #4a4a4a;
+            //height: 48px;
+
+            color: #959595;
 
             p {
 

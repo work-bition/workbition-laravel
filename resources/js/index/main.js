@@ -1,5 +1,7 @@
 import '../../../semantic-ui/dist/semantic.min.js'
 
+import 'objectFitPolyfill'
+
 import './header'
 
 import './mainNavigation'

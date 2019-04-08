@@ -312,7 +312,7 @@
 
                       <span class="divider_item"> | </span>
 
-                      <div class="account-buttons">
+                      <div class="authentication-links">
 
                         <a class="login text button">登录</a>
 

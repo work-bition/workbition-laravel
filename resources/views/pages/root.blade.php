@@ -326,11 +326,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
 
                         </span>
 
@@ -340,7 +336,7 @@
                         <p>仅需几步就能好看！快速做出让老板点赞，同事羡慕的Office商务信息图表。</p>
                       </div>
 
-                      <!-- <div class="extra">
+                      <div class="extra">
                         <section class="article-options">
                           <span class="like option"><i class="ui red heart outline icon"></i><span><span>20000赞</span></span></span>
                           <span class="comment option"><i class="ui green comment alternate icon"></i><span><span>20000评论</span></span></span>
@@ -371,7 +367,7 @@
 
                         </section>
 
-                      </div> -->
+                      </div>
 
                     </div>
 
@@ -404,14 +400,13 @@
                         </span>
 
                         <span class="authorization">
+
                           <span class="vertical-divider"> | </span>
+
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
+                          <div class="ui auth popup">「官方认证用户」</div>
 
-                            「优拾课堂官方认证用户」
-
-                          </div>
                         </span>
 
                       </div>
@@ -487,11 +482,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -566,11 +557,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -646,11 +633,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -726,11 +709,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -806,11 +785,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -886,11 +861,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -966,11 +937,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -1046,11 +1013,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -1126,11 +1089,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>
@@ -1206,11 +1165,7 @@
                           <span class="vertical-divider"> | </span>
                           <span class="popup-icon-wrapper"><svg class="icon icon-auth"><use xlink:href="#icon-auth"></use></svg></span>
 
-                          <div class="ui auth popup">
-
-                            「优拾课堂官方认证用户」
-
-                          </div>
+                          <div class="ui auth popup">「官方认证用户」</div>
                         </span>
 
                       </div>

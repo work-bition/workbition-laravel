@@ -223,9 +223,9 @@ $('#header .right.menu .ui.search i.search.icon').click((event) => {
 
   /** making login and register buttons invisible **/
 
-  let account_buttons = $('#header .right.menu .account-buttons')
+  let authentication_links = $('#header .right.menu .authentication-links')
 
-  account_buttons[0].style.display='none'
+  authentication_links[0].style.display='none'
 
   /** removing 'link' class via jQuery **/
 
@@ -283,13 +283,13 @@ $('#header .right.menu .ui.search i.close.icon').click((event) => {
 
     let divider_item = $('#header .right.menu>.divider_item')
 
-    let account_buttons = $('#header .right.menu .account-buttons')
+    let authentication_links = $('#header .right.menu .authentication-links')
 
     wechat_official_platform[0].style.display='flex'
 
     divider_item[0].style.display='block'
 
-    account_buttons[0].style.display='flex'
+    authentication_links[0].style.display='flex'
 
     /* adding 'link' class to search icon via jQuery */
     $('#header .right.menu .ui.search i.search.icon').addClass('link')
@@ -322,8 +322,12 @@ $('#header .right.menu .ui.search .prompt').blur(function(){
 
 })
 
-/** when clicking the menu button, making the search bar invisible **/
+/** when clicking the menu button, making the search bar invisible while the search bar is open **/
 $('#header .right.menu .menu_button .align.justify.icon').click((event) => {
+
+
+  /* making results panel of search input invisible if it shows up */
+  $('#header .right.menu .ui.search .results').addClass('hide_results')
 
   /* making search input invisible */
 
@@ -339,19 +343,25 @@ $('#header .right.menu .menu_button .align.justify.icon').click((event) => {
 
   close_icon.style.display = 'none'
 
+  /** when clicking the menu button, set the display of the wechat official platform section to 'flex' **/
+
+  let wechat_official_platform = $('#header .header_content .right_wrap .right.menu .wechat-official-platform')
+
+  wechat_official_platform[0].style.display = 'flex'
+
+  /* when clicking the menu button, set the display of the dividers to 'block' */
+
+  let dividers = $('#header .right.menu .divider_item')
+
+  dividers[0].style.display ='block'
+
+  dividers[1].style.display ='block'
+
   /* making login and register buttons visible */
 
-  let login_button = $('#header .right.menu .login.button')
+  let authentication_links = $('#header .right.menu .authentication-links')
 
-  let divider = $('#header .right.menu .divider_item')
-
-  let register_button = $('#header .right.menu .register_button')
-
-  login_button[0].style.display='inline-block'
-
-  divider[0].style.display='inline-block'
-
-  register_button[0].style.display='inline-block'
+  authentication_links[0].style.display ='flex'
 
   /* adding 'link' class to search icon via jQuery */
   $('#header .right.menu .ui.search i.search.icon').addClass('link')
@@ -378,7 +388,7 @@ $('body').click((event) => {
 
   }
 
- })
+})
 
 /** hiding results panel of the search box when clicking on it **/
 $('#header .right.menu .ui.search .results').click((event) => {

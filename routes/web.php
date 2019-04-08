@@ -16,6 +16,12 @@
 /* 将路由命名为'root' */
 Route::get('/', 'PagesController@root')->name('root');
 
+Route::get('/roottest', function () {
+
+    return view('pages/root-test');
+
+});
+
 
 
 /* 用户认证路由 */

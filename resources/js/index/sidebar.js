@@ -60,7 +60,8 @@ $(window).on('orientationchange', function(event) {
 })
 
 
-let juantop = 0
+let scrollDistance = 0
+
 /** toggling the display of the sidebar **/
 $('#main_sidebar')
 
@@ -78,9 +79,11 @@ $('#main_sidebar')
 
    returnScroll: false,
 
+   /** Is called when a sidebar begins animating in **/
    onVisible: () => {
 
-     juantop=$(document).scrollTop()
+     /** remember the scroll distance of the page when the sidebar begins animating in **/
+     scrollDistance=$(document).scrollTop()
 
      /** Resizing the height for iOS devices **/
      resizeSidebarHeight()
@@ -88,10 +91,13 @@ $('#main_sidebar')
      /** when opening the sidebar, preventing the body layer from moving **/
      $('body').addClass('fixed_layer')
 
-     $('body').css('top', `-${juantop}px`)
+     /** set the top property of the body element (which is fixed) to the negative value of the scroll distance **/
+     /** make sure that the viewport remains the same position when open the sidebar **/
+     $('body').css('top', `-${scrollDistance}px`)
 
    },
 
+   //is called when a sidebar has finished animating in
    onShow: () => {
 
      /** Solving the problem that the background elements will show up when scrolling beyond the bottom of the sidebar in Chrome browser **/
@@ -117,7 +123,8 @@ $('#main_sidebar')
      /** when closing the sidebar, releasing the original state of the body layer **/
      $('body').removeClass('fixed_layer')
 
-     $(document).scrollTop(juantop)
+     /** when close the sidebar, make sure the viewport remains the same position **/
+     $(document).scrollTop(scrollDistance)
 
    }
 

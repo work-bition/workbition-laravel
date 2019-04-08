@@ -42,17 +42,59 @@
 
             <span class="divider_item"> | </span>
 
-            <div class="account-buttons">
+            <!-- Authentication Links -->
 
-              <a class="login text button" href="{{ route('login') }}" target="_blank">登录</a>
+            <div class="authentication-links">
 
-              <span class="divider_item"> / </span>
+              @guest
 
-              <div class="register_button">
+                  <a class="login text button" href="{{ route('login') }}" target="_blank">登录</a>
 
-               <div class="ui primary register button"><a class="register-button-link" href="{{ route('register') }}" target="_blank">注册账号</a></div>
+                  <span class="divider_item"> / </span>
 
-              </div>
+                  <div class="register_button">
+
+                    <div class="ui primary register button"><a class="register-button-link" href="{{ route('register') }}" target="_blank">注册账号</a></div>
+
+                  </div>
+
+              @else
+
+                    <div class="avatar-container">
+
+                      <div class="ui pointing avatar dropdown">
+
+                        <span class="avatar-link"><img class="ui avatar image" src="/images/avatar.jpg" data-object-fit="cover" /></span>
+
+                        <div class="menu">
+
+                          <div class="item"><svg class="icon icon-profile"><use xlink:href="#icon-profile"></use></svg><span>个人主页</span></div>
+
+                          <div class="item"><svg class="icon icon-settings"><use xlink:href="#icon-settings"></use></svg><span>设置</span></div>
+
+                          <div class="item"><svg class="icon icon-courses"><use xlink:href="#icon-courses"></use></svg><span>我的课程</span></div>
+
+                          <div class="logout item">
+
+                              <form class="logout-form" action="{{ route('logout') }}" method="POST">
+
+                                {{ csrf_field() }}
+
+                                <button class="ui small basic red button" type="submit" name="button"><svg class="icon icon-logout"><use xlink:href="#icon-logout"></use></svg><span>退出登录</span></button>
+
+                              </form>
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                    <a href="#" class="notification-link"><svg class="icon icon-notification"><use xlink:href="#icon-notification"></use></svg></a>
+
+              @endguest
 
             </div>
 
