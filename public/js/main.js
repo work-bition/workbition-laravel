@@ -1337,6 +1337,8 @@ var map = {
 	"./login.svg": "./resources/js/icons/svg/login.svg",
 	"./logo.svg": "./resources/js/icons/svg/logo.svg",
 	"./logout.svg": "./resources/js/icons/svg/logout.svg",
+	"./logout2.svg": "./resources/js/icons/svg/logout2.svg",
+	"./logout3.svg": "./resources/js/icons/svg/logout3.svg",
 	"./notification.svg": "./resources/js/icons/svg/notification.svg",
 	"./profile.svg": "./resources/js/icons/svg/profile.svg",
 	"./register.svg": "./resources/js/icons/svg/register.svg",
@@ -1573,7 +1575,59 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "id": "icon-logout",
   "use": "icon-logout-usage",
   "viewBox": "0 0 1024 1024",
-  "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-logout\"><defs><style></style></defs><path d=\"M737.024 210.208c-3.712.192-4.672.128-8.352.672-6.912 1.056-13.632 3.2-19.84 6.4a64.43 64.43 0 0 0-16.736 12.448 64.812 64.812 0 0 0-9.952 13.408c-8.16 14.752-10.208 32.48-5.568 48.672A64.048 64.048 0 0 0 688 314.016c2.336 2.912 3.04 3.52 5.632 6.208l3.104 2.816c13.856 11.712 26.688 24.512 38.176 38.56 27.968 34.176 47.904 74.624 57.792 117.664 8 34.944 9.376 71.36 4.16 106.816-5.408 36.768-17.92 72.416-36.8 104.416-14.656 24.8-33.056 47.296-54.368 66.656-20.704 18.784-44.096 34.592-69.344 46.688a286.152 286.152 0 0 1-87.008 25.696c-34.368 4.448-69.504 2.656-103.232-5.248-35.2-8.224-68.768-23.104-98.432-43.712-31.968-22.24-59.296-51.04-79.968-84.032-21.248-33.888-35.232-72.192-40.832-111.808-6.176-43.488-2.272-88.256 11.296-130.016 10.496-32.32 26.752-62.72 47.872-89.376 9.792-12.384 20.672-23.808 32.288-34.496 3.936-3.52 7.936-6.912 11.84-10.432 2.592-2.688 3.296-3.296 5.6-6.208a64.4 64.4 0 0 0 11.392-22.24c2.272-8.064 2.976-16.576 1.984-24.896a63.427 63.427 0 0 0-5.76-20.032 63.36 63.36 0 0 0-11.872-17.12c-11.744-12.096-28.128-19.168-44.992-19.424-5.568-.096-11.168.576-16.576 1.92a65.345 65.345 0 0 0-19.136 8.32c-5.216 3.392-9.856 7.616-14.496 11.744a415.38 415.38 0 0 0-85.152 104.352c-30.848 53.76-49.376 114.336-53.984 176.128-4.64 61.888 4.672 124.64 27.264 182.432 15.84 40.512 38.112 78.432 65.664 112.064 26.56 32.448 57.984 60.896 92.992 83.968 39.392 25.952 83.2 45.056 128.992 56.352 53.376 13.152 109.248 15.648 163.584 7.296 50.4-7.744 99.264-24.832 143.456-50.24 41.216-23.712 78.368-54.528 109.248-90.656a414.862 414.862 0 0 0 62.912-99.136c31.52-70.08 43.072-148.608 33.248-224.768-5.856-45.312-19.232-89.6-39.488-130.56a416.663 416.663 0 0 0-63.456-93.6c-10.112-11.264-20.864-21.888-32.096-32.064a648.114 648.114 0 0 0-10.016-8.672c-2.912-2.336-3.584-2.976-6.72-4.992a64.79 64.79 0 0 0-19.136-8.288c-4.128-1.024-8.224-1.472-12.416-1.824-1.408-.032-2.784-.032-4.192-.064M576.032 576a64.02 64.02 0 0 1-18.752 45.248A64.02 64.02 0 0 1 512.032 640a63.965 63.965 0 0 1-45.248-18.752A64.02 64.02 0 0 1 448.032 576V128c0-16.992 6.752-33.248 18.752-45.28 12-12 28.256-18.72 45.248-18.72 16.96 0 33.248 6.72 45.248 18.72 12 12.032 18.752 28.288 18.752 45.28v448z\" fill=\"#d01919\" /></symbol>"
+  "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-logout\"><path d=\"M938.667 0h-512a85.333 85.333 0 0 0-85.334 85.333v256H512V170.667h341.333v682.666H512V682.667H341.333v256A85.333 85.333 0 0 0 426.667 1024h512A85.333 85.333 0 0 0 1024 938.667V85.333A85.333 85.333 0 0 0 938.667 0z\" fill=\"#db2828\" /><path d=\"M682.667 426.667H256V256L0 512l256 256V597.333h426.667V426.667z\" fill=\"#db2828\" /></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/logout2.svg":
+/*!********************************************!*\
+  !*** ./resources/js/icons/svg/logout2.svg ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-logout2",
+  "use": "icon-logout2-usage",
+  "viewBox": "0 0 1024 1024",
+  "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-logout2\"><defs><style></style></defs><path d=\"M737.024 210.208c-3.712.192-4.672.128-8.352.672-6.912 1.056-13.632 3.2-19.84 6.4a64.43 64.43 0 0 0-16.736 12.448 64.812 64.812 0 0 0-9.952 13.408c-8.16 14.752-10.208 32.48-5.568 48.672A64.048 64.048 0 0 0 688 314.016c2.336 2.912 3.04 3.52 5.632 6.208l3.104 2.816c13.856 11.712 26.688 24.512 38.176 38.56 27.968 34.176 47.904 74.624 57.792 117.664 8 34.944 9.376 71.36 4.16 106.816-5.408 36.768-17.92 72.416-36.8 104.416-14.656 24.8-33.056 47.296-54.368 66.656-20.704 18.784-44.096 34.592-69.344 46.688a286.152 286.152 0 0 1-87.008 25.696c-34.368 4.448-69.504 2.656-103.232-5.248-35.2-8.224-68.768-23.104-98.432-43.712-31.968-22.24-59.296-51.04-79.968-84.032-21.248-33.888-35.232-72.192-40.832-111.808-6.176-43.488-2.272-88.256 11.296-130.016 10.496-32.32 26.752-62.72 47.872-89.376 9.792-12.384 20.672-23.808 32.288-34.496 3.936-3.52 7.936-6.912 11.84-10.432 2.592-2.688 3.296-3.296 5.6-6.208a64.4 64.4 0 0 0 11.392-22.24c2.272-8.064 2.976-16.576 1.984-24.896a63.427 63.427 0 0 0-5.76-20.032 63.36 63.36 0 0 0-11.872-17.12c-11.744-12.096-28.128-19.168-44.992-19.424-5.568-.096-11.168.576-16.576 1.92a65.345 65.345 0 0 0-19.136 8.32c-5.216 3.392-9.856 7.616-14.496 11.744a415.38 415.38 0 0 0-85.152 104.352c-30.848 53.76-49.376 114.336-53.984 176.128-4.64 61.888 4.672 124.64 27.264 182.432 15.84 40.512 38.112 78.432 65.664 112.064 26.56 32.448 57.984 60.896 92.992 83.968 39.392 25.952 83.2 45.056 128.992 56.352 53.376 13.152 109.248 15.648 163.584 7.296 50.4-7.744 99.264-24.832 143.456-50.24 41.216-23.712 78.368-54.528 109.248-90.656a414.862 414.862 0 0 0 62.912-99.136c31.52-70.08 43.072-148.608 33.248-224.768-5.856-45.312-19.232-89.6-39.488-130.56a416.663 416.663 0 0 0-63.456-93.6c-10.112-11.264-20.864-21.888-32.096-32.064a648.114 648.114 0 0 0-10.016-8.672c-2.912-2.336-3.584-2.976-6.72-4.992a64.79 64.79 0 0 0-19.136-8.288c-4.128-1.024-8.224-1.472-12.416-1.824-1.408-.032-2.784-.032-4.192-.064M576.032 576a64.02 64.02 0 0 1-18.752 45.248A64.02 64.02 0 0 1 512.032 640a63.965 63.965 0 0 1-45.248-18.752A64.02 64.02 0 0 1 448.032 576V128c0-16.992 6.752-33.248 18.752-45.28 12-12 28.256-18.72 45.248-18.72 16.96 0 33.248 6.72 45.248 18.72 12 12.032 18.752 28.288 18.752 45.28v448z\" fill=\"#d01919\" /></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/logout3.svg":
+/*!********************************************!*\
+  !*** ./resources/js/icons/svg/logout3.svg ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-logout3",
+  "use": "icon-logout3-usage",
+  "viewBox": "0 0 196 196",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 196 196\" id=\"icon-logout3\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M.344 98c0 53.934 43.722 97.656 97.656 97.656 53.934 0 97.656-43.722 97.656-97.656C195.656 44.066 151.934.344 98 .344 44.066.344.344 44.066.344 98z\" fill=\"#DB2828\" /><path d=\"M90.949 55.683c0-3.877 3.17-7.054 7.048-7.054 3.877 0 7.054 3.177 7.054 7.054V94.47c0 3.877-3.177 7.055-7.054 7.055-3.877 0-7.048-3.177-7.048-7.055V55.683z\" fill=\"#FFF\" /><path d=\"M97.997 147.371c-25.313 0-45.84-20.529-45.84-45.84 0-19.07 11.65-35.41 28.217-42.32v15.93c-8.513 5.692-14.109 15.38-14.109 26.39 0 17.525 14.206 31.737 31.738 31.737 17.539 0 31.745-14.206 31.745-31.738 0-11.003-5.608-20.69-14.122-26.389V59.204c16.58 6.911 28.218 23.25 28.218 42.32 0 25.318-20.528 45.847-45.847 45.847z\" fill=\"#FFF\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);

@@ -3,7 +3,7 @@
 @import 'sidebar';
 
 
-$avatarDropdownPadding: 1.2rem 1.8rem!important;
+$avatarDropdownPadding: 1rem 1.8rem!important;
 
 $avatarDropdownHorizontalOffset: -160%;
 
@@ -190,7 +190,7 @@ $avatarDropdownHorizontalOffset: -160%;
 
                   padding: $avatarDropdownPadding;
 
-                  letter-spacing: 0.2rem;
+                  letter-spacing: 0.1rem;
 
                   &:hover {
 
@@ -218,7 +218,7 @@ $avatarDropdownHorizontalOffset: -160%;
 
                         font-weight: bold;
 
-                        letter-spacing: 0.2rem;
+                        letter-spacing: 0.1rem;
 
                         width: 100%;
 
@@ -238,6 +238,18 @@ $avatarDropdownHorizontalOffset: -160%;
 
                         padding: $avatarDropdownPadding;
 
+                        &:hover {
+
+                          color: #db2828!important;
+
+                        }
+
+                        .icon {
+
+                          transform: translateX(-3px);
+
+                        }
+
                       }
 
                     }
@@ -251,6 +263,8 @@ $avatarDropdownHorizontalOffset: -160%;
                     width: 1.5rem;
 
                     height: 1.5rem;
+
+                    transform: translateY(1px);
 
                   }
 

@@ -1058,8 +1058,8 @@ element in order to prevent the background layer from moving **/
   display: flex;
   font-family: "SF Pro SC";
   font-weight: bold;
-  letter-spacing: 0.2rem;
-  padding: 1.2rem 1.8rem !important;
+  letter-spacing: 0.1rem;
+  padding: 1rem 1.8rem !important;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item:hover {
@@ -1087,15 +1087,26 @@ element in order to prevent the background layer from moving **/
   font-size: 1rem;
   font-weight: bold;
   justify-content: flex-end;
-  letter-spacing: 0.2rem;
+  letter-spacing: 0.1rem;
   margin-right: 0;
-  padding: 1.2rem 1.8rem !important;
+  padding: 1rem 1.8rem !important;
   width: 100%;
+}
+
+#header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item.logout .logout-form .button:hover {
+  color: #db2828 !important;
+}
+
+#header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item.logout .logout-form .button .icon {
+  -webkit-transform: translateX(-3px);
+          transform: translateX(-3px);
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item .icon {
   height: 1.5rem;
   margin-right: 0.5rem;
+  -webkit-transform: translateY(1px);
+          transform: translateY(1px);
   width: 1.5rem;
 }
 
