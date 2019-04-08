@@ -3,7 +3,7 @@
 @import 'sidebar';
 
 
-$avatarDropdownPadding: 1.2rem 2rem!important;
+$avatarDropdownPadding: 1.2rem 1.5rem!important;
 
 $avatarDropdownHorizontalOffset: -150%;
 
@@ -180,13 +180,17 @@ $avatarDropdownHorizontalOffset: -150%;
 
                 .item {
 
-                  font-weight: 400;
+                  font-family: "SF Pro SC";
+
+                  font-weight: bold;
 
                   display: flex;
 
                   align-items: center;
 
                   padding: $avatarDropdownPadding;
+
+                  letter-spacing: 0.2rem;
 
                   &:hover {
 
@@ -209,6 +213,12 @@ $avatarDropdownHorizontalOffset: -150%;
                       width: 100%;
 
                       .button {
+
+                        font-family: "SF Pro SC";
+
+                        font-weight: bold;
+
+                        letter-spacing: 0.2rem;
 
                         width: 100%;
 

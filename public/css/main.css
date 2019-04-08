@@ -1056,8 +1056,10 @@ element in order to prevent the background layer from moving **/
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item {
   align-items: center;
   display: flex;
-  font-weight: 400;
-  padding: 1.2rem 2rem !important;
+  font-family: "SF Pro SC";
+  font-weight: bold;
+  letter-spacing: 0.2rem;
+  padding: 1.2rem 1.5rem !important;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item:hover {
@@ -1081,10 +1083,13 @@ element in order to prevent the background layer from moving **/
   border-radius: 0;
   box-shadow: none !important;
   display: flex;
+  font-family: "SF Pro SC";
   font-size: 1rem;
+  font-weight: bold;
   justify-content: flex-end;
+  letter-spacing: 0.2rem;
   margin-right: 0;
-  padding: 1.2rem 2rem !important;
+  padding: 1.2rem 1.5rem !important;
   width: 100%;
 }
 
