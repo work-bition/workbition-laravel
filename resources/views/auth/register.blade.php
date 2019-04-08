@@ -80,6 +80,7 @@
 
                               <span class="invalid-feedback" role="alert">
 
+                                <!-- 获取captcha字段中的第一个错误-->
                                 <strong>{{ $errors->first('captcha') }}</strong>
 
                               </span>
