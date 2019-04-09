@@ -16,7 +16,7 @@
 /* 将路由命名为'root' */
 Route::get('/', 'PagesController@root')->name('root');
 
-Route::get('/roottest', function () {
+Route::get('/roottest', function (Request $request) {
 
     return view('pages/root-test');
 

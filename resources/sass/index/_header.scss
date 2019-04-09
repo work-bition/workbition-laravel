@@ -3,9 +3,9 @@
 @import 'sidebar';
 
 
-$avatarDropdownPadding: 1rem 1.8rem!important;
+$avatarDropdownPadding: 0.8rem 1.8rem!important;
 
-$avatarDropdownHorizontalOffset: -150%;
+$avatarDropdownHorizontalOffset: -140%;
 
 /** Header Section **/
 #header {
@@ -190,7 +190,7 @@ $avatarDropdownHorizontalOffset: -150%;
 
                   padding: $avatarDropdownPadding;
 
-                  letter-spacing: 0.1rem;
+                  //letter-spacing: 0.1rem;
 
                   &:hover {
 
@@ -218,7 +218,7 @@ $avatarDropdownHorizontalOffset: -150%;
 
                         font-weight: bold;
 
-                        letter-spacing: 0.1rem;
+                        //letter-spacing: 0.1rem;
 
                         width: 100%;
 

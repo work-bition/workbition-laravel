@@ -1050,7 +1050,7 @@ element in order to prevent the background layer from moving **/
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu {
-  left: -150%;
+  left: -140%;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item {
@@ -1058,8 +1058,7 @@ element in order to prevent the background layer from moving **/
   display: flex;
   font-family: "SF Pro SC";
   font-weight: bold;
-  letter-spacing: 0.1rem;
-  padding: 1rem 1.8rem !important;
+  padding: 0.8rem 1.8rem !important;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item:hover {
@@ -1087,9 +1086,8 @@ element in order to prevent the background layer from moving **/
   font-size: 1rem;
   font-weight: bold;
   justify-content: flex-end;
-  letter-spacing: 0.1rem;
   margin-right: 0;
-  padding: 1rem 1.8rem !important;
+  padding: 0.8rem 1.8rem !important;
   width: 100%;
 }
 
@@ -1483,6 +1481,7 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .page_banners .main_banner.featured_carousel .slick-list {
+  background-color: #fdfdfd;
   border: #f2f2f2 solid 1px;
   border-right: none;
   padding: 0.6rem;
@@ -1688,6 +1687,7 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .page_banners .corner_banners {
+  background-color: #fdfdfd;
   border: #f2f2f2 solid 1px;
   border-left: none;
   height: 100%;
@@ -2050,7 +2050,7 @@ element in order to prevent the background layer from moving **/
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .title {
-    font-size: 1rem;
+    font-size: 12px;
   }
 
   #main_content .promotion-cards .ui.grid .row .column .ui.card .card-area .card-image .header .description {
@@ -2154,6 +2154,7 @@ element in order to prevent the background layer from moving **/
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item {
   background-color: #fdfdfd;
+  border: #f2f2f2 solid 1px;
   border-radius: 0rem;
   box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
   /** Compatible for IE 11 browser **/
@@ -2162,7 +2163,7 @@ element in order to prevent the background layer from moving **/
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image {
   height: 100%;
   position: relative;
-  width: 50%;
+  width: 35%;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image .category.label {
@@ -2185,7 +2186,7 @@ element in order to prevent the background layer from moving **/
   border-radius: 0rem;
   border-top-right-radius: 0 !important;
   height: 0;
-  padding-top: 56.25%;
+  padding-top: 70%;
   width: 100%;
 }
 
@@ -2241,7 +2242,7 @@ element in order to prevent the background layer from moving **/
   margin: auto 0rem;
   padding: 0 2rem;
   padding-left: 2rem;
-  width: 50%;
+  width: 65%;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .header {
@@ -2259,7 +2260,7 @@ element in order to prevent the background layer from moving **/
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .meta {
   align-items: center;
   display: flex;
-  margin: 1rem 0;
+  margin: 1.5rem 0;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .meta .vertical-divider {
@@ -2381,6 +2382,10 @@ element in order to prevent the background layer from moving **/
     width: 45%;
   }
 
+  #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items .item .item-image .image-holder {
+    padding-top: 75%;
+  }
+
   #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items .item .content {
     padding: 0 1.5rem;
   }
@@ -2446,6 +2451,10 @@ element in order to prevent the background layer from moving **/
 
   #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items .item .item-image {
     width: 100%;
+  }
+
+  #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items .item .item-image .image-holder {
+    padding-top: 56.25%;
   }
 
   #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items .item .content {

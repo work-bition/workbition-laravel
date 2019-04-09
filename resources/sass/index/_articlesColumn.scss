@@ -1,6 +1,6 @@
-$ratio-of-image-width-to-its-container: 50%;
+$ratio-of-image-width-to-its-container: 35%;
 
-$ratio-of-image-heigh-to-its-width: 56.25%;
+$ratio-of-image-heigh-to-its-width: 70%;
 
 $article-content-right-gutter: 2rem;
 
@@ -21,6 +21,8 @@ $article-item-border-radius: 0rem;
     .ui.items {
 
       &>.item {
+
+        border: #f2f2f2 solid 1px;
 
         border-radius: $article-item-border-radius;
 
@@ -185,7 +187,7 @@ $article-item-border-radius: 0rem;
 
           .meta {
 
-            margin: 1rem 0;
+            margin: 1.5rem 0;
 
             display: flex;
 
@@ -411,6 +413,12 @@ $article-item-border-radius: 0rem;
 
             width: 45%;
 
+            .image-holder {
+
+              padding-top: 75%;
+
+            }
+
           }
 
           .content {
@@ -542,6 +550,12 @@ $article-item-border-radius: 0rem;
           .item-image {
 
             width: 100%;
+
+            .image-holder {
+
+              padding-top: 56.25%;
+
+            }
 
           }
 
