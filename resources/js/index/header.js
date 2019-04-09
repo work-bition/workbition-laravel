@@ -7,6 +7,8 @@
 
 
 
+import 'objectFitPolyfill'
+
 import './accountModal'
 
 import './searchBar'

@@ -2149,7 +2149,7 @@ element in order to prevent the background layer from moving **/
 
 #main_content .articles-feed .ui.grid .row .articles.column {
   padding-left: 0;
-  padding-right: 6rem;
+  padding-right: 3rem;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item {

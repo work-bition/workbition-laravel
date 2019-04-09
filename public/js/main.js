@@ -2156,15 +2156,18 @@ function ellipsisText(ellipsisElements) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _accountModal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./accountModal */ "./resources/js/index/accountModal.js");
-/* harmony import */ var _accountModal__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_accountModal__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _searchBar__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./searchBar */ "./resources/js/index/searchBar.js");
-/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./sidebar */ "./resources/js/index/sidebar.js");
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! objectFitPolyfill */ "./node_modules/objectFitPolyfill/dist/objectFitPolyfill.min.js");
+/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(objectFitPolyfill__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _accountModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./accountModal */ "./resources/js/index/accountModal.js");
+/* harmony import */ var _accountModal__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_accountModal__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _searchBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./searchBar */ "./resources/js/index/searchBar.js");
+/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sidebar */ "./resources/js/index/sidebar.js");
 /*****************************************************************************************************************************
 
                                                         Header
 
 ******************************************************************************************************************************/
+
 
 
 
@@ -2188,14 +2191,11 @@ $('#header .right.menu .authentication-links .avatar-container .ui.avatar.dropdo
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _semantic_ui_dist_semantic_min_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../semantic-ui/dist/semantic.min.js */ "./semantic-ui/dist/semantic.min.js");
 /* harmony import */ var _semantic_ui_dist_semantic_min_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_semantic_ui_dist_semantic_min_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! objectFitPolyfill */ "./node_modules/objectFitPolyfill/dist/objectFitPolyfill.min.js");
-/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(objectFitPolyfill__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header */ "./resources/js/index/header.js");
-/* harmony import */ var _mainNavigation__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mainNavigation */ "./resources/js/index/mainNavigation.js");
-/* harmony import */ var _mainNavigation__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_mainNavigation__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _pageBanners__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./pageBanners */ "./resources/js/index/pageBanners.js");
-/* harmony import */ var _articlesFeed__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./articlesFeed */ "./resources/js/index/articlesFeed.js");
-
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header */ "./resources/js/index/header.js");
+/* harmony import */ var _mainNavigation__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mainNavigation */ "./resources/js/index/mainNavigation.js");
+/* harmony import */ var _mainNavigation__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mainNavigation__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _pageBanners__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pageBanners */ "./resources/js/index/pageBanners.js");
+/* harmony import */ var _articlesFeed__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./articlesFeed */ "./resources/js/index/articlesFeed.js");
 
 
 
