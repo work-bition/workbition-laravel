@@ -2176,6 +2176,13 @@ __webpack_require__.r(__webpack_exports__);
 $('#header .right.menu .authentication-links .avatar-container .ui.avatar.dropdown').dropdown({
   transition: 'fade'
 });
+/** Animation effect **/
+
+$('#header .avatar.dropdown .menu a.item, #header .avatar.dropdown .menu .button').hover(function (event) {
+  $(event.currentTarget.children[0]).transition('tada');
+}, function (event) {
+  $(event.currentTarget.children[0]).transition('stop');
+});
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

@@ -25,3 +25,20 @@ $('#header .right.menu .authentication-links .avatar-container .ui.avatar.dropdo
     transition: 'fade'
 
   })
+
+
+
+  /** Animation effect **/
+  $('#header .avatar.dropdown .menu a.item, #header .avatar.dropdown .menu .button').hover(function(event) {
+
+    $(event.currentTarget.children[0])
+
+      .transition('tada')
+
+  }, function(event) {
+
+    $(event.currentTarget.children[0])
+
+      .transition('stop')
+
+  })

@@ -333,7 +333,7 @@
                       </div>
 
                       <div class="description">
-                        <p>仅需几步就能好看！快速做出让老板点赞，同事羡慕的Office商务信息图表。</p>
+                        <p>快速做出让老板点赞，同事羡慕的Office商务信息图表。</p>
                       </div>
 
                       <div class="extra">

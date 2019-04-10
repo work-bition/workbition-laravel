@@ -246,7 +246,13 @@ $avatarDropdownHorizontalOffset: -140%;
 
                         .icon {
 
-                          transform: translateX(-3px);
+                          //transform: translateX(-3px);
+
+                        }
+
+                        span {
+
+                          margin-left: 3px;
 
                         }
 
