@@ -20,7 +20,7 @@
 
            <div class="header">
 
-             <div class="main-title">初入职场要学会的二十堂金融思维入门课</div>
+             <div class="main-title">初入职场必学的金融思维入门课</div>
 
              <div class="description">零基础入门金融学 听懂财经新闻 建立财富观念</div>
 

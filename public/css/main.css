@@ -2154,7 +2154,6 @@ element in order to prevent the background layer from moving **/
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item {
   background-color: #fdfdfd;
-  border: #f2f2f2 solid 1px;
   border-radius: 0rem;
   box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
   /** Compatible for IE 11 browser **/
@@ -2308,8 +2307,8 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .meta .authorization .popup-icon-wrapper .icon {
-  height: 1.2rem;
-  width: 1.2rem;
+  height: 1.3rem;
+  width: 1.3rem;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .description {
