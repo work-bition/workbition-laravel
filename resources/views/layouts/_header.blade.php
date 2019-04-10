@@ -68,11 +68,11 @@
 
                         <div class="menu">
 
-                          <div class="item"><svg class="icon icon-profile"><use xlink:href="#icon-profile"></use></svg><span>个人主页</span></div>
+                          <a class="item" href="{{ route('users.show', Auth::id()) }}"><svg class="icon icon-profile"><use xlink:href="#icon-profile"></use></svg><span>个人主页</span></a>
 
-                          <div class="item"><svg class="icon icon-settings"><use xlink:href="#icon-settings"></use></svg><span>设置</span></div>
+                          <a class="item" href="#"><svg class="icon icon-settings"><use xlink:href="#icon-settings"></use></svg><span>设置</span></a>
 
-                          <div class="item"><svg class="icon icon-courses"><use xlink:href="#icon-courses"></use></svg><span>我的课程</span></div>
+                          <a class="item" href="#"><svg class="icon icon-courses"><use xlink:href="#icon-courses"></use></svg><span>我的课程</span></a>
 
                           <div class="logout item">
 
