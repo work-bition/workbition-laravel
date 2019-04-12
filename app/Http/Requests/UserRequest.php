@@ -25,7 +25,9 @@ class UserRequest extends FormRequest
     public function rules()
     {
 
-        //unique:users,name,' . Auth::id()表示users表的name和id组合字段必须唯一
+        //unique:users,name,' . Auth::id()表示users表的name字段必须唯一且忽略指定ID
+        //unique:table,column,except,idColumn
+        //在 table 数据表里检查 column ，除了 idColumn 为 except 的数据。
         return [
 
             'name' => 'required|between:3,25|regex:/^[A-Za-z0-9\-\_]+$/|unique:users,name,' . Auth::id(),

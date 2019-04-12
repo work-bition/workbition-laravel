@@ -64,7 +64,7 @@
 
                       <div class="ui pointing avatar dropdown">
 
-                        <span class="avatar-link"><img class="ui avatar image" src="/images/avatar.jpg" data-object-fit="cover" /></span>
+                        <span class="avatar-link"><img class="ui avatar image" src="{{ Auth::user()->avatar }}" data-object-fit="cover" /></span>
 
                         <div class="menu">
 
