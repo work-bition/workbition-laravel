@@ -41,8 +41,6 @@ class UsersController extends Controller
 
       $this->authorize('update', $user);
 
-      //dd($request->avatar);
-
       $data = $request->all();
 
       if ($request->avatar) {
