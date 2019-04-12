@@ -1418,6 +1418,7 @@ element in order to prevent the background layer from moving **/
 
 #main_content .page_banners {
   box-shadow: none;
+  height: auto;
   margin-top: 2rem;
   position: relative;
 }
@@ -1528,7 +1529,7 @@ element in order to prevent the background layer from moving **/
 #main_content .page_banners .main_banner.featured_carousel .item .image_holder {
   background-size: cover !important;
   bottom: 0;
-  display: block;
+  display: none;
   height: 25rem;
   position: relative;
   top: 0;
@@ -1538,6 +1539,7 @@ element in order to prevent the background layer from moving **/
 
 #main_content .page_banners .main_banner.featured_carousel .item .image_holder.banner1 {
   background: url(/images/featured_carousel_item1.png?ec8ffa368c38efd9b921d8f47b395b33) 50% 50% no-repeat;
+  display: block;
 }
 
 #main_content .page_banners .main_banner.featured_carousel .item .image_holder.banner2 {

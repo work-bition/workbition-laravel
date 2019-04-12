@@ -172,7 +172,8 @@
 
       height: 25rem;
 
-      display: block;
+      //解决在Chrome浏览器中新打开页面时，Page banner高度变形的问题
+      display: none;
 
       visibility: hidden;
 
@@ -183,6 +184,9 @@
       &.banner1 {
 
         background: url(../../images/featured_carousel_item1.png) 50% 50% no-repeat;
+
+        //解决在Chrome浏览器中新打开页面时，Page banner高度变形的问题
+        display: block;
 
       }
 
