@@ -10,6 +10,13 @@ use App\Handlers\ImageUploadHandler;
 
 class UsersController extends Controller
 {
+
+    public function __construct()
+    {
+      $this->middleware('auth', ['except' => ['show']]);
+    }
+
+
     // /users/{user} @show users.show GET
     public function show(User $user)
     {
@@ -22,6 +29,8 @@ class UsersController extends Controller
     public function edit(User $user)
     {
 
+      $this->authorize('update', $user);
+
       return view('users.edit', compact('user'));
 
     }
@@ -29,6 +38,8 @@ class UsersController extends Controller
     // /users/{user} @update users.update PUT/PATDH
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user)
     {
+
+      $this->authorize('update', $user);
 
       //dd($request->avatar);
 
