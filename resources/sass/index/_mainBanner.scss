@@ -174,8 +174,9 @@
 
       //解决在Chrome浏览器中新打开页面时，Page banner高度变形的问题
       display: none;
-
-      visibility: hidden;
+      
+      //取消visibility:hidden属性声明，是因为在safafi中页面向下滚动到一定距离，再重新加载页面Page banners图片会出现短暂空白现象
+      //visibility: hidden;
 
       background-size: cover!important;
 

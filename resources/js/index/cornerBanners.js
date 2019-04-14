@@ -6,6 +6,13 @@ import ellipsisText from './ellipsisText'
 * Page Banners - Corner Banners
 **/
 
+$(document).ready(function() {
+
+  //解决在Edge浏览器中重新加载页面时，corner banners右上角的label闪现黑色的背景颜色
+  $('#main_content .page_banners .corner_banners .right.corner.label').css('visibility', 'visible');
+
+})
+
 /** When hovering on the corner banner, chaging the shape of the image in it by using CSS commands **/
 $('#main_content .corner_banners .corner_banner').hover(
 

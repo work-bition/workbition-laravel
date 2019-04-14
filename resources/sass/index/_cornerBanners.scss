@@ -24,6 +24,9 @@
 
   .ui.corner.label {
 
+    //解决在Edge浏览器中重新加载页面时，corner banners右上角的label闪现黑色的背景颜色
+    visibility: hidden;
+
     cursor: default;
 
     &:hover {
@@ -44,7 +47,8 @@
 
     display: flex;
 
-    visibility: hidden;
+    //取消visibility:hidden属性声明，是因为在safafi中页面向下滚动到一定距离，再重新加载页面Page banners图片会出现短暂空白现象
+    //visibility: hidden;
 
     padding-top: 0.5rem;
 

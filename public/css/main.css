@@ -1533,7 +1533,6 @@ element in order to prevent the background layer from moving **/
   height: 25rem;
   position: relative;
   top: 0;
-  visibility: hidden;
   width: 100%;
 }
 
@@ -1703,6 +1702,7 @@ element in order to prevent the background layer from moving **/
 
 #main_content .page_banners .corner_banners .ui.corner.label {
   cursor: default;
+  visibility: hidden;
 }
 
 #main_content .page_banners .corner_banners .ui.corner.label:hover {
@@ -1724,7 +1724,6 @@ element in order to prevent the background layer from moving **/
   margin-top: 0 !important;
   padding-bottom: 0.5rem;
   padding-top: 0.5rem;
-  visibility: hidden;
   width: auto;
 }
 
