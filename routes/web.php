@@ -15,12 +15,12 @@
 
 /* 将路由命名为'root' */
 Route::get('/', 'PagesController@root')->name('root');
-
-Route::get('/roottest', function (Request $request) {
-
-    return view('pages/root-test');
-
-});
+Route::get('/courses', 'PagesController@showCourses')->name('courses');
+Route::get('/columns', 'PagesController@showColumns')->name('columns');
+Route::get('/short-tutorials', 'PagesController@showShortTutorials')->name('short-tutorials');
+Route::get('/articles', 'PagesController@showArticles')->name('articles');
+Route::get('/recommendations', 'PagesController@showRecommendations')->name('recommendations');
+Route::get('/learning-framework', 'PagesController@showLearningFramework')->name('learning-framework');
 
 
 
@@ -49,4 +49,8 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 //用户个人页面资源路由
 Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
 
+//话题页面资源路由
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+
+//分类页面资源路由
+Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
