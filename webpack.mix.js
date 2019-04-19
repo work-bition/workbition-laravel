@@ -49,7 +49,7 @@ Mix.listen('configReady', (webpackConfig) => {
      });
 
      // Exclude 'svg' folder from the default Laravel Mix svg loader
-     let fontLoaderConfig = webpackConfig.module.rules.find(rule => String(rule.test) === String(/(\.(png|jpe?g|gif)$|^((?!font).)*\.svg$)/));
+     let fontLoaderConfig = webpackConfig.module.rules.find(rule => String(rule.test) === String(/(\.(png|jpe?g|gif|webp)$|^((?!font).)*\.svg$)/));
 
      fontLoaderConfig.exclude = /(resources\/js\/icons\/svg)/;
 
