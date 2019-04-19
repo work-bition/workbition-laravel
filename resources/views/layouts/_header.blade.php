@@ -74,6 +74,8 @@
 
                           <a class="item" href="#"><svg class="icon icon-courses"><use xlink:href="#icon-courses"></use></svg><span>我的课程</span></a>
 
+                          <a class="item" href="{{ route('topics.create') }}"><svg class="icon icon-publish"><use xlink:href="#icon-publish"></use></svg><span>发表话题</span></a>
+
                           <div class="logout item">
 
                               <form class="logout-form" action="{{ route('logout') }}" method="POST" onsubmit="return confirm('您确定要退出吗？');">

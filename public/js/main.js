@@ -1341,6 +1341,7 @@ var map = {
 	"./logout3.svg": "./resources/js/icons/svg/logout3.svg",
 	"./notification.svg": "./resources/js/icons/svg/notification.svg",
 	"./profile.svg": "./resources/js/icons/svg/profile.svg",
+	"./publish.svg": "./resources/js/icons/svg/publish.svg",
 	"./register.svg": "./resources/js/icons/svg/register.svg",
 	"./settings.svg": "./resources/js/icons/svg/settings.svg",
 	"./settings2.svg": "./resources/js/icons/svg/settings2.svg",
@@ -1680,6 +1681,32 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "use": "icon-profile-usage",
   "viewBox": "0 0 1024 1024",
   "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-profile\"><defs><style></style></defs><path d=\"M864 0H96C43.2 0 0 43.2 0 96v832c0 52.8 43.2 96 96 96h768c52.8 0 96-43.2 96-96V96c0-52.8-43.2-96-96-96zm-32 896H128V128h704v768zM256 576h448v64H256zm0 128h448v64H256zm64-416a96 96 0 1 1 192.064.064A96 96 0 0 1 320 288zm160 96H352c-52.8 0-96 28.8-96 64v64h320v-64c0-35.2-43.2-64-96-64z\" /></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/publish.svg":
+/*!********************************************!*\
+  !*** ./resources/js/icons/svg/publish.svg ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-publish",
+  "use": "icon-publish-usage",
+  "viewBox": "0 0 1189 1024",
+  "content": "<symbol class=\"icon\" viewBox=\"0 0 1189 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-publish\"><path d=\"M1112.91 2.628L43.798 334.618A59.127 59.127 0 0 0 21.9 435.353l147.6 131.395 656.971-329.8-557.988 420.024 394.184 350.385a59.127 59.127 0 0 0 92.852-18.833L1182.549 84.53a59.127 59.127 0 0 0-69.639-81.902z\" fill=\"#2c2c2c\" /><path d=\"M310.967 963.559a19.271 19.271 0 0 1-29.783-15.768l-12.264-290.82 216.801 194.464zM856.253 964.435l269.359-646.899L994.655 865.89l-138.402 98.546z\" fill=\"#2c2c2c\" /></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
