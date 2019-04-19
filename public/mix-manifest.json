@@ -1,7 +1,10 @@
 {
-    "/js/main.js": "/js/main.js?id=a2bc357d70ef1ab7a7c9",
+    "/js/editor.js": "/js/editor.js?id=4b2674ea052fe504c3e8",
+    "/js/main.js": "/js/main.js?id=e7f99dd057e2ed0e403c",
     "/css/main.css": "/css/main.css?id=e32f88896ce0713096cb",
+    "/css/editor.css": "/css/editor.css?id=56eca1bb6569cbb1ce82",
     "/js/manifest.js": "/js/manifest.js?id=844cdbfe9e6b6b56ae8f",
-    "/js/vendor.js": "/js/vendor.js?id=826c0ae8fc1ff53e3ab8",
-    "/css/ajax-loader.gif": "/css/ajax-loader.gif?id=c5f04404df58fc3deb42"
+    "/js/vendor.js": "/js/vendor.js?id=d013494cbd28f1e6c52e",
+    "/css/ajax-loader.gif": "/css/ajax-loader.gif?id=c5f04404df58fc3deb42",
+    "/js/purify.js.map": "/js/purify.js.map?id=0cf03d38420fe89b118f"
 }

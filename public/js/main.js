@@ -2798,6 +2798,17 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
 
 /***/ }),
 
+/***/ "./resources/sass/editor.scss":
+/*!************************************!*\
+  !*** ./resources/sass/editor.scss ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/index/main.scss":
 /*!****************************************!*\
   !*** ./resources/sass/index/main.scss ***!
@@ -9874,14 +9885,15 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************!*\
-  !*** multi ./resources/js/index/main.js ./resources/sass/index/main.scss ***!
-  \***************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** multi ./resources/js/index/main.js ./resources/sass/index/main.scss ./resources/sass/editor.scss ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/js/index/main.js */"./resources/js/index/main.js");
-module.exports = __webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/sass/index/main.scss */"./resources/sass/index/main.scss");
+__webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/sass/index/main.scss */"./resources/sass/index/main.scss");
+module.exports = __webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/sass/editor.scss */"./resources/sass/editor.scss");
 
 
 /***/ })

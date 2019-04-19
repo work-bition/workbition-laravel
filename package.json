@@ -36,7 +36,7 @@
         "jquery": "^3.4.0",
         "objectFitPolyfill": "^2.2.0",
         "semantic-ui": "^2.4.2",
-        "simditor": "^2.3.24",
+        "simditor": "^2.3.22",
         "slick-carousel": "^1.8.1"
     }
 }

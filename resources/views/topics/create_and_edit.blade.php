@@ -1,9 +1,15 @@
 @extends('layouts.app')
 
+@section('styles')
+  <link rel="stylesheet" type="text/css" href="{{ mix('css/editor.css') }}">
+@stop
+
 @section('content')
 
-<div class="container">
-  <div class="col-md-10 offset-md-1">
+  <div class="container">
+
+    <div class="col-md-10 offset-md-1">
+
     <div class="card ">
 
       <div class="card-body">
@@ -38,46 +44,56 @@
 
         @endif
 
-        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-        @include('shared._error')
+            @include('shared._error')
 
-        <div class="form-group">
+            <div class="form-group">
 
           <input class="form-control" type="text" name="title" value="{{ old('title', $topic->title ) }}" placeholder="请填写标题" required />
 
         </div>
 
-        <div class="form-group">
+            <div class="form-group">
 
-          <select class="form-control" name="category_id" required>
+              <select class="form-control" name="category_id" required>
 
-            <option value="" hidden disabled selected>请选择分类</option>
+                <option value="" hidden disabled selected>请选择分类</option>
 
-            @foreach ($categories as $value)
+                @foreach ($categories as $value)
 
-            <option value="{{ $value->id }}">{{ $value->name }}</option>
+                <option value="{{ $value->id }}">{{ $value->name }}</option>
 
-            @endforeach
+                @endforeach
 
-          </select>
+              </select>
 
-       </div>
+            </div>
 
-      <div class="form-group">
-        <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" required>{{ old('body', $topic->body ) }}</textarea>
-      </div>
+            <div class="form-group">
+          <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" required>{{ old('body', $topic->body ) }}</textarea>
+        </div>
 
-      <div class="well well-sm">
-        <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i>保存</button>
-      </div>
+            <div class="well well-sm">
+              <button type="submit" class="btn btn-primary"><i class="far fa-save mr-2" aria-hidden="true"></i>保存</button>
+            </div>
 
-    </form>
-
-</div>
+          </form>
 
     </div>
-  </div>
-</div>
 
-@endsection
+    </div>
+
+  </div>
+
+  </div>
+
+@stop
+
+@section('scripts')
+
+  <script type="text/javascript" src="{{ mix('js/editor.js') }}"></script>
+
+
+
+@stop
