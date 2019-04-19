@@ -44,6 +44,12 @@ class Topic extends Model
 
     }
 
+    /**
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     *
+     */
     public function scopeRecentReplied($query)
     {
 
