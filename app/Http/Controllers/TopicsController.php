@@ -109,6 +109,7 @@ class TopicsController extends Controller
   		$this->authorize('destroy', $topic);
   		$topic->delete();
 
-  		return redirect()->route('topics.index')->with('message', 'Deleted successfully.');
+      //with方法写入session
+  		return redirect()->route('topics.index')->with('success', 'Deleted successfully.');
   	}
 }
