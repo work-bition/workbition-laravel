@@ -46284,12 +46284,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+ //将变量暴露给script标签
 
-$(document).ready(function () {
-  var editor = new simditor__WEBPACK_IMPORTED_MODULE_3___default.a({
-    textarea: $('#editor')
-  });
-});
+window.$ = $;
+window.Simditor = simditor__WEBPACK_IMPORTED_MODULE_3___default.a;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

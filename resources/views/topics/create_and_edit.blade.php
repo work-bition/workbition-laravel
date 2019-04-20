@@ -94,4 +94,12 @@
 
   <script type="text/javascript" src="{{ mix('js/editor.js') }}"></script>
 
+  <script>
+  $(document).ready(function() {
+    var editor = new Simditor({
+      textarea: $('#editor'),
+    });
+  });
+</script>
+
 @stop

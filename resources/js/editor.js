@@ -2,15 +2,11 @@
 import 'simple-module'
 import 'simple-hotkeys'
 import 'simple-uploader'
-import Simditor from 'simditor'
+import  Simditor from 'simditor'
 
 
-$(document).ready(() => {
 
-  let editor = new Simditor({
+//将变量暴露给script标签
+window.$ = $;
 
-    textarea: $('#editor')
-
-  })
-
-})
+window.Simditor = Simditor;
