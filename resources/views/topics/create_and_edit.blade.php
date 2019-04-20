@@ -71,7 +71,7 @@
             </div>
 
             <div class="form-group">
-          <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" required>{{ old('body', $topic->body ) }}</textarea>
+          <textarea name="body" class="form-control" id="editor" rows="6" placeholder="请填入至少三个字符的内容。" style="visibility:hidden;" required>{{ old('body', $topic->body ) }}</textarea>
         </div>
 
             <div class="well well-sm">
@@ -93,7 +93,5 @@
 @section('scripts')
 
   <script type="text/javascript" src="{{ mix('js/editor.js') }}"></script>
-
-
 
 @stop

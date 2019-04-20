@@ -6,7 +6,11 @@ import Simditor from 'simditor'
 
 
 $(document).ready(() => {
-  var editor = new Simditor({
+
+  let editor = new Simditor({
+
     textarea: $('#editor')
+
   })
+
 })
