@@ -13,7 +13,7 @@
 
 
 
-/* 将路由命名为'root' */
+/* 主页导航栏路由 */
 Route::get('/', 'PagesController@root')->name('root');
 Route::get('/courses', 'PagesController@showCourses')->name('courses');
 Route::get('/columns', 'PagesController@showColumns')->name('columns');
@@ -51,6 +51,7 @@ Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit'
 
 //话题页面资源路由
 Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
 
 //分类页面资源路由
 Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
