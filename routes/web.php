@@ -50,7 +50,8 @@ Route::get('email/resend', 'Auth\VerificationController@resend')->name('verifica
 Route::resource('users', 'UsersController', ['only' => ['show', 'update', 'edit']]);
 
 //话题页面资源路由
-Route::resource('topics', 'TopicsController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::resource('topics', 'TopicsController', ['only' => ['index', 'create', 'store', 'update', 'edit', 'destroy']]);
+Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
 Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload_image');
 
 //分类页面资源路由
