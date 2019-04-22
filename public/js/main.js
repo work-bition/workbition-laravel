@@ -9837,9 +9837,9 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/js/index/main.js */"./resources/js/index/main.js");
-__webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/sass/index/main.scss */"./resources/sass/index/main.scss");
-module.exports = __webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/sass/editor.scss */"./resources/sass/editor.scss");
+__webpack_require__(/*! /home/vagrant/Code/workbition/resources/js/index/main.js */"./resources/js/index/main.js");
+__webpack_require__(/*! /home/vagrant/Code/workbition/resources/sass/index/main.scss */"./resources/sass/index/main.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/Code/workbition/resources/sass/editor.scss */"./resources/sass/editor.scss");
 
 
 /***/ })

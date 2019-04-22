@@ -106,7 +106,24 @@ mix.js('resources/js/index/main.js', 'public/js')
 
    .version()
 
-   .browserSync('https://workbition.test');
+   .browserSync({
+
+     host: '192.168.10.10',
+
+     proxy: 'youhnn.test',
+
+     open: false,
+
+     watchOptions: {
+
+       usePolling: true,
+
+       interval: 500
+
+    }
+
+
+   });
 
 
 
