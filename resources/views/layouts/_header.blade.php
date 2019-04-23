@@ -68,6 +68,12 @@
 
                         <div class="menu">
 
+                          @can('manage_contents')
+
+                            <a class="item" href="{{ url(config('administrator.uri')) }}"><svg class="icon icon-administrator"><use xlink:href="#icon-administrator"></use></svg><span>管理后台</span></a>
+
+                          @endcan
+
                           <a class="item" href="{{ route('users.show', Auth::id()) }}"><svg class="icon icon-profile"><use xlink:href="#icon-profile"></use></svg><span>个人主页</span></a>
 
                           <a class="item" href="{{ route('users.edit', Auth::id()) }}"><svg class="icon icon-settings"><use xlink:href="#icon-settings"></use></svg><span>设置</span></a>

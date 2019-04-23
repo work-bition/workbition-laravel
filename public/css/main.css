@@ -1062,7 +1062,7 @@ element in order to prevent the background layer from moving **/
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item:hover {
-  background-color: #fff;
+  background-color: transparent;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item.selected {
@@ -1105,6 +1105,10 @@ element in order to prevent the background layer from moving **/
   -webkit-transform: translateY(1px);
           transform: translateY(1px);
   width: 1.5rem;
+}
+
+#header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu::after {
+  top: -0.21em;
 }
 
 #header .header_content .right_wrap .right.menu .authentication-links .avatar.popup .profile.list .item {

@@ -1329,6 +1329,7 @@ module.exports = g;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./administrator.svg": "./resources/js/icons/svg/administrator.svg",
 	"./auth.svg": "./resources/js/icons/svg/auth.svg",
 	"./courses.svg": "./resources/js/icons/svg/courses.svg",
 	"./discussion.svg": "./resources/js/icons/svg/discussion.svg",
@@ -1369,6 +1370,32 @@ webpackContext.keys = function webpackContextKeys() {
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
 webpackContext.id = "./resources/js/icons/svg sync \\.svg$";
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/administrator.svg":
+/*!**************************************************!*\
+  !*** ./resources/js/icons/svg/administrator.svg ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-administrator",
+  "use": "icon-administrator-usage",
+  "viewBox": "0 0 1024 1024",
+  "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-administrator\"><path d=\"M512 526.92c115.366 0 208.888-138.283 208.888-253.649 0-115.366-93.522-208.888-208.888-208.888s-208.888 93.522-208.888 208.888S396.634 526.921 512 526.921zM138.986 795.698c0-56.443 40.94-122.625 91.447-147.825l92.897-46.35 70.368 242.728s1.968 21.004 37.145 21.004c35.177 0 35.177-21.004 35.177-21.004V646.285s1.596-44.762 47.464-44.762c45.867 0 45.867 44.762 45.867 44.762v197.966s11.992 24.88 40.407 24.88c28.416 0 31.845-24.88 31.845-24.88l68.893-242.728 93.053 46.384c50.515 25.18 91.465 91.34 91.465 147.79v61.722c0 56.442-45.754 102.198-102.192 102.198H241.178c-56.439 0-102.192-45.747-102.192-102.198v-61.721z\" /></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
 
 /***/ }),
 
