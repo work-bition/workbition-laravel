@@ -1,4 +1,4 @@
-@include('shared._error')
+@include('shared._messages')
 
 <div class="reply-box">
 
