@@ -318,6 +318,8 @@ $avatarDropdownHorizontalOffset: -140%;
 
           .notification-link {
 
+            position: relative;
+
             display: flex;
 
             align-items: center;
@@ -331,6 +333,16 @@ $avatarDropdownHorizontalOffset: -140%;
               width:1.6rem;
 
               height:1.6rem;
+
+            }
+
+            .unread.label {
+
+              //padding: 5px 7px 5px 7px;
+
+              transform: scale(0.7);
+
+              opacity: 0.85;
 
             }
 

@@ -57,4 +57,8 @@ Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload
 //分类页面资源路由
 Route::resource('categories', 'CategoriesController', ['only' => ['show']]);
 
+////处理回复的资源路由
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+
+//处理通知的资源路由
+Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);

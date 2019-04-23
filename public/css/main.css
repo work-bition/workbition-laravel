@@ -1125,6 +1125,7 @@ element in order to prevent the background layer from moving **/
   align-items: center;
   display: flex;
   margin-left: 0.5rem;
+  position: relative;
   -webkit-transform: translateY(2px);
           transform: translateY(2px);
 }
@@ -1132,6 +1133,12 @@ element in order to prevent the background layer from moving **/
 #header .header_content .right_wrap .right.menu .authentication-links .notification-link .icon {
   height: 1.6rem;
   width: 1.6rem;
+}
+
+#header .header_content .right_wrap .right.menu .authentication-links .notification-link .unread.label {
+  opacity: 0.85;
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
 }
 
 #header .header_content .right_wrap .right.menu .ui.search.item {

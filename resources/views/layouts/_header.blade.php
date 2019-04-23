@@ -6,7 +6,7 @@
 
         <section class="logo_section">
 
-          <a class="logo_link" href="{{ url('/') }}" title="积优课堂">
+          <a class="logo_link" href="{{ url('/') }}" title="优拾课堂">
 
             <svg class="icon icon-logo"><use xlink:href="#icon-logo"></use></svg>
 
@@ -60,7 +60,7 @@
 
               @else
 
-                    <div class="avatar-container">
+                  <div class="avatar-container">
 
                       <div class="ui pointing avatar dropdown">
 
@@ -94,7 +94,17 @@
 
                     </div>
 
-                    <a href="#" class="notification-link"><svg class="icon icon-notification"><use xlink:href="#icon-notification"></use></svg></a>
+                  <a href="{{ route('notifications.index') }}" class="notification-link">
+
+                    <svg class="icon icon-notification"><use xlink:href="#icon-notification"></use></svg>
+
+                    @if (Auth::user()->notification_count > 0 )
+
+                      <div class="floating ui red circular unread label">{{ Auth::user()->notification_count }}</div>
+
+                    @endif
+
+                  </a>
 
               @endguest
 
