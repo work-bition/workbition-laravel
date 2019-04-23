@@ -50,7 +50,7 @@ class UsersTableSeeder extends Seeder
 
         $user->name = 'Summer';
 
-        $user->email = 'summer@example.com';
+        $user->email = '380850692@qq.com';
 
         $user->avatar = 'https://iocaffcdn.phphub.org/uploads/images/201710/14/1/ZqM7iaP4CR.png';
 
