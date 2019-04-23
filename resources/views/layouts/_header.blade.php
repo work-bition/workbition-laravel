@@ -78,7 +78,7 @@
 
                           <div class="logout item">
 
-                              <form class="logout-form" action="{{ route('logout') }}" method="POST" onsubmit="return confirm('您确定要退出吗？');">
+                              <form class="logout-form" action="{{ route('logout') }}" method="POST">
 
                                 {{ csrf_field() }}
 

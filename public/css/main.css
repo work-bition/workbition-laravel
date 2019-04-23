@@ -1137,8 +1137,8 @@ element in order to prevent the background layer from moving **/
 
 #header .header_content .right_wrap .right.menu .authentication-links .notification-link .unread.label {
   opacity: 0.85;
-  -webkit-transform: scale(0.7);
-          transform: scale(0.7);
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
 }
 
 #header .header_content .right_wrap .right.menu .ui.search.item {
