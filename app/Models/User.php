@@ -22,6 +22,8 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     }
 
+    use Traits\ActiveUserHelper;
+
     public function notify($instance)
     {
 
@@ -124,7 +126,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
         }
 
         $this->attributes['avatar'] = $path;
-        
+
     }
 
 }
