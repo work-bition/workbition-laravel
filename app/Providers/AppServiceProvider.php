@@ -13,9 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
   	{
-  		    \App\Models\User::observe(\App\Observers\UserObserver::class);
-		\App\Models\Reply::observe(\App\Observers\ReplyObserver::class);
-  		    \App\Models\Topic::observe(\App\Observers\TopicObserver::class);
+		      \App\Models\User::observe(\App\Observers\UserObserver::class);
+	        \App\Models\Reply::observe(\App\Observers\ReplyObserver::class);
+		      \App\Models\Topic::observe(\App\Observers\TopicObserver::class);
+		      \App\Models\Link::observe(\App\Observers\LinkObserver::class);
 
           //本地化Carbon
           \Carbon\Carbon::setLocale('zh');
@@ -34,6 +35,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->register(\VIACreative\SudoSu\ServiceProvider::class);
 
       }
-      
+
     }
 }
