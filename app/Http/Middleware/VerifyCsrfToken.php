@@ -19,6 +19,12 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        //
+
+        /* login和logout路由不需要CSRF验证 */
+
+        'login',
+
+        'logout'
+
     ];
 }

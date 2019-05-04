@@ -12,3 +12,5 @@ import './articlesFeed'
 const request = require.context('../icons/svg', false, /\.svg$/);
 
 request.keys().forEach(request);
+
+window.$ = $;

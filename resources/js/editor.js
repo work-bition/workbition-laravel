@@ -7,6 +7,4 @@ import  Simditor from 'simditor'
 
 
 //将变量暴露给script标签
-window.$ = $;
-
 window.Simditor = Simditor;

@@ -46272,7 +46272,7 @@ return jQuery;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var simple_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-module */ "./node_modules/simple-module/lib/module.js");
+/* harmony import */ var simple_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! simple-module */ "./node_modules/simple-module/lib/module.js");
 /* harmony import */ var simple_module__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(simple_module__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var simple_hotkeys__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! simple-hotkeys */ "./node_modules/simple-hotkeys/lib/hotkeys.js");
 /* harmony import */ var simple_hotkeys__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(simple_hotkeys__WEBPACK_IMPORTED_MODULE_1__);
@@ -46286,9 +46286,7 @@ __webpack_require__.r(__webpack_exports__);
 
  //将变量暴露给script标签
 
-window.$ = $;
 window.Simditor = simditor__WEBPACK_IMPORTED_MODULE_3___default.a;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
 
@@ -46304,4 +46302,4 @@ module.exports = __webpack_require__(/*! /home/vagrant/Code/workbition/resources
 
 /***/ })
 
-},[[1,"/js/manifest","/js/vendor"]]]);
+},[[1,"/js/manifest"]]]);

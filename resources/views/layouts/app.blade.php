@@ -29,7 +29,11 @@
 
   <body class="{{ route_class() }}-page">
 
-    @include('layouts._account-modal')
+    @guest
+
+      @include('layouts._account-modal')
+
+    @endguest
 
     @include('layouts._main-sidebar')
 

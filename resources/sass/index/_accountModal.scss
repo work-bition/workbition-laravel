@@ -328,6 +328,24 @@
 
         .content {
 
+          .error-box {
+
+            margin-top: -2rem;
+
+            height: 5.5rem;
+
+            .error.message {
+
+              .list {
+
+                margin-top: 0!important;
+
+              }
+
+            }
+
+          }
+
           .third-login {
 
             margin-top: 4.5rem;

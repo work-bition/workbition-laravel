@@ -110,7 +110,7 @@ mix.js('resources/js/index/main.js', 'public/js')
 
      host: '192.168.10.10',
 
-     proxy: 'youhnn.test',
+     proxy: 'http://youhnn.test',
 
      open: false,
 

@@ -28,7 +28,7 @@ Route::get('/learning-framework', 'PagesController@showLearningFramework')->name
 //Auth::routes();
 // 用户身份验证相关的路由
 Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('login', 'Auth\LoginController@login');
+Route::post('login', 'Auth\LoginController@login')->name('login.validate');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 // 用户注册相关路由

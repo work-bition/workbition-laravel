@@ -48,7 +48,7 @@
 
               @guest
 
-                  <a class="login text button" href="{{ route('login') }}" target="_blank">登录</a>
+                  <a class="login text button">登录</a>
 
                   <span class="divider_item"> / </span>
 

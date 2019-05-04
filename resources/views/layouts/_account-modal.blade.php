@@ -30,30 +30,59 @@
 
           <section class="content">
 
+            <section class="error-box">
+
+              <div class="ui error message">
+
+                <i class="close icon"></i>
+
+                <ul class="list">
+                  <!-- errors will be shown here  -->
+                </ul>
+
+              </div>
+
+            </section>
+
             <!-- benifits bar section will be cloned here  -->
 
             <section class="form-box">
 
-              <form class="ui password login form">
+              <form class="ui password login form" method="post" action="{{ route('login.validate') }}">
+
+                {{ csrf_field() }}
 
                 <section class="input-box">
+
                   <section class="ui input">
-                    <input type="text" name="phone" placeholder="手机号/邮箱">
+
+                    <!-- if the name设置成email，safari密码填充框会偏移-->
+                    <input name="email_name" type="text" placeholder="手机号/邮箱">
+
                   </section>
+
                 </section>
 
                 <section class="input-box">
+
                   <section class="ui input">
-                    <input type="text" name="phoneCode" placeholder="密码">
+
+                    <input name="password" type="password" placeholder="密码">
+
                   </section>
+
                 </section>
 
                 <section class="forget-password-option">
+
                    <a target="_blank" href="/forget">忘记密码？</a>
+
                 </section>
 
                 <section class="submit">
+
                   <button class="ui primary button" type="submit">登录</button>
+
                 </section>
 
               </form>
@@ -73,6 +102,7 @@
       </div>
 
       <div class="ui tab" data-tab="phone-code-login-tab">
+
         <section class="phone-code-login">
 
           <section class="content">
