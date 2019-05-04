@@ -262,6 +262,8 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
       isProcessing = true
 
+      closeErrorBox()
+
       $('#account_modal .login-register-box .password-login .form-box .button').text('正在登录...')
 
       axios.post(postUrl,
@@ -295,8 +297,6 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
         }
 
         else {
-
-          closeErrorBox()
 
           window.location.reload()
 

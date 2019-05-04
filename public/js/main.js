@@ -3955,6 +3955,7 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
     //远程获取结果
     if (!isProcessing) {
       isProcessing = true;
+      closeErrorBox();
       $('#account_modal .login-register-box .password-login .form-box .button').text('正在登录...');
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(postUrl, {
         email: $('input[name=email_name]').val(),
@@ -3968,7 +3969,6 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
           isProcessing = false;
         } else {
-          closeErrorBox();
           window.location.reload();
         }
       })["catch"](function (error) {
