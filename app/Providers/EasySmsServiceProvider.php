@@ -21,7 +21,7 @@ class EasySmsServiceProvider extends ServiceProvider
         });
 
         $this->app->alias(EasySms::class, 'easysms');
-        
+
     }
 
     /**
