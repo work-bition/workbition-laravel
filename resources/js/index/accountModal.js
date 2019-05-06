@@ -296,6 +296,7 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
         }
 
+
         else {
 
           window.location.reload()

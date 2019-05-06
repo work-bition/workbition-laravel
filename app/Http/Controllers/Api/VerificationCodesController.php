@@ -28,7 +28,7 @@ class VerificationCodesController extends Controller
 
           $result = $easySms->send($phone, [
 
-              'content'  =>  "【王振东】您的验证码是{$code}。如非本人操作，请忽略本短信"
+              'content'  =>  "【dd】您的验证码是{$code}。如非本人操作，请忽略本短信"
 
           ]);
 
