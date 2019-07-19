@@ -28,17 +28,19 @@ $('#account_modal .account-register .content .benifits_bar')
 
    .prependTo('#account_modal .account-login .password-login .content, #account_modal .account-login .phone-code-login .content')
 
+$('#account_modal .account-login .password-login .register-link')
+
+  .clone()/** optional parameter: includeEvents **/
+
+  .appendTo('#account_modal .account-login .phone-code-login .content')
+
 $('#account_modal .account-register .content .third-login')
 
    .clone()/** optional parameter: includeEvents **/
 
-   .appendTo('#account_modal .account-login .password-login .content, #account_modal .account-login .phone-code-login .content')
+   .insertBefore('#account_modal .account-login .password-login .content .register-link, #account_modal .account-login .phone-code-login .content .register-link')
 
-$('#account_modal .account-login .password-login .register-link')
 
-   .clone()/** optional parameter: includeEvents **/
-
-   .appendTo('#account_modal .account-login .phone-code-login')
 
 
 
@@ -152,19 +154,15 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 ******************************************************************************************************************************/
 
-$('#account_modal .login-register-box .password-login .content .error-box').css('display', 'none')
-
-let postUrl = $('#account_modal .login-register-box .password-login .form-box .ui.form').attr("action")
-
 let isProcessing = false
 
-function error_box_toggler(benifits_bar_style, error_box_style, form_box_style){
+function error_box_toggler(formName, benifits_bar_style, error_box_style, form_box_style){
 
-  $('#account_modal .login-register-box .password-login .benifits_bar').css('display', benifits_bar_style)
+  $(`#account_modal .login-register-box ${formName} .benifits_bar`).css('display', benifits_bar_style)
 
-  $('#account_modal .login-register-box .password-login .error-box').css('display', error_box_style)
+  $(`#account_modal .login-register-box ${formName} .error-box`).css('display', error_box_style)
 
-  $('#account_modal .login-register-box .password-login .form-box').css('margin-top', form_box_style)
+  $(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', form_box_style)
 
 
 }
@@ -185,17 +183,17 @@ function createErrorItems(errors, itemElement, container){
 
 }
 
-function showErrorMessages(errorsBag){
+function showErrorMessages(formName, errorsBag){
 
-  error_box_toggler('none', 'block', '1rem')
+  error_box_toggler(formName, 'none', 'block', '1rem')
 
-  createErrorItems(errorsBag, 'li', '#account_modal .login-register-box .password-login .error-box .list')
+  createErrorItems(errorsBag, 'li', `#account_modal .login-register-box ${formName} .error-box .list`)
 
 }
 
-function closeErrorBox(){
+function closeErrorBox(formName){
 
-  error_box_toggler('flex', 'none', '2.5rem')
+  error_box_toggler(formName, 'flex', 'none', '2.5rem')
 
 }
 
@@ -239,7 +237,7 @@ function isPassedLocalValidation(){
 
   if (errorsBag.length > 0) {
 
-    showErrorMessages(errorsBag)
+    showErrorMessages('.password-login', errorsBag)
 
     return false
 
@@ -248,6 +246,92 @@ function isPassedLocalValidation(){
   return true
 
 }
+
+function getPostUrl(formName){
+
+  return $(`#account_modal .login-register-box ${formName} .form-box .ui.form`).attr("action")
+
+}
+
+function getVerificationCode(captcha_token, captcha_authenticate){
+
+  axios.post(getPostUrl('.account-register'),
+
+  {
+
+    phone:                      $('#account_modal .login-register-box .account-register input[name=phone]').val(),
+
+    captcha_token:              captcha_token,
+
+    captcha_authenticate:       captcha_authenticate
+
+  },
+  {
+
+    timeout: 8000
+
+  })
+
+  .then(function (response) {
+
+    if (!response.data.success) {
+
+      showErrorMessages('.account-register', response.data.errors)
+
+      isProcessing = false
+
+    }
+
+    else {
+
+      window.location.href = location.href
+
+    }
+
+  })
+
+  .catch( (error) => {
+
+    let errorsBag = []
+
+    let globalErrors = []
+
+    if (error.response) {
+
+      // The request was made and the server responded with a status code
+      globalErrors.push(`服务器返回 ${error.response.status} 错误，请稍后再试。`)
+
+    }
+
+    else if (error.request) {
+
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      globalErrors.push('网络连接错误，请稍后再试。')
+
+    }
+
+    else {
+
+      // Something happened in setting up the request that triggered an Error
+      globalErrors.push('在发起请求时出现错误。')
+
+    }
+
+    errorsBag.push(globalErrors)
+
+    showErrorMessages('.account-register', errorsBag)
+
+    $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
+
+    isProcessing = false
+
+  })
+
+}
+
+window.getVerificationCode = getVerificationCode
 
 $('#account_modal .login-register-box .password-login .form-box').submit((event) => {
 
@@ -262,33 +346,32 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
       isProcessing = true
 
-      closeErrorBox()
+      closeErrorBox('.password-login')
 
       $('#account_modal .login-register-box .password-login .form-box .button').text('正在登录...')
 
-      axios.post(postUrl,
+      axios.post(getPostUrl('.password-login'),
 
-        {
+      {
 
-          email:    $('input[name=email_name]').val(),
+        email:    $('input[name=email_name]').val(),
 
-          password: $('input[name=password]').val(),
+        password: $('input[name=password]').val(),
 
-          _token:   $('input[name=_token]').val()
+        _token:   $('input[name=_token]').val()
 
-        },
-        {
+      },
+      {
 
-          timeout: 8000
+        timeout: 8000
 
-        }
-      )
+      })
 
       .then(function (response) {
 
         if (!response.data.success) {
 
-          showErrorMessages(response.data.errors)
+          showErrorMessages('.password-login', response.data.errors)
 
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
 
@@ -299,7 +382,7 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
         else {
 
-          window.location.reload()
+          window.location.href = location.href
 
         }
 
@@ -336,7 +419,7 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
         errorsBag.push(globalErrors)
 
-        showErrorMessages(errorsBag)
+        showErrorMessages('.password-login', errorsBag)
 
         $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
 
@@ -352,6 +435,23 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
 $('#account_modal .login-register-box .password-login .error-box .message .close').on('click', function() {
 
-  closeErrorBox()
+  closeErrorBox('.password-login')
+
+})
+
+
+
+
+
+
+$('#account_modal .login-register-box .account-register .form-box .input-box .get-phone-code').click((event) => {
+
+
+
+})
+
+$('#account_modal .login-register-box .account-register .error-box .message .close').on('click', function() {
+
+  closeErrorBox('.account-register')
 
 })

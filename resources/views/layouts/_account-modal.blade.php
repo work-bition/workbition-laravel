@@ -91,11 +91,13 @@
 
             <!-- third login section will be cloned here -->
 
+            <section class="register-link">
+              <p>还没有账号?<a class="switch-register">立即注册</a></p>
+            </section>
+
           </section>
 
-          <section class="register-link">
-            <p>还没有账号?<a class="switch-register">立即注册</a></p>
-          </section>
+
 
         </section>
 
@@ -138,11 +140,12 @@
 
             <!-- third login section will be cloned here -->
 
-          </section>
-
             <!-- register link section will be cloned here -->
 
+          </section>
+
         </section>
+
       </div>
 
     </section>
@@ -159,6 +162,20 @@
       </section>
 
       <section class="content">
+
+        <section class="error-box">
+
+          <div class="ui error message">
+
+            <i class="close icon"></i>
+
+            <ul class="list">
+              <!-- errors will be shown here  -->
+            </ul>
+
+          </div>
+
+        </section>
 
         <section class="benifits_bar">
 
@@ -181,25 +198,44 @@
 
         <section class="form-box">
 
-          <form class="ui register form">
+          <form class="ui register form" method="post"  action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('api.verificationCodes.store')}}">
+
+            {{ csrf_field() }}
 
             <section class="input-box">
+
               <section class="ui input">
+
                 <input type="text" name="phone" placeholder="手机号">
+
               </section>
+
             </section>
 
             <section class="input-box">
+
               <section class="ui input">
+
                 <input type="text" name="phoneCode" placeholder="短信验证码">
+
               </section>
+
               <section class="get-phone-code">
-                <a target="_blank" href="/getcode">获取短信验证码</a>
+
+                <a>获取短信验证码</a>
+
               </section>
+
+            </section>
+
+            <section id="yunpian-captcha">
+
             </section>
 
             <section class="submit">
+
               <button class="ui primary button" type="submit">下一步</button>
+
             </section>
 
           </form>
@@ -220,10 +256,12 @@
           </section>
         </section>
 
-      </section>
+        <section class="login-link">
 
-      <section class="login-link">
-        <p>已有账号?<a class="switch-login">立即登录</a></p>
+          <p>已有账号?<a class="switch-login">立即登录</a></p>
+
+        </section>
+
       </section>
 
     </section>

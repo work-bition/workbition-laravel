@@ -634,6 +634,11 @@ body.dimmed.dimmable {
   color: #9B9B9B;
 }
 
+#account_modal .login-register-box .account-login .content .form-box .ui.form.register .get-phone-code a,
+#account_modal .login-register-box .account-register .content .form-box .ui.form.register .get-phone-code a {
+  cursor: pointer;
+}
+
 #account_modal .login-register-box .account-login .content .form-box .ui.form .input-box,
 #account_modal .login-register-box .account-register .content .form-box .ui.form .input-box {
   align-items: center;
@@ -734,6 +739,23 @@ body.dimmed.dimmable {
   margin-left: 0.5rem;
 }
 
+#account_modal .login-register-box .account-login .password-login .content .error-box,
+#account_modal .login-register-box .account-register .content .error-box {
+  display: none;
+  height: 5.5rem;
+  margin-top: -2rem;
+}
+
+#account_modal .login-register-box .account-login .password-login .content .error-box .error.message .list,
+#account_modal .login-register-box .account-register .content .error-box .error.message .list {
+  margin-top: 0 !important;
+}
+
+#account_modal .login-register-box .account-login .password-login .content .third-login,
+#account_modal .login-register-box .account-register .content .third-login {
+  margin-top: 4.5rem;
+}
+
 #account_modal .login-register-box .account-login {
   border: 1px solid transparent;
 }
@@ -758,19 +780,6 @@ body.dimmed.dimmable {
   font-size: 1.1rem;
 }
 
-#account_modal .login-register-box .account-login .password-login .content .error-box {
-  height: 5.5rem;
-  margin-top: -2rem;
-}
-
-#account_modal .login-register-box .account-login .password-login .content .error-box .error.message .list {
-  margin-top: 0 !important;
-}
-
-#account_modal .login-register-box .account-login .password-login .content .third-login {
-  margin-top: 4.5rem;
-}
-
 #account_modal .login-register-box .account-register {
   border: 1px solid transparent;
   left: 100%;
@@ -778,9 +787,18 @@ body.dimmed.dimmable {
   top: 0%;
 }
 
+#account_modal .login-register-box .account-register .header {
+  -webkit-transform: translateY(-0.1rem);
+          transform: translateY(-0.1rem);
+}
+
 #account_modal .login-register-box .account-register .header .title {
   letter-spacing: 0.2rem;
   margin-left: 0.6rem;
+}
+
+#account_modal .login-register-box .account-register .content .third-login {
+  margin-top: 1.5rem;
 }
 
 @media only screen and (max-width: 439px) {
@@ -921,6 +939,10 @@ body.dimmed.dimmable {
 
 .ui.sidebar .content_wrapper .menu .login_register_buttons .login_button {
   margin-bottom: 1.5rem;
+}
+
+.ui.sidebar .content_wrapper .menu .login_register_buttons .register_button .register-button-link {
+  color: #fff;
 }
 
 .ui.sidebar .content_wrapper .close_layer {
@@ -2901,5 +2923,68 @@ element in order to prevent the background layer from moving **/
     display: flex;
     flex-direction: column;
   }
+}
+
+footer {
+  background: linear-gradient(-45deg, #0f99d0, #2a6ea8);
+  margin-top: 2rem;
+}
+
+footer .container .grid {
+  margin: 0;
+}
+
+footer .container .grid .row {
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+footer .container .grid .row .left.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+footer .container .grid .row .left.column .logo_section .icon {
+  height: 5rem;
+  width: 15rem;
+}
+
+footer .container .grid .row .left.column .footer-share {
+  display: flex;
+  flex-direction: row;
+}
+
+footer .container .grid .row .left.column .footer-share .share-item {
+  margin-right: 2rem;
+}
+
+footer .container .grid .row .left.column .footer-share .share-item .icon {
+  height: 2.6rem;
+  width: 2.6rem;
+}
+
+footer .container .grid .row .left.column .declaration {
+  color: #fff;
+  letter-spacing: 2px;
+  margin-top: 5rem;
+}
+
+footer .container .grid .row .left.column .declaration .company {
+  line-height: 1.5rem;
+}
+
+footer .container .grid .row .right.column .link-item {
+  color: #fff;
+  float: left;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-left: 8rem;
+}
+
+footer .container .grid .row .right.column .link-item a {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: normal;
 }
 

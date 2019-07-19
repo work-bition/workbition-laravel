@@ -65,6 +65,98 @@
     <script src="{{ mix('js/vendor.js') }}"></script>
     <script src="{{ mix('js/main.js') }}"></script>
 
+    <!-- 云片行为验证 -->
+    <script src="https://www.yunpian.com/static/official/js/libs/riddler-sdk-0.2.2.js"></script>
+    <script src="https://cdn.bootcss.com/babel-polyfill/7.4.3/polyfill.min.js"></script>
+
+    <script>
+
+      window.onload = function () {
+
+        $('#account_modal .login-register-box .account-register .content .form-box .ui.form .input-box .get-phone-code a').click(function(event) {
+
+          // 初始化
+          var YpCaptcha =  new YpRiddler({
+
+              expired: 10,
+
+              mode: 'external',
+
+              winWidth: 334,
+
+              lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
+              // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
+
+              container: document.getElementById('yunpian-captcha'),
+
+              appId: '2d797943d96348c8922e375c7c4fbdaa',
+
+              version: 'v1',
+
+              onError: function (param) {
+
+                  if (param.code == 429) {
+
+                      alert('请求过于频繁，请稍后再试！')
+
+                      return
+
+                  }
+
+                  // 异常回调
+                  console.error('验证服务异常')
+
+              },
+
+              onSuccess: function (validInfo, close) {
+
+                  // 成功回调
+
+                  console.log(validInfo.token)
+
+                  console.log(validInfo.authenticate)
+
+                  getVerificationCode(validInfo.token, validInfo.authenticate)
+
+                  close()
+
+              },
+
+              onFail: function (code, msg, retry) {
+
+                  // 失败回调
+                  alert('出错啦：' + msg + ' code: ' + code)
+
+                  retry()
+
+
+
+              },
+
+              beforeStart: function (next) {
+
+                  console.log('验证马上开始')
+
+                  next()
+
+              },
+
+              onExit: function () {
+
+                  // 退出验证 （仅限dialog模式有效）
+                  console.log('退出验证')
+
+              }
+
+          })
+
+        });
+
+        };
+
+    </script>
+
+
     @yield('scripts')
 
   </body>

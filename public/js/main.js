@@ -3231,19 +3231,22 @@ var map = {
 	"./favourite.svg": "./resources/js/icons/svg/favourite.svg",
 	"./hot.svg": "./resources/js/icons/svg/hot.svg",
 	"./login.svg": "./resources/js/icons/svg/login.svg",
+	"./logo-color-reverse.svg": "./resources/js/icons/svg/logo-color-reverse.svg",
 	"./logo.svg": "./resources/js/icons/svg/logo.svg",
 	"./logout.svg": "./resources/js/icons/svg/logout.svg",
 	"./notification.svg": "./resources/js/icons/svg/notification.svg",
 	"./profile.svg": "./resources/js/icons/svg/profile.svg",
 	"./publish.svg": "./resources/js/icons/svg/publish.svg",
 	"./register.svg": "./resources/js/icons/svg/register.svg",
+	"./rss.svg": "./resources/js/icons/svg/rss.svg",
 	"./settings.svg": "./resources/js/icons/svg/settings.svg",
 	"./settings2.svg": "./resources/js/icons/svg/settings2.svg",
 	"./study.svg": "./resources/js/icons/svg/study.svg",
 	"./sync.svg": "./resources/js/icons/svg/sync.svg",
 	"./wechat-mini-program.svg": "./resources/js/icons/svg/wechat-mini-program.svg",
 	"./wechat.svg": "./resources/js/icons/svg/wechat.svg",
-	"./weibo.svg": "./resources/js/icons/svg/weibo.svg"
+	"./weibo.svg": "./resources/js/icons/svg/weibo.svg",
+	"./zhihu.svg": "./resources/js/icons/svg/zhihu.svg"
 };
 
 
@@ -3450,6 +3453,32 @@ var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
+/***/ "./resources/js/icons/svg/logo-color-reverse.svg":
+/*!*******************************************************!*\
+  !*** ./resources/js/icons/svg/logo-color-reverse.svg ***!
+  \*******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-logo-color-reverse",
+  "use": "icon-logo-color-reverse-usage",
+  "viewBox": "0 0 135 38",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 135 38\" id=\"icon-logo-color-reverse\"><g fill=\"none\" fill-rule=\"evenodd\"><circle fill=\"#FFF\" cx=\"19\" cy=\"19\" r=\"19\" /><g transform=\"translate(10 9)\" fill=\"#2A6EA8\"><g transform=\"translate(.203 .656)\"><path d=\"M15.95 8.442h3.19v3.54c0 1.712-.007 3.004-.258 3.877-.251.872-.561 1.598-.93 2.178a6.948 6.948 0 0 1-1.353 1.556c-1.774 1.521-4.091 2.282-6.954 2.282-2.916 0-5.255-.755-7.017-2.266a7.27 7.27 0 0 1-1.354-1.572c-.369-.58-.673-1.29-.914-2.13-.24-.84-.36-2.16-.36-3.958V1.823h3.281V11.98c0 2.096.18 3.553.66 4.373.481.819 1.213 1.476 2.195 1.97.983.495 2.142.742 3.477.742 1.901 0 3.45-.494 4.646-1.484a4.598 4.598 0 0 0 1.362-1.883c.278-.723.33-1.963.33-3.718V8.442z\" /><path d=\"M1.64 0h.046c.881 0 1.595.714 1.595 1.595v1.322a1.64 1.64 0 0 1-3.281 0V1.64C0 .735.735 0 1.64 0z\" /><rect x=\"16.406\" y=\"6.836\" width=\"2.734\" height=\"7.292\" rx=\"1.367\" /></g><rect x=\"6.219\" y=\".656\" width=\"13.125\" height=\"3.281\" rx=\"1.641\" /><rect x=\"6.219\" y=\"7.219\" width=\"13.125\" height=\"3.281\" rx=\"1.641\" /></g><path d=\"M59.824 13.792c-.848 0-1.456-.12-1.824-.36-.432-.24-.728-.672-.888-1.296l-.672-2.472h3.144l.696 2.616c.128.512.464.768 1.008.768h1.272v.744h-2.736zm-18.432 3.432v-.768h1.152c.72-.016 1.168-.376 1.344-1.08l1.368-6.144H48.4l-1.248 5.688c-.224.96-.672 1.6-1.344 1.92-.512.256-1.232.384-2.16.384h-2.256zm2.376 12.72V18.4h3v11.544h-3zm15.552 0c-1.024.016-1.744-.176-2.16-.576-.4-.368-.6-.976-.6-1.824V16.84h3.024v11.208c.016.736.352 1.112 1.008 1.128H62.8v.768h-3.48zm-10.968-14.4V14.8h3.096l.192-5.568h3.048l-.216 5.568h8.304v.744h-8.328l-.408 11.76c-.032.928-.28 1.592-.744 1.992-.48.432-1.176.648-2.088.648h-2.952v-.768h1.584c.704-.016 1.088-.424 1.152-1.224l.432-12.408h-3.072zm29.865-4.152l-.72 3.792h4.8l-.696-3.768c-.144-.528-.464-.808-.96-.84h-1.44c-.512.048-.84.32-.984.816zm3.216 17.784c.88-.032 1.336-.488 1.368-1.368v-5.616c-.064-.896-.52-1.368-1.368-1.416h-3.072c-.832.08-1.288.552-1.368 1.416v5.616c.016.896.48 1.352 1.392 1.368h3.048zm-15.96-14.52v-.792h2.568V9.232h2.952v4.632h2.136v.792h-2.136v5.808l2.136-.672v.792l-2.136.672v5.736c0 1.136-.296 1.928-.888 2.376-.544.384-1.368.576-2.472.576h-1.896v-.768h1.152c.72-.048 1.104-.424 1.152-1.128v-5.856l-2.544.792v-.792l2.544-.792v-6.744h-2.568zm7.464 4.152v-.768h.456c.4-.016.656-.272.768-.768l.984-5.304c.128-.672.408-1.184.84-1.536.528-.416 1.224-.624 2.088-.624h3.72c.8 0 1.44.168 1.92.504.48.336.792.864.936 1.584l.984 5.328c.096.528.376.8.84.816h.336v.768h-1.536c-.64 0-1.192-.12-1.656-.36-.528-.32-.848-.792-.96-1.416l-.216-1.08h-5.088l-.216 1.104c-.128.624-.408 1.072-.84 1.344-.448.272-1 .408-1.656.408h-1.704zm3.936 11.136c-.96 0-1.688-.248-2.184-.744-.48-.432-.72-1.112-.72-2.04v-4.224c0-.96.312-1.68.936-2.16.56-.512 1.328-.768 2.304-.768h5.472c.96 0 1.72.224 2.28.672.576.496.864 1.232.864 2.208v4.2c0 .928-.24 1.624-.72 2.088-.512.512-1.272.768-2.28.768h-5.952zm22.45-18.216v2.16h2.687v-3.312h-1.488c-.784.016-1.184.4-1.2 1.152zm7.103-1.152h-1.512v3.312h2.712v-2.16c-.048-.72-.448-1.104-1.2-1.152zm-7.104 6.312c0 .752.384 1.128 1.152 1.128h1.536v-3.384h-2.688v2.256zm7.2 1.128c.72-.016 1.088-.392 1.104-1.128v-2.256h-2.712v3.384h1.608zm-13.056-3.864c-.768 0-1.368-.128-1.8-.384-.432-.24-.744-.656-.936-1.248l-1.056-3.312h3.096l1.104 3.48c.176.48.504.72.984.72h.744v.744h-2.136zm2.592 14.808v-.768h.48c.528 0 .832-.256.912-.768l.696-4.704h2.592l-.696 4.464c-.112.656-.384 1.112-.816 1.368-.384.272-.936.408-1.656.408h-1.512zm13.272 0c-.656 0-1.2-.128-1.632-.384-.432-.288-.712-.752-.84-1.392l-.672-4.464h2.592l.672 4.704c.08.544.384.8.912.768h.504v.768h-1.536zm-17.136.936c-.688-.224-1.04-.76-1.056-1.608V17.824c-.016-.672-.312-1.016-.888-1.032h-.84v-.768h2.064c.896 0 1.552.232 1.968.696.336.384.504.96.504 1.728v9.168c0 .192.056.32.168.384.112.048.232.016.36-.096l1.392-1.296v.936l-1.872 1.776c-.544.528-1.144.72-1.8.576zm7.608-11.112c-1.056 0-1.808-.224-2.256-.672-.448-.448-.672-1.136-.672-2.064v-3.696c0-.816.256-1.44.768-1.872.528-.448 1.248-.672 2.16-.672h7.368c.912 0 1.608.184 2.088.552.544.416.816 1.08.816 1.992v3.696c0 .976-.248 1.688-.744 2.136-.448.4-1.168.6-2.16.6h-2.256v1.776h5.784v.768h-5.784v8.592h-2.904v-8.592h-5.904v-.768h5.904v-1.776h-2.208zm18.562-6.096c-.624.016-1.096-.056-1.416-.216-.416-.176-.688-.432-.816-.768l-.816-2.016h3.168l.624 1.584c.176.448.512.664 1.008.648h.888v.768h-2.64zm8.856 0v-.768h.888c.512.016.848-.2 1.008-.648l.624-1.584h3.168l-.792 1.992a1.314 1.314 0 0 1-.72.744c-.32.192-.872.28-1.656.264h-2.52zm1.176 9.6c.656-.016.992-.368 1.008-1.056V19.36c0-.688-.336-1.032-1.008-1.032h-8.544c-.672.016-1.016.352-1.032 1.008v1.944c0 .672.344 1.008 1.032 1.008h8.544zm-14.568-5.304v-1.176c0-.624.2-1.104.6-1.44.432-.368 1.032-.552 1.8-.552h6.288V9.232h3.192v4.584h6c.96 0 1.656.184 2.088.552.4.32.6.8.6 1.44v1.176h-3.048v-1.32c.016-.752-.4-1.12-1.248-1.104h-12c-.832-.016-1.24.336-1.224 1.056v1.368h-3.048zm4.152 6.048c-.736 0-1.28-.144-1.632-.432-.368-.32-.552-.792-.552-1.416v-1.776c0-.592.184-1.048.552-1.368.352-.304.888-.456 1.608-.456h12.216c.768 0 1.328.144 1.68.432.384.304.576.768.576 1.392v1.752c0 .624-.16 1.072-.48 1.344-.368.352-.96.528-1.776.528h-4.44v2.304h7.608v.744h-7.608v3.096h9.096v.768h-21.432v-.768h9.072V26.08h-7.584v-.744h7.584v-2.304h-4.488z\" fill=\"#FFF\" fill-rule=\"nonzero\" /></g></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
 /***/ "./resources/js/icons/svg/logo.svg":
 /*!*****************************************!*\
   !*** ./resources/js/icons/svg/logo.svg ***!
@@ -3600,6 +3629,32 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "use": "icon-register-usage",
   "viewBox": "0 0 1196 1024",
   "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 1196 1024\" id=\"icon-register\"><g fill-rule=\"nonzero\" fill=\"none\"><path d=\"M585.143 0C343.77 0 146.286 197.486 146.286 441.295c0 119.467 46.324 226.743 121.904 307.2-21.942 53.638-39.009 109.715-51.2 158.476C202.362 965.486 246.248 1024 307.2 1024h555.886c60.952 0 104.838-58.514 90.21-117.029-12.191-48.761-29.258-104.838-51.2-158.476C977.675 668.038 1024 560.762 1024 441.295 1024 197.485 826.514 0 585.143 0z\" fill=\"#FFA3AB\" /><path d=\"M585.143 650.971c80.457 0 148.724-51.2 175.543-124.342 9.752-29.258-12.19-60.953-43.886-60.953H453.486c-31.696 0-53.638 31.695-43.886 60.953 26.819 73.142 95.086 124.342 175.543 124.342z\" fill=\"#FFF\" /><path d=\"M402.286 97.524C180.419 97.524 0 275.504 0 497.37c0 107.277 43.886 204.8 112.152 277.943-19.504 48.762-34.133 99.962-46.323 143.848C53.639 972.8 92.648 1024 148.724 1024h507.124c56.076 0 95.085-51.2 82.895-104.838-12.19-43.886-26.82-95.086-46.324-143.848 70.705-73.143 112.152-170.666 112.152-277.943 0-221.866-180.419-399.847-402.285-399.847z\" fill=\"#1298CF\" /><path d=\"M402.286 687.543c73.143 0 136.533-46.324 160.914-112.153 9.752-26.819-12.19-56.076-41.448-56.076H282.82c-29.257 0-48.762 29.257-41.448 56.076 24.381 63.391 87.772 112.153 160.915 112.153z\" fill=\"#FFF\" /><path d=\"M1093.52 58.016c8.728 6.445 17.042 13.464 24.994 21.417 81.459 81.227 81.459 213.249 0 294.476-81.264 81.45-213.24 81.45-294.504 0-7.768-7.73-14.943-16.1-21.38-24.792-46.42-63.842-52.08-148.093-16.875-217.05 9.654-18.938 22.35-36.72 38.255-52.634 73.33-73.497 188.097-80.673 269.51-21.417z\" fill=\"#A0D468\" /><path d=\"M1066.083 207.583h-75.666v-75.666c0-10.465-8.452-18.917-18.917-18.917-10.456 0-18.917 8.452-18.917 18.917v75.666h-75.666c-10.456 0-18.917 8.452-18.917 18.917 0 10.456 8.46 18.917 18.917 18.917h75.666v75.666c0 10.456 8.461 18.917 18.917 18.917 10.465 0 18.917-8.46 18.917-18.917v-75.666h75.666c10.465 0 18.917-8.461 18.917-18.917 0-10.465-8.452-18.917-18.917-18.917z\" fill=\"#FFF\" /></g></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/rss.svg":
+/*!****************************************!*\
+  !*** ./resources/js/icons/svg/rss.svg ***!
+  \****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-rss",
+  "use": "icon-rss-usage",
+  "viewBox": "0 0 200 200",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-rss\"><g fill=\"none\" fill-rule=\"evenodd\"><circle fill=\"#FFF\" cx=\"98.5\" cy=\"98.5\" r=\"94.5\" /><path d=\"M100 .088C44.818.088.084 44.82.084 100c0 55.18 44.734 99.912 99.916 99.912 55.182 0 99.916-44.732 99.916-99.912C199.916 44.82 155.182.088 100 .088zm-39.582 149.54c-5.65 0-10.23-4.58-10.23-10.23s4.58-10.229 10.23-10.229c5.649 0 10.23 4.58 10.23 10.23s-4.58 10.23-10.23 10.23zm40.91.203c0-28.292-23.017-51.308-51.292-51.308V76.92c40.286 0 72.91 32.658 72.91 72.911h-21.618zm39.278 0c0-49.942-40.612-90.584-90.57-90.584V37.643c61.97 0 112.191 50.25 112.191 112.188h-21.62z\" fill=\"#F78422\" fill-rule=\"nonzero\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -3788,6 +3843,32 @@ var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MO
 
 /***/ }),
 
+/***/ "./resources/js/icons/svg/zhihu.svg":
+/*!******************************************!*\
+  !*** ./resources/js/icons/svg/zhihu.svg ***!
+  \******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-zhihu",
+  "use": "icon-zhihu-usage",
+  "viewBox": "0 0 200 200",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-zhihu\"><g fill=\"none\" fill-rule=\"evenodd\"><circle fill=\"#FFF\" cx=\"100.5\" cy=\"104.5\" r=\"69.5\" /><path d=\"M100 200C44.773 200 0 155.227 0 100S44.773 0 100 0s100 44.773 100 100-44.773 100-100 100zM74.636 52.25s-7.072.41-9.568 4.782C62.568 61.4 54.46 83.864 54.46 83.864s2.705 1.245 7.282-2.082 6.032-9.15 6.032-9.15l8.318-.414.209 23.71s-14.355-.21-17.268 0c-2.91.204-4.573 7.9-4.573 7.9H76.3s-1.873 13.104-7.49 22.672c-5.615 9.568-16.224 17.055-16.224 17.055s7.7 3.118 15.182-1.25c7.491-4.364 13.014-23.573 13.014-23.573l17.563 21.495s1.6-10.232-.286-13.122c-1.886-2.887-12.15-14.51-12.15-14.51l-4.482 3.955 3.191-12.718h19.132s0-7.491-3.74-7.91c-3.746-.408-15.392 0-15.392 0V72.637h17.264s-.21-7.695-3.537-7.695H70.268l4.364-12.686.004-.005zm33.2 11.95v70.032h7.032l2.56 8.79 12.372-8.79h17.395V64.2h-39.359z\" fill=\"#1ABBFF\" fill-rule=\"nonzero\" /><path fill=\"#1ABBFF\" d=\"M116.168 72h23.027v54.273h-8.181l-10.423 7.863-2.273-7.863h-2.15z\" /></g></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
 /***/ "./resources/js/index/accountModal.js":
 /*!********************************************!*\
   !*** ./resources/js/index/accountModal.js ***!
@@ -3819,12 +3900,12 @@ window.axios = axios__WEBPACK_IMPORTED_MODULE_1___default.a;
 $('#account_modal .account-register .content .benifits_bar').clone()
 /** optional parameter: includeEvents **/
 .prependTo('#account_modal .account-login .password-login .content, #account_modal .account-login .phone-code-login .content');
-$('#account_modal .account-register .content .third-login').clone()
-/** optional parameter: includeEvents **/
-.appendTo('#account_modal .account-login .password-login .content, #account_modal .account-login .phone-code-login .content');
 $('#account_modal .account-login .password-login .register-link').clone()
 /** optional parameter: includeEvents **/
-.appendTo('#account_modal .account-login .phone-code-login');
+.appendTo('#account_modal .account-login .phone-code-login .content');
+$('#account_modal .account-register .content .third-login').clone()
+/** optional parameter: includeEvents **/
+.insertBefore('#account_modal .account-login .password-login .content .register-link, #account_modal .account-login .phone-code-login .content .register-link');
 /** Initializing the functionality of the account modal **/
 
 $('#account_modal').modal({
@@ -3886,14 +3967,12 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 ******************************************************************************************************************************/
 
-$('#account_modal .login-register-box .password-login .content .error-box').css('display', 'none');
-var postUrl = $('#account_modal .login-register-box .password-login .form-box .ui.form').attr("action");
 var isProcessing = false;
 
-function error_box_toggler(benifits_bar_style, error_box_style, form_box_style) {
-  $('#account_modal .login-register-box .password-login .benifits_bar').css('display', benifits_bar_style);
-  $('#account_modal .login-register-box .password-login .error-box').css('display', error_box_style);
-  $('#account_modal .login-register-box .password-login .form-box').css('margin-top', form_box_style);
+function error_box_toggler(formName, benifits_bar_style, error_box_style, form_box_style) {
+  $("#account_modal .login-register-box ".concat(formName, " .benifits_bar")).css('display', benifits_bar_style);
+  $("#account_modal .login-register-box ".concat(formName, " .error-box")).css('display', error_box_style);
+  $("#account_modal .login-register-box ".concat(formName, " .form-box")).css('margin-top', form_box_style);
 }
 
 function createErrorItems(errors, itemElement, container) {
@@ -3905,13 +3984,13 @@ function createErrorItems(errors, itemElement, container) {
   });
 }
 
-function showErrorMessages(errorsBag) {
-  error_box_toggler('none', 'block', '1rem');
-  createErrorItems(errorsBag, 'li', '#account_modal .login-register-box .password-login .error-box .list');
+function showErrorMessages(formName, errorsBag) {
+  error_box_toggler(formName, 'none', 'block', '1rem');
+  createErrorItems(errorsBag, 'li', "#account_modal .login-register-box ".concat(formName, " .error-box .list"));
 }
 
-function closeErrorBox() {
-  error_box_toggler('flex', 'none', '2.5rem');
+function closeErrorBox(formName) {
+  error_box_toggler(formName, 'flex', 'none', '2.5rem');
 }
 
 function isPassedLocalValidation() {
@@ -3940,13 +4019,56 @@ function isPassedLocalValidation() {
   }
 
   if (errorsBag.length > 0) {
-    showErrorMessages(errorsBag);
+    showErrorMessages('.password-login', errorsBag);
     return false;
   }
 
   return true;
 }
 
+function getPostUrl(formName) {
+  return $("#account_modal .login-register-box ".concat(formName, " .form-box .ui.form")).attr("action");
+}
+
+function getVerificationCode(captcha_token, captcha_authenticate) {
+  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(getPostUrl('.account-register'), {
+    phone: $('#account_modal .login-register-box .account-register input[name=phone]').val(),
+    captcha_token: captcha_token,
+    captcha_authenticate: captcha_authenticate
+  }, {
+    timeout: 8000
+  }).then(function (response) {
+    if (!response.data.success) {
+      showErrorMessages('.account-register', response.data.errors);
+      isProcessing = false;
+    } else {
+      window.location.href = location.href;
+    }
+  })["catch"](function (error) {
+    var errorsBag = [];
+    var globalErrors = [];
+
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      globalErrors.push("\u670D\u52A1\u5668\u8FD4\u56DE ".concat(error.response.status, " \u9519\u8BEF\uFF0C\u8BF7\u7A0D\u540E\u518D\u8BD5\u3002"));
+    } else if (error.request) {
+      // The request was made but no response was received
+      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+      // http.ClientRequest in node.js
+      globalErrors.push('网络连接错误，请稍后再试。');
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      globalErrors.push('在发起请求时出现错误。');
+    }
+
+    errorsBag.push(globalErrors);
+    showErrorMessages('.account-register', errorsBag);
+    $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
+    isProcessing = false;
+  });
+}
+
+window.getVerificationCode = getVerificationCode;
 $('#account_modal .login-register-box .password-login .form-box').submit(function (event) {
   //阻止默认提交表单
   event.preventDefault(); //是否通过本地验证
@@ -3955,9 +4077,9 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
     //远程获取结果
     if (!isProcessing) {
       isProcessing = true;
-      closeErrorBox();
+      closeErrorBox('.password-login');
       $('#account_modal .login-register-box .password-login .form-box .button').text('正在登录...');
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(postUrl, {
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(getPostUrl('.password-login'), {
         email: $('input[name=email_name]').val(),
         password: $('input[name=password]').val(),
         _token: $('input[name=_token]').val()
@@ -3965,11 +4087,11 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
         timeout: 8000
       }).then(function (response) {
         if (!response.data.success) {
-          showErrorMessages(response.data.errors);
+          showErrorMessages('.password-login', response.data.errors);
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
           isProcessing = false;
         } else {
-          window.location.reload();
+          window.location.href = location.href;
         }
       })["catch"](function (error) {
         var errorsBag = [];
@@ -3989,7 +4111,7 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
         }
 
         errorsBag.push(globalErrors);
-        showErrorMessages(errorsBag);
+        showErrorMessages('.password-login', errorsBag);
         $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
         isProcessing = false;
       });
@@ -3997,7 +4119,11 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
   }
 });
 $('#account_modal .login-register-box .password-login .error-box .message .close').on('click', function () {
-  closeErrorBox();
+  closeErrorBox('.password-login');
+});
+$('#account_modal .login-register-box .account-register .form-box .input-box .get-phone-code').click(function (event) {});
+$('#account_modal .login-register-box .account-register .error-box .message .close').on('click', function () {
+  closeErrorBox('.account-register');
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

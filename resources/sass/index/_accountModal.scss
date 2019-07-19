@@ -148,6 +148,21 @@
 
             }
 
+            &.register {
+
+              .get-phone-code {
+
+                a {
+
+                  cursor: pointer;
+
+                }
+
+              }
+
+            }
+
+
             .input-box {
 
               border-bottom: #E2E2E2 solid 1px;
@@ -284,6 +299,40 @@
 
     }
 
+    .account-login .password-login, .account-register {
+
+      .content {
+
+        .error-box {
+
+          display: none;
+
+          margin-top: -2rem;
+
+          height: 5.5rem;
+
+          .error.message {
+
+            .list {
+
+              margin-top: 0!important;
+
+            }
+
+          }
+
+        }
+
+        .third-login {
+
+          margin-top: 4.5rem;
+
+        }
+
+      }
+
+    }
+
     .account-login {
 
         border: 1px solid transparent;
@@ -324,38 +373,6 @@
 
       }
 
-      .password-login {
-
-        .content {
-
-          .error-box {
-
-            margin-top: -2rem;
-
-            height: 5.5rem;
-
-            .error.message {
-
-              .list {
-
-                margin-top: 0!important;
-
-              }
-
-            }
-
-          }
-
-          .third-login {
-
-            margin-top: 4.5rem;
-
-          }
-
-        }
-
-      }
-
     }
 
     .account-register {
@@ -370,11 +387,24 @@
 
       .header {
 
+        //解决svg图标抖动问题
+        transform: translateY(-0.1rem);
+
         .title {
 
           margin-left: 0.6rem;
 
           letter-spacing: 0.2rem;
+
+        }
+
+      }
+
+      .content {
+
+        .third-login {
+
+          margin-top: 1.5rem;
 
         }
 

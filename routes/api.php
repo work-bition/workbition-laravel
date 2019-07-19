@@ -30,7 +30,7 @@ function($api) {
 
     $api->group([
 
-        'middleware' => 'api.throttle',
+        //'middleware' => 'api.throttle',
 
         'limit' => config('api.rate_limits.sign.limit'),
 

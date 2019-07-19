@@ -54,7 +54,7 @@
 
                   <div class="register_button">
 
-                    <div class="ui primary register button"><a class="register-button-link" href="{{ route('register') }}" target="_blank">注册账号</a></div>
+                    <div class="ui primary register button"><a class="register-button-link">注册账号</a></div>
 
                   </div>
 
