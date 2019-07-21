@@ -49,6 +49,18 @@
 
                 </a>
 
+
+
+                <a class="share-item" id="item-instagram" href="#">
+
+                  <div class="item">
+
+                    <svg class="icon icon-instagram"><use xlink:href="#icon-instagram"></use></svg>
+
+                  </div>
+
+                </a>
+
                 <a class="share-item" id="item-rss" href="#">
 
                   <div class="item">

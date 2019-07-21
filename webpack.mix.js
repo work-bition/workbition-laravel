@@ -32,11 +32,15 @@ Mix.listen('configReady', (webpackConfig) => {
 
            },
 
+           //https://github.com/svg/svgo
+
            {
 
              loader: 'svgo-loader',
 
              options: {
+
+               
 
              }
 

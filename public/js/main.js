@@ -3225,11 +3225,13 @@ module.exports = g;
 
 var map = {
 	"./administrator.svg": "./resources/js/icons/svg/administrator.svg",
+	"./approved.svg": "./resources/js/icons/svg/approved.svg",
 	"./auth.svg": "./resources/js/icons/svg/auth.svg",
 	"./courses.svg": "./resources/js/icons/svg/courses.svg",
 	"./discussion.svg": "./resources/js/icons/svg/discussion.svg",
 	"./favourite.svg": "./resources/js/icons/svg/favourite.svg",
 	"./hot.svg": "./resources/js/icons/svg/hot.svg",
+	"./instagram.svg": "./resources/js/icons/svg/instagram.svg",
 	"./login.svg": "./resources/js/icons/svg/login.svg",
 	"./logo-color-reverse.svg": "./resources/js/icons/svg/logo-color-reverse.svg",
 	"./logo.svg": "./resources/js/icons/svg/logo.svg",
@@ -3291,6 +3293,32 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "use": "icon-administrator-usage",
   "viewBox": "0 0 1024 1024",
   "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-administrator\"><path d=\"M512 526.92c115.366 0 208.888-138.283 208.888-253.649 0-115.366-93.522-208.888-208.888-208.888s-208.888 93.522-208.888 208.888S396.634 526.921 512 526.921zM138.986 795.698c0-56.443 40.94-122.625 91.447-147.825l92.897-46.35 70.368 242.728s1.968 21.004 37.145 21.004c35.177 0 35.177-21.004 35.177-21.004V646.285s1.596-44.762 47.464-44.762c45.867 0 45.867 44.762 45.867 44.762v197.966s11.992 24.88 40.407 24.88c28.416 0 31.845-24.88 31.845-24.88l68.893-242.728 93.053 46.384c50.515 25.18 91.465 91.34 91.465 147.79v61.722c0 56.442-45.754 102.198-102.192 102.198H241.178c-56.439 0-102.192-45.747-102.192-102.198v-61.721z\" /></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/approved.svg":
+/*!*********************************************!*\
+  !*** ./resources/js/icons/svg/approved.svg ***!
+  \*********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-approved",
+  "use": "icon-approved-usage",
+  "viewBox": "0 0 1024 1024",
+  "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-approved\"><path d=\"M512 0C230.4 0 0 230.4 0 512s230.4 512 512 512 512-230.4 512-512S793.6 0 512 0zm-46.08 775.68l-217.6-217.6L320 486.4l145.92 145.92L755.2 343.04l71.68 71.68-360.96 360.96z\" fill=\"#7ED321\" /></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -3421,6 +3449,32 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "use": "icon-hot-usage",
   "viewBox": "0 0 1024 1024",
   "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-hot\"><defs><style></style></defs><path d=\"M728.154 555.135a30.113 30.113 0 0 0-51.795 9.335 224.345 224.345 0 0 1-38.545 68.056 312.276 312.276 0 0 0 1.806-33.727 381.235 381.235 0 0 0-2.71-41.857 308.963 308.963 0 0 0-23.187-81.005 34.33 34.33 0 0 0-3.915-8.432 301.134 301.134 0 0 0-110.516-127.078 30.113 30.113 0 0 0-30.113 0 30.113 30.113 0 0 0-15.96 26.198 207.481 207.481 0 0 1-21.983 90.34 201.458 201.458 0 0 1-76.79 82.812 271.02 271.02 0 0 0-85.521 79.8 264.094 264.094 0 0 0-42.761 144.244 259.577 259.577 0 0 0 30.113 124.669 266.804 266.804 0 0 0 94.255 99.675 30.113 30.113 0 0 0 33.727 0 30.113 30.113 0 0 0 11.443-31.619 267.106 267.106 0 0 1-6.926-60.227 251.145 251.145 0 0 1 17.466-92.749 236.089 236.089 0 0 1 18.068-38.545l1.807 4.216a470.973 470.973 0 0 0 199.35 221.032 207.18 207.18 0 0 0 19.875 10.54l3.312 1.807a30.113 30.113 0 0 0 32.222-3.915 316.793 316.793 0 0 0 107.504-167.13 341.787 341.787 0 0 0 9.938-78.595 315.287 315.287 0 0 0-70.164-197.845z\" fill=\"#FFC824\" /><path d=\"M281.572 371.142a30.113 30.113 0 0 1-25.295-13.55 30.113 30.113 0 0 1 8.733-41.557l12.648-8.13a30.113 30.113 0 0 1 30.113 51.794l-8.733 6.625a30.113 30.113 0 0 1-17.466 4.818z\" fill=\"#6B400D\" /><path d=\"M707.074 1024a32.221 32.221 0 0 1-10.54-1.807 412.252 412.252 0 0 1-70.465-32.823 470.973 470.973 0 0 1-199.35-221.032l-1.807-4.216a236.089 236.089 0 0 0-18.068 38.545 256.265 256.265 0 0 0-3.915 175.26 30.113 30.113 0 0 1-6.926 30.113 30.113 30.113 0 0 1-30.113 8.13 391.474 391.474 0 0 1-231.572-190.015 391.474 391.474 0 0 1 17.165-396.292c5.721-9.034 12.045-17.766 18.369-25.897a30.113 30.113 0 0 1 47.579 36.738c-5.42 7.227-10.54 14.455-15.358 21.983a331.247 331.247 0 0 0-14.755 335.463 331.247 331.247 0 0 0 144.544 140.328 337.27 337.27 0 0 1-2.71-43.062 312.276 312.276 0 0 1 21.38-114.13 308.963 308.963 0 0 1 60.227-100.88 30.113 30.113 0 0 1 30.113-9.033 30.113 30.113 0 0 1 21.983 21.38 439.354 439.354 0 0 0 18.37 51.494A412.854 412.854 0 0 0 655.58 937.274a309.565 309.565 0 0 0 46.977 22.886A412.252 412.252 0 0 0 862.76 726.78a421.587 421.587 0 0 0 12.046-100.277 402.013 402.013 0 0 0-60.227-214.106 331.247 331.247 0 0 1-20.176 34.931 376.417 376.417 0 0 1-125.874 122.26c-9.937 5.722-19.574 10.841-30.113 15.66a30.113 30.113 0 0 1-33.727-5.722 30.113 30.113 0 0 1-4.517-33.727 389.366 389.366 0 0 0 30.113-156.89 481.814 481.814 0 0 0-3.312-54.807 402.013 402.013 0 0 0-30.114-105.698v-3.312l-1.806-3.313A389.366 389.366 0 0 0 493.269 86.571a396.894 396.894 0 0 1-37.641 114.732 30.113 30.113 0 0 1-53.602-27.102 338.775 338.775 0 0 0 35.233-143.942 30.113 30.113 0 0 1 46.675-25.295 451.7 451.7 0 0 1 164.42 189.714 50.892 50.892 0 0 1 5.118 10.84 458.024 458.024 0 0 1 34.33 120.454 556.194 556.194 0 0 1 2.71 62.937 466.757 466.757 0 0 1-10.54 98.17 319.503 319.503 0 0 0 62.937-72.272 307.156 307.156 0 0 0 37.943-73.477 30.113 30.113 0 0 1 50.892-9.937A470.07 470.07 0 0 1 935.634 625.9a481.814 481.814 0 0 1-13.851 114.732 471.876 471.876 0 0 1-198.146 277.947 30.113 30.113 0 0 1-16.563 5.42zM597.763 227.2zm-2.108-3.914z\" fill=\"#333\" /></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/instagram.svg":
+/*!**********************************************!*\
+  !*** ./resources/js/icons/svg/instagram.svg ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-instagram",
+  "use": "icon-instagram-usage",
+  "viewBox": "0 0 200 200",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-instagram\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M0 100c0 55.228 44.772 100 100 100s100-44.772 100-100S155.228 0 100 0 0 44.772 0 100z\" fill=\"#A97E57\" /><path d=\"M146.371 51.923c-11.948 1.512-24.406 1.46-36.943.266-17.509-1.347-43.098-9.428-52.526 6.734-15.145 25.873-7.675 58.998-4.146 88.311l52.632 52.62c50.933-2.704 91.752-43.518 94.465-94.449l-53.482-53.482z\" fill=\"#7B5E3C\" /><path d=\"M123.136 42.76H76.864c-18.805 0-34.103 15.3-34.103 34.104v46.272c0 18.803 15.298 34.103 34.103 34.103h46.272c18.804 0 34.103-15.299 34.103-34.103V76.864c0-18.805-15.299-34.103-34.103-34.103zm22.587 80.376c0 12.474-10.113 22.587-22.587 22.587H76.864c-12.474 0-22.586-10.113-22.586-22.587V76.864c0-12.474 10.112-22.587 22.586-22.587h46.272c12.474 0 22.587 10.114 22.587 22.587v46.272z\" fill=\"#FFF\" fill-rule=\"nonzero\" /><path d=\"M100 70.391c-16.326 0-29.609 13.283-29.609 29.609 0 16.325 13.283 29.607 29.609 29.607s29.607-13.281 29.607-29.607S116.326 70.391 100 70.391zm0 47.7c-9.992 0-18.092-8.099-18.092-18.091s8.1-18.092 18.092-18.092c9.992 0 18.091 8.1 18.091 18.092 0 9.992-8.1 18.091-18.091 18.091z\" fill=\"#FFF\" fill-rule=\"nonzero\" /><path d=\"M136.759 70.615a7.095 7.095 0 1 1-14.19 0 7.095 7.095 0 0 1 14.19 0z\" fill=\"#D1D1D1\" /><path d=\"M123.136 42.76h-23.36v11.517h23.36c12.474 0 22.587 10.114 22.587 22.587v46.272c0 12.474-10.113 22.587-22.587 22.587h-23.36v11.516h23.36c18.804 0 34.103-15.299 34.103-34.103V76.864c0-18.805-15.299-34.103-34.103-34.103z\" fill=\"#D1D1D1\" /><path d=\"M100 70.391c-.075 0-.149.006-.224.006v11.516c.074 0 .149-.005.224-.005 9.992 0 18.091 8.1 18.091 18.092 0 9.992-8.099 18.091-18.091 18.091-.075 0-.15-.005-.224-.005v11.516c.075 0 .149.005.224.005 16.326 0 29.607-13.282 29.607-29.607 0-16.326-13.281-29.609-29.607-29.609z\" fill=\"#D1D1D1\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -4207,28 +4261,20 @@ $('#main_content .articles-feed .asides.column .ui.sticky').sticky({
   context: '.articles-feed',
   offset: 78,
   observeChanges: true,
-  pushing: false
+  pushing: true
 });
-/** when the width of the screen is less than 1262px, recalculates the offsets of the sticky **/
-// enquire.register("screen and (max-width: 1262px)", {
-//
-//   match() {
-//
-//     // recalculates offsets
-//     $('#main_content .articles-feed .asides.column .ui.sticky')
-//       .sticky('refresh')
-//
-//   },
-//
-//   unmatch(){
-//
-//     // recalculates offsets
-//     $('#main_content .articles-feed .asides.column .ui.sticky')
-//       .sticky('refresh')
-//
-//   }
-//
-// })
+/** when the width of the screen is less than 579px, cancel the sticky **/
+
+enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (max-width: 579px)", {
+  match: function match() {
+    // cancel the sticky
+    $('#main_content .articles-feed .asides.column .asides-wrapper').removeClass('sticky');
+  },
+  unmatch: function unmatch() {
+    //resume the sticky
+    $('#main_content .articles-feed .asides.column .asides-wrapper').addClass('sticky');
+  }
+});
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

@@ -42,8 +42,6 @@ $('#account_modal .account-register .content .third-login')
 
 
 
-
-
 /** Initializing the functionality of the account modal **/
 $('#account_modal')
 

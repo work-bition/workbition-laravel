@@ -80,9 +80,11 @@
 
               expired: 10,
 
-              mode: 'external',
+              mode: 'float',
 
               winWidth: 334,
+
+              noButton: false,
 
               lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
               // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
@@ -108,13 +110,15 @@
 
               },
 
-              onSuccess: function (validInfo, close) {
+              onSuccess: function (validInfo, close, useDefaultSuccess) {
 
                   // 成功回调
 
-                  console.log(validInfo.token)
+                  //console.log(validInfo.token)
 
-                  console.log(validInfo.authenticate)
+                  //console.log(validInfo.authenticate)
+
+                  useDefaultSuccess(true)
 
                   getVerificationCode(validInfo.token, validInfo.authenticate)
 

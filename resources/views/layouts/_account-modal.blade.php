@@ -1,4 +1,4 @@
-<div id="account_modal" class="ui modal">
+<div id="account_modal" class="ui account modal">
 
   <section class="close_button">
 
@@ -216,6 +216,16 @@
 
               <section class="ui input">
 
+                <input type="password" name="password" placeholder="密码">
+
+              </section>
+
+            </section>
+
+            <section class="input-box">
+
+              <section class="ui input">
+
                 <input type="text" name="phoneCode" placeholder="短信验证码">
 
               </section>
@@ -234,7 +244,7 @@
 
             <section class="submit">
 
-              <button class="ui primary button" type="submit">下一步</button>
+              <button class="ui primary button" type="submit">注册</button>
 
             </section>
 
