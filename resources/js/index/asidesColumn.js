@@ -20,7 +20,7 @@ $('#main_content .articles-feed .asides.column .ui.sticky')
 
     context: '.articles-feed',
 
-    offset: 100,
+    offset: 78,
 
     observeChanges: true,
 
@@ -30,22 +30,22 @@ $('#main_content .articles-feed .asides.column .ui.sticky')
 
 
 /** when the width of the screen is less than 1262px, recalculates the offsets of the sticky **/
-enquire.register("screen and (max-width: 1262px)", {
-
-  match() {
-
-    // recalculates offsets
-    $('#main_content .articles-feed .asides.column .ui.sticky')
-      .sticky('refresh')
-
-  },
-
-  unmatch(){
-
-    // recalculates offsets
-    $('#main_content .articles-feed .asides.column .ui.sticky')
-      .sticky('refresh')
-
-  }
-
-})
+// enquire.register("screen and (max-width: 1262px)", {
+//
+//   match() {
+//
+//     // recalculates offsets
+//     $('#main_content .articles-feed .asides.column .ui.sticky')
+//       .sticky('refresh')
+//
+//   },
+//
+//   unmatch(){
+//
+//     // recalculates offsets
+//     $('#main_content .articles-feed .asides.column .ui.sticky')
+//       .sticky('refresh')
+//
+//   }
+//
+// })

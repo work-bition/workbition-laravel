@@ -4205,22 +4205,30 @@ var articlesFeedAsideHeaders = $('#main_content .articles-feed .row .asides.colu
 Object(_ellipsisText__WEBPACK_IMPORTED_MODULE_0__["default"])(articlesFeedAsideHeaders);
 $('#main_content .articles-feed .asides.column .ui.sticky').sticky({
   context: '.articles-feed',
-  offset: 100,
+  offset: 78,
   observeChanges: true,
   pushing: false
 });
 /** when the width of the screen is less than 1262px, recalculates the offsets of the sticky **/
-
-enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (max-width: 1262px)", {
-  match: function match() {
-    // recalculates offsets
-    $('#main_content .articles-feed .asides.column .ui.sticky').sticky('refresh');
-  },
-  unmatch: function unmatch() {
-    // recalculates offsets
-    $('#main_content .articles-feed .asides.column .ui.sticky').sticky('refresh');
-  }
-});
+// enquire.register("screen and (max-width: 1262px)", {
+//
+//   match() {
+//
+//     // recalculates offsets
+//     $('#main_content .articles-feed .asides.column .ui.sticky')
+//       .sticky('refresh')
+//
+//   },
+//
+//   unmatch(){
+//
+//     // recalculates offsets
+//     $('#main_content .articles-feed .asides.column .ui.sticky')
+//       .sticky('refresh')
+//
+//   }
+//
+// })
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
