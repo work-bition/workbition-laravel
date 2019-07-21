@@ -49,7 +49,7 @@ class UsersController extends Controller
 
         if ($result) {
 
-          $data['avatar'] = $result['path'];
+          $data['avatar'] = url('/') . $result['path'];
 
         }
 

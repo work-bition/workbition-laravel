@@ -75,7 +75,7 @@
 
         $('#account_modal .login-register-box .account-register .content .form-box .ui.form .input-box .get-phone-code a').click(function(event) {
 
-          // 初始化
+          // 初始化云片图片验证码
           var YpCaptcha =  new YpRiddler({
 
               expired: 10,
@@ -152,7 +152,7 @@
 
         });
 
-        };
+      };
 
     </script>
 

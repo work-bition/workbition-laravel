@@ -2632,6 +2632,7 @@ element in order to prevent the background layer from moving **/
 #main_content .articles-feed .ui.grid .row .asides.column {
   padding-left: 0;
   padding-right: 0;
+  z-index: 1;
 }
 
 #main_content .articles-feed .ui.grid .row .asides.column .asides-wrapper {
@@ -2946,13 +2947,15 @@ footer .container .grid .row .left.column {
 }
 
 footer .container .grid .row .left.column .logo_section .icon {
-  height: 5rem;
-  width: 15rem;
+  height: 4.5rem;
+  width: 13.5rem;
 }
 
 footer .container .grid .row .left.column .footer-share {
+  align-items: flex-end;
   display: flex;
   flex-direction: row;
+  flex-grow: 1;
 }
 
 footer .container .grid .row .left.column .footer-share .share-item {
@@ -2960,14 +2963,15 @@ footer .container .grid .row .left.column .footer-share .share-item {
 }
 
 footer .container .grid .row .left.column .footer-share .share-item .icon {
-  height: 2.6rem;
-  width: 2.6rem;
+  height: 2.3rem;
+  width: 2.3rem;
 }
 
 footer .container .grid .row .left.column .declaration {
   color: #fff;
+  font-size: 10px;
   letter-spacing: 2px;
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 footer .container .grid .row .left.column .declaration .company {
@@ -2977,14 +2981,18 @@ footer .container .grid .row .left.column .declaration .company {
 footer .container .grid .row .right.column .link-item {
   color: #fff;
   float: left;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   margin-left: 8rem;
 }
 
+footer .container .grid .row .right.column .link-item .link-title {
+  margin-bottom: 2rem;
+}
+
 footer .container .grid .row .right.column .link-item a {
   color: #fff;
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: normal;
 }
 

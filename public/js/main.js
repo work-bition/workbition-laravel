@@ -3862,7 +3862,7 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "id": "icon-zhihu",
   "use": "icon-zhihu-usage",
   "viewBox": "0 0 200 200",
-  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-zhihu\"><g fill=\"none\" fill-rule=\"evenodd\"><circle fill=\"#FFF\" cx=\"100.5\" cy=\"104.5\" r=\"69.5\" /><path d=\"M100 200C44.773 200 0 155.227 0 100S44.773 0 100 0s100 44.773 100 100-44.773 100-100 100zM74.636 52.25s-7.072.41-9.568 4.782C62.568 61.4 54.46 83.864 54.46 83.864s2.705 1.245 7.282-2.082 6.032-9.15 6.032-9.15l8.318-.414.209 23.71s-14.355-.21-17.268 0c-2.91.204-4.573 7.9-4.573 7.9H76.3s-1.873 13.104-7.49 22.672c-5.615 9.568-16.224 17.055-16.224 17.055s7.7 3.118 15.182-1.25c7.491-4.364 13.014-23.573 13.014-23.573l17.563 21.495s1.6-10.232-.286-13.122c-1.886-2.887-12.15-14.51-12.15-14.51l-4.482 3.955 3.191-12.718h19.132s0-7.491-3.74-7.91c-3.746-.408-15.392 0-15.392 0V72.637h17.264s-.21-7.695-3.537-7.695H70.268l4.364-12.686.004-.005zm33.2 11.95v70.032h7.032l2.56 8.79 12.372-8.79h17.395V64.2h-39.359z\" fill=\"#1ABBFF\" fill-rule=\"nonzero\" /><path fill=\"#1ABBFF\" d=\"M116.168 72h23.027v54.273h-8.181l-10.423 7.863-2.273-7.863h-2.15z\" /></g></symbol>"
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-zhihu\"><g fill=\"none\" fill-rule=\"evenodd\"><circle fill=\"#FFF\" cx=\"100.5\" cy=\"104.5\" r=\"69.5\" /><path d=\"M100 200C44.773 200 0 155.227 0 100S44.773 0 100 0s100 44.773 100 100-44.773 100-100 100zM74.636 52.25s-7.072.41-9.568 4.782C62.568 61.4 54.46 83.864 54.46 83.864s2.705 1.245 7.282-2.082 6.032-9.15 6.032-9.15l8.318-.414.209 23.71s-14.355-.21-17.268 0c-2.91.204-4.573 7.9-4.573 7.9H76.3s-1.873 13.104-7.49 22.672c-5.615 9.568-16.224 17.055-16.224 17.055s7.7 3.118 15.182-1.25c7.491-4.364 13.014-23.573 13.014-23.573l17.563 21.495s1.6-10.232-.286-13.122c-1.886-2.887-12.15-14.51-12.15-14.51l-4.482 3.955 3.191-12.718h19.132s0-7.491-3.74-7.91c-3.746-.408-15.392 0-15.392 0V72.637h17.264s-.21-7.695-3.537-7.695H70.268l4.364-12.686.004-.005zm33.2 11.95v70.032h7.032l2.56 8.79 12.372-8.79h17.395V64.2h-39.359z\" fill=\"#00B3EE\" fill-rule=\"nonzero\" /><path fill=\"#00B3EE\" d=\"M116.168 72h23.027v54.273h-8.181l-10.423 7.863-2.273-7.863h-2.15z\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -3963,7 +3963,7 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 });
 /*****************************************************************************************************************************
 
-                                  AJAX Login
+                                  AJAX Login and Register
 
 ******************************************************************************************************************************/
 
@@ -4042,7 +4042,7 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
       showErrorMessages('.account-register', response.data.errors);
       isProcessing = false;
     } else {
-      window.location.href = location.href;
+      console.log(response.data); //window.location.href = location.href
     }
   })["catch"](function (error) {
     var errorsBag = [];
@@ -4077,8 +4077,9 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
     //远程获取结果
     if (!isProcessing) {
       isProcessing = true;
-      closeErrorBox('.password-login');
-      $('#account_modal .login-register-box .password-login .form-box .button').text('正在登录...');
+      closeErrorBox('.password-login'); //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
+
+      $('#account_modal .login-register-box .password-login .form-box .button').text('登录中...');
       axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(getPostUrl('.password-login'), {
         email: $('input[name=email_name]').val(),
         password: $('input[name=password]').val(),
@@ -4086,12 +4087,15 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
       }, {
         timeout: 8000
       }).then(function (response) {
-        if (!response.data.success) {
+        if (response.data.success) {
+          window.location.href = location.href;
+          setTimeout(function () {
+            showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']]);
+          }, 8000);
+        } else {
           showErrorMessages('.password-login', response.data.errors);
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
           isProcessing = false;
-        } else {
-          window.location.href = location.href;
         }
       })["catch"](function (error) {
         var errorsBag = [];
@@ -4187,6 +4191,9 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _ellipsisText__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ellipsisText */ "./resources/js/index/ellipsisText.js");
+/* harmony import */ var enquire_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! enquire.js */ "./node_modules/enquire.js/src/index.js");
+/* harmony import */ var enquire_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(enquire_js__WEBPACK_IMPORTED_MODULE_1__);
+
 
 /**
 * Asides Column - Articles Feed
@@ -4196,6 +4203,24 @@ __webpack_require__.r(__webpack_exports__);
 
 var articlesFeedAsideHeaders = $('#main_content .articles-feed .row .asides.column .aside1 .item .content .header');
 Object(_ellipsisText__WEBPACK_IMPORTED_MODULE_0__["default"])(articlesFeedAsideHeaders);
+$('#main_content .articles-feed .asides.column .ui.sticky').sticky({
+  context: '.articles-feed',
+  offset: 100,
+  observeChanges: true,
+  pushing: false
+});
+/** when the width of the screen is less than 1262px, recalculates the offsets of the sticky **/
+
+enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (max-width: 1262px)", {
+  match: function match() {
+    // recalculates offsets
+    $('#main_content .articles-feed .asides.column .ui.sticky').sticky('refresh');
+  },
+  unmatch: function unmatch() {
+    // recalculates offsets
+    $('#main_content .articles-feed .asides.column .ui.sticky').sticky('refresh');
+  }
+});
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
@@ -4303,6 +4328,27 @@ function ellipsisText(ellipsisElements) {
 
 /***/ }),
 
+/***/ "./resources/js/index/footer.js":
+/*!**************************************!*\
+  !*** ./resources/js/index/footer.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {/**
+* Main Navigation
+**/
+
+/** Animation effect **/
+$('.footer .footer-share a').hover(function (event) {
+  $(event.currentTarget.children[0]).transition('tada');
+}, function (event) {
+  $(event.currentTarget.children[0]).transition('stop');
+});
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
 /***/ "./resources/js/index/formValidation.js":
 /*!**********************************************!*\
   !*** ./resources/js/index/formValidation.js ***!
@@ -4398,6 +4444,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mainNavigation__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_mainNavigation__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _pageBanners__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pageBanners */ "./resources/js/index/pageBanners.js");
 /* harmony import */ var _articlesFeed__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./articlesFeed */ "./resources/js/index/articlesFeed.js");
+/* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./footer */ "./resources/js/index/footer.js");
+/* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_footer__WEBPACK_IMPORTED_MODULE_5__);
+
 
 
 

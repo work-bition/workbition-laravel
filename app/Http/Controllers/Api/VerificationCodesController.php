@@ -24,6 +24,8 @@ class VerificationCodesController extends Controller
     public function store(Request $request, EasySms $easySms)
     {
 
+        //字段验证
+
         $rules;
 
         $messages;
@@ -60,6 +62,11 @@ class VerificationCodesController extends Controller
 
         }
 
+        //结束验证
+
+
+        //验证同一手机号短信发送频次限制
+        //同一手机号在1分钟内只能发送1次验证码
 
         if (\Cache::has($request->phone)) {
 
@@ -69,38 +76,25 @@ class VerificationCodesController extends Controller
 
         else {
 
+          //在Cache中以phone为key，初始值为1，1分钟以后过期
           \Cache::put($request->phone, 1, now()->addMinutes(1));
 
         }
 
-        if (\Cache::get($request->phone) > 3) {
+        if (\Cache::get($request->phone) > 1) {
 
-            return $this->response->error('同一手机号在1分钟内只能发送3次验证码', 429);
+            return response()->json(['errors' => ['global' => ['同一个手机号1分钟内只能获取 1 条验证码。']], 'success' => false, 'status' => 429]);
 
         }
 
+        //结束验证
 
-//        $captchaData = \Cache::get($request->captcha_key);
 
-//        if (!$captchaData) {
 
-//            return $this->response->error('图片验证码已失效', 422);
-
-//        }
-
-//        if (!hash_equals($captchaData['code'], $request->captcha_code)) {
-
-//            // 验证错误就清除缓存
-//            \Cache::forget($request->captcha_key);
-
-//            return $this->response->errorUnauthorized('验证码错误');
-
-//        }
-
-//        $phone = $captchaData['phone'];
-
+        //云片行为验证码二次验证
         $isCaptchaVerified = app(YunpianCaptchaVerification::class)->isVerified($request->captcha_token, $request->captcha_authenticate);
 
+        //若验证通过
         if ($isCaptchaVerified) {
 
           if (!app()->environment('local')) {
@@ -108,6 +102,10 @@ class VerificationCodesController extends Controller
               $code = '1234';
 
           }
+
+
+
+          //使用云片发送验证码
 
           else {
 
@@ -130,7 +128,27 @@ class VerificationCodesController extends Controller
 
                   $code = $exception->getException('yunpian')->getCode();
 
-                  //return $this->response->errorInternal('错误代码' . $code. ':' . $message ?? '短信发送异常');
+                  \Cache::forget($request->phone);
+
+                  //云片设置
+                  switch ($code) {
+
+                    case 22:
+
+                      $message = '同一个手机号1小时内只能获取 3 条验证码。';
+
+                      break;
+
+                    case 17:
+
+                      $message = '同一个手机号24小时内只能获取10条验证码。';
+
+                      break;
+
+                    default:
+                      $message = '获取验证码时遇到错误，请稍后再试。';
+                      break;
+                  }
 
                   return response()->json(['errors' => ['global' => [$message]], 'success' => false, 'status' => 500, 'code' => $code ]);
 
@@ -139,6 +157,10 @@ class VerificationCodesController extends Controller
 
           }
 
+          //结束发送
+
+
+
           $key = 'verificationCode_'.str_random(15);
 
           $expiredAt = now()->addMinutes(10);
@@ -146,14 +168,13 @@ class VerificationCodesController extends Controller
           // 缓存验证码 10分钟过期。
           \Cache::put($key, ['phone' => $request->phone, 'code' => $code], $expiredAt);
 
-          // 清除图片验证码缓存
-          \Cache::forget($request->captcha_key);
-
           return $this->response->array([
 
               'key' => $key,
 
               'expired_at' => $expiredAt->toDateTimeString(),
+
+              'success' => true
 
           ])->setStatusCode(201);
 
@@ -162,11 +183,9 @@ class VerificationCodesController extends Controller
 
         else {
 
-          return response()->json(['errors' => ['global' => ['图片验证码已失效']], 'success' => false, 'status' => 422]);
+          return response()->json(['errors' => ['global' => ['验证码已失效。']], 'success' => false, 'status' => 422]);
 
         }
-
-
 
     }
 

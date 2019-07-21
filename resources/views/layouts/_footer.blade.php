@@ -1,5 +1,6 @@
 <footer class="footer">
   <div class="ui container">
+
     <div class="ui grid">
 
         <div class="doubling two column row">
@@ -62,9 +63,9 @@
 
               <section class="declaration">
 
-                <p class="copyright">Copyright © 2019 Youhnn</p>
+                <p class="copyright">Copyright © 2019 优涵课堂</p>
 
-                <p class="company">青岛优涵互动传媒有限公司<br>鲁ICP备12016193号-1<br>增值电信业务经营许可证鲁 B2-20170058<br></p>
+                <p class="company">青岛优拾传媒文化有限公司<br>鲁ICP备12016193号-1<br>增值电信业务经营许可证鲁 B2-20170058<br></p>
 
               </section>
 
@@ -117,5 +118,7 @@
         </div>
 
       </div>
+
   </div>
+
 </footer>

@@ -150,7 +150,7 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 /*****************************************************************************************************************************
 
-                                  AJAX Login
+                                  AJAX Login and Register
 
 ******************************************************************************************************************************/
 
@@ -284,7 +284,9 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
     else {
 
-      window.location.href = location.href
+      console.log(response.data)
+
+      //window.location.href = location.href
 
     }
 
@@ -348,7 +350,9 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
       closeErrorBox('.password-login')
 
-      $('#account_modal .login-register-box .password-login .form-box .button').text('正在登录...')
+      //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
+
+      $('#account_modal .login-register-box .password-login .form-box .button').text('登录中...')
 
       axios.post(getPostUrl('.password-login'),
 
@@ -369,20 +373,25 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
       .then(function (response) {
 
-        if (!response.data.success) {
+        if (response.data.success) {
+
+          window.location.href = location.href
+
+          setTimeout(() => {
+
+              showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']])
+
+          },8000)
+
+        }
+
+        else {
 
           showErrorMessages('.password-login', response.data.errors)
 
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
 
           isProcessing = false
-
-        }
-
-
-        else {
-
-          window.location.href = location.href
 
         }
 
@@ -438,11 +447,6 @@ $('#account_modal .login-register-box .password-login .error-box .message .close
   closeErrorBox('.password-login')
 
 })
-
-
-
-
-
 
 $('#account_modal .login-register-box .account-register .form-box .input-box .get-phone-code').click((event) => {
 

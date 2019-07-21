@@ -30,9 +30,9 @@ footer {
 
             .icon {
 
-              width: 15rem;
+              width: 13.5rem;
 
-              height: 5rem;
+              height: 4.5rem;
 
             }
 
@@ -44,15 +44,19 @@ footer {
 
             flex-direction: row;
 
+            align-items: flex-end;
+
+            flex-grow: 1;
+
             .share-item {
 
               margin-right: 2rem;
 
               .icon {
 
-                width: 2.6rem;
+                width: 2.3rem;
 
-                height: 2.6rem;
+                height: 2.3rem;
 
 
               }
@@ -67,7 +71,9 @@ footer {
 
             letter-spacing: 2px;
 
-            margin-top: 5rem;
+            margin-top: 2rem;
+
+            font-size: 10px;
 
             .company {
 
@@ -87,11 +93,17 @@ footer {
 
             font-weight: bold;
 
-            font-size: 1.2rem;
+            font-size: 1rem;
 
             float: left;
 
             margin-left: 8rem;
+
+            .link-title {
+
+              margin-bottom: 2rem;
+
+            }
 
             a {
 
@@ -99,7 +111,7 @@ footer {
 
               font-weight: normal;
 
-              font-size: 1rem;
+              font-size: 12px;
 
             }
 
