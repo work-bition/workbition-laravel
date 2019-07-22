@@ -1,14 +1,28 @@
-$ratio-of-image-width-to-its-container: 35%;
+$ratio-of-image-width-to-its-container: 25%;
 
-$ratio-of-image-heigh-to-its-width: 70%;
+$ratio-of-image-heigh-to-its-width: 60%;
+
+
 
 $article-content-right-gutter: 2rem;
 
 $article-content-left-gutter: 2rem;
 
-$articles-column-right-gutter: 3rem;
+$article-content-top-and-bottom-gutter: 2rem;
+
+
+
+
+$articles-column-right-gutter: 6rem;
+
+
+
 
 $article-item-border-radius: 0rem;
+
+$article-item-image-border-radius: 0.5rem;
+
+
 
 .articles.column {
 
@@ -22,13 +36,33 @@ $article-item-border-radius: 0rem;
 
       &>.item {
 
-        border: #f2f2f2 solid 1px;
+        display: flex;
+
+        flex-direction: row;
+
+        align-items: center;
+
+        border-bottom: #f2f2f2 solid 1px;
 
         border-radius: $article-item-border-radius;
 
-        background-color: #f9f9f9;
+        background-color: #fff;
 
-        box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+        box-shadow: none;
+
+        margin: 0;
+
+        //border: #f2f2f2 solid 1px;
+
+        //background-color: #f9f9f9;
+
+        //box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+
+        &:last-child {
+
+          border-bottom: none;
+
+        }
 
         &:hover {
 
@@ -74,11 +108,11 @@ $article-item-border-radius: 0rem;
 
           .image-holder {
 
-            border-radius: $article-item-border-radius;
+            border-radius: $article-item-image-border-radius;
 
-            border-top-right-radius: 0!important;
+            //border-top-right-radius: 0!important;
 
-            border-bottom-right-radius: 0!important;
+            //border-bottom-right-radius: 0!important;
 
             width: 100%;
 
@@ -159,9 +193,11 @@ $article-item-border-radius: 0rem;
 
           margin: auto 0rem;
 
-          padding: 0 $article-content-right-gutter;
+          padding: $article-content-top-and-bottom-gutter 0;
 
           padding-left: $article-content-left-gutter;
+
+          padding-right: $article-content-right-gutter;
 
           .header {
 

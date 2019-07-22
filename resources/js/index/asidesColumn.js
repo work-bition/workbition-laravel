@@ -18,13 +18,13 @@ $('#main_content .articles-feed .asides.column .ui.sticky')
 
   .sticky({
 
-    context: '.articles-feed',
+    context: '.articles-feed .asides.column',
 
-    offset: 78,
+    offset: 80,
 
     observeChanges: true,
 
-    pushing: true
+    pushing: false
 
 })
 

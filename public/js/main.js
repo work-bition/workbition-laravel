@@ -3916,7 +3916,7 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "id": "icon-zhihu",
   "use": "icon-zhihu-usage",
   "viewBox": "0 0 200 200",
-  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-zhihu\"><g fill=\"none\" fill-rule=\"evenodd\"><circle fill=\"#FFF\" cx=\"100.5\" cy=\"104.5\" r=\"69.5\" /><path d=\"M100 200C44.773 200 0 155.227 0 100S44.773 0 100 0s100 44.773 100 100-44.773 100-100 100zM74.636 52.25s-7.072.41-9.568 4.782C62.568 61.4 54.46 83.864 54.46 83.864s2.705 1.245 7.282-2.082 6.032-9.15 6.032-9.15l8.318-.414.209 23.71s-14.355-.21-17.268 0c-2.91.204-4.573 7.9-4.573 7.9H76.3s-1.873 13.104-7.49 22.672c-5.615 9.568-16.224 17.055-16.224 17.055s7.7 3.118 15.182-1.25c7.491-4.364 13.014-23.573 13.014-23.573l17.563 21.495s1.6-10.232-.286-13.122c-1.886-2.887-12.15-14.51-12.15-14.51l-4.482 3.955 3.191-12.718h19.132s0-7.491-3.74-7.91c-3.746-.408-15.392 0-15.392 0V72.637h17.264s-.21-7.695-3.537-7.695H70.268l4.364-12.686.004-.005zm33.2 11.95v70.032h7.032l2.56 8.79 12.372-8.79h17.395V64.2h-39.359z\" fill=\"#00B3EE\" fill-rule=\"nonzero\" /><path fill=\"#00B3EE\" d=\"M116.168 72h23.027v54.273h-8.181l-10.423 7.863-2.273-7.863h-2.15z\" /></g></symbol>"
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-zhihu\"><g fill=\"none\" fill-rule=\"evenodd\"><circle fill=\"#FFF\" cx=\"100.5\" cy=\"104.5\" r=\"69.5\" /><path d=\"M100 200C44.773 200 0 155.227 0 100S44.773 0 100 0s100 44.773 100 100-44.773 100-100 100zM74.636 52.25s-7.072.41-9.568 4.782C62.568 61.4 54.46 83.864 54.46 83.864s2.705 1.245 7.282-2.082 6.032-9.15 6.032-9.15l8.318-.414.209 23.71s-14.355-.21-17.268 0c-2.91.204-4.573 7.9-4.573 7.9H76.3s-1.873 13.104-7.49 22.672c-5.615 9.568-16.224 17.055-16.224 17.055s7.7 3.118 15.182-1.25c7.491-4.364 13.014-23.573 13.014-23.573l17.563 21.495s1.6-10.232-.286-13.122c-1.886-2.887-12.15-14.51-12.15-14.51l-4.482 3.955 3.191-12.718h19.132s0-7.491-3.74-7.91c-3.746-.408-15.392 0-15.392 0V72.637h17.264s-.21-7.695-3.537-7.695H70.268l4.364-12.686.004-.005zm33.2 11.95v70.032h7.032l2.56 8.79 12.372-8.79h17.395V64.2h-39.359z\" fill=\"#25B8F4\" fill-rule=\"nonzero\" /><path fill=\"#25B8F4\" d=\"M116.168 72h23.027v54.273h-8.181l-10.423 7.863-2.273-7.863h-2.15z\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -4258,10 +4258,10 @@ __webpack_require__.r(__webpack_exports__);
 var articlesFeedAsideHeaders = $('#main_content .articles-feed .row .asides.column .aside1 .item .content .header');
 Object(_ellipsisText__WEBPACK_IMPORTED_MODULE_0__["default"])(articlesFeedAsideHeaders);
 $('#main_content .articles-feed .asides.column .ui.sticky').sticky({
-  context: '.articles-feed',
-  offset: 78,
+  context: '.articles-feed .asides.column',
+  offset: 80,
   observeChanges: true,
-  pushing: true
+  pushing: false
 });
 /** when the width of the screen is less than 579px, cancel the sticky **/
 

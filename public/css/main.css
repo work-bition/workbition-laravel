@@ -2207,21 +2207,29 @@ element in order to prevent the background layer from moving **/
 
 #main_content .articles-feed .ui.grid .row .articles.column {
   padding-left: 0;
-  padding-right: 3rem;
+  padding-right: 6rem;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item {
-  background-color: #f9f9f9;
-  border: #f2f2f2 solid 1px;
+  align-items: center;
+  background-color: #fff;
+  border-bottom: #f2f2f2 solid 1px;
   border-radius: 0rem;
-  box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+  box-shadow: none;
+  display: flex;
+  flex-direction: row;
+  margin: 0;
   /** Compatible for IE 11 browser **/
+}
+
+#main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item:last-child {
+  border-bottom: none;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image {
   height: 100%;
   position: relative;
-  width: 35%;
+  width: 25%;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image .category.label {
@@ -2240,11 +2248,9 @@ element in order to prevent the background layer from moving **/
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .item-image .image-holder {
   background-size: cover !important;
-  border-bottom-right-radius: 0 !important;
-  border-radius: 0rem;
-  border-top-right-radius: 0 !important;
+  border-radius: 0.5rem;
   height: 0;
-  padding-top: 70%;
+  padding-top: 60%;
   width: 100%;
 }
 
@@ -2298,9 +2304,10 @@ element in order to prevent the background layer from moving **/
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content {
   margin: auto 0rem;
-  padding: 0 2rem;
+  padding: 2rem 0;
   padding-left: 2rem;
-  width: 65%;
+  padding-right: 2rem;
+  width: 75%;
 }
 
 #main_content .articles-feed .ui.grid .row .articles.column .articles-list .ui.items > .item .content .header {
@@ -2625,12 +2632,11 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .articles-feed .ui.grid .row .asides.column .asides-wrapper {
-  background-color: #F9F9F9;
+  background-color: #fff;
   border: #f2f2f2 solid 1px;
   border-radius: 0rem;
-  box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
-  padding: 2rem;
-  padding-bottom: 1rem;
+  padding: 1.5rem;
+  padding-bottom: 0.5rem;
   /** 必须指定固定宽度，防止在iOS设备下sticky滑动抖动的问题 **/
   width: 100% !important;
 }
@@ -2732,7 +2738,7 @@ element in order to prevent the background layer from moving **/
 }
 
 #main_content .articles-feed .ui.grid .row .asides.column .asides-wrapper .aside1 .ui.list .item .content .header {
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: normal;
 }
 

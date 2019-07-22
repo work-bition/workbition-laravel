@@ -10,15 +10,17 @@
 
     border: #f2f2f2 solid 1px;
 
-    background-color: #F9F9F9;
+    //background-color: #F9F9F9;
+
+    //box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+
+    background-color: #fff;
 
     border-radius: 0rem;
 
-    box-shadow: rgba(82, 94, 102, 0.15) 0px 8px 24px 0px;
+    padding: 1.5rem;
 
-    padding: 2rem;
-
-    padding-bottom: 1rem;
+    padding-bottom: 0.5rem;
 
     /** 必须指定固定宽度，防止在iOS设备下sticky滑动抖动的问题 **/
     width: 100%!important;
@@ -175,7 +177,7 @@
 
             .header {
 
-              font-size: 1.1rem;
+              font-size: 1rem;
 
               font-weight: normal;
 
