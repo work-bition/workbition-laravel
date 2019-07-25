@@ -40,7 +40,7 @@ Mix.listen('configReady', (webpackConfig) => {
 
              options: {
 
-               
+
 
              }
 
@@ -128,6 +128,22 @@ mix.js('resources/js/index/main.js', 'public/js')
 
 
    });
+
+   // 本地调试（移动设备调试）
+   // .browserSync({
+   //
+   //   proxy: 'youhnn.test',
+   //
+   //   watchOptions: {
+   //
+   //     usePolling: true,
+   //
+   //     interval: 500
+   //
+   //  }
+   //
+   //
+   // });
 
 
 

@@ -71,16 +71,16 @@
 
     <script>
 
-      window.onload = function () {
+      function InitializingYpCaptcha(captcha_mode) {
 
-        $('#account_modal .login-register-box .account-register .content .form-box .ui.form .input-box .get-phone-code a').click(function(event) {
+        window.onload = function () {
 
           // 初始化云片图片验证码
           var YpCaptcha =  new YpRiddler({
 
               expired: 10,
 
-              mode: 'float',
+              mode: captcha_mode,
 
               winWidth: 334,
 
@@ -89,7 +89,7 @@
               lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
               // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
 
-              container: document.getElementById('yunpian-captcha'),
+              container: document.getElementById('register-yunpian-captcha'),
 
               appId: '2d797943d96348c8922e375c7c4fbdaa',
 
@@ -113,10 +113,6 @@
               onSuccess: function (validInfo, close, useDefaultSuccess) {
 
                   // 成功回调
-
-                  //console.log(validInfo.token)
-
-                  //console.log(validInfo.authenticate)
 
                   useDefaultSuccess(true)
 
@@ -152,11 +148,23 @@
 
               }
 
-          })
+          });
 
-        });
+        };
 
-      };
+      }
+
+      if (!isIE11) {
+
+        InitializingYpCaptcha('dialog');
+
+      }
+
+      else {
+
+        InitializingYpCaptcha('float');
+
+      }
 
     </script>
 

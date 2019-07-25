@@ -121,13 +121,17 @@
                   </section>
                 </section>
 
-                <section class="input-box">
+                <section class="phone-code input-box">
                   <section class="ui input">
                     <input type="text" name="phoneCode" placeholder="短信验证码">
                   </section>
                   <section class="get-phone-code">
-                    <a target="_blank" href="/getcode">获取短信验证码</a>
+                    <a>获取短信验证码</a>
                   </section>
+                </section>
+
+                <section id="login-yunpian-captcha" class="yunpian-captcha">
+
                 </section>
 
                 <section class="submit">
@@ -238,7 +242,7 @@
 
             </section>
 
-            <section id="yunpian-captcha">
+            <section id="register-yunpian-captcha" class="yunpian-captcha">
 
             </section>
 

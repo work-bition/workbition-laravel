@@ -128,6 +128,72 @@
 
           .ui.form {
 
+            .yunpian-captcha {
+
+              visibility: hidden;
+
+              order: 4;
+
+              display: flex;
+
+              justify-content: center;
+
+              .yp-riddler.yp-dialog.yp-riddler-button, .yp-riddler.yp-float.yp-riddler-button {
+
+                width: 314px;
+
+                .yp-riddler-win-masker.dialog, .yp-riddler-win-masker.float{
+
+                    background: transparent;
+
+                    .yp-riddler-winbox{
+
+                      .yp-riddler-win {
+
+                        transform: translateY(-0.5rem);
+
+                        border: 1px solid #f2f2f2;
+
+                        .yp-riddler-slider-area {
+
+                          height: 40px!important;
+
+                          line-height: 40px!important;
+
+                          .yp-riddler-slider-tip-default {
+
+                            font-size: 1rem!important;
+
+                            padding-left: 4.286rem!important;
+
+                          }
+
+                          .yp-riddler-slider-btn {
+
+                            width: 4.49rem!important;
+
+                            font-size: 1rem;
+
+                          }
+
+                        }
+
+                      }
+
+                      .yp-riddler-mark {
+
+                        display: none;
+
+                      }
+
+                    }
+
+                }
+
+              }
+
+            }
+
             &.password.login {
 
               .forget-password-option {
@@ -162,6 +228,13 @@
 
             }
 
+            &.register, &.phone-code.login {
+
+              display: flex;
+
+              flex-direction: column;
+
+            }
 
             .input-box {
 
@@ -373,6 +446,22 @@
 
       }
 
+      .phone-code-login {
+
+        .phone-code.login.form {
+
+          .phone-code.input-box {
+
+            //解决Chrome和Firefox浏览器显示注册按钮错误位置的问题
+
+            margin-bottom: 0;
+
+          }
+
+        }
+
+      }
+
     }
 
     .account-register {
@@ -386,6 +475,10 @@
       border: 1px solid transparent;
 
       .header {
+
+        margin-top: 2.5rem;
+
+        margin-bottom: 1rem;
 
         //解决svg图标抖动问题
         transform: translateY(-0.1rem);
@@ -401,6 +494,22 @@
       }
 
       .content {
+
+        .form-box {
+
+          margin-top: 1.5rem;
+
+          .register.form {
+
+            .submit {
+
+              margin-top: 1rem;
+
+            }
+
+          }
+
+        }
 
         .third-login {
 

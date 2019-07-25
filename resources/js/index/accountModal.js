@@ -8,7 +8,11 @@
 
 import { isValidEmailFormat, isEmpty } from './formValidation'
 
+import { isIE11 } from './detectBrowsers'
+
 import axios from 'axios'
+
+window.isIE11 = isIE11
 
 window.axios = axios
 
@@ -373,13 +377,19 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
         if (response.data.success) {
 
-          window.location.href = location.href
+          //window.location.href = location.href
+
+          location.reload()
 
           setTimeout(() => {
 
-              showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']])
+            alert('reload')
 
-          },8000)
+            location.reload()
+
+            //showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']])
+
+          },  4000)
 
         }
 
@@ -446,9 +456,9 @@ $('#account_modal .login-register-box .password-login .error-box .message .close
 
 })
 
-$('#account_modal .login-register-box .account-register .form-box .input-box .get-phone-code').click((event) => {
+$('#account_modal .login-register-box .content .get-phone-code a').click((event) => {
 
-
+  $('#account_modal .login-register-box .content .yunpian-captcha').css({'order': '0', 'visibility': 'visible'})
 
 })
 

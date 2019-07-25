@@ -3933,8 +3933,9 @@ var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MO
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _formValidation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formValidation */ "./resources/js/index/formValidation.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./detectBrowsers */ "./resources/js/index/detectBrowsers.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
 /*****************************************************************************************************************************
 
                                                         Header
@@ -3942,7 +3943,9 @@ __webpack_require__.r(__webpack_exports__);
 ******************************************************************************************************************************/
 
 
-window.axios = axios__WEBPACK_IMPORTED_MODULE_1___default.a;
+
+window.isIE11 = _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isIE11"];
+window.axios = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
 /**
 * header - account modal
 **/
@@ -4085,7 +4088,7 @@ function getPostUrl(formName) {
 }
 
 function getVerificationCode(captcha_token, captcha_authenticate) {
-  axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(getPostUrl('.account-register'), {
+  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(getPostUrl('.account-register'), {
     phone: $('#account_modal .login-register-box .account-register input[name=phone]').val(),
     captcha_token: captcha_token,
     captcha_authenticate: captcha_authenticate
@@ -4134,7 +4137,7 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
       closeErrorBox('.password-login'); //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
 
       $('#account_modal .login-register-box .password-login .form-box .button').text('登录中...');
-      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(getPostUrl('.password-login'), {
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(getPostUrl('.password-login'), {
         email: $('input[name=email_name]').val(),
         password: $('input[name=password]').val(),
         _token: $('input[name=_token]').val()
@@ -4142,10 +4145,12 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
         timeout: 8000
       }).then(function (response) {
         if (response.data.success) {
-          window.location.href = location.href;
+          //window.location.href = location.href
+          location.reload();
           setTimeout(function () {
-            showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']]);
-          }, 8000);
+            alert('reload');
+            location.reload(); //showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']])
+          }, 4000);
         } else {
           showErrorMessages('.password-login', response.data.errors);
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
@@ -4179,7 +4184,12 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
 $('#account_modal .login-register-box .password-login .error-box .message .close').on('click', function () {
   closeErrorBox('.password-login');
 });
-$('#account_modal .login-register-box .account-register .form-box .input-box .get-phone-code').click(function (event) {});
+$('#account_modal .login-register-box .content .get-phone-code a').click(function (event) {
+  $('#account_modal .login-register-box .content .yunpian-captcha').css({
+    'order': '0',
+    'visibility': 'visible'
+  });
+});
 $('#account_modal .login-register-box .account-register .error-box .message .close').on('click', function () {
   closeErrorBox('.account-register');
 });
