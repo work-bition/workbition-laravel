@@ -128,71 +128,7 @@
 
           .ui.form {
 
-            .yunpian-captcha {
-
-              visibility: hidden;
-
-              order: 4;
-
-              display: flex;
-
-              justify-content: center;
-
-              .yp-riddler.yp-dialog.yp-riddler-button, .yp-riddler.yp-float.yp-riddler-button {
-
-                width: 314px;
-
-                .yp-riddler-win-masker.dialog, .yp-riddler-win-masker.float{
-
-                    background: transparent;
-
-                    .yp-riddler-winbox{
-
-                      .yp-riddler-win {
-
-                        transform: translateY(-0.5rem);
-
-                        border: 1px solid #f2f2f2;
-
-                        .yp-riddler-slider-area {
-
-                          height: 40px!important;
-
-                          line-height: 40px!important;
-
-                          .yp-riddler-slider-tip-default {
-
-                            font-size: 1rem!important;
-
-                            padding-left: 4.286rem!important;
-
-                          }
-
-                          .yp-riddler-slider-btn {
-
-                            width: 4.49rem!important;
-
-                            font-size: 1rem;
-
-                          }
-
-                        }
-
-                      }
-
-                      .yp-riddler-mark {
-
-                        display: none;
-
-                      }
-
-                    }
-
-                }
-
-              }
-
-            }
+            @import 'yunpianCaptcha';
 
             &.password.login {
 

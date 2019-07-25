@@ -46297,7 +46297,7 @@ window.Simditor = simditor__WEBPACK_IMPORTED_MODULE_3___default.a;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /home/vagrant/Code/workbition/resources/js/editor.js */"./resources/js/editor.js");
+module.exports = __webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/js/editor.js */"./resources/js/editor.js");
 
 
 /***/ })

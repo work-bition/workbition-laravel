@@ -110,28 +110,13 @@ mix.js('resources/js/index/main.js', 'public/js')
 
    .version()
 
-   .browserSync({
-
-     host: '192.168.10.10',
-
-     proxy: 'http://youhnn.test',
-
-     open: false,
-
-     watchOptions: {
-
-       usePolling: true,
-
-       interval: 500
-
-    }
-
-   });
-
-   // 本地调试（移动设备调试）
    // .browserSync({
    //
-   //   proxy: 'youhnn.test',
+   //   host: '192.168.10.10',
+   //
+   //   proxy: 'http://youhnn.test',
+   //
+   //   open: false,
    //
    //   watchOptions: {
    //
@@ -142,6 +127,21 @@ mix.js('resources/js/index/main.js', 'public/js')
    //  }
    //
    // });
+
+   //本地调试（移动设备调试）
+   .browserSync({
+
+     proxy: 'youhnn.test',
+
+     watchOptions: {
+
+       usePolling: true,
+
+       interval: 500
+
+    }
+
+   });
 
 
 
