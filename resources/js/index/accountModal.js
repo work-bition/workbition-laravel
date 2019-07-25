@@ -62,9 +62,10 @@ $('#account_modal')
     context: 'body',
 
     /** BLurring with true will make elements with fixed position disappear **/
-    blurring: false,
+    blurring: false
 
-    observeChanges: true
+    /** this option will make the page stop to scroll when open it and the scrollbar is at the top in iOS Browsers  **/
+    //observeChanges: true
 
   })
 

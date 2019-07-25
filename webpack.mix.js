@@ -126,7 +126,6 @@ mix.js('resources/js/index/main.js', 'public/js')
 
     }
 
-
    });
 
    // 本地调试（移动设备调试）
@@ -141,7 +140,6 @@ mix.js('resources/js/index/main.js', 'public/js')
    //     interval: 500
    //
    //  }
-   //
    //
    // });
 

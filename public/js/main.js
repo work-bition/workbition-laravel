@@ -3973,8 +3973,10 @@ $('#account_modal').modal({
   context: 'body',
 
   /** BLurring with true will make elements with fixed position disappear **/
-  blurring: false,
-  observeChanges: true
+  blurring: false
+  /** this option will make the page stop to scroll when open it and the scrollbar is at the top in iOS Browsers  **/
+  //observeChanges: true
+
 }).modal('attach events', '#account_modal .close_button', 'hide');
 /** Switching between the password login and phone code login tabs  **/
 
