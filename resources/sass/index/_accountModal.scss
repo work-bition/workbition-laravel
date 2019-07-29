@@ -344,7 +344,7 @@
 
     .account-login {
 
-        border: 1px solid transparent;
+      border: 1px solid transparent;
 
       .account-login-tabs {
 
@@ -384,13 +384,23 @@
 
       .phone-code-login {
 
-        .phone-code.login.form {
+        .content {
 
-          .phone-code.input-box {
+          .phone-code.login.form {
 
-            //解决Chrome和Firefox浏览器显示注册按钮错误位置的问题
+            .phone-code.input-box {
 
-            margin-bottom: 0;
+              //解决Chrome和Firefox浏览器显示注册按钮错误位置的问题
+
+              margin-bottom: 0;
+
+            }
+
+          }
+
+          .third-login {
+
+            margin-top: calc(6rem - 40px);
 
           }
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Overtrue\EasySms\EasySms;
 use Validator;
 use App\Handlers\YunpianCaptchaVerification;
@@ -32,7 +33,10 @@ class VerificationCodesController extends Controller
 
         $rules = [
 
-            'phone' => ['required', 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199)\d{8}$/', 'unique:users'],
+            //'phone' => ['required', 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199)\d{8}$/', 'unique:users'],
+            
+            //对手机号的验证，来自https://github.com/VincentSit/ChinaMobilePhoneNumberRegex
+            'phone' => ['required', 'regex:/^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/', 'unique:users'],
 
             'captcha_token' => ['required'],
 
@@ -65,25 +69,26 @@ class VerificationCodesController extends Controller
         //结束验证
 
 
+
         //验证同一手机号短信发送频次限制
         //同一手机号在1分钟内只能发送1次验证码
 
-        if (\Cache::has($request->phone)) {
+        if (Cache::has($request->phone)) {
 
-          \Cache::increment($request->phone, 1);
+          Cache::increment($request->phone, 1);
 
         }
 
         else {
 
           //在Cache中以phone为key，初始值为1，1分钟以后过期
-          \Cache::put($request->phone, 1, now()->addMinutes(1));
+          Cache::put($request->phone, 1, now()->addMinutes(1));
 
         }
 
-        if (\Cache::get($request->phone) > 1) {
+        if (Cache::get($request->phone) > 1) {
 
-            return response()->json(['errors' => ['global' => ['同一个手机号1分钟内只能获取 1 条验证码。']], 'success' => false, 'status' => 429]);
+            return response()->json(['errors' => ['global' => ['同一个手机号1分钟内只能获取 1 条验证码']], 'success' => false, 'status' => 429]);
 
         }
 
@@ -128,25 +133,27 @@ class VerificationCodesController extends Controller
 
                   $code = $exception->getException('yunpian')->getCode();
 
-                  \Cache::forget($request->phone);
+                  Cache::forget($request->phone);
 
                   //云片设置
                   switch ($code) {
 
                     case 22:
 
-                      $message = '同一个手机号1小时内只能获取 3 条验证码。';
+                      $message = '同一个手机号1小时内只能获取 3 条验证码';
 
                       break;
 
                     case 17:
 
-                      $message = '同一个手机号24小时内只能获取10条验证码。';
+                      $message = '同一个手机号24小时内只能获取10条验证码';
 
                       break;
 
                     default:
-                      $message = '获取验证码时遇到错误，请稍后再试。';
+
+                      $message = '获取验证码时遇到错误，请稍后再试';
+
                       break;
                   }
 
@@ -166,7 +173,7 @@ class VerificationCodesController extends Controller
           $expiredAt = now()->addMinutes(10);
 
           // 缓存验证码 10分钟过期。
-          \Cache::put($key, ['phone' => $request->phone, 'code' => $code], $expiredAt);
+          Cache::put($key, ['phone' => $request->phone, 'code' => $code], $expiredAt);
 
           return $this->response->array([
 

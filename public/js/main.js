@@ -4056,17 +4056,19 @@ function isPassedLocalValidation() {
   var errorsBag = [];
   var emailErrors = [];
   var passwordErrors = [];
+  var phoneErrors = [];
+  var verificationCodeErrors = [];
 
-  if (!Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])($('input[name=email_name]').val())) {
-    emailErrors.push('请输入邮箱账号。');
+  if (Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])($('input[name=email_name]').val())) {
+    emailErrors.push('请输入邮箱账号');
   }
 
   if (!Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isValidEmailFormat"])($('input[name=email_name]').val())) {
-    emailErrors.push('请输入正确的邮箱账号。');
+    emailErrors.push('请输入正确的邮箱账号');
   }
 
-  if (!Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])($('input[name=password]').val())) {
-    passwordErrors.push('请输入密码。');
+  if (Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])($('input[name=password]').val())) {
+    passwordErrors.push('请输入密码');
   }
 
   if (emailErrors.length > 0) {
@@ -4187,10 +4189,34 @@ $('#account_modal .login-register-box .password-login .error-box .message .close
   closeErrorBox('.password-login');
 });
 $('#account_modal .login-register-box .content .get-phone-code a').click(function (event) {
-  $('#account_modal .login-register-box .content .yunpian-captcha').css({
-    'order': '0',
-    'visibility': 'visible'
-  });
+  closeErrorBox('.account-register');
+  var phoneField = {
+    element: $('#account_modal .account-register input[name=phone]'),
+    rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+    'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()],
+    errorMessages: {
+      required: '请输入手机号码',
+      regex: '请输入正确的手机号码'
+    }
+  };
+  var passwordField = {
+    element: $('#account_modal .account-register input[name=password]'),
+    rules: ['required', 'between:8,16'],
+    errorMessages: {
+      required: '请输入密码',
+      between: '请确保密码的长度在8-16位之间'
+    }
+  };
+  var errorsBag = Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["getFormValidationErrorsBag"])(phoneField, passwordField);
+
+  if (errorsBag) {
+    showErrorMessages('.account-register', errorsBag);
+  } else {
+    $('#account_modal .login-register-box .content .yunpian-captcha').css({
+      'order': '0',
+      'visibility': 'visible'
+    });
+  }
 });
 $('#account_modal .login-register-box .account-register .error-box .message .close').on('click', function () {
   closeErrorBox('.account-register');
@@ -4419,18 +4445,77 @@ $('.footer .footer-share a').hover(function (event) {
 /*!**********************************************!*\
   !*** ./resources/js/index/formValidation.js ***!
   \**********************************************/
-/*! exports provided: isValidEmailFormat, isEmpty */
+/*! exports provided: isValidEmailFormat, isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isValidEmailFormat", function() { return isValidEmailFormat; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFailedRegexTest", function() { return isFailedRegexTest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBeyondLengthRange", function() { return isBeyondLengthRange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFormValidationErrorsBag", function() { return getFormValidationErrorsBag; });
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./resources/js/index/utils.js");
 /*****************************************************************************************************************************
 
-                                   Validating The Email Format
+                                   Validating The form Format
 
 ******************************************************************************************************************************/
+
+
+function getFormValidationErrorsBag() {
+  var errorsBag = [];
+
+  for (var _len = arguments.length, fields = new Array(_len), _key = 0; _key < _len; _key++) {
+    fields[_key] = arguments[_key];
+  }
+
+  $.each(fields, function (index, field) {
+    var field_input_value = field.element.val();
+    var fieldErrors = [];
+    $.each(field.rules, function (index, rule) {
+      var splitted_rule_array = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["splitStrsIntoTwoParts"])(rule, ':');
+      var rule_name = splitted_rule_array[0];
+      var rule_option = splitted_rule_array[1];
+
+      switch (rule_name) {
+        case 'required':
+          if (isEmpty(field_input_value)) {
+            fieldErrors.push(field.errorMessages[rule_name]);
+          }
+
+          break;
+
+        case 'regex':
+          if (isFailedRegexTest(rule_option, field_input_value)) {
+            fieldErrors.push(field.errorMessages[rule_name]);
+          }
+
+          break;
+
+        case 'between':
+          if (isBeyondLengthRange(rule_option, field_input_value)) {
+            fieldErrors.push(field.errorMessages[rule_name]);
+          }
+
+          break;
+
+        default:
+      }
+    });
+
+    if (fieldErrors.length > 0) {
+      errorsBag.push(fieldErrors);
+    }
+  });
+
+  if (errorsBag.length > 0) {
+    return errorsBag;
+  } else {
+    return false;
+  }
+}
+
 function isValidEmailFormat(input) {
   //对电子邮件的验证
   var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
@@ -4442,14 +4527,51 @@ function isValidEmailFormat(input) {
   return true;
 }
 
-function isEmpty(input) {
-  if (!($.trim(input).length > 0)) {
+function isValidMobilePhoneFormat(input) {
+  //对手机号的验证，来自https://github.com/VincentSit/ChinaMobilePhoneNumberRegex
+  var myreg = /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/;
+
+  if (!myreg.test(input)) {
     return false;
   }
 
   return true;
 }
 
+function isEmpty(input) {
+  if ($.trim(input).length > 0) {
+    return false;
+  }
+
+  return true;
+}
+
+function isFailedRegexTest(regex_expression, input) {
+  var trimmed_regex_expression = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["trimOneCharacterFromEdges"])(regex_expression);
+  console.log(trimmed_regex_expression);
+  var regex = new RegExp(trimmed_regex_expression);
+
+  if (regex.test(input)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function isBeyondLengthRange(length_range_strs, input) {
+  var length_range_array = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["splitStrsIntoTwoParts"])(length_range_strs, ',');
+  var min_length = parseInt(length_range_array[0]);
+  var max_length = parseInt(length_range_array[1]);
+
+  if (input.length >= min_length && input.length <= max_length) {
+    return false;
+  }
+
+  return true;
+} //window.isBeyondLengthRange = isBeyondLengthRange
+
+
+window.isFailedRegexTest = isFailedRegexTest;
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
@@ -5077,6 +5199,60 @@ enquire_js__WEBPACK_IMPORTED_MODULE_1___default.a.register("screen and (min-widt
   }
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/js/index/utils.js":
+/*!*************************************!*\
+  !*** ./resources/js/index/utils.js ***!
+  \*************************************/
+/*! exports provided: splitStrsIntoTwoParts, trimOneCharacterFromEdges */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "splitStrsIntoTwoParts", function() { return splitStrsIntoTwoParts; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "trimOneCharacterFromEdges", function() { return trimOneCharacterFromEdges; });
+/*****************************************************************************************************************************
+
+                                   Utils
+
+******************************************************************************************************************************/
+
+/** splitStrsIntoTwoParts('between:8,16',':') will be split into ['between', '8,16']**/
+
+/** splitStrsIntoTwoParts('abcdef',':') will return ['abcdef']**/
+function splitStrsIntoTwoParts(splitStrs, indicator) {
+  var strs_array = splitStrs.split(indicator);
+
+  if (strs_array.length === 1) {
+    return strs_array;
+  }
+
+  var first_part_strs = strs_array.shift();
+  var second_part_strs = strs_array.join(indicator);
+  var two_parts_array = [];
+
+  if (first_part_strs !== '') {
+    two_parts_array.push(first_part_strs);
+  }
+
+  if (second_part_strs !== '') {
+    two_parts_array.push(second_part_strs);
+  }
+
+  return two_parts_array;
+}
+
+function trimOneCharacterFromEdges(trimmingStrs) {
+  var trimmedStrs = trimmingStrs.substr(1);
+  trimmedStrs = trimmedStrs.substr(0, trimmedStrs.length - 1);
+  return trimmedStrs;
+}
+
+window.trimOneCharacterFromEdges = trimOneCharacterFromEdges; //window.splitStrsIntoTwoParts = splitStrsIntoTwoParts
+
+
 
 /***/ }),
 
