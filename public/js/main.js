@@ -4055,10 +4055,9 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 var isProcessing = false;
 
-function error_box_toggler(formName, benifits_bar_style, error_box_style, form_box_style) {
+function error_box_toggler(formName, benifits_bar_style, error_box_style) {
   $("#account_modal .login-register-box ".concat(formName, " .benifits_bar")).css('display', benifits_bar_style);
-  $("#account_modal .login-register-box ".concat(formName, " .error-box")).css('display', error_box_style);
-  $("#account_modal .login-register-box ".concat(formName, " .form-box")).css('margin-top', form_box_style);
+  $("#account_modal .login-register-box ".concat(formName, " .error-box")).css('display', error_box_style); //$(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', form_box_style)
 }
 
 function createErrorItems(errors, itemElement, container) {
@@ -4071,12 +4070,12 @@ function createErrorItems(errors, itemElement, container) {
 }
 
 function showErrorMessages(formName, errorsBag) {
-  error_box_toggler(formName, 'none', 'block', '1rem');
+  error_box_toggler(formName, 'none', 'block');
   createErrorItems(errorsBag, 'li', "#account_modal .login-register-box ".concat(formName, " .error-box .list"));
 }
 
 function closeErrorBox(formName) {
-  error_box_toggler(formName, 'flex', 'none', '2.5rem');
+  error_box_toggler(formName, 'flex', 'none');
 }
 
 function getPostUrl(formName) {
@@ -4122,7 +4121,7 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
 }
 
 window.getVerificationCode = getVerificationCode;
-$('#account_modal .login-register-box .password-login .form-box').submit(function (event) {
+$('#account_modal .password-login .form-box').submit(function (event) {
   //阻止默认提交表单
   event.preventDefault();
   var emailField = {
@@ -4146,11 +4145,13 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
 
   if (errorsBag) {
     showErrorMessages('.password-login', errorsBag);
+    $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem');
   } else {
     //远程获取结果
     if (!isProcessing) {
       isProcessing = true;
-      closeErrorBox('.password-login'); //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
+      closeErrorBox('.password-login');
+      $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem'); //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
 
       $('#account_modal .login-register-box .password-login .form-box .button').text('登录中...');
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(getPostUrl('.password-login'), {
@@ -4169,6 +4170,7 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
           }, 4000);
         } else {
           showErrorMessages('.password-login', response.data.errors);
+          $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem');
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
           isProcessing = false;
         }
@@ -4197,11 +4199,13 @@ $('#account_modal .login-register-box .password-login .form-box').submit(functio
     }
   }
 });
-$('#account_modal .login-register-box .password-login .error-box .message .close').on('click', function () {
+$('#account_modal .password-login .error-box .message .close').on('click', function () {
   closeErrorBox('.password-login');
+  $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem');
 });
 $('#account_modal .login-register-box .content .get-phone-code a').click(function (event) {
   closeErrorBox('.account-register');
+  $("#account_modal .login-register-box .account-register .form-box").css('margin-top', '1.5rem');
   var phoneField = {
     element: $('#account_modal .account-register input[name=phone]'),
     rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
@@ -4223,6 +4227,7 @@ $('#account_modal .login-register-box .content .get-phone-code a').click(functio
 
   if (errorsBag) {
     showErrorMessages('.account-register', errorsBag);
+    $("#account_modal .login-register-box .account-register .form-box").css('margin-top', '0');
   } else {
     //显示云片验证码提示框
     $('#account_modal .login-register-box .content .yunpian-captcha').css({
@@ -4231,8 +4236,9 @@ $('#account_modal .login-register-box .content .get-phone-code a').click(functio
     });
   }
 });
-$('#account_modal .login-register-box .account-register .error-box .message .close').on('click', function () {
+$('#account_modal .account-register .error-box .message .close').on('click', function () {
   closeErrorBox('.account-register');
+  $("#account_modal .login-register-box .account-register .form-box").css('margin-top', '1.5rem');
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

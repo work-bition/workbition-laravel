@@ -159,13 +159,13 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 let isProcessing = false
 
-function error_box_toggler(formName, benifits_bar_style, error_box_style, form_box_style){
+function error_box_toggler(formName, benifits_bar_style, error_box_style){
 
   $(`#account_modal .login-register-box ${formName} .benifits_bar`).css('display', benifits_bar_style)
 
   $(`#account_modal .login-register-box ${formName} .error-box`).css('display', error_box_style)
 
-  $(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', form_box_style)
+  //$(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', form_box_style)
 
 
 }
@@ -188,7 +188,7 @@ function createErrorItems(errors, itemElement, container){
 
 function showErrorMessages(formName, errorsBag){
 
-  error_box_toggler(formName, 'none', 'block', '1rem')
+  error_box_toggler(formName, 'none', 'block')
 
   createErrorItems(errorsBag, 'li', `#account_modal .login-register-box ${formName} .error-box .list`)
 
@@ -196,7 +196,7 @@ function showErrorMessages(formName, errorsBag){
 
 function closeErrorBox(formName){
 
-  error_box_toggler(formName, 'flex', 'none', '2.5rem')
+  error_box_toggler(formName, 'flex', 'none')
 
 }
 
@@ -288,7 +288,7 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
 window.getVerificationCode = getVerificationCode
 
-$('#account_modal .login-register-box .password-login .form-box').submit((event) => {
+$('#account_modal .password-login .form-box').submit((event) => {
 
   //阻止默认提交表单
   event.preventDefault()
@@ -344,6 +344,8 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
     showErrorMessages('.password-login', errorsBag)
 
+    $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem')
+
   }
 
   else {
@@ -354,6 +356,8 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
       isProcessing = true
 
       closeErrorBox('.password-login')
+
+      $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem')
 
       //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
 
@@ -399,6 +403,8 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
         else {
 
           showErrorMessages('.password-login', response.data.errors)
+
+          $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem')
 
           $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
 
@@ -453,15 +459,19 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
 
 })
 
-$('#account_modal .login-register-box .password-login .error-box .message .close').on('click', function() {
+$('#account_modal .password-login .error-box .message .close').on('click', function() {
 
   closeErrorBox('.password-login')
+
+  $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem')
 
 })
 
 $('#account_modal .login-register-box .content .get-phone-code a').click((event) => {
 
   closeErrorBox('.account-register')
+
+  $(`#account_modal .login-register-box .account-register .form-box`).css('margin-top', '1.5rem')
 
   let phoneField = {
 
@@ -514,6 +524,8 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
 
     showErrorMessages('.account-register', errorsBag)
 
+    $(`#account_modal .login-register-box .account-register .form-box`).css('margin-top', '0')
+
   }
 
   else {
@@ -525,8 +537,10 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
 
 })
 
-$('#account_modal .login-register-box .account-register .error-box .message .close').on('click', function() {
+$('#account_modal .account-register .error-box .message .close').on('click', function() {
 
   closeErrorBox('.account-register')
+
+  $(`#account_modal .login-register-box .account-register .form-box`).css('margin-top', '1.5rem')
 
 })
