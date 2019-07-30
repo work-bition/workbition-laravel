@@ -4644,7 +4644,12 @@ __webpack_require__.r(__webpack_exports__);
 var request = __webpack_require__("./resources/js/icons/svg sync \\.svg$");
 
 request.keys().forEach(request);
-window.$ = $;
+window.$ = $; //svg sprite 清除无用'class'属性
+
+$(document).ready(function () {
+  $('body > svg > symbol').removeAttr('class');
+  $('body > svg > symbol').removeAttr('viewBox');
+});
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),

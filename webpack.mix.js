@@ -128,8 +128,8 @@ mix.js('resources/js/index/main.js', 'public/js')
    //
    // });
 
-   //本地调试（移动设备调试）
-   .browserSync('https://youhnn.test');
+   //本地调试（非虚拟机本机+移动设备调试）
+   .browserSync('youhnn.test');
 
 
 

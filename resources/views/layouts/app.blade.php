@@ -16,11 +16,18 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <!-- Start favicon in different devices -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
-
-    <link rel="shortcut icon" type="image/x-icon" href="/favicons/favicon.ico">
-
+    <!-- Start favicons in different devices -->
+    <!-- from https://realfavicongenerator.net/ -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png?v=9BPMMr2XBO">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png?v=9BPMMr2XBO">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png?v=9BPMMr2XBO">
+    <link rel="manifest" href="/favicons/site.webmanifest?v=9BPMMr2XBO">
+    <link rel="shortcut icon" href="/favicon.ico?v=9BPMMr2XBO">
+    <!-- 用于Mac Touch Bar，目前测试会在Mac Safari标签栏上不正常显示，覆盖favicon.ico的设置 -->
+    <!-- <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg?v=9BPMMr2XBO" color="#2688b6"> -->
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="/favicons/browserconfig.xml?v=9BPMMr2XBO">
+    <meta name="theme-color" content="#ffffff">
     <!-- End -->
   </head>
 
