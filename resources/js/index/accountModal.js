@@ -200,60 +200,6 @@ function closeErrorBox(formName){
 
 }
 
-function isPassedLocalValidation(){
-
-  let errorsBag = []
-
-  let emailErrors = []
-
-  let passwordErrors = []
-
-  let phoneErrors = []
-
-  let verificationCodeErrors = []
-
-  if (isEmpty($('input[name=email_name]').val())) {
-
-    emailErrors.push('请输入邮箱账号')
-
-  }
-
-  if (!isValidEmailFormat($('input[name=email_name]').val())) {
-
-    emailErrors.push('请输入正确的邮箱账号')
-
-  }
-
-  if (isEmpty($('input[name=password]').val())) {
-
-    passwordErrors.push('请输入密码')
-
-  }
-
-  if (emailErrors.length > 0) {
-
-    errorsBag.push(emailErrors)
-
-  }
-
-  if (passwordErrors.length > 0) {
-
-    errorsBag.push(passwordErrors)
-
-  }
-
-  if (errorsBag.length > 0) {
-
-    showErrorMessages('.password-login', errorsBag)
-
-    return false
-
-  }
-
-  return true
-
-}
-
 function getPostUrl(formName){
 
   return $(`#account_modal .login-register-box ${formName} .form-box .ui.form`).attr("action")
@@ -347,8 +293,60 @@ $('#account_modal .login-register-box .password-login .form-box').submit((event)
   //阻止默认提交表单
   event.preventDefault()
 
-  //是否通过本地验证
-  if (isPassedLocalValidation()) {
+  let emailField = {
+
+    element: $('#account_modal .account-login .password-login input[name=email_name]'),
+
+    rules: [
+
+      'required',
+
+      //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+      'regex:' + /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.toString()
+
+    ],
+
+    errorMessages : {
+
+      required : '请输入电子邮箱',
+
+      regex : '请输入正确的电子邮箱'
+
+    }
+
+  }
+
+  let passwordField = {
+
+    element: $('#account_modal .account-login .password-login input[name=password]'),
+
+    rules: [
+
+      'required',
+
+      'between:6,16'
+
+    ],
+
+    errorMessages : {
+
+      required : '请输入密码',
+
+      between : '请确保密码的长度在8-16位之间'
+
+    }
+
+  }
+
+  let errorsBag = getFormValidationErrorsBag(emailField, passwordField)
+
+  if (errorsBag) {
+
+    showErrorMessages('.password-login', errorsBag)
+
+  }
+
+  else {
 
     //远程获取结果
     if (!isProcessing) {
@@ -496,7 +494,7 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
 
       'required',
 
-      'between:8,16'
+      'between:6,16'
 
     ],
 
@@ -520,6 +518,7 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
 
   else {
 
+    //显示云片验证码提示框
     $('#account_modal .login-register-box .content .yunpian-captcha').css({'order': '0', 'visibility': 'visible'})
 
   }

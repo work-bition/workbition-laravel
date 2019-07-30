@@ -4079,41 +4079,6 @@ function closeErrorBox(formName) {
   error_box_toggler(formName, 'flex', 'none', '2.5rem');
 }
 
-function isPassedLocalValidation() {
-  var errorsBag = [];
-  var emailErrors = [];
-  var passwordErrors = [];
-  var phoneErrors = [];
-  var verificationCodeErrors = [];
-
-  if (Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])($('input[name=email_name]').val())) {
-    emailErrors.push('请输入邮箱账号');
-  }
-
-  if (!Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isValidEmailFormat"])($('input[name=email_name]').val())) {
-    emailErrors.push('请输入正确的邮箱账号');
-  }
-
-  if (Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["isEmpty"])($('input[name=password]').val())) {
-    passwordErrors.push('请输入密码');
-  }
-
-  if (emailErrors.length > 0) {
-    errorsBag.push(emailErrors);
-  }
-
-  if (passwordErrors.length > 0) {
-    errorsBag.push(passwordErrors);
-  }
-
-  if (errorsBag.length > 0) {
-    showErrorMessages('.password-login', errorsBag);
-    return false;
-  }
-
-  return true;
-}
-
 function getPostUrl(formName) {
   return $("#account_modal .login-register-box ".concat(formName, " .form-box .ui.form")).attr("action");
 }
@@ -4159,9 +4124,29 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
 window.getVerificationCode = getVerificationCode;
 $('#account_modal .login-register-box .password-login .form-box').submit(function (event) {
   //阻止默认提交表单
-  event.preventDefault(); //是否通过本地验证
+  event.preventDefault();
+  var emailField = {
+    element: $('#account_modal .account-login .password-login input[name=email_name]'),
+    rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+    'regex:' + /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.toString()],
+    errorMessages: {
+      required: '请输入电子邮箱',
+      regex: '请输入正确的电子邮箱'
+    }
+  };
+  var passwordField = {
+    element: $('#account_modal .account-login .password-login input[name=password]'),
+    rules: ['required', 'between:6,16'],
+    errorMessages: {
+      required: '请输入密码',
+      between: '请确保密码的长度在8-16位之间'
+    }
+  };
+  var errorsBag = Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["getFormValidationErrorsBag"])(emailField, passwordField);
 
-  if (isPassedLocalValidation()) {
+  if (errorsBag) {
+    showErrorMessages('.password-login', errorsBag);
+  } else {
     //远程获取结果
     if (!isProcessing) {
       isProcessing = true;
@@ -4228,7 +4213,7 @@ $('#account_modal .login-register-box .content .get-phone-code a').click(functio
   };
   var passwordField = {
     element: $('#account_modal .account-register input[name=password]'),
-    rules: ['required', 'between:8,16'],
+    rules: ['required', 'between:6,16'],
     errorMessages: {
       required: '请输入密码',
       between: '请确保密码的长度在8-16位之间'
@@ -4239,6 +4224,7 @@ $('#account_modal .login-register-box .content .get-phone-code a').click(functio
   if (errorsBag) {
     showErrorMessages('.account-register', errorsBag);
   } else {
+    //显示云片验证码提示框
     $('#account_modal .login-register-box .content .yunpian-captcha').css({
       'order': '0',
       'visibility': 'visible'
