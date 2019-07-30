@@ -23,6 +23,7 @@ $(document).ready(function() {
 
   $('body > svg > symbol').removeAttr('class')
 
-  $('body > svg > symbol').removeAttr('viewBox')
+  //Chrome和Firefox无法正常显示
+  //$('body > svg > symbol').removeAttr('viewBox')
 
 });
