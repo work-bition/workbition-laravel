@@ -4458,13 +4458,12 @@ $('.footer .footer-share a').hover(function (event) {
 /*!**********************************************!*\
   !*** ./resources/js/index/formValidation.js ***!
   \**********************************************/
-/*! exports provided: isValidEmailFormat, isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag */
+/*! exports provided: isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isValidEmailFormat", function() { return isValidEmailFormat; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFailedRegexTest", function() { return isFailedRegexTest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBeyondLengthRange", function() { return isBeyondLengthRange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFormValidationErrorsBag", function() { return getFormValidationErrorsBag; });
@@ -4529,28 +4528,6 @@ function getFormValidationErrorsBag() {
   }
 }
 
-function isValidEmailFormat(input) {
-  //对电子邮件的验证
-  var myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-
-  if (!myreg.test(input)) {
-    return false;
-  }
-
-  return true;
-}
-
-function isValidMobilePhoneFormat(input) {
-  //对手机号的验证，来自https://github.com/VincentSit/ChinaMobilePhoneNumberRegex
-  var myreg = /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/;
-
-  if (!myreg.test(input)) {
-    return false;
-  }
-
-  return true;
-}
-
 function isEmpty(input) {
   if ($.trim(input).length > 0) {
     return false;
@@ -4581,10 +4558,8 @@ function isBeyondLengthRange(length_range_strs, input) {
   }
 
   return true;
-} //window.isBeyondLengthRange = isBeyondLengthRange
+}
 
-
-window.isFailedRegexTest = isFailedRegexTest;
 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 

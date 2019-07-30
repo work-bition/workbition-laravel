@@ -88,38 +88,6 @@ function getFormValidationErrorsBag (...fields)
 
 }
 
-function isValidEmailFormat(input)
-{
-  //对电子邮件的验证
-  let myreg = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
-
-  if(!myreg.test(input))
-  {
-
-    return false
-
-  }
-
-  return true
-
-}
-
-function isValidMobilePhoneFormat(input)
-{
-  //对手机号的验证，来自https://github.com/VincentSit/ChinaMobilePhoneNumberRegex
-  let myreg = /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/;
-
-  if(!myreg.test(input))
-  {
-
-    return false
-
-  }
-
-  return true
-
-}
-
 function isEmpty(input)
 {
 
@@ -175,7 +143,4 @@ function isBeyondLengthRange(length_range_strs, input)
 
 }
 
-//window.isBeyondLengthRange = isBeyondLengthRange
-window.isFailedRegexTest = isFailedRegexTest
-
-export { isValidEmailFormat, isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag }
+export { isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag }

@@ -6,7 +6,7 @@
 ******************************************************************************************************************************/
 
 
-import { isEmpty, isValidEmailFormat, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag } from './formValidation'
+import { isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag } from './formValidation'
 
 import { isIE11 } from './detectBrowsers'
 
