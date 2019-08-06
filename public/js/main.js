@@ -3973,9 +3973,13 @@ __webpack_require__.r(__webpack_exports__);
 
 window.isIE11 = _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isIE11"];
 window.axios = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
-/**
-* header - account modal
-**/
+window.getVerificationCode = getVerificationCode;
+window.showErrorBox = showErrorBox;
+/**********************************************************************
+
+                        header - account modal
+
+**********************************************************************/
 
 /** Clone Some Html Codes for Reducing the Page Size **/
 
@@ -4007,7 +4011,7 @@ $('#account_modal').modal({
 }).modal('attach events', '#account_modal .close_button', 'hide');
 /** Switching between the password login and phone code login tabs  **/
 
-$('.tabs-control .password-login-title').on('click', function () {
+$('#account_modal .tabs-control .password-login-title').on('click', function () {
   $.tab('change tab', 'password-login-tab');
   /** When switching the tab, changing the style of two tab titles by adding and removing CSS class   **/
 
@@ -4016,7 +4020,7 @@ $('.tabs-control .password-login-title').on('click', function () {
 });
 /** Switching between the password login and phone code login tabs  **/
 
-$('.tabs-control .phone-code-login-title').on('click', function () {
+$('#account_modal .tabs-control .phone-code-login-title').on('click', function () {
   $.tab('change tab', 'phone-code-login-tab');
   /** When switching the tab, changing the style of two tab titles by adding and removing CSS class   **/
 
@@ -4053,11 +4057,26 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 ******************************************************************************************************************************/
 
-var isProcessing = false;
+var remoteProcessingFlag = false;
+
+function startRemoteProcessingLock() {
+  if (!remoteProcessingFlag) {
+    remoteProcessingFlag = true;
+    return true;
+  }
+
+  return false;
+}
+
+function stopRemoteProcessingLock() {
+  if (remoteProcessingFlag) {
+    remoteProcessingFlag = false;
+  }
+}
 
 function error_box_toggler(formName, benifits_bar_style, error_box_style) {
   $("#account_modal .login-register-box ".concat(formName, " .benifits_bar")).css('display', benifits_bar_style);
-  $("#account_modal .login-register-box ".concat(formName, " .error-box")).css('display', error_box_style); //$(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', form_box_style)
+  $("#account_modal .login-register-box ".concat(formName, " .error-box")).css('display', error_box_style);
 }
 
 function createErrorItems(errors, itemElement, container) {
@@ -4069,176 +4088,367 @@ function createErrorItems(errors, itemElement, container) {
   });
 }
 
-function showErrorMessages(formName, errorsBag) {
-  error_box_toggler(formName, 'none', 'block');
-  createErrorItems(errorsBag, 'li', "#account_modal .login-register-box ".concat(formName, " .error-box .list"));
+function showingErrorBox(tabName, errorsBag) {
+  error_box_toggler(tabName, 'none', 'block');
+  createErrorItems(errorsBag, 'li', "#account_modal .login-register-box ".concat(tabName, " .error-box .list"));
 }
 
-function closeErrorBox(formName) {
-  error_box_toggler(formName, 'flex', 'none');
+function closingErrorBox(tabName) {
+  error_box_toggler(tabName, 'flex', 'none');
+}
+
+function adjustFormBoxTopMargin(formName, marginDistance) {
+  $("#account_modal .login-register-box ".concat(formName, " .form-box")).css('margin-top', marginDistance);
+}
+/*************************************************************
+
+                  OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  tabName: '.password-login',
+
+  errorsBag[optional]: errorsBag,
+
+  formBox: {
+
+    marginTopDistance: '1.5rem'
+
+  }
+
+}
+
+**************************************************************/
+
+
+function showErrorBox(options) {
+  showingErrorBox(options.tabName, options.errorsBag);
+  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+}
+
+function closeErrorBox(options) {
+  closingErrorBox(options.tabName);
+  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+}
+
+function changeSubmitButtonText(tabName, text) {
+  $("#account_modal .login-register-box ".concat(tabName, " .form-box .button")).text(text);
+}
+
+function getFilledNetworkErrorsBag(error) {
+  var errorsBag = [];
+  var globalErrors = [];
+
+  if (error.response) {
+    // The request was made and the server responded with a status code
+    globalErrors.push("\u670D\u52A1\u5668\u8FD4\u56DE ".concat(error.response.status, " \u9519\u8BEF\uFF0C\u8BF7\u7A0D\u540E\u518D\u8BD5"));
+  } else if (error.request) {
+    // The request was made but no response was received
+    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+    // http.ClientRequest in node.js
+    globalErrors.push('网络连接错误，请稍后再试');
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    globalErrors.push('在发起请求时出现错误，请稍后再试');
+  }
+
+  errorsBag.push(globalErrors);
+  return errorsBag;
 }
 
 function getPostUrl(formName) {
   return $("#account_modal .login-register-box ".concat(formName, " .form-box .ui.form")).attr("action");
 }
+/*************************************************************
+
+                  OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  postUrl: getPostUrl('.account-register'),
+
+  targetForm: $('#account_modal .account-login .password-login'),
+
+  postFields: {
+
+    phone:  {
+
+      type: 'element',
+
+      literalValue: 'input[name=phone]'
+
+    },
+
+    captcha_token: {
+
+      type: 'parameter',
+
+      literalValue:  captcha_token
+
+    },
+
+    captcha_authenticate: {
+
+      type: 'parameter',
+
+      literalValue:  captcha_authenticate
+
+    },
+
+  },
+
+  postTimeout: 8000
+
+  callbacks: {
+
+    failed: (error) => {},
+
+    succeeded: (response) =>{}
+
+  }
+
+}
+
+**************************************************************/
+
+
+function sendPostRequest(post_options) {
+  var computed_field_value = {};
+
+  if (startRemoteProcessingLock()) {
+    $.each(post_options.postFields, function (key, field) {
+      var field_input_value;
+
+      if (field.type == 'element') {
+        field_input_value = post_options.targetForm.find(field.literalValue).val();
+      } else if (field.type == 'parameter') {
+        field_input_value = field.literalValue;
+      }
+
+      computed_field_value[key] = field_input_value;
+    });
+    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(post_options.postUrl, computed_field_value, {
+      timeout: post_options.postTimeout
+    }).then(function (response) {
+      post_options.callbacks.succeeded(response);
+      stopRemoteProcessingLock();
+    })["catch"](function (error) {
+      post_options.callbacks.failed(error);
+      stopRemoteProcessingLock();
+    });
+  }
+}
 
 function getVerificationCode(captcha_token, captcha_authenticate) {
-  axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(getPostUrl('.account-register'), {
-    phone: $('#account_modal .login-register-box .account-register input[name=phone]').val(),
-    captcha_token: captcha_token,
-    captcha_authenticate: captcha_authenticate
-  }, {
-    timeout: 8000
-  }).then(function (response) {
-    if (!response.data.success) {
-      showErrorMessages('.account-register', response.data.errors);
-      isProcessing = false;
-    } else {
-      console.log(response.data); //window.location.href = location.href
+  sendPostRequest({
+    postUrl: getPostUrl('.account-register'),
+    targetForm: $('#account_modal .account-register'),
+    postFields: {
+      phone: {
+        type: 'element',
+        literalValue: 'input[name=phone]'
+      },
+      captcha_token: {
+        type: 'parameter',
+        literalValue: captcha_token
+      },
+      captcha_authenticate: {
+        type: 'parameter',
+        literalValue: captcha_authenticate
+      }
+    },
+    postTimeout: 8000,
+    callbacks: {
+      failed: function failed(error) {
+        var errorsBag = getFilledNetworkErrorsBag(error);
+        showErrorBox({
+          tabName: '.account-register',
+          errorsBag: errorsBag,
+          formBox: {
+            marginTopDistance: '0'
+          }
+        });
+      },
+      succeeded: function succeeded(response) {
+        if (response.data.success) {
+          console.log(response.data); //window.location.href = location.href
+        } else {
+          showErrorBox({
+            tabName: '.account-register',
+            errorsBag: response.data.errors,
+            formBox: {
+              marginTopDistance: '0'
+            }
+          });
+        }
+      }
     }
-  })["catch"](function (error) {
-    var errorsBag = [];
-    var globalErrors = [];
-
-    if (error.response) {
-      // The request was made and the server responded with a status code
-      globalErrors.push("\u670D\u52A1\u5668\u8FD4\u56DE ".concat(error.response.status, " \u9519\u8BEF\uFF0C\u8BF7\u7A0D\u540E\u518D\u8BD5\u3002"));
-    } else if (error.request) {
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      globalErrors.push('网络连接错误，请稍后再试。');
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      globalErrors.push('在发起请求时出现错误。');
-    }
-
-    errorsBag.push(globalErrors);
-    showErrorMessages('.account-register', errorsBag);
-    $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
-    isProcessing = false;
   });
 }
 
-window.getVerificationCode = getVerificationCode;
 $('#account_modal .password-login .form-box').submit(function (event) {
-  //阻止默认提交表单
+  //stop the form from submitting
   event.preventDefault();
-  var emailField = {
-    element: $('#account_modal .account-login .password-login input[name=email_name]'),
-    rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
-    'regex:' + /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.toString()],
-    errorMessages: {
-      required: '请输入电子邮箱',
-      regex: '请输入正确的电子邮箱'
-    }
-  };
-  var passwordField = {
-    element: $('#account_modal .account-login .password-login input[name=password]'),
-    rules: ['required', 'between:6,16'],
-    errorMessages: {
-      required: '请输入密码',
-      between: '请确保密码的长度在8-16位之间'
-    }
-  };
-  var errorsBag = Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["getFormValidationErrorsBag"])(emailField, passwordField);
-
-  if (errorsBag) {
-    showErrorMessages('.password-login', errorsBag);
-    $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem');
-  } else {
-    //远程获取结果
-    if (!isProcessing) {
-      isProcessing = true;
-      closeErrorBox('.password-login');
-      $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem'); //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
-
-      $('#account_modal .login-register-box .password-login .form-box .button').text('登录中...');
-      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(getPostUrl('.password-login'), {
-        email: $('input[name=email_name]').val(),
-        password: $('input[name=password]').val(),
-        _token: $('input[name=_token]').val()
-      }, {
-        timeout: 8000
-      }).then(function (response) {
-        if (response.data.success) {
-          //window.location.href = location.href
-          location.reload();
-          setTimeout(function () {
-            alert('reload');
-            location.reload(); //showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']])
-          }, 4000);
-        } else {
-          showErrorMessages('.password-login', response.data.errors);
-          $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem');
-          $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
-          isProcessing = false;
+  Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["validateFormLocally"])({
+    targetForm: $('#account_modal .account-login .password-login'),
+    fields: {
+      emailField: {
+        element: 'input[name=email_name]',
+        rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+        'regex:' + /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.toString()],
+        errorMessages: {
+          required: '请输入电子邮箱',
+          regex: '请输入正确的电子邮箱'
         }
-      })["catch"](function (error) {
-        var errorsBag = [];
-        var globalErrors = [];
-
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          globalErrors.push("\u670D\u52A1\u5668\u8FD4\u56DE ".concat(error.response.status, " \u9519\u8BEF\uFF0C\u8BF7\u7A0D\u540E\u518D\u8BD5\u3002"));
-        } else if (error.request) {
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          globalErrors.push('网络连接错误，请稍后再试。');
-        } else {
-          // Something happened in setting up the request that triggered an Error
-          globalErrors.push('在发起请求时出现错误。');
+      },
+      passwordField: {
+        element: 'input[name=password]',
+        rules: ['required', 'between:6,16'],
+        errorMessages: {
+          required: '请输入密码',
+          between: '请确保密码的长度在8-16位之间'
         }
-
-        errorsBag.push(globalErrors);
-        showErrorMessages('.password-login', errorsBag);
-        $('#account_modal .login-register-box .password-login .form-box .button').text('登录');
-        isProcessing = false;
-      });
+      }
+    },
+    callbacks: {
+      failed: function failed(errorsBag) {
+        showErrorBox({
+          tabName: '.password-login',
+          errorsBag: errorsBag,
+          formBox: {
+            marginTopDistance: '1rem'
+          }
+        });
+      },
+      succeeded: function succeeded() {
+        //start the remote processing lock, preventing over-executing the codes before the remote returns the result
+        //Only when remote processing flag is true, the codes inside will be executed
+        closeErrorBox({
+          tabName: '.password-login',
+          formBox: {
+            marginTopDistance: '2.5rem'
+          }
+        });
+        changeSubmitButtonText('.password-login', '登录中...');
+        sendPostRequest({
+          postUrl: getPostUrl('.password-login'),
+          targetForm: $('#account_modal .account-login .password-login'),
+          postFields: {
+            email: {
+              type: 'element',
+              literalValue: 'input[name=email_name]'
+            },
+            password: {
+              type: 'element',
+              literalValue: 'input[name=password]'
+            },
+            _token: {
+              type: 'element',
+              literalValue: 'input[name=_token]'
+            }
+          },
+          postTimeout: 8000,
+          callbacks: {
+            failed: function failed(error) {
+              var errorsBag = getFilledNetworkErrorsBag(error);
+              showErrorBox({
+                tabName: '.password-login',
+                errorsBag: errorsBag,
+                formBox: {
+                  marginTopDistance: '1rem'
+                }
+              });
+              changeSubmitButtonText('.password-login', '登录');
+            },
+            succeeded: function succeeded(response) {
+              if (response.data.success) {
+                location.reload();
+                setTimeout(function () {
+                  alert('reload');
+                  location.reload(); //showingErrorBox('.password-login', [['登录卡住了？请刷新此页面。']])
+                }, 4000);
+              } else {
+                showErrorBox({
+                  tabName: '.password-login',
+                  errorsBag: response.data.errors,
+                  formBox: {
+                    marginTopDistance: '1rem'
+                  }
+                });
+                changeSubmitButtonText('.password-login', '登录');
+              }
+            }
+          }
+        });
+      }
     }
-  }
-});
-$('#account_modal .password-login .error-box .message .close').on('click', function () {
-  closeErrorBox('.password-login');
-  $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem');
+  });
 });
 $('#account_modal .login-register-box .content .get-phone-code a').click(function (event) {
-  closeErrorBox('.account-register');
-  $("#account_modal .login-register-box .account-register .form-box").css('margin-top', '1.5rem');
-  var phoneField = {
-    element: $('#account_modal .account-register input[name=phone]'),
-    rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
-    'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()],
-    errorMessages: {
-      required: '请输入手机号码',
-      regex: '请输入正确的手机号码'
-    }
-  };
-  var passwordField = {
-    element: $('#account_modal .account-register input[name=password]'),
-    rules: ['required', 'between:6,16'],
-    errorMessages: {
-      required: '请输入密码',
-      between: '请确保密码的长度在8-16位之间'
-    }
-  };
-  var errorsBag = Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["getFormValidationErrorsBag"])(phoneField, passwordField);
+  Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["validateFormLocally"])({
+    targetForm: $('#account_modal .account-register'),
+    fields: {
+      phoneField: {
+        element: 'input[name=phone]',
+        rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+        'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()],
+        errorMessages: {
+          required: '请输入手机号码',
+          regex: '请输入正确的手机号码'
+        }
+      }
+    },
+    callbacks: {
+      failed: function failed(errorsBag) {
+        showErrorBox({
+          tabName: '.account-register',
+          errorsBag: errorsBag,
+          formBox: {
+            marginTopDistance: '0'
+          }
+        });
+      },
+      succeeded: function succeeded() {
+        closeErrorBox({
+          tabName: '.account-register',
+          formBox: {
+            marginTopDistance: '1.5rem'
+          }
+        }); //if there's no network conection, then cannot initialize the yunpianCaptcha, then no children elements for #register-yunpian-captcha element, then
+        //don't show the .yunpian-captcha element
 
-  if (errorsBag) {
-    showErrorMessages('.account-register', errorsBag);
-    $("#account_modal .login-register-box .account-register .form-box").css('margin-top', '0');
-  } else {
-    //显示云片验证码提示框
-    $('#account_modal .login-register-box .content .yunpian-captcha').css({
-      'order': '0',
-      'visibility': 'visible'
-    });
-  }
-});
+        if ($('#register-yunpian-captcha').children().length > 0) {
+          //显示云片验证码提示框
+          $('#account_modal .login-register-box .content .yunpian-captcha').css({
+            'order': '0',
+            'visibility': 'visible'
+          });
+        }
+      }
+    }
+  });
+}); //click event for close button on ErrorBox on PasswordLoginTab
+
+$('#account_modal .password-login .error-box .message .close').on('click', function () {
+  closeErrorBox({
+    tabName: '.password-login',
+    formBox: {
+      marginTopDistance: '2.5rem'
+    }
+  });
+}); //click event for close button on ErrorBox on AccountRegisterTab
+
 $('#account_modal .account-register .error-box .message .close').on('click', function () {
-  closeErrorBox('.account-register');
-  $("#account_modal .login-register-box .account-register .form-box").css('margin-top', '1.5rem');
+  closeErrorBox({
+    tabName: '.account-register',
+    formBox: {
+      marginTopDistance: '1.5rem'
+    }
+  });
 });
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
@@ -4464,15 +4674,12 @@ $('.footer .footer-share a').hover(function (event) {
 /*!**********************************************!*\
   !*** ./resources/js/index/formValidation.js ***!
   \**********************************************/
-/*! exports provided: isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag */
+/*! exports provided: validateFormLocally */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isEmpty", function() { return isEmpty; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isFailedRegexTest", function() { return isFailedRegexTest; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "isBeyondLengthRange", function() { return isBeyondLengthRange; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFormValidationErrorsBag", function() { return getFormValidationErrorsBag; });
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "validateFormLocally", function() { return validateFormLocally; });
 /* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./utils */ "./resources/js/index/utils.js");
 /*****************************************************************************************************************************
 
@@ -4481,15 +4688,41 @@ __webpack_require__.r(__webpack_exports__);
 ******************************************************************************************************************************/
 
 
-function getFormValidationErrorsBag() {
-  var errorsBag = [];
-
-  for (var _len = arguments.length, fields = new Array(_len), _key = 0; _key < _len; _key++) {
-    fields[_key] = arguments[_key];
+function isEmpty(input) {
+  if ($.trim(input).length > 0) {
+    return false;
   }
 
+  return true;
+}
+
+function isFailedRegexTest(regex_expression, input) {
+  var trimmed_regex_expression = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["trimOneCharacterFromEdges"])(regex_expression);
+  var regex = new RegExp(trimmed_regex_expression);
+
+  if (regex.test(input)) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
+function isBeyondLengthRange(length_range_strs, input) {
+  var length_range_array = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["splitStrsIntoTwoParts"])(length_range_strs, ',');
+  var min_length = parseInt(length_range_array[0]);
+  var max_length = parseInt(length_range_array[1]);
+
+  if (input.length >= min_length && input.length <= max_length) {
+    return false;
+  }
+
+  return true;
+}
+
+function getFormValidationErrorsBag(targetForm, fields) {
+  var errorsBag = [];
   $.each(fields, function (index, field) {
-    var field_input_value = field.element.val();
+    var field_input_value = targetForm.find(field.element).val();
     var fieldErrors = [];
     $.each(field.rules, function (index, rule) {
       var splitted_rule_array = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["splitStrsIntoTwoParts"])(rule, ':');
@@ -4534,36 +4767,14 @@ function getFormValidationErrorsBag() {
   }
 }
 
-function isEmpty(input) {
-  if ($.trim(input).length > 0) {
-    return false;
-  }
+function validateFormLocally(validation_options) {
+  var errorsBag = getFormValidationErrorsBag(validation_options.targetForm, validation_options.fields);
 
-  return true;
-}
-
-function isFailedRegexTest(regex_expression, input) {
-  var trimmed_regex_expression = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["trimOneCharacterFromEdges"])(regex_expression);
-  console.log(trimmed_regex_expression);
-  var regex = new RegExp(trimmed_regex_expression);
-
-  if (regex.test(input)) {
-    return false;
+  if (errorsBag) {
+    validation_options.callbacks.failed(errorsBag);
   } else {
-    return true;
+    validation_options.callbacks.succeeded();
   }
-}
-
-function isBeyondLengthRange(length_range_strs, input) {
-  var length_range_array = Object(_utils__WEBPACK_IMPORTED_MODULE_0__["splitStrsIntoTwoParts"])(length_range_strs, ',');
-  var min_length = parseInt(length_range_array[0]);
-  var max_length = parseInt(length_range_array[1]);
-
-  if (input.length >= min_length && input.length <= max_length) {
-    return false;
-  }
-
-  return true;
 }
 
 

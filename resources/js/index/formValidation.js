@@ -7,14 +7,67 @@
 
 import { splitStrsIntoTwoParts, trimOneCharacterFromEdges } from './utils'
 
-function getFormValidationErrorsBag (...fields)
-{
+
+
+function isEmpty(input){
+
+  if(($.trim(input).length>0)){
+
+    return false
+
+  }
+
+  return true
+
+  }
+
+function isFailedRegexTest(regex_expression, input){
+
+  let trimmed_regex_expression = trimOneCharacterFromEdges(regex_expression)
+
+  let regex = new RegExp(trimmed_regex_expression)
+
+  if(regex.test(input))
+  {
+
+    return false
+
+  }
+  else {
+
+    return true
+
+  }
+
+}
+
+function isBeyondLengthRange(length_range_strs, input){
+
+  let length_range_array = splitStrsIntoTwoParts(length_range_strs, ',')
+
+  let min_length = parseInt(length_range_array[0])
+
+  let max_length = parseInt(length_range_array[1])
+
+  if (input.length >= min_length && input.length <= max_length) {
+
+    return false
+
+  }
+
+  return true
+
+}
+
+
+
+function getFormValidationErrorsBag (targetForm, fields){
 
   let errorsBag = []
 
   $.each(fields, function(index, field) {
 
-    let field_input_value = field.element.val()
+    let field_input_value = targetForm.find(field.element).val()
 
     let fieldErrors = []
 
@@ -88,59 +141,25 @@ function getFormValidationErrorsBag (...fields)
 
 }
 
-function isEmpty(input)
-{
+function validateFormLocally (validation_options){
 
-  if(($.trim(input).length>0)){
+  let errorsBag = getFormValidationErrorsBag(validation_options.targetForm, validation_options.fields)
 
-    return false
+  if (errorsBag) {
 
-  }
-
-  return true
+    validation_options.callbacks.failed(errorsBag)
 
   }
 
-function isFailedRegexTest(regex_expression, input)
-{
-
-  let trimmed_regex_expression = trimOneCharacterFromEdges(regex_expression)
-
-  console.log(trimmed_regex_expression)
-
-  let regex = new RegExp(trimmed_regex_expression)
-
-  if(regex.test(input))
-  {
-
-    return false
-
-  }
   else {
 
-    return true
+    validation_options.callbacks.succeeded()
 
   }
 
-}
-
-function isBeyondLengthRange(length_range_strs, input)
-{
-
-  let length_range_array = splitStrsIntoTwoParts(length_range_strs, ',')
-
-  let min_length = parseInt(length_range_array[0])
-
-  let max_length = parseInt(length_range_array[1])
-
-  if (input.length >= min_length && input.length <= max_length) {
-
-    return false
-
-  }
-
-  return true
 
 }
 
-export { isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag }
+
+
+export { validateFormLocally }

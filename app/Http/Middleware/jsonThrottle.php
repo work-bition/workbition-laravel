@@ -29,7 +29,7 @@ class jsonThrottle extends ThrottleRequests
 
       if ($this->limiter->tooManyAttempts($key, $maxAttempts)) {
 
-        return response()->json(['errors' => ['global' => ['请求次数过多，请稍后再试。']], 'success' => false, 'status' => 429]);
+        return response()->json(['errors' => ['global' => ['请求次数过多，请稍后再试']], 'success' => false, 'status' => 429]);
 
       }
 

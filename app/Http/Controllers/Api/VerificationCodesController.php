@@ -34,7 +34,7 @@ class VerificationCodesController extends Controller
         $rules = [
 
             //'phone' => ['required', 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199)\d{8}$/', 'unique:users'],
-            
+
             //对手机号的验证，来自https://github.com/VincentSit/ChinaMobilePhoneNumberRegex
             'phone' => ['required', 'regex:/^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/', 'unique:users'],
 
@@ -46,15 +46,15 @@ class VerificationCodesController extends Controller
 
         $messages = [
 
-            'phone.required' =>  '请输入手机号。',
+            'phone.required' =>  '请输入手机号',
 
-            'phone.regex'    =>  '请输入正确的手机号。',
+            'phone.regex'    =>  '请输入正确的手机号',
 
-            'phone.unique'   =>  '此手机号已经注册。',
+            'phone.unique'   =>  '此手机号已经注册',
 
-            'captcha_token'  =>  'captcha token的值不能为空。',
+            'captcha_token.required'  =>  'captcha token的值不能为空',
 
-            'captcha_authenticate'  =>  'captcha authenticate的值不能为空。'
+            'captcha_authenticate.required'  =>  'captcha authenticate的值不能为空'
 
         ];
 
@@ -190,7 +190,7 @@ class VerificationCodesController extends Controller
 
         else {
 
-          return response()->json(['errors' => ['global' => ['验证码已失效。']], 'success' => false, 'status' => 422]);
+          return response()->json(['errors' => ['global' => ['验证码已失效']], 'success' => false, 'status' => 422]);
 
         }
 

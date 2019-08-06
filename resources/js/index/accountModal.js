@@ -6,7 +6,7 @@
 ******************************************************************************************************************************/
 
 
-import { isEmpty, isFailedRegexTest, isBeyondLengthRange, getFormValidationErrorsBag } from './formValidation'
+import { validateFormLocally } from './formValidation'
 
 import { isIE11 } from './detectBrowsers'
 
@@ -16,11 +16,17 @@ window.isIE11 = isIE11
 
 window.axios = axios
 
+window.getVerificationCode = getVerificationCode
+
+window.showErrorBox = showErrorBox
 
 
-/**
-* header - account modal
-**/
+
+/**********************************************************************
+
+                        header - account modal
+
+**********************************************************************/
 
 
 
@@ -74,7 +80,7 @@ $('#account_modal')
 
 
 /** Switching between the password login and phone code login tabs  **/
-$('.tabs-control .password-login-title')
+$('#account_modal .tabs-control .password-login-title')
 
   .on('click', function() {
 
@@ -90,7 +96,7 @@ $('.tabs-control .password-login-title')
 
 
 /** Switching between the password login and phone code login tabs  **/
-$('.tabs-control .phone-code-login-title')
+$('#account_modal .tabs-control .phone-code-login-title')
 
   .on('click', function() {
 
@@ -157,16 +163,38 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 ******************************************************************************************************************************/
 
-let isProcessing = false
+let remoteProcessingFlag = false
+
+function startRemoteProcessingLock() {
+
+  if (!remoteProcessingFlag) {
+
+    remoteProcessingFlag = true
+
+    return true
+
+  }
+
+  return false
+
+}
+
+function stopRemoteProcessingLock() {
+
+  if (remoteProcessingFlag) {
+
+    remoteProcessingFlag = false
+
+  }
+
+}
+
 
 function error_box_toggler(formName, benifits_bar_style, error_box_style){
 
   $(`#account_modal .login-register-box ${formName} .benifits_bar`).css('display', benifits_bar_style)
 
   $(`#account_modal .login-register-box ${formName} .error-box`).css('display', error_box_style)
-
-  //$(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', form_box_style)
-
 
 }
 
@@ -186,17 +214,102 @@ function createErrorItems(errors, itemElement, container){
 
 }
 
-function showErrorMessages(formName, errorsBag){
+function showingErrorBox(tabName, errorsBag){
 
-  error_box_toggler(formName, 'none', 'block')
+  error_box_toggler(tabName, 'none', 'block')
 
-  createErrorItems(errorsBag, 'li', `#account_modal .login-register-box ${formName} .error-box .list`)
+  createErrorItems(errorsBag, 'li', `#account_modal .login-register-box ${tabName} .error-box .list`)
 
 }
 
-function closeErrorBox(formName){
+function closingErrorBox(tabName){
 
-  error_box_toggler(formName, 'flex', 'none')
+  error_box_toggler(tabName, 'flex', 'none')
+
+}
+
+function adjustFormBoxTopMargin (formName, marginDistance){
+
+  $(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', marginDistance)
+
+}
+
+/*************************************************************
+
+                  OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  tabName: '.password-login',
+
+  errorsBag[optional]: errorsBag,
+
+  formBox: {
+
+    marginTopDistance: '1.5rem'
+
+  }
+
+}
+
+**************************************************************/
+
+function showErrorBox (options){
+
+  showingErrorBox(options.tabName, options.errorsBag)
+
+  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+
+}
+
+function closeErrorBox (options){
+
+  closingErrorBox(options.tabName)
+
+  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+
+}
+
+function changeSubmitButtonText(tabName, text){
+
+  $(`#account_modal .login-register-box ${tabName} .form-box .button`).text(text)
+
+}
+
+function getFilledNetworkErrorsBag(error){
+
+  let errorsBag = []
+
+  let globalErrors = []
+
+  if (error.response) {
+
+    // The request was made and the server responded with a status code
+    globalErrors.push(`服务器返回 ${error.response.status} 错误，请稍后再试`)
+
+  }
+
+  else if (error.request) {
+
+    // The request was made but no response was received
+    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+    // http.ClientRequest in node.js
+    globalErrors.push('网络连接错误，请稍后再试')
+
+  }
+
+  else {
+
+    // Something happened in setting up the request that triggered an Error
+    globalErrors.push('在发起请求时出现错误，请稍后再试')
+
+  }
+
+  errorsBag.push(globalErrors)
+
+  return errorsBag
 
 }
 
@@ -206,341 +319,539 @@ function getPostUrl(formName){
 
 }
 
-function getVerificationCode(captcha_token, captcha_authenticate){
+/*************************************************************
 
-  axios.post(getPostUrl('.account-register'),
+                  OPTIONS EXAMPLE
 
-  {
+**************************************************************
 
-    phone:                      $('#account_modal .login-register-box .account-register input[name=phone]').val(),
+{
 
-    captcha_token:              captcha_token,
+  postUrl: getPostUrl('.account-register'),
 
-    captcha_authenticate:       captcha_authenticate
+  targetForm: $('#account_modal .account-login .password-login'),
+
+  postFields: {
+
+    phone:  {
+
+      type: 'element',
+
+      literalValue: 'input[name=phone]'
+
+    },
+
+    captcha_token: {
+
+      type: 'parameter',
+
+      literalValue:  captcha_token
+
+    },
+
+    captcha_authenticate: {
+
+      type: 'parameter',
+
+      literalValue:  captcha_authenticate
+
+    },
 
   },
-  {
 
-    timeout: 8000
+  postTimeout: 8000
 
-  })
+  callbacks: {
 
-  .then(function (response) {
+    failed: (error) => {},
 
-    if (!response.data.success) {
+    succeeded: (response) =>{}
 
-      showErrorMessages('.account-register', response.data.errors)
+  }
 
-      isProcessing = false
+}
+
+**************************************************************/
+
+function sendPostRequest(post_options){
+
+  let computed_field_value = {}
+
+  if (startRemoteProcessingLock()) {
+
+    $.each(post_options.postFields, function(key, field) {
+
+      let field_input_value
+
+      if (field.type == 'element') {
+
+        field_input_value = post_options.targetForm.find(field.literalValue).val()
+
+      }
+
+      else if (field.type == 'parameter') {
+
+        field_input_value = field.literalValue
+
+      }
+
+      computed_field_value[key] = field_input_value
+
+    })
+
+    axios.post(post_options.postUrl, computed_field_value,
+
+    {
+
+      timeout: post_options.postTimeout
+
+    })
+
+    .then((response) => {
+
+      post_options.callbacks.succeeded(response)
+
+      stopRemoteProcessingLock()
+
+    })
+
+    .catch((error) => {
+
+      post_options.callbacks.failed(error)
+
+      stopRemoteProcessingLock()
+
+    })
+
+  }
+
+}
+
+function getVerificationCode(captcha_token, captcha_authenticate){
+
+  sendPostRequest({
+
+    postUrl: getPostUrl('.account-register'),
+
+    targetForm: $('#account_modal .account-register'),
+
+    postFields: {
+
+      phone: {
+
+        type: 'element',
+
+        literalValue: 'input[name=phone]'
+
+      },
+
+      captcha_token: {
+
+        type: 'parameter',
+
+        literalValue: captcha_token
+
+      },
+
+      captcha_authenticate: {
+
+        type: 'parameter',
+
+        literalValue: captcha_authenticate
+
+      }
+
+    },
+
+    postTimeout: 8000,
+
+    callbacks: {
+
+      failed: (error) => {
+
+        let errorsBag = getFilledNetworkErrorsBag(error)
+
+        showErrorBox({
+
+          tabName: '.account-register',
+
+          errorsBag: errorsBag,
+
+          formBox: {
+
+            marginTopDistance: '0'
+
+          }
+
+        })
+
+      },
+
+      succeeded: (response) => {
+
+        if (response.data.success) {
+
+          console.log(response.data)
+
+          //window.location.href = location.href
+
+        }
+
+        else {
+
+          showErrorBox({
+
+            tabName: '.account-register',
+
+            errorsBag: response.data.errors,
+
+            formBox: {
+
+              marginTopDistance: '0'
+
+            }
+
+          })
+
+        }
+
+      }
 
     }
-
-    else {
-
-      console.log(response.data)
-
-      //window.location.href = location.href
-
-    }
-
-  })
-
-  .catch( (error) => {
-
-    let errorsBag = []
-
-    let globalErrors = []
-
-    if (error.response) {
-
-      // The request was made and the server responded with a status code
-      globalErrors.push(`服务器返回 ${error.response.status} 错误，请稍后再试。`)
-
-    }
-
-    else if (error.request) {
-
-      // The request was made but no response was received
-      // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-      // http.ClientRequest in node.js
-      globalErrors.push('网络连接错误，请稍后再试。')
-
-    }
-
-    else {
-
-      // Something happened in setting up the request that triggered an Error
-      globalErrors.push('在发起请求时出现错误。')
-
-    }
-
-    errorsBag.push(globalErrors)
-
-    showErrorMessages('.account-register', errorsBag)
-
-    $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
-
-    isProcessing = false
 
   })
 
 }
 
-window.getVerificationCode = getVerificationCode
-
 $('#account_modal .password-login .form-box').submit((event) => {
 
-  //阻止默认提交表单
+  //stop the form from submitting
   event.preventDefault()
 
-  let emailField = {
+  validateFormLocally({
 
-    element: $('#account_modal .account-login .password-login input[name=email_name]'),
+    targetForm: $('#account_modal .account-login .password-login'),
 
-    rules: [
+    fields: {
 
-      'required',
+      emailField : {
 
-      //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
-      'regex:' + /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.toString()
+        element: 'input[name=email_name]',
 
-    ],
+        rules: [
 
-    errorMessages : {
+          'required',
 
-      required : '请输入电子邮箱',
+          //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+          'regex:' + /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/.toString()
 
-      regex : '请输入正确的电子邮箱'
+        ],
 
-    }
+        errorMessages : {
 
-  }
+          required : '请输入电子邮箱',
 
-  let passwordField = {
+          regex : '请输入正确的电子邮箱'
 
-    element: $('#account_modal .account-login .password-login input[name=password]'),
-
-    rules: [
-
-      'required',
-
-      'between:6,16'
-
-    ],
-
-    errorMessages : {
-
-      required : '请输入密码',
-
-      between : '请确保密码的长度在8-16位之间'
-
-    }
-
-  }
-
-  let errorsBag = getFormValidationErrorsBag(emailField, passwordField)
-
-  if (errorsBag) {
-
-    showErrorMessages('.password-login', errorsBag)
-
-    $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem')
-
-  }
-
-  else {
-
-    //远程获取结果
-    if (!isProcessing) {
-
-      isProcessing = true
-
-      closeErrorBox('.password-login')
-
-      $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem')
-
-      //$('#account_modal .login-register-box .password-login .form-box .button').addClass('loading')
-
-      $('#account_modal .login-register-box .password-login .form-box .button').text('登录中...')
-
-      axios.post(getPostUrl('.password-login'),
-
-      {
-
-        email:    $('input[name=email_name]').val(),
-
-        password: $('input[name=password]').val(),
-
-        _token:   $('input[name=_token]').val()
+        }
 
       },
-      {
 
-        timeout: 8000
+      passwordField : {
 
-      })
+        element: 'input[name=password]',
 
-      .then(function (response) {
+        rules: [
 
-        if (response.data.success) {
+          'required',
 
-          //window.location.href = location.href
+          'between:6,16'
 
-          location.reload()
+        ],
 
-          setTimeout(() => {
+        errorMessages : {
 
-            alert('reload')
+          required : '请输入密码',
 
-            location.reload()
-
-            //showErrorMessages('.password-login', [['登录卡住了？请刷新此页面。']])
-
-          },  4000)
+          between : '请确保密码的长度在8-16位之间'
 
         }
 
-        else {
+      }
 
-          showErrorMessages('.password-login', response.data.errors)
+    },
 
-          $('#account_modal .account-login .password-login .form-box').css('margin-top', '1rem')
+    callbacks: {
 
-          $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
+      failed : (errorsBag) => {
 
-          isProcessing = false
+        showErrorBox({
 
-        }
+          tabName: '.password-login',
 
-      })
+          errorsBag: errorsBag,
 
-      .catch( (error) => {
+          formBox: {
 
-        let errorsBag = []
+            marginTopDistance: '1rem'
 
-        let globalErrors = []
+          }
 
-        if (error.response) {
+        })
 
-          // The request was made and the server responded with a status code
-          globalErrors.push(`服务器返回 ${error.response.status} 错误，请稍后再试。`)
+      },
 
-        }
+      succeeded:  () => {
 
-        else if (error.request) {
+        //start the remote processing lock, preventing over-executing the codes before the remote returns the result
+        //Only when remote processing flag is true, the codes inside will be executed
 
-          // The request was made but no response was received
-          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-          // http.ClientRequest in node.js
-          globalErrors.push('网络连接错误，请稍后再试。')
+        closeErrorBox({
 
-        }
+          tabName: '.password-login',
 
-        else {
+          formBox: {
 
-          // Something happened in setting up the request that triggered an Error
-          globalErrors.push('在发起请求时出现错误。')
+            marginTopDistance: '2.5rem'
 
-        }
+          }
 
-        errorsBag.push(globalErrors)
+        })
 
-        showErrorMessages('.password-login', errorsBag)
+        changeSubmitButtonText('.password-login', '登录中...')
 
-        $('#account_modal .login-register-box .password-login .form-box .button').text('登录')
+        sendPostRequest({
 
-        isProcessing = false
+          postUrl: getPostUrl('.password-login'),
 
-      })
+          targetForm: $('#account_modal .account-login .password-login'),
+
+          postFields: {
+
+            email: {
+
+              type: 'element',
+
+              literalValue: 'input[name=email_name]'
+
+            },
+
+            password: {
+
+              type: 'element',
+
+              literalValue: 'input[name=password]'
+
+            },
+
+            _token: {
+
+              type: 'element',
+
+              literalValue: 'input[name=_token]'
+
+            }
+
+          },
+
+          postTimeout: 8000,
+
+          callbacks: {
+
+            failed: (error) => {
+
+              let errorsBag = getFilledNetworkErrorsBag(error)
+
+              showErrorBox({
+
+                tabName: '.password-login',
+
+                errorsBag: errorsBag,
+
+                formBox: {
+
+                  marginTopDistance: '1rem'
+
+                }
+
+              })
+
+              changeSubmitButtonText('.password-login', '登录')
+
+            },
+
+            succeeded: (response) => {
+
+              if (response.data.success) {
+
+                location.reload()
+
+                setTimeout(
+
+                  () => {
+
+                  alert('reload')
+
+                  location.reload()
+
+                  //showingErrorBox('.password-login', [['登录卡住了？请刷新此页面。']])
+
+                  },
+
+                  4000
+
+                )
+
+              }
+
+              else {
+
+                showErrorBox({
+
+                  tabName: '.password-login',
+
+                  errorsBag: response.data.errors,
+
+                  formBox: {
+
+                    marginTopDistance: '1rem'
+
+                  }
+
+                })
+
+                changeSubmitButtonText('.password-login', '登录')
+
+              }
+
+            }
+
+          }
+
+        })
+
+      }
 
     }
 
-  }
-
-})
-
-$('#account_modal .password-login .error-box .message .close').on('click', function() {
-
-  closeErrorBox('.password-login')
-
-  $('#account_modal .account-login .password-login .form-box').css('margin-top', '2.5rem')
+  })
 
 })
 
 $('#account_modal .login-register-box .content .get-phone-code a').click((event) => {
 
-  closeErrorBox('.account-register')
+  validateFormLocally({
 
-  $(`#account_modal .login-register-box .account-register .form-box`).css('margin-top', '1.5rem')
+    targetForm: $('#account_modal .account-register'),
 
-  let phoneField = {
+    fields: {
 
-    element: $('#account_modal .account-register input[name=phone]'),
+      phoneField : {
 
-    rules: [
+        element: 'input[name=phone]',
 
-      'required',
+        rules: [
 
-      //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
-      'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()
+          'required',
 
-    ],
+          //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+          'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()
 
-    errorMessages : {
+        ],
 
-      required : '请输入手机号码',
+        errorMessages : {
 
-      regex : '请输入正确的手机号码'
+          required : '请输入手机号码',
+
+          regex : '请输入正确的手机号码'
+
+        }
+
+      }
+
+    },
+
+    callbacks: {
+
+      failed : (errorsBag) => {
+
+        showErrorBox({
+
+          tabName: '.account-register',
+
+          errorsBag: errorsBag,
+
+          formBox: {
+
+            marginTopDistance: '0'
+
+          }
+
+        })
+
+      },
+
+      succeeded:  () => {
+
+        closeErrorBox({
+
+          tabName: '.account-register',
+
+          formBox: {
+
+            marginTopDistance: '1.5rem'
+
+          }
+
+        })
+
+        //if there's no network conection, then cannot initialize the yunpianCaptcha, then no children elements for #register-yunpian-captcha element, then
+        //don't show the .yunpian-captcha element
+        if ($('#register-yunpian-captcha').children().length > 0) {
+
+          //显示云片验证码提示框
+          $('#account_modal .login-register-box .content .yunpian-captcha').css({'order': '0', 'visibility': 'visible'})
+
+        }
+
+      }
 
     }
 
-  }
-
-  let passwordField = {
-
-    element: $('#account_modal .account-register input[name=password]'),
-
-    rules: [
-
-      'required',
-
-      'between:6,16'
-
-    ],
-
-    errorMessages : {
-
-      required : '请输入密码',
-
-      between : '请确保密码的长度在8-16位之间'
-
-    }
-
-  }
-
-  let errorsBag = getFormValidationErrorsBag(phoneField, passwordField)
-
-  if (errorsBag) {
-
-    showErrorMessages('.account-register', errorsBag)
-
-    $(`#account_modal .login-register-box .account-register .form-box`).css('margin-top', '0')
-
-  }
-
-  else {
-
-    //显示云片验证码提示框
-    $('#account_modal .login-register-box .content .yunpian-captcha').css({'order': '0', 'visibility': 'visible'})
-
-  }
+  })
 
 })
 
+//click event for close button on ErrorBox on PasswordLoginTab
+$('#account_modal .password-login .error-box .message .close').on('click', function(){
+
+  closeErrorBox({
+
+    tabName: '.password-login',
+
+    formBox: {
+
+      marginTopDistance: '2.5rem'
+
+    }
+
+  })
+
+})
+
+//click event for close button on ErrorBox on AccountRegisterTab
 $('#account_modal .account-register .error-box .message .close').on('click', function() {
 
-  closeErrorBox('.account-register')
+  closeErrorBox({
 
-  $(`#account_modal .login-register-box .account-register .form-box`).css('margin-top', '1.5rem')
+    tabName: '.account-register',
+
+    formBox: {
+
+      marginTopDistance: '1.5rem'
+
+    }
+
+  })
 
 })
