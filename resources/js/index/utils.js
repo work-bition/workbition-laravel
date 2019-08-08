@@ -7,7 +7,6 @@
 
 /** splitStrsIntoTwoParts('between:8,16',':') will be split into ['between', '8,16']**/
 /** splitStrsIntoTwoParts('abcdef',':') will return ['abcdef']**/
-
 function splitStrsIntoTwoParts(splitStrs,indicator) {
 
   let strs_array = splitStrs.split(indicator)
@@ -40,8 +39,7 @@ function splitStrsIntoTwoParts(splitStrs,indicator) {
 
 }
 
-function  trimOneCharacterFromEdges(trimmingStrs)
-{
+function  trimOneCharacterFromEdges(trimmingStrs){
 
   let trimmedStrs = trimmingStrs.substr(1)
 
@@ -51,8 +49,5 @@ function  trimOneCharacterFromEdges(trimmingStrs)
 
 }
 
-window.trimOneCharacterFromEdges = trimOneCharacterFromEdges
-
-//window.splitStrsIntoTwoParts = splitStrsIntoTwoParts
 
 export { splitStrsIntoTwoParts, trimOneCharacterFromEdges }

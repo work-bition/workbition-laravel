@@ -95,120 +95,106 @@
 
         window.onload = function () {
 
-          try {
+          // 初始化云片图片验证码
+          var YpCaptcha =  new YpRiddler({
 
-            // 初始化云片图片验证码
-            var YpCaptcha =  new YpRiddler({
+              expired: 1,
 
-                expired: 1,
+              mode: captcha_mode,
 
-                mode: captcha_mode,
+              winWidth: 334,
 
-                winWidth: 334,
+              noButton: false,
 
-                noButton: false,
+              lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
+              // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
 
-                lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
-                // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
+              container: document.getElementById('register-yunpian-captcha'),
 
-                container: document.getElementById('register-yunpian-captcha'),
+              appId: '2d797943d96348c8922e375c7c4fbdaa',
 
-                appId: '2d797943d96348c8922e375c7c4fbdaa',
+              version: 'v1',
 
-                version: 'v1',
+              onError: function (param) {
 
-                onError: function (param) {
+                $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
 
-                  $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+                //alert('bad')
 
-                  //alert('bad')
+                if (param.code == 429) {
 
-                  if (param.code == 429) {
+                    alert('请求过于频繁，请稍后再试！')
 
-                      alert('请求过于频繁，请稍后再试！')
-
-                      return
-
-                  }
-
-                  showErrorBox({
-
-                    tabName: '.account-register',
-
-                    errorsBag: [['验证服务异常']],
-
-                    formBox: {
-
-                      marginTopDistance: '0'
-
-                    }
-
-                  });
-
-                  // 异常回调
-                  //console.error('验证服务异常')
-
-                },
-
-                onSuccess: function (validInfo, close, useDefaultSuccess) {
-
-                    //$('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
-
-                    // 成功回调
-
-                    useDefaultSuccess(true)
-
-                    getVerificationCode(validInfo.token, validInfo.authenticate)
-
-                    close()
-
-                },
-
-                onFail: function (code, msg, retry) {
-
-                    $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
-
-                    // 失败回调
-                    alert('出错啦：' + msg + ' code: ' + code)
-
-                    retry()
-
-
-
-                },
-
-                beforeStart: function (next) {
-
-                    console.log('验证马上开始')
-
-                    $('#register-yunpian-captcha .yp-riddler-button_text').text('正在获取拼图...');
-
-                    next()
-
-                },
-
-                onExit: function () {
-
-                    $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
-
-                    // 退出验证 （仅限dialog模式有效）
-                    console.log('退出验证')
+                    return
 
                 }
 
-            });
+                showErrorBox({
 
-          }
+                  tabName: '.account-register',
 
-          catch (e) {
+                  errorsBag: [['验证服务异常']],
 
-            alert('没有网络连接')
+                  formBox: {
 
-          }
+                    marginTopDistance: '0'
 
-          finally {
+                  }
 
-          }
+                });
+
+                // 异常回调
+                //console.error('验证服务异常')
+
+              },
+
+              onSuccess: function (validInfo, close, useDefaultSuccess) {
+
+                  //$('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+                  // 成功回调
+
+                  useDefaultSuccess(true)
+
+                  getVerificationCode(validInfo.token, validInfo.authenticate)
+
+                  close()
+
+              },
+
+              onFail: function (code, msg, retry) {
+
+                  $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+                  // 失败回调
+                  alert('出错啦：' + msg + ' code: ' + code)
+
+                  retry()
+
+
+
+              },
+
+              beforeStart: function (next) {
+
+                  console.log('验证马上开始')
+
+                  $('#register-yunpian-captcha .yp-riddler-button_text').text('正在获取拼图...');
+
+                  next()
+
+              },
+
+              onExit: function () {
+
+                  $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+                  // 退出验证 （仅限dialog模式有效）
+                  console.log('退出验证')
+
+              }
+
+          });
 
         };
 
@@ -231,8 +217,6 @@
         });
 
       }
-
-
 
     </script>
 

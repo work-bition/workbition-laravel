@@ -5,10 +5,9 @@
 
 ******************************************************************************************************************************/
 
+import { validateForm } from './formValidation'
 
-import { validateFormLocally } from './formValidation'
-
-import { isIE11 } from './detectBrowsers'
+import { isiOS, isSafari, isIE11 } from './detectBrowsers'
 
 import axios from 'axios'
 
@@ -20,13 +19,11 @@ window.getVerificationCode = getVerificationCode
 
 window.showErrorBox = showErrorBox
 
-
-
-/**********************************************************************
+/*****************************************************************************************************************************
 
                         header - account modal
 
-**********************************************************************/
+*****************************************************************************************************************************/
 
 
 
@@ -189,7 +186,6 @@ function stopRemoteProcessingLock() {
 
 }
 
-
 function error_box_toggler(formName, benifits_bar_style, error_box_style){
 
   $(`#account_modal .login-register-box ${formName} .benifits_bar`).css('display', benifits_bar_style)
@@ -236,7 +232,7 @@ function adjustFormBoxTopMargin (formName, marginDistance){
 
 /*************************************************************
 
-                  OPTIONS EXAMPLE
+        showErrorBox and closeErrorBox OPTIONS EXAMPLE
 
 **************************************************************
 
@@ -321,7 +317,7 @@ function getPostUrl(formName){
 
 /*************************************************************
 
-                  OPTIONS EXAMPLE
+            sendPostRequest OPTIONS EXAMPLE
 
 **************************************************************
 
@@ -523,12 +519,15 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
 }
 
-$('#account_modal .password-login .form-box').submit((event) => {
+
+
+//submit event for the form on PasswordLoginTab
+$('#account_modal .account-login .password.login.form').submit((event) => {
 
   //stop the form from submitting
   event.preventDefault()
 
-  validateFormLocally({
+  validateForm({
 
     targetForm: $('#account_modal .account-login .password-login'),
 
@@ -738,9 +737,256 @@ $('#account_modal .password-login .form-box').submit((event) => {
 
 })
 
+//submit event for the form on AccountRegisterTab
+$('#account_modal .account-register .register.form').submit((event) => {
+
+  //stop the form from submitting
+  event.preventDefault()
+
+  validateForm({
+
+    targetForm: $('#account_modal .account-register'),
+
+    fields: {
+
+      phoneField: {
+
+        element: 'input[name=phone]',
+
+        rules: [
+
+          'required',
+
+          //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+          'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()
+
+        ],
+
+        errorMessages : {
+
+          required : '请输入手机号码',
+
+          regex : '请输入正确的手机号码'
+
+        }
+
+      },
+
+      passwordField: {
+
+        element: 'input[name=password]',
+
+        rules: [
+
+          'required',
+
+          'between:6,16'
+
+        ],
+
+        errorMessages : {
+
+          required : '请输入密码',
+
+          between : '请确保密码的长度在8-16位之间'
+
+        }
+
+      },
+
+      phoneCodeField: {
+
+        element: 'input[name=phoneCode]',
+
+        rules: [
+
+          'required',
+
+          'digits:4'
+
+        ],
+
+        errorMessages : {
+
+          required: '请输入手机验证码',
+
+          digits: '请输入4位数字的手机验证码'
+
+        }
+
+      }
+
+    },
+
+    callbacks: {
+
+      failed : (errorsBag) => {
+
+        showErrorBox({
+
+          tabName: '.account-register',
+
+          errorsBag: errorsBag,
+
+          formBox: {
+
+            marginTopDistance: '0'
+
+          }
+
+        })
+
+        //there's no enough room for the 3rd message in the error box, so when there are 3 messages needed to show, we have to make the 3rd one disappear,
+        // the error box can show two messages to the maximum
+        if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
+
+          $('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
+
+        }
+
+      },
+
+      succeeded:  () => {
+
+        //start the remote processing lock, preventing over-executing the codes before the remote returns the result
+        //Only when remote processing flag is true, the codes inside will be executed
+
+        closeErrorBox({
+
+          tabName: '.account-register',
+
+          formBox: {
+
+            marginTopDistance: '2.5rem'
+
+          }
+
+        })
+
+        changeSubmitButtonText('.password-login', '登录中...')
+
+        sendPostRequest({
+
+          postUrl: getPostUrl('.password-login'),
+
+          targetForm: $('#account_modal .account-login .password-login'),
+
+          postFields: {
+
+            email: {
+
+              type: 'element',
+
+              literalValue: 'input[name=email_name]'
+
+            },
+
+            password: {
+
+              type: 'element',
+
+              literalValue: 'input[name=password]'
+
+            },
+
+            _token: {
+
+              type: 'element',
+
+              literalValue: 'input[name=_token]'
+
+            }
+
+          },
+
+          postTimeout: 8000,
+
+          callbacks: {
+
+            failed: (error) => {
+
+              let errorsBag = getFilledNetworkErrorsBag(error)
+
+              showErrorBox({
+
+                tabName: '.password-login',
+
+                errorsBag: errorsBag,
+
+                formBox: {
+
+                  marginTopDistance: '1rem'
+
+                }
+
+              })
+
+              changeSubmitButtonText('.password-login', '登录')
+
+            },
+
+            succeeded: (response) => {
+
+              if (response.data.success) {
+
+                location.reload()
+
+                setTimeout(
+
+                  () => {
+
+                  alert('reload')
+
+                  location.reload()
+
+                  //showingErrorBox('.password-login', [['登录卡住了？请刷新此页面。']])
+
+                  },
+
+                  4000
+
+                )
+
+              }
+
+              else {
+
+                showErrorBox({
+
+                  tabName: '.password-login',
+
+                  errorsBag: response.data.errors,
+
+                  formBox: {
+
+                    marginTopDistance: '1rem'
+
+                  }
+
+                })
+
+                changeSubmitButtonText('.password-login', '登录')
+
+              }
+
+            }
+
+          }
+
+        })
+
+      }
+
+    }
+
+  })
+
+})
+
+//click event for the ‘get phone code’ button on AccountRegisterTab
 $('#account_modal .login-register-box .content .get-phone-code a').click((event) => {
 
-  validateFormLocally({
+  validateForm({
 
     targetForm: $('#account_modal .account-register'),
 
@@ -812,6 +1058,44 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
           //显示云片验证码提示框
           $('#account_modal .login-register-box .content .yunpian-captcha').css({'order': '0', 'visibility': 'visible'})
 
+          //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+          let transitionMode
+
+          if (isiOS || isSafari) {
+
+            transitionMode = 'glow'
+
+          }
+
+          else {
+
+            transitionMode = 'flash'
+
+          }
+
+          //adding animation effects
+          $('#register-yunpian-captcha .yp-riddler .yp-riddler-button_text')
+
+          .transition({
+
+            animation  : transitionMode,
+
+            duration   : '0.6s',
+
+            onStart : function() {
+
+              $(event.currentTarget).css('pointer-events', 'none');
+
+            },
+
+            onComplete : function() {
+
+              $(event.currentTarget).css('pointer-events', 'all');
+
+            }
+
+          })
+
         }
 
       }
@@ -823,7 +1107,7 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
 })
 
 //click event for close button on ErrorBox on PasswordLoginTab
-$('#account_modal .password-login .error-box .message .close').on('click', function(){
+$('#account_modal .password-login .error-box .message .close').click((event) => {
 
   closeErrorBox({
 
@@ -840,7 +1124,7 @@ $('#account_modal .password-login .error-box .message .close').on('click', funct
 })
 
 //click event for close button on ErrorBox on AccountRegisterTab
-$('#account_modal .account-register .error-box .message .close').on('click', function() {
+$('#account_modal .account-register .error-box .message .close').click((event) => {
 
   closeErrorBox({
 

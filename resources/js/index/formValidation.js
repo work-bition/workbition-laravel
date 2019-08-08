@@ -59,6 +59,22 @@ function isBeyondLengthRange(length_range_strs, input){
 
 }
 
+function isDigitsWithIncorrectLength(digits_strs, input){
+
+  let regex_strs =  '^\\d{' + digits_strs + '}$'
+
+  let regex = new RegExp(regex_strs)
+
+  if (regex.test(input)) {
+
+    return false
+
+  }
+
+  return true
+
+}
+
 
 
 function getFormValidationErrorsBag (targetForm, fields){
@@ -113,6 +129,16 @@ function getFormValidationErrorsBag (targetForm, fields){
 
           break;
 
+        case 'digits':
+
+          if (isDigitsWithIncorrectLength(rule_option, field_input_value)) {
+
+            fieldErrors.push(field.errorMessages[rule_name])
+
+          }
+
+          break;
+
         default:
 
       }
@@ -141,7 +167,7 @@ function getFormValidationErrorsBag (targetForm, fields){
 
 }
 
-function validateFormLocally (validation_options){
+function validateForm (validation_options){
 
   let errorsBag = getFormValidationErrorsBag(validation_options.targetForm, validation_options.fields)
 
@@ -162,4 +188,4 @@ function validateFormLocally (validation_options){
 
 
 
-export { validateFormLocally }
+export { validateForm }
