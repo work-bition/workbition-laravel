@@ -57,7 +57,7 @@
                   <section class="ui input">
 
                     <!-- if the name设置成email，safari密码填充框会偏移-->
-                    <input name="email_name" type="text" placeholder="手机号/邮箱">
+                    <input name="email_name" type="text" placeholder="国内手机号/邮箱">
 
                   </section>
 
@@ -117,7 +117,7 @@
 
                 <section class="input-box">
                   <section class="ui input">
-                    <input type="text" name="phone" placeholder="手机号">
+                    <input type="text" name="phone" placeholder="国内手机号">
                   </section>
                 </section>
 
@@ -210,7 +210,7 @@
 
               <section class="ui input">
 
-                <input type="text" name="phone" placeholder="手机号">
+                <input type="text" name="phone" placeholder="国内手机号">
 
               </section>
 

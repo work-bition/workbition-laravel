@@ -5262,20 +5262,24 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 ******************************************************************************************************************************/
 
-var remoteProcessingFlag = false;
+var flags = {
+  remoteProcessingFlag: false,
+  YpCaptchaProcessingFlag: false
+};
+var YpCaptchaInstance = undefined;
 
-function startRemoteProcessingLock() {
-  if (!remoteProcessingFlag) {
-    remoteProcessingFlag = true;
+function startProcessingLock(flag_name) {
+  if (!flags[flag_name]) {
+    flags[flag_name] = true;
     return true;
   }
 
   return false;
 }
 
-function stopRemoteProcessingLock() {
-  if (remoteProcessingFlag) {
-    remoteProcessingFlag = false;
+function stopProcessingLock(flag_name) {
+  if (flags[flag_name]) {
+    flags[flag_name] = false;
   }
 }
 
@@ -5422,9 +5426,9 @@ function getPostUrl(formName) {
 
 
 function sendPostRequest(post_options) {
-  var computed_field_value = {};
+  var computed_field_value = {}; //prevent multiple remote requests before get the result
 
-  if (startRemoteProcessingLock()) {
+  if (startProcessingLock('remoteProcessingFlag')) {
     $.each(post_options.postFields, function (key, field) {
       var field_input_value;
 
@@ -5440,10 +5444,10 @@ function sendPostRequest(post_options) {
       timeout: post_options.postTimeout
     }).then(function (response) {
       post_options.callbacks.succeeded(response);
-      stopRemoteProcessingLock();
+      stopProcessingLock('remoteProcessingFlag');
     })["catch"](function (error) {
       post_options.callbacks.failed(error);
-      stopRemoteProcessingLock();
+      stopProcessingLock('remoteProcessingFlag');
     });
   }
 }
@@ -5493,6 +5497,90 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
       }
     }
   });
+}
+
+function initializingYpCaptcha(captcha_mode) {
+  if (YpRiddler != undefined) {
+    // 初始化云片图片验证码
+    var YpCaptcha = new YpRiddler({
+      //过期时间不宜设置过短，不然容易引发异常
+      expired: 2,
+      mode: captcha_mode,
+      winWidth: 334,
+      noButton: false,
+      lang: 'zh-cn',
+      // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
+      // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
+      container: document.getElementById('register-yunpian-captcha'),
+      appId: '2d797943d96348c8922e375c7c4fbdaa',
+      version: 'v1',
+      onError: function onError(param) {
+        $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+        if (param.code == 429) {
+          showErrorBox({
+            tabName: '.account-register',
+            errorsBag: [['请求过于频繁，请稍后再试']],
+            formBox: {
+              marginTopDistance: '0'
+            }
+          });
+          stopProcessingLock('YpCaptchaProcessingFlag');
+          return;
+        }
+
+        showErrorBox({
+          tabName: '.account-register',
+          errorsBag: [['验证服务异常，请稍后再试']],
+          formBox: {
+            marginTopDistance: '0'
+          }
+        }); // 异常回调
+        //console.log('验证服务异常，请稍后再试')
+
+        stopProcessingLock('YpCaptchaProcessingFlag');
+      },
+      onSuccess: function onSuccess(validInfo, close, useDefaultSuccess) {
+        //$('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+        // 成功回调
+        useDefaultSuccess(true);
+        getVerificationCode(validInfo.token, validInfo.authenticate);
+        close();
+        YpCaptchaInstance = undefined;
+        stopProcessingLock('YpCaptchaProcessingFlag');
+      },
+      onFail: function onFail(code, msg, retry) {
+        $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证'); // 失败回调
+
+        alert('出错啦：' + msg + ' code: ' + code);
+        retry();
+        stopProcessingLock('YpCaptchaProcessingFlag');
+      },
+      beforeStart: function beforeStart(next) {
+        console.log('验证马上开始');
+
+        if (startProcessingLock('YpCaptchaProcessingFlag')) {
+          $('#register-yunpian-captcha .yp-riddler-button_text').text('正在获取拼图...');
+          setTimeout(function () {
+            next();
+          }, 800);
+        }
+      },
+      onExit: function onExit() {
+        $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证'); // 退出验证 （仅限dialog模式有效）
+
+        console.log('退出验证');
+        stopProcessingLock('YpCaptchaProcessingFlag');
+      }
+    });
+    return YpCaptcha;
+  } else {
+    return undefined;
+  }
+}
+
+function stopPuzzleShowUpWatcher() {
+  clearInterval(puzzleShowUpWatcher);
 } //submit event for the form on PasswordLoginTab
 
 
@@ -5639,7 +5727,8 @@ $('#account_modal .account-register .register.form').submit(function (event) {
         // the error box can show two messages to the maximum
 
         if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
-          $('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove();
+          //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
+          $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove(); //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
         }
       },
       succeeded: function succeeded() {
@@ -5707,7 +5796,7 @@ $('#account_modal .account-register .register.form').submit(function (event) {
   });
 }); //click event for the ‘get phone code’ button on AccountRegisterTab
 
-$('#account_modal .login-register-box .content .get-phone-code a').click(function (event) {
+$('#account_modal .account-register .get-phone-code a').click(function (event) {
   Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["validateForm"])({
     targetForm: $('#account_modal .account-register'),
     fields: {
@@ -5737,36 +5826,47 @@ $('#account_modal .login-register-box .content .get-phone-code a').click(functio
           formBox: {
             marginTopDistance: '1.5rem'
           }
-        }); //if there's no network conection, then cannot initialize the yunpianCaptcha, then no children elements for #register-yunpian-captcha element, then
-        //don't show the .yunpian-captcha element
+        });
 
-        if ($('#register-yunpian-captcha').children().length > 0) {
-          //显示云片验证码提示框
-          $('#account_modal .login-register-box .content .yunpian-captcha').css({
-            'order': '0',
-            'visibility': 'visible'
-          }); //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+        if (YpCaptchaInstance == undefined) {
+          YpCaptchaInstance = initializingYpCaptcha('dialog');
 
-          var transitionMode;
-
-          if (_detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isiOS"] || _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isSafari"]) {
-            transitionMode = 'glow';
-          } else {
-            transitionMode = 'flash';
-          } //adding animation effects
-
-
-          $('#register-yunpian-captcha .yp-riddler .yp-riddler-button_text').transition({
-            animation: transitionMode,
-            duration: '0.6s',
-            onStart: function onStart() {
-              $(event.currentTarget).css('pointer-events', 'none');
-            },
-            onComplete: function onComplete() {
-              $(event.currentTarget).css('pointer-events', 'all');
+          var _puzzleShowUpWatcher = setInterval(function () {
+            if ($('#register-yunpian-captcha .yp-riddler-win-masker').css('display') == 'block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0) {
+              $('#register-yunpian-captcha .yp-riddler-button_text').text('请完成拼图');
             }
-          });
-        }
+          }, 100);
+        } //显示云片验证码提示框
+
+
+        $('#account_modal .login-register-box .content .yunpian-captcha').css({
+          'order': '0',
+          'visibility': 'visible'
+        }); //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+
+        var transitionMode;
+
+        if (_detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isiOS"] || _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isSafari"]) {
+          transitionMode = 'glow';
+        } else {
+          transitionMode = 'flash';
+        } //adding animation effects
+
+
+        $('#register-yunpian-captcha .yp-riddler .yp-riddler-button_text').transition({
+          animation: transitionMode,
+          duration: '0.5s',
+          onStart: function onStart() {
+            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
+            //unless display is set to block or inline-block, or position is set to absolute or fixed.
+            $(event.currentTarget).css('pointer-events', 'none');
+          },
+          onComplete: function onComplete() {
+            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
+            //unless display is set to block or inline-block, or position is set to absolute or fixed.
+            $(event.currentTarget).css('pointer-events', 'all');
+          }
+        });
       }
     }
   });

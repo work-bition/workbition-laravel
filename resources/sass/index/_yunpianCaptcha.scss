@@ -10,15 +10,19 @@
 
   justify-content: center;
 
-  .yp-riddler.yp-dialog.yp-riddler-button, .yp-riddler.yp-float.yp-riddler-button {
+  .yp-riddler.yp-dialog.yp-riddler-button {
 
-    .yp-riddler-win-masker.dialog, .yp-riddler-win-masker.float{
+    .yp-riddler-win-masker.dialog{
 
         background: transparent;
 
         .yp-riddler-winbox{
 
+          transform: translateX(-0.15rem);
+
           .yp-riddler-win {
+
+            box-shadow: 2px 2px 2px #f2f2f2;
 
             border: 1px solid #f2f2f2;
 
@@ -60,51 +64,19 @@
 
     }
 
-  }
+    /** Compatible for IE 11 browser **/
+    /** make the Yunpian Puzzle show in the correct posision **/
+    @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
 
-  .yp-riddler.yp-dialog.yp-riddler-button {
+      .yp-riddler-win-masker.dialog {
 
-    //width: 314px;
+        position: absolute;
 
-    .yp-riddler-win-masker.dialog {
+        .yp-riddler-winbox {
 
-      .yp-riddler-winbox{
+          position: relative;
 
-        .yp-riddler-win {
-
-          box-shadow: 2px 2px 2px #f2f2f2;
-
-        }
-
-      }
-
-    }
-
-  }
-
-  .yp-riddler.yp-float.yp-riddler-button {
-
-    .yp-riddler-win-masker.float {
-
-      .yp-riddler-winbox{
-
-        transform: translateX(-0.1rem);
-
-        border: 1px solid #f2f2f2;
-
-        box-shadow: 3px 2px 3px #f2f2f2;
-
-        .yp-riddler-win {
-
-          transform: translateX(-0.1rem);
-
-          border-bottom: none;
-
-          border-top: none;
-
-          //padding-bottom: 0;
-
-          box-shadow: none;
+          top: -24rem;
 
         }
 

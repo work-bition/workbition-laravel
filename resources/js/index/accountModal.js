@@ -160,13 +160,21 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 ******************************************************************************************************************************/
 
-let remoteProcessingFlag = false
+let flags = {
 
-function startRemoteProcessingLock() {
+  remoteProcessingFlag : false,
 
-  if (!remoteProcessingFlag) {
+  YpCaptchaProcessingFlag : false
 
-    remoteProcessingFlag = true
+}
+
+let YpCaptchaInstance =undefined
+
+function startProcessingLock(flag_name) {
+
+  if (!flags[flag_name]) {
+
+    flags[flag_name] = true
 
     return true
 
@@ -176,11 +184,11 @@ function startRemoteProcessingLock() {
 
 }
 
-function stopRemoteProcessingLock() {
+function stopProcessingLock(flag_name) {
 
-  if (remoteProcessingFlag) {
+  if (flags[flag_name]) {
 
-    remoteProcessingFlag = false
+    flags[flag_name] = false
 
   }
 
@@ -373,7 +381,8 @@ function sendPostRequest(post_options){
 
   let computed_field_value = {}
 
-  if (startRemoteProcessingLock()) {
+  //prevent multiple remote requests before get the result
+  if (startProcessingLock('remoteProcessingFlag')) {
 
     $.each(post_options.postFields, function(key, field) {
 
@@ -407,7 +416,7 @@ function sendPostRequest(post_options){
 
       post_options.callbacks.succeeded(response)
 
-      stopRemoteProcessingLock()
+      stopProcessingLock('remoteProcessingFlag')
 
     })
 
@@ -415,7 +424,7 @@ function sendPostRequest(post_options){
 
       post_options.callbacks.failed(error)
 
-      stopRemoteProcessingLock()
+      stopProcessingLock('remoteProcessingFlag')
 
     })
 
@@ -516,6 +525,162 @@ function getVerificationCode(captcha_token, captcha_authenticate){
     }
 
   })
+
+}
+
+function initializingYpCaptcha(captcha_mode) {
+
+  if (YpRiddler != undefined) {
+
+    // 初始化云片图片验证码
+    let YpCaptcha =  new YpRiddler({
+
+          //过期时间不宜设置过短，不然容易引发异常
+          expired: 2,
+
+          mode: captcha_mode,
+
+          winWidth: 334,
+
+          noButton: false,
+
+          lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
+          // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
+
+          container: document.getElementById('register-yunpian-captcha'),
+
+          appId: '2d797943d96348c8922e375c7c4fbdaa',
+
+          version: 'v1',
+
+          onError: function (param) {
+
+            $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+            if (param.code == 429) {
+
+                showErrorBox({
+
+                  tabName: '.account-register',
+
+                  errorsBag: [['请求过于频繁，请稍后再试']],
+
+                  formBox: {
+
+                    marginTopDistance: '0'
+
+                  }
+
+                });
+
+                stopProcessingLock('YpCaptchaProcessingFlag')
+
+                return
+
+            }
+
+            showErrorBox({
+
+              tabName: '.account-register',
+
+              errorsBag: [['验证服务异常，请稍后再试']],
+
+              formBox: {
+
+                marginTopDistance: '0'
+
+              }
+
+            });
+
+            // 异常回调
+            //console.log('验证服务异常，请稍后再试')
+
+            stopProcessingLock('YpCaptchaProcessingFlag')
+
+          },
+
+          onSuccess: function (validInfo, close, useDefaultSuccess) {
+
+              //$('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+              // 成功回调
+
+              useDefaultSuccess(true)
+
+              getVerificationCode(validInfo.token, validInfo.authenticate)
+
+              close()
+
+              YpCaptchaInstance = undefined
+
+              stopProcessingLock('YpCaptchaProcessingFlag')
+
+          },
+
+          onFail: function (code, msg, retry) {
+
+              $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+              // 失败回调
+              alert('出错啦：' + msg + ' code: ' + code)
+
+              retry()
+
+              stopProcessingLock('YpCaptchaProcessingFlag')
+
+          },
+
+          beforeStart: function (next) {
+
+              console.log('验证马上开始')
+
+              if (startProcessingLock('YpCaptchaProcessingFlag')) {
+
+                $('#register-yunpian-captcha .yp-riddler-button_text').text('正在获取拼图...')
+
+                setTimeout(() => {
+
+                  next()
+
+                },
+
+                800
+
+                )
+
+              }
+
+          },
+
+          onExit: function () {
+
+              $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+
+              // 退出验证 （仅限dialog模式有效）
+              console.log('退出验证')
+
+              stopProcessingLock('YpCaptchaProcessingFlag')
+
+          }
+
+      })
+
+    return YpCaptcha
+
+  }
+
+  else {
+
+    return undefined
+
+  }
+
+}
+
+function stopPuzzleShowUpWatcher() {
+
+  clearInterval(puzzleShowUpWatcher);
 
 }
 
@@ -840,7 +1005,10 @@ $('#account_modal .account-register .register.form').submit((event) => {
         // the error box can show two messages to the maximum
         if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
 
-          $('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
+          //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
+          $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove()
+
+          //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
 
         }
 
@@ -983,8 +1151,10 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
 })
 
+
+
 //click event for the ‘get phone code’ button on AccountRegisterTab
-$('#account_modal .login-register-box .content .get-phone-code a').click((event) => {
+$('#account_modal .account-register .get-phone-code a').click((event) => {
 
   validateForm({
 
@@ -1051,52 +1221,72 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
 
         })
 
-        //if there's no network conection, then cannot initialize the yunpianCaptcha, then no children elements for #register-yunpian-captcha element, then
-        //don't show the .yunpian-captcha element
-        if ($('#register-yunpian-captcha').children().length > 0) {
+        if (YpCaptchaInstance == undefined) {
 
-          //显示云片验证码提示框
-          $('#account_modal .login-register-box .content .yunpian-captcha').css({'order': '0', 'visibility': 'visible'})
+            YpCaptchaInstance = initializingYpCaptcha('dialog');
 
-          //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
-          let transitionMode
+            let puzzleShowUpWatcher = setInterval(
 
-          if (isiOS || isSafari) {
+              () => {
 
-            transitionMode = 'glow'
+                if($('#register-yunpian-captcha .yp-riddler-win-masker').css('display')=='block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0){
 
-          }
+                  $('#register-yunpian-captcha .yp-riddler-button_text').text('请完成拼图');
 
-          else {
+                }
 
-            transitionMode = 'flash'
+              },
 
-          }
+              100
 
-          //adding animation effects
-          $('#register-yunpian-captcha .yp-riddler .yp-riddler-button_text')
-
-          .transition({
-
-            animation  : transitionMode,
-
-            duration   : '0.6s',
-
-            onStart : function() {
-
-              $(event.currentTarget).css('pointer-events', 'none');
-
-            },
-
-            onComplete : function() {
-
-              $(event.currentTarget).css('pointer-events', 'all');
-
-            }
-
-          })
+            )
 
         }
+
+        //显示云片验证码提示框
+        $('#account_modal .login-register-box .content .yunpian-captcha').css({'order': '0', 'visibility': 'visible'})
+
+        //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+        let transitionMode
+
+        if (isiOS || isSafari) {
+
+          transitionMode = 'glow'
+
+        }
+
+        else {
+
+          transitionMode = 'flash'
+
+        }
+
+        //adding animation effects
+        $('#register-yunpian-captcha .yp-riddler .yp-riddler-button_text')
+
+        .transition({
+
+          animation  : transitionMode,
+
+          duration   : '0.5s',
+
+          onStart : () => {
+
+            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
+            //unless display is set to block or inline-block, or position is set to absolute or fixed.
+            $(event.currentTarget).css('pointer-events', 'none');
+
+          },
+
+          onComplete : () => {
+            
+            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
+            //unless display is set to block or inline-block, or position is set to absolute or fixed.
+            $(event.currentTarget).css('pointer-events', 'all');
+
+          }
+
+        })
 
       }
 
@@ -1105,6 +1295,8 @@ $('#account_modal .login-register-box .content .get-phone-code a').click((event)
   })
 
 })
+
+
 
 //click event for close button on ErrorBox on PasswordLoginTab
 $('#account_modal .password-login .error-box .message .close').click((event) => {

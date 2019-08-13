@@ -186,6 +186,4 @@ function validateForm (validation_options){
 
 }
 
-
-
 export { validateForm }

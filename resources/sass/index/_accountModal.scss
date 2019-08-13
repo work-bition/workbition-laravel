@@ -206,6 +206,10 @@
 
                 a {
 
+                  //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
+                  //unless display is set to block or inline-block, or position is set to absolute or fixed.
+                  display: block;
+
                   color: #2A2A2A;
 
                   font-weight: bold;
