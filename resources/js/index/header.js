@@ -5,7 +5,7 @@
 
 ******************************************************************************************************************************/
 
-
+import { isIE11 } from './detectBrowsers'
 
 import 'objectFitPolyfill'
 
@@ -27,18 +27,34 @@ $('#header .right.menu .authentication-links .avatar-container .ui.avatar.dropdo
   })
 
 
+/** sovle the problem that clicking on the items of the drowpdown menu will casue the doropdown menu to hide and show agagin in IE 11 browsers **/
+if (isIE11) {
 
-  /** Animation effect **/
-  $('#header .avatar.dropdown .menu a.item, #header .avatar.dropdown .menu .button').hover(function(event) {
+  $('#header .right.menu .authentication-links .avatar-container .ui.avatar.dropdown .menu').click((event) => {
 
-    $(event.currentTarget.children[0])
-
-      .transition('tada')
-
-  }, function(event) {
-
-    $(event.currentTarget.children[0])
-
-      .transition('stop')
+    $(document.activeElement).blur()
 
   })
+
+}
+
+
+
+/** Animation effect **/
+$('#header .avatar.dropdown .menu a.item, #header .avatar.dropdown .menu .button').hover(
+
+  (event) => {
+
+  $(event.currentTarget.children[0])
+
+    .transition('tada')
+
+  },
+
+  (event) => {
+
+  $(event.currentTarget.children[0])
+
+    .transition('stop')
+
+})

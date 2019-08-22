@@ -135,24 +135,28 @@ class VerificationCodesController extends Controller
 
                   Cache::forget($request->phone);
 
-                  //云片设置
+                  //云片官方设置的错误码
                   switch ($code) {
 
                     case 22:
 
-                      $message = '同一个手机号1小时内只能获取 3 条验证码';
+                      $message = '同一手机号1小时内只能获取3条验证码';
 
                       break;
 
                     case 17:
 
-                      $message = '同一个手机号24小时内只能获取10条验证码';
+                      $message = '同一手机号24小时内只能获取10条验证码';
+
+                      break;
+
+                    case 0:
 
                       break;
 
                     default:
 
-                      $message = '获取验证码时遇到错误，请稍后再试';
+                      $message = '未能成功发送验证码，请稍后重试';
 
                       break;
                   }
@@ -190,7 +194,7 @@ class VerificationCodesController extends Controller
 
         else {
 
-          return response()->json(['errors' => ['global' => ['验证码已失效']], 'success' => false, 'status' => 422]);
+          return response()->json(['errors' => ['global' => ['验证码已失效,请稍后重试']], 'success' => false, 'status' => 422]);
 
         }
 

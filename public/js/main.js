@@ -5176,10 +5176,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-window.isIE11 = _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isIE11"];
-window.axios = axios__WEBPACK_IMPORTED_MODULE_2___default.a;
-window.getVerificationCode = getVerificationCode;
-window.showErrorBox = showErrorBox;
 /*****************************************************************************************************************************
 
                         header - account modal
@@ -5262,24 +5258,47 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 ******************************************************************************************************************************/
 
-var flags = {
+var maintainingFlags = {
   remoteProcessingFlag: false,
   YpCaptchaProcessingFlag: false
 };
-var YpCaptchaInstance = undefined;
+var maintainingObjects = {
+  YpCaptchaInstance: undefined,
+  puzzleShowUpWatcher: undefined
+  /*************************************************************
+  
+               startProcessingLock OPTIONS EXAMPLE
+  
+  **************************************************************
+  
+  {
+  
+    maintainingFlagsInfo: {
+  
+      flagsContainer:maintainingFlags,
+  
+      flagName: 'YpCaptchaProcessingFlag'
+  
+    }
+  
+  }
+  
+  **************************************************************/
 
-function startProcessingLock(flag_name) {
-  if (!flags[flag_name]) {
-    flags[flag_name] = true;
+};
+
+function startProcessingLock(lock_options) {
+  if (!lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
+    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = true;
     return true;
   }
 
   return false;
 }
 
-function stopProcessingLock(flag_name) {
-  if (flags[flag_name]) {
-    flags[flag_name] = false;
+function stopProcessingLock(lock_options) {
+  if (lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
+    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = false;
   }
 }
 
@@ -5344,6 +5363,10 @@ function closeErrorBox(options) {
 
 function changeSubmitButtonText(tabName, text) {
   $("#account_modal .login-register-box ".concat(tabName, " .form-box .button")).text(text);
+}
+
+function changeYpCaptchaButtonText(tabName, text) {
+  $("#account_modal .login-register-box ".concat(tabName, " .form-box .yunpian-captcha .yp-riddler-button .yp-riddler-button_text")).text(text);
 }
 
 function getFilledNetworkErrorsBag(error) {
@@ -5428,7 +5451,12 @@ function getPostUrl(formName) {
 function sendPostRequest(post_options) {
   var computed_field_value = {}; //prevent multiple remote requests before get the result
 
-  if (startProcessingLock('remoteProcessingFlag')) {
+  if (startProcessingLock({
+    maintainingFlagsInfo: {
+      flagsContainer: maintainingFlags,
+      flagName: 'remoteProcessingFlag'
+    }
+  })) {
     $.each(post_options.postFields, function (key, field) {
       var field_input_value;
 
@@ -5444,10 +5472,20 @@ function sendPostRequest(post_options) {
       timeout: post_options.postTimeout
     }).then(function (response) {
       post_options.callbacks.succeeded(response);
-      stopProcessingLock('remoteProcessingFlag');
+      stopProcessingLock({
+        maintainingFlagsInfo: {
+          flagsContainer: maintainingFlags,
+          flagName: 'remoteProcessingFlag'
+        }
+      });
     })["catch"](function (error) {
       post_options.callbacks.failed(error);
-      stopProcessingLock('remoteProcessingFlag');
+      stopProcessingLock({
+        maintainingFlagsInfo: {
+          flagsContainer: maintainingFlags,
+          flagName: 'remoteProcessingFlag'
+        }
+      });
     });
   }
 }
@@ -5493,6 +5531,7 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
               marginTopDistance: '0'
             }
           });
+          console.log(response.data.code);
         }
       }
     }
@@ -5503,7 +5542,7 @@ function initializingYpCaptcha(captcha_mode) {
   if (YpRiddler != undefined) {
     // 初始化云片图片验证码
     var YpCaptcha = new YpRiddler({
-      //过期时间不宜设置过短，不然容易引发异常
+      //过期时间不宜设置过短，不然容易引发异常，单位：秒
       expired: 2,
       mode: captcha_mode,
       winWidth: 334,
@@ -5511,11 +5550,101 @@ function initializingYpCaptcha(captcha_mode) {
       lang: 'zh-cn',
       // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
       // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
+      langPack: {
+        'YPcaptcha_01': '请点击按钮开始验证',
+        'YPcaptcha_02': '请按顺序点击:',
+        'YPcaptcha_03': '向右拖动滑块填充拼图',
+        'YPcaptcha_04': '验证失败，请重试',
+        'YPcaptcha_05': '验证成功'
+      },
       container: document.getElementById('register-yunpian-captcha'),
       appId: '2d797943d96348c8922e375c7c4fbdaa',
       version: 'v1',
+      //when the user clicks on the YpCaptcha button
+      beforeStart: function beforeStart(next) {
+        //Prevent multiple requests before get the result
+        if (startProcessingLock({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'YpCaptchaProcessingFlag'
+          }
+        })) {
+          closeErrorBox({
+            tabName: '.account-register',
+            formBox: {
+              marginTopDistance: '1.5rem'
+            }
+          });
+          changeYpCaptchaButtonText('.account-register', '正在获取拼图...');
+          startRepeater({
+            maintainingObjectsInfo: {
+              objectsContainer: maintainingObjects,
+              objectName: 'puzzleShowUpWatcher'
+            },
+            intervalCallback: function intervalCallback() {
+              //make sure only when the puzzle shows up, the text can be changed
+              if ($('#register-yunpian-captcha .yp-riddler-win-masker').css('display') == 'block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0) {
+                changeYpCaptchaButtonText('.account-register', '请完成拼图');
+                console.log('hello');
+              }
+            },
+            frequency: 100
+          }); //prevent frequent requests in a very short period by the users
+
+          extendHandleTime({
+            extendTime: 1000,
+            extendCallback: function extendCallback() {
+              next();
+            }
+          });
+        }
+      },
+      //when the user clicks on the other areas on the register tab, which makes the puzzle disappear, it's only in effect when the mode is set to 'dialog'
+      onExit: function onExit() {
+        changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
+        clearRepeater({
+          maintainingObjectsInfo: {
+            objectsContainer: maintainingObjects,
+            objectName: 'puzzleShowUpWatcher'
+          }
+        });
+        stopProcessingLock({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'YpCaptchaProcessingFlag'
+          }
+        });
+      },
+      //when the user successfully finishes the puzzle
+      onSuccess: function onSuccess(validInfo, close, useDefaultSuccess) {
+        getVerificationCode(validInfo.token, validInfo.authenticate);
+        useDefaultSuccess(true);
+        close();
+        releaseYpCaptcha();
+        clearRepeater({
+          maintainingObjectsInfo: {
+            objectsContainer: maintainingObjects,
+            objectName: 'puzzleShowUpWatcher'
+          }
+        });
+        stopProcessingLock({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'YpCaptchaProcessingFlag'
+          }
+        });
+      },
+      onFail: function onFail(code, message, retry) {
+        retry();
+        stopProcessingLock({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'YpCaptchaProcessingFlag'
+          }
+        });
+      },
       onError: function onError(param) {
-        $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
+        changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
 
         if (param.code == 429) {
           showErrorBox({
@@ -5525,7 +5654,18 @@ function initializingYpCaptcha(captcha_mode) {
               marginTopDistance: '0'
             }
           });
-          stopProcessingLock('YpCaptchaProcessingFlag');
+          clearRepeater({
+            maintainingObjectsInfo: {
+              objectsContainer: maintainingObjects,
+              objectName: 'puzzleShowUpWatcher'
+            }
+          });
+          stopProcessingLock({
+            maintainingFlagsInfo: {
+              flagsContainer: maintainingFlags,
+              flagName: 'YpCaptchaProcessingFlag'
+            }
+          });
           return;
         }
 
@@ -5535,42 +5675,19 @@ function initializingYpCaptcha(captcha_mode) {
           formBox: {
             marginTopDistance: '0'
           }
-        }); // 异常回调
-        //console.log('验证服务异常，请稍后再试')
-
-        stopProcessingLock('YpCaptchaProcessingFlag');
-      },
-      onSuccess: function onSuccess(validInfo, close, useDefaultSuccess) {
-        //$('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证');
-        // 成功回调
-        useDefaultSuccess(true);
-        getVerificationCode(validInfo.token, validInfo.authenticate);
-        close();
-        YpCaptchaInstance = undefined;
-        stopProcessingLock('YpCaptchaProcessingFlag');
-      },
-      onFail: function onFail(code, msg, retry) {
-        $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证'); // 失败回调
-
-        alert('出错啦：' + msg + ' code: ' + code);
-        retry();
-        stopProcessingLock('YpCaptchaProcessingFlag');
-      },
-      beforeStart: function beforeStart(next) {
-        console.log('验证马上开始');
-
-        if (startProcessingLock('YpCaptchaProcessingFlag')) {
-          $('#register-yunpian-captcha .yp-riddler-button_text').text('正在获取拼图...');
-          setTimeout(function () {
-            next();
-          }, 800);
-        }
-      },
-      onExit: function onExit() {
-        $('#register-yunpian-captcha .yp-riddler-button_text').text('请点击按钮开始验证'); // 退出验证 （仅限dialog模式有效）
-
-        console.log('退出验证');
-        stopProcessingLock('YpCaptchaProcessingFlag');
+        });
+        clearRepeater({
+          maintainingObjectsInfo: {
+            objectsContainer: maintainingObjects,
+            objectName: 'puzzleShowUpWatcher'
+          }
+        });
+        stopProcessingLock({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'YpCaptchaProcessingFlag'
+          }
+        });
       }
     });
     return YpCaptcha;
@@ -5579,8 +5696,114 @@ function initializingYpCaptcha(captcha_mode) {
   }
 }
 
-function stopPuzzleShowUpWatcher() {
-  clearInterval(puzzleShowUpWatcher);
+function extendHandleTime(extend_options) {
+  setTimeout(extend_options.extendCallback, extend_options.extendTime);
+}
+/*************************************************************
+
+       assignValueToMaintainingObjects OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  maintainingObjectsInfo: {
+
+    objectsContainer: maintainingObjects,
+
+    objectName: 'YpCaptchaInstance'
+
+  },
+
+  assginValueFunc: () => {
+
+    return instantiateYpCaptcha('dialog')
+
+  }
+
+}
+
+**************************************************************/
+
+
+function assignValueToMaintainingObjects(assign_options) {
+  assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc();
+}
+/* only when the value of the object is undefined, this function can assign value to this object */
+
+
+function assignValueToMaintainingObjectsOnce(assign_options) {
+  if (assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] == undefined) {
+    assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc();
+  }
+}
+
+function unsetMaintainingObjects(unset_options) {
+  if (unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] != undefined) {
+    unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] = undefined;
+  }
+}
+/*************************************************************
+
+                 startRepeater OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  maintainingObjectsInfo: {
+
+    objectsContainer:maintainingObjects,
+
+    objectName: 'puzzleShowUpWatcher'
+
+  },
+
+  intervalCallback: () => {},
+
+  frequency: 100
+
+}
+
+**************************************************************/
+
+
+function startRepeater(repeat_options) {
+  assignValueToMaintainingObjects({
+    maintainingObjectsInfo: repeat_options.maintainingObjectsInfo,
+    assginValueFunc: function assginValueFunc() {
+      return setInterval(repeat_options.intervalCallback, repeat_options.frequency);
+    }
+  });
+}
+
+function clearRepeater(repeat_options) {
+  clearInterval(repeat_options.maintainingObjectsInfo.objectsContainer[repeat_options.maintainingObjectsInfo.objectName]);
+}
+
+function instantiateYpCaptcha() {
+  assignValueToMaintainingObjectsOnce({
+    maintainingObjectsInfo: {
+      objectsContainer: maintainingObjects,
+      objectName: 'YpCaptchaInstance'
+    },
+    assginValueFunc: function assginValueFunc() {
+      return initializingYpCaptcha('dialog');
+    }
+  });
+}
+
+function releaseYpCaptcha() {
+  unsetMaintainingObjects({
+    maintainingObjectsInfo: {
+      objectsContainer: maintainingObjects,
+      objectName: 'YpCaptchaInstance'
+    }
+  });
+}
+
+function disableActionsOnAccountModal() {
+  $('#account_modal').css('pointer-events', 'none');
 } //submit event for the form on PasswordLoginTab
 
 
@@ -5660,6 +5883,7 @@ $('#account_modal .account-login .password.login.form').submit(function (event) 
             },
             succeeded: function succeeded(response) {
               if (response.data.success) {
+                disableActionsOnAccountModal();
                 location.reload();
                 setTimeout(function () {
                   alert('reload');
@@ -5776,7 +6000,7 @@ $('#account_modal .account-register .register.form').submit(function (event) {
                 location.reload();
                 setTimeout(function () {
                   alert('reload');
-                  location.reload(); //showingErrorBox('.password-login', [['登录卡住了？请刷新此页面。']])
+                  location.reload();
                 }, 4000);
               } else {
                 showErrorBox({
@@ -5796,7 +6020,7 @@ $('#account_modal .account-register .register.form').submit(function (event) {
   });
 }); //click event for the ‘get phone code’ button on AccountRegisterTab
 
-$('#account_modal .account-register .get-phone-code a').click(function (event) {
+$('#account_modal .account-register .get-phone-code .link').click(function (event) {
   Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["validateForm"])({
     targetForm: $('#account_modal .account-register'),
     fields: {
@@ -5827,17 +6051,7 @@ $('#account_modal .account-register .get-phone-code a').click(function (event) {
             marginTopDistance: '1.5rem'
           }
         });
-
-        if (YpCaptchaInstance == undefined) {
-          YpCaptchaInstance = initializingYpCaptcha('dialog');
-
-          var _puzzleShowUpWatcher = setInterval(function () {
-            if ($('#register-yunpian-captcha .yp-riddler-win-masker').css('display') == 'block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0) {
-              $('#register-yunpian-captcha .yp-riddler-button_text').text('请完成拼图');
-            }
-          }, 100);
-        } //显示云片验证码提示框
-
+        instantiateYpCaptcha(); //显示云片验证码提示框
 
         $('#account_modal .login-register-box .content .yunpian-captcha').css({
           'order': '0',
@@ -6255,11 +6469,12 @@ function validateForm(validation_options) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! objectFitPolyfill */ "./node_modules/objectFitPolyfill/dist/objectFitPolyfill.min.js");
-/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(objectFitPolyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _accountModal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./accountModal */ "./resources/js/index/accountModal.js");
-/* harmony import */ var _searchBar__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./searchBar */ "./resources/js/index/searchBar.js");
-/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./sidebar */ "./resources/js/index/sidebar.js");
+/* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _detectBrowsers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./detectBrowsers */ "./resources/js/index/detectBrowsers.js");
+/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! objectFitPolyfill */ "./node_modules/objectFitPolyfill/dist/objectFitPolyfill.min.js");
+/* harmony import */ var objectFitPolyfill__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(objectFitPolyfill__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _accountModal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./accountModal */ "./resources/js/index/accountModal.js");
+/* harmony import */ var _searchBar__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./searchBar */ "./resources/js/index/searchBar.js");
+/* harmony import */ var _sidebar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./sidebar */ "./resources/js/index/sidebar.js");
 /*****************************************************************************************************************************
 
                                                         Header
@@ -6269,12 +6484,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /** Providing the dropdown functionality when clicking on the avatar icon **/
 
 $('#header .right.menu .authentication-links .avatar-container .ui.avatar.dropdown').dropdown({
   transition: 'fade'
 });
+/** sovle the problem that clicking on the items of the drowpdown menu will casue the doropdown menu to hide and show agagin in IE 11 browsers **/
+
+if (_detectBrowsers__WEBPACK_IMPORTED_MODULE_0__["isIE11"]) {
+  $('#header .right.menu .authentication-links .avatar-container .ui.avatar.dropdown .menu').click(function (event) {
+    $(document.activeElement).blur();
+  });
+}
 /** Animation effect **/
+
 
 $('#header .avatar.dropdown .menu a.item, #header .avatar.dropdown .menu .button').hover(function (event) {
   $(event.currentTarget.children[0]).transition('tada');
@@ -14021,9 +14245,9 @@ function trimOneCharacterFromEdges(trimmingStrs) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/js/index/main.js */"./resources/js/index/main.js");
-__webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/sass/index/main.scss */"./resources/sass/index/main.scss");
-module.exports = __webpack_require__(/*! /Users/wangjue/Sites/workbition/resources/sass/editor.scss */"./resources/sass/editor.scss");
+__webpack_require__(/*! /home/vagrant/Code/workbition/resources/js/index/main.js */"./resources/js/index/main.js");
+__webpack_require__(/*! /home/vagrant/Code/workbition/resources/sass/index/main.scss */"./resources/sass/index/main.scss");
+module.exports = __webpack_require__(/*! /home/vagrant/Code/workbition/resources/sass/editor.scss */"./resources/sass/editor.scss");
 
 
 /***/ })

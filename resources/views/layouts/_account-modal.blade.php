@@ -126,7 +126,7 @@
                     <input type="text" name="phoneCode" placeholder="短信验证码">
                   </section>
                   <section class="get-phone-code">
-                    <a>获取短信验证码</a>
+                    <a class="link">获取短信验证码</a>
                   </section>
                 </section>
 
@@ -236,7 +236,7 @@
 
               <section class="get-phone-code">
 
-                <a>获取短信验证码</a>
+                <a class="link">获取短信验证码</a>
 
               </section>
 

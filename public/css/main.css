@@ -663,7 +663,9 @@ body.dimmed.dimmable {
 }
 
 #account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slider-area .yp-riddler-slider-tip-default,
-#account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slider-area .yp-riddler-slider-tip-default {
+#account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slider-area .yp-riddler-slider-tip-error,
+#account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slider-area .yp-riddler-slider-tip-default,
+#account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slider-area .yp-riddler-slider-tip-error {
   font-size: 1rem !important;
   padding-left: 4.286rem !important;
 }

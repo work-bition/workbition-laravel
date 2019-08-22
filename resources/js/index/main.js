@@ -26,4 +26,4 @@ $(document).ready(function() {
   //Chrome和Firefox无法正常显示
   //$('body > svg > symbol').removeAttr('viewBox')
 
-});
+})
