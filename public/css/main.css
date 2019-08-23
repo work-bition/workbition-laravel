@@ -633,6 +633,7 @@ body.dimmed.dimmable {
 
 #account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button,
 #account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button {
+  border-radius: 10rem;
   /** Compatible for IE 11 browser **/
   /** make the Yunpian Puzzle show in the correct posision **/
 }
@@ -679,6 +680,16 @@ body.dimmed.dimmable {
 #account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-mark,
 #account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-mark {
   display: none;
+}
+
+#account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-button-sucButton_logo,
+#account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-button-sucButton_logo {
+  display: none;
+}
+
+#account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-button-sucButton_text,
+#account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-button-sucButton_text {
+  margin-left: 0;
 }
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {

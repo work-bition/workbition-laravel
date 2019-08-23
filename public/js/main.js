@@ -5260,7 +5260,9 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 var maintainingFlags = {
   remoteProcessingFlag: false,
-  YpCaptchaProcessingFlag: false
+  YpCaptchaProcessingFlag: false,
+  YpCaptchaButtonShowingFlag: false,
+  YpCaptchaButtonShownFlag: false
 };
 var maintainingObjects = {
   YpCaptchaInstance: undefined,
@@ -5620,6 +5622,14 @@ function initializingYpCaptcha(captcha_mode) {
         getVerificationCode(validInfo.token, validInfo.authenticate);
         useDefaultSuccess(true);
         close();
+        $('#register-yunpian-captcha').fadeOut(1000, function () {
+          $('#register-yunpian-captcha').css({
+            'order': '1',
+            'display': 'block',
+            'visibility': 'hidden'
+          });
+          maintainingFlags.YpCaptchaButtonShownFlag = false;
+        });
         releaseYpCaptcha();
         clearRepeater({
           maintainingObjectsInfo: {
@@ -6051,12 +6061,31 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
             marginTopDistance: '1.5rem'
           }
         });
-        instantiateYpCaptcha(); //显示云片验证码提示框
+        instantiateYpCaptcha(); //prevent multiple remote requests before get the result
 
-        $('#account_modal .login-register-box .content .yunpian-captcha').css({
-          'order': '0',
-          'visibility': 'visible'
-        }); //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+        if (startProcessingLock({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'YpCaptchaButtonShowingFlag'
+          }
+        }) && !maintainingFlags.YpCaptchaButtonShownFlag) {
+          //显示云片验证码提示框
+          $('#register-yunpian-captcha').css({
+            'order': '0',
+            'display': 'none',
+            'visibility': 'visible'
+          });
+          $('#register-yunpian-captcha').fadeIn(1000, function () {
+            maintainingFlags.YpCaptchaButtonShownFlag = true;
+            stopProcessingLock({
+              maintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'YpCaptchaButtonShowingFlag'
+              }
+            });
+          });
+        } //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+
 
         var transitionMode;
 
@@ -6072,12 +6101,14 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
           duration: '0.5s',
           onStart: function onStart() {
             //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
-            //unless display is set to block or inline-block, or position is set to absolute or fixed.
+            //unless display is set to block or inline-block, or position is set to absolute or fixed
+            //prevent the animation repeats before it ends
             $(event.currentTarget).css('pointer-events', 'none');
           },
           onComplete: function onComplete() {
             //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
-            //unless display is set to block or inline-block, or position is set to absolute or fixed.
+            //unless display is set to block or inline-block, or position is set to absolute or fixed
+            //prevent the animation repeats before it ends
             $(event.currentTarget).css('pointer-events', 'all');
           }
         });

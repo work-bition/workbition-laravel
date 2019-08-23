@@ -12,7 +12,9 @@
 
   .yp-riddler.yp-dialog.yp-riddler-button {
 
-    .yp-riddler-win-masker.dialog{
+    border-radius: 10rem;
+
+    .yp-riddler-win-masker.dialog {
 
         background: transparent;
 
@@ -61,6 +63,18 @@
           }
 
         }
+
+    }
+
+    .yp-riddler-button-sucButton_logo {
+
+      display: none;
+
+    }
+
+    .yp-riddler-button-sucButton_text {
+
+      margin-left: 0;
 
     }
 
