@@ -9,15 +9,21 @@ import { validateForm } from './formValidation'
 
 import { isiOS, isSafari, isIE11 } from './detectBrowsers'
 
-import axios from 'axios'
+import { enableFlashEffect } from './effects'
+
+import { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
+
+         getNetworkRelatedErrorsBag, extendHandleTime, assignValueToMaintainingObjects,
+
+         assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater,
+
+         clearRepeater } from './network'
 
 /*****************************************************************************************************************************
 
-                        header - account modal
+                                            Initializing Account Modal
 
 *****************************************************************************************************************************/
-
-
 
 /** Clone Some Html Codes for Reducing the Page Size **/
 /** Cloning the benifits bar, third login and register link section into account login and account register section where necessary **/
@@ -160,7 +166,11 @@ let maintainingFlags = {
 
   YpCaptchaButtonShowingFlag : false,
 
-  YpCaptchaButtonShownFlag : false
+  YpCaptchaButtonShownFlag : false,
+
+  YpCaptchaButtonTextFlashingFlag: false,
+
+  YpCaptchaSuccessButtonShownFlag: false
 
 }
 
@@ -172,49 +182,339 @@ let maintainingObjects = {
 
 }
 
-/*************************************************************
+let YpCaptchaInitializingOptions = {
 
-             startProcessingLock OPTIONS EXAMPLE
+      //过期时间不宜设置过短，不然容易引发异常，单位：秒
+      expired: 5,
 
-**************************************************************
+      mode: 'dialog',
 
-{
+      winWidth: 334,
 
-  maintainingFlagsInfo: {
+      noButton: false,
 
-    flagsContainer:maintainingFlags,
+      lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
+      // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
 
-    flagName: 'YpCaptchaProcessingFlag'
+      langPack: {
+
+        'YPcaptcha_01': '请点击按钮开始验证',
+
+        'YPcaptcha_02': '请按顺序点击:',
+
+        'YPcaptcha_03': '向右拖动滑块填充拼图',
+
+        'YPcaptcha_04': '验证失败，请重试',
+
+        'YPcaptcha_05': '验证成功'
+      },
+
+      container: document.getElementById('register-yunpian-captcha'),
+
+      appId: '2d797943d96348c8922e375c7c4fbdaa',
+
+      version: 'v1',
+
+      //when the user clicks on the YpCaptcha button
+      beforeStart: function (next) {
+
+          //Prevent multiple requests before get the result
+          if (startProcessingLock({
+
+            maintainingFlagsInfo: {
+
+              flagsContainer:maintainingFlags,
+
+              flagName: 'YpCaptchaProcessingFlag'
+
+            }
+
+          })) {
+
+            closeErrorBox({
+
+              tabName: '.account-register',
+
+              formBox: {
+
+                marginTopDistance: '1.5rem'
+
+              }
+
+            })
+
+            changeYpCaptchaButtonText('.account-register', '正在获取拼图...')
+
+            startRepeater({
+
+              maintainingObjectsInfo: {
+
+                objectsContainer:maintainingObjects,
+
+                objectName: 'puzzleShowUpWatcher'
+
+              },
+
+              intervalCallback: () => {
+
+                  //make sure only when the puzzle shows up, the text can be changed
+                  if($('#register-yunpian-captcha .yp-riddler-win-masker').css('display')=='block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0){
+
+                    changeYpCaptchaButtonText('.account-register', '请完成拼图')
+
+                    console.log('hello')
+
+                  }
+
+              },
+
+              frequency: 100
+
+            })
+
+            //prevent frequent requests in a very short period by the users
+            extendHandleTime({
+
+              extendTime: 1000,
+
+              extendCallback: () => {
+
+                next()
+
+              }
+
+            })
+
+          }
+
+      },
+
+      //when the user clicks on the other areas on the register tab, which makes the puzzle disappear, it's only in effect when the mode is set to 'dialog'
+      onExit: function () {
+
+          changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证')
+
+          clearRepeater({
+
+            maintainingObjectsInfo: {
+
+              objectsContainer:maintainingObjects,
+
+              objectName: 'puzzleShowUpWatcher'
+
+            }
+
+          })
+
+          stopProcessingLock({
+
+            maintainingFlagsInfo: {
+
+              flagsContainer:maintainingFlags,
+
+              flagName: 'YpCaptchaProcessingFlag'
+
+            }
+
+          })
+
+      },
+
+      //when the user successfully finishes the puzzle
+      onSuccess: function (validInfo, close, useDefaultSuccess) {
+
+          getVerificationCode(validInfo.token, validInfo.authenticate)
+
+          useDefaultSuccess(true)
+
+          close()
+
+          //flagName: 'YpCaptchaSuccessButtonShownFlag'
+          if (startProcessingLock({
+
+              maintainingFlagsInfo: {
+
+                flagsContainer:maintainingFlags,
+
+                flagName: 'YpCaptchaSuccessButtonShownFlag'
+
+              }
+
+            })) {
+
+              hideYpCaptchaButton({
+
+                YpCaptchaButtonID: '#register-yunpian-captcha',
+
+                hidingTime: 1000,
+
+                hiddenCallback: () => {
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:maintainingFlags,
+
+                      flagName: 'YpCaptchaSuccessButtonShownFlag'
+
+                    }
+
+                  })
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:maintainingFlags,
+
+                      flagName: 'YpCaptchaButtonShownFlag'
+
+                    }
+
+                  })
+
+                }
+
+              })
+
+          }
+
+          releaseYpCaptcha()
+
+          clearRepeater({
+
+            maintainingObjectsInfo: {
+
+              objectsContainer:maintainingObjects,
+
+              objectName: 'puzzleShowUpWatcher'
+
+            }
+
+          })
+
+          stopProcessingLock({
+
+            maintainingFlagsInfo: {
+
+              flagsContainer:maintainingFlags,
+
+              flagName: 'YpCaptchaProcessingFlag'
+
+            }
+
+          })
+
+      },
+
+      onFail: function (code, message, retry) {
+
+          retry()
+
+          stopProcessingLock({
+
+            maintainingFlagsInfo: {
+
+              flagsContainer:maintainingFlags,
+
+              flagName: 'YpCaptchaProcessingFlag'
+
+            }
+
+          })
+
+      },
+
+      onError: function (param) {
+
+        changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证')
+
+        if (param.code == 429) {
+
+            showErrorBox({
+
+              tabName: '.account-register',
+
+              errorsBag: [['请求过于频繁，请稍后再试']],
+
+              formBox: {
+
+                marginTopDistance: '0'
+
+              }
+
+            })
+
+            clearRepeater({
+
+              maintainingObjectsInfo: {
+
+                objectsContainer:maintainingObjects,
+
+                objectName: 'puzzleShowUpWatcher'
+
+              }
+
+            })
+
+            stopProcessingLock({
+
+              maintainingFlagsInfo: {
+
+                flagsContainer:maintainingFlags,
+
+                flagName: 'YpCaptchaProcessingFlag'
+
+              }
+
+            })
+
+            return
+
+        }
+
+        showErrorBox({
+
+          tabName: '.account-register',
+
+          errorsBag: [['验证服务异常，请稍后再试']],
+
+          formBox: {
+
+            marginTopDistance: '0'
+
+          }
+
+        })
+
+        clearRepeater({
+
+          maintainingObjectsInfo: {
+
+            objectsContainer:maintainingObjects,
+
+            objectName: 'puzzleShowUpWatcher'
+
+          }
+
+        })
+
+        stopProcessingLock({
+
+          maintainingFlagsInfo: {
+
+            flagsContainer:maintainingFlags,
+
+            flagName: 'YpCaptchaProcessingFlag'
+
+          }
+
+        })
+
+      }
 
   }
-
-}
-
-**************************************************************/
-
-function startProcessingLock(lock_options) {
-
-  if (!lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
-
-    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = true
-
-    return true
-
-  }
-
-  return false
-
-}
-
-function stopProcessingLock(lock_options) {
-
-  if (lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
-
-    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = false
-
-  }
-
-}
 
 function error_box_toggler(formName, benifits_bar_style, error_box_style){
 
@@ -240,6 +540,7 @@ function createErrorItems(errors, itemElement, container){
 
 }
 
+//errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
 function showingErrorBox(tabName, errorsBag){
 
   error_box_toggler(tabName, 'none', 'block')
@@ -304,44 +605,9 @@ function changeSubmitButtonText(tabName, text){
 
 }
 
-function changeYpCaptchaButtonText(tabName, text){
+function disableAllActionsOnAccountModal() {
 
-  $(`#account_modal .login-register-box ${tabName} .form-box .yunpian-captcha .yp-riddler-button .yp-riddler-button_text`).text(text)
-
-}
-
-function getFilledNetworkErrorsBag(error){
-
-  let errorsBag = []
-
-  let globalErrors = []
-
-  if (error.response) {
-
-    // The request was made and the server responded with a status code
-    globalErrors.push(`服务器返回 ${error.response.status} 错误，请稍后再试`)
-
-  }
-
-  else if (error.request) {
-
-    // The request was made but no response was received
-    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-    // http.ClientRequest in node.js
-    globalErrors.push('网络连接错误，请稍后再试')
-
-  }
-
-  else {
-
-    // Something happened in setting up the request that triggered an Error
-    globalErrors.push('在发起请求时出现错误，请稍后再试')
-
-  }
-
-  errorsBag.push(globalErrors)
-
-  return errorsBag
+  $('#account_modal').css('pointer-events', 'none')
 
 }
 
@@ -351,222 +617,67 @@ function getPostUrl(formName){
 
 }
 
-/*************************************************************
-
-            sendPostRequest OPTIONS EXAMPLE
-
-**************************************************************
-
-{
-
-  postUrl: getPostUrl('.account-register'),
-
-  targetForm: $('#account_modal .account-login .password-login'),
-
-  postFields: {
-
-    phone:  {
-
-      type: 'element',
-
-      literalValue: 'input[name=phone]'
-
-    },
-
-    captcha_token: {
-
-      type: 'parameter',
-
-      literalValue:  captcha_token
-
-    },
-
-    captcha_authenticate: {
-
-      type: 'parameter',
-
-      literalValue:  captcha_authenticate
-
-    },
-
-  },
-
-  postTimeout: 8000
-
-  callbacks: {
-
-    failed: (error) => {},
-
-    succeeded: (response) =>{}
-
-  }
-
-}
-
-**************************************************************/
-
-function sendPostRequest(post_options){
-
-  let computed_field_value = {}
-
-  //prevent multiple remote requests before get the result
-  if (startProcessingLock({
-
-      maintainingFlagsInfo: {
-
-        flagsContainer:maintainingFlags,
-
-        flagName: 'remoteProcessingFlag'
-
-      }
-
-    })) {
-
-    $.each(post_options.postFields, function(key, field) {
-
-      let field_input_value
-
-      if (field.type == 'element') {
-
-        field_input_value = post_options.targetForm.find(field.literalValue).val()
-
-      }
-
-      else if (field.type == 'parameter') {
-
-        field_input_value = field.literalValue
-
-      }
-
-      computed_field_value[key] = field_input_value
-
-    })
-
-    axios.post(post_options.postUrl, computed_field_value,
-
-    {
-
-      timeout: post_options.postTimeout
-
-    })
-
-    .then((response) => {
-
-      post_options.callbacks.succeeded(response)
-
-      stopProcessingLock({
-
-        maintainingFlagsInfo: {
-
-          flagsContainer:maintainingFlags,
-
-          flagName: 'remoteProcessingFlag'
-
-        }
-
-      })
-
-    })
-
-    .catch((error) => {
-
-      post_options.callbacks.failed(error)
-
-      stopProcessingLock({
-
-        maintainingFlagsInfo: {
-
-          flagsContainer:maintainingFlags,
-
-          flagName: 'remoteProcessingFlag'
-
-        }
-
-      })
-
-    })
-
-  }
-
-}
-
 function getVerificationCode(captcha_token, captcha_authenticate){
 
-  sendPostRequest({
+  if (startProcessingLock({
 
-       postUrl: getPostUrl('.account-register'),
+    maintainingFlagsInfo: {
 
-       targetForm: $('#account_modal .account-register'),
+      flagsContainer:maintainingFlags,
 
-       postFields: {
+      flagName: 'remoteProcessingFlag'
 
-         phone: {
+    }
 
-           type: 'element',
+  })) {
 
-           literalValue: 'input[name=phone]'
+    sendPostRequest({
 
-         },
+         postUrl: getPostUrl('.account-register'),
 
-         captcha_token: {
+         targetForm: $('#account_modal .account-register'),
 
-           type: 'parameter',
+         postFields: {
 
-           literalValue: captcha_token
+           phone: {
 
-         },
+             type: 'element',
 
-         captcha_authenticate: {
+             literalValue: 'input[name=phone]'
 
-           type: 'parameter',
+           },
 
-           literalValue: captcha_authenticate
+           captcha_token: {
 
-         }
+             type: 'parameter',
 
-       },
+             literalValue: captcha_token
 
-       postTimeout: 8000,
+           },
 
-       callbacks: {
+           captcha_authenticate: {
 
-         failed: (error) => {
+             type: 'parameter',
 
-           let errorsBag = getFilledNetworkErrorsBag(error)
-
-           showErrorBox({
-
-             tabName: '.account-register',
-
-             errorsBag: errorsBag,
-
-             formBox: {
-
-               marginTopDistance: '0'
-
-             }
-
-           })
-
-         },
-
-         succeeded: (response) => {
-
-           if (response.data.success) {
-
-             console.log(response.data)
-
-             //window.location.href = location.href
+             literalValue: captcha_authenticate
 
            }
 
-           else {
+         },
+
+         postTimeout: 8000,
+
+         callbacks: {
+
+           failed: (error) => {
+
+             let errorsBag = getNetworkRelatedErrorsBag(error)
 
              showErrorBox({
 
                tabName: '.account-register',
 
-               errorsBag: response.data.errors,
+               errorsBag: errorsBag,
 
                formBox: {
 
@@ -576,313 +687,116 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
              })
 
-             console.log(response.data.code)
+             stopProcessingLock({
+
+               maintainingFlagsInfo: {
+
+                 flagsContainer:maintainingFlags,
+
+                 flagName: 'remoteProcessingFlag'
+
+               }
+
+             })
+
+           },
+
+           succeeded: (response) => {
+
+             if (response.data.success) {
+
+               console.log(response.data)
+
+               //window.location.href = location.href
+
+               stopProcessingLock({
+
+                 maintainingFlagsInfo: {
+
+                   flagsContainer:maintainingFlags,
+
+                   flagName: 'remoteProcessingFlag'
+
+                 }
+
+               })
+
+             }
+
+             else {
+
+               showErrorBox({
+
+                 tabName: '.account-register',
+
+                 errorsBag: response.data.errors,
+
+                 formBox: {
+
+                   marginTopDistance: '0'
+
+                 }
+
+               })
+
+               console.log(response.data.code)
+
+               stopProcessingLock({
+
+                 maintainingFlagsInfo: {
+
+                   flagsContainer:maintainingFlags,
+
+                   flagName: 'remoteProcessingFlag'
+
+                 }
+
+               })
+
+             }
 
            }
 
          }
 
-       }
+       })
 
-     })
+  }
 
 }
 
-function initializingYpCaptcha(captcha_mode) {
+function refreshCurrentUrl() {
+
+  location.reload()
+
+  extendHandleTime({
+
+    extendTime: 4000,
+
+    extendCallback: () => {
+
+      alert('reload')
+
+      location.reload()
+
+    }
+
+  })
+
+}
+
+/*****************************************************************************************************************************
+
+                                YpCaptcha Related - AJAX Login and Register
+
+******************************************************************************************************************************/
+
+function initializingYpCaptcha() {
 
   if (YpRiddler != undefined) {
 
     // 初始化云片图片验证码
-    let YpCaptcha =  new YpRiddler({
-
-          //过期时间不宜设置过短，不然容易引发异常，单位：秒
-          expired: 2,
-
-          mode: captcha_mode,
-
-          winWidth: 334,
-
-          noButton: false,
-
-          lang: 'zh-cn', // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
-          // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
-
-          langPack: {
-
-            'YPcaptcha_01': '请点击按钮开始验证',
-
-            'YPcaptcha_02': '请按顺序点击:',
-
-            'YPcaptcha_03': '向右拖动滑块填充拼图',
-
-            'YPcaptcha_04': '验证失败，请重试',
-
-            'YPcaptcha_05': '验证成功'
-          },
-
-          container: document.getElementById('register-yunpian-captcha'),
-
-          appId: '2d797943d96348c8922e375c7c4fbdaa',
-
-          version: 'v1',
-
-          //when the user clicks on the YpCaptcha button
-          beforeStart: function (next) {
-
-              //Prevent multiple requests before get the result
-              if (startProcessingLock({
-
-                maintainingFlagsInfo: {
-
-                  flagsContainer:maintainingFlags,
-
-                  flagName: 'YpCaptchaProcessingFlag'
-
-                }
-
-              })) {
-
-                closeErrorBox({
-
-                  tabName: '.account-register',
-
-                  formBox: {
-
-                    marginTopDistance: '1.5rem'
-
-                  }
-
-                })
-
-                changeYpCaptchaButtonText('.account-register', '正在获取拼图...')
-
-                startRepeater({
-
-                  maintainingObjectsInfo: {
-
-                    objectsContainer:maintainingObjects,
-
-                    objectName: 'puzzleShowUpWatcher'
-
-                  },
-
-                  intervalCallback: () => {
-
-                      //make sure only when the puzzle shows up, the text can be changed
-                      if($('#register-yunpian-captcha .yp-riddler-win-masker').css('display')=='block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0){
-
-                        changeYpCaptchaButtonText('.account-register', '请完成拼图')
-
-                        console.log('hello')
-
-                      }
-
-                  },
-
-                  frequency: 100
-
-                })
-
-                //prevent frequent requests in a very short period by the users
-                extendHandleTime({
-
-                  extendTime: 1000,
-
-                  extendCallback: () => {
-
-                    next()
-
-                  }
-
-                })
-
-              }
-
-          },
-
-          //when the user clicks on the other areas on the register tab, which makes the puzzle disappear, it's only in effect when the mode is set to 'dialog'
-          onExit: function () {
-
-              changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证')
-
-              clearRepeater({
-
-                maintainingObjectsInfo: {
-
-                  objectsContainer:maintainingObjects,
-
-                  objectName: 'puzzleShowUpWatcher'
-
-                }
-
-              })
-
-              stopProcessingLock({
-
-                maintainingFlagsInfo: {
-
-                  flagsContainer:maintainingFlags,
-
-                  flagName: 'YpCaptchaProcessingFlag'
-
-                }
-
-              })
-
-          },
-
-          //when the user successfully finishes the puzzle
-          onSuccess: function (validInfo, close, useDefaultSuccess) {
-
-              getVerificationCode(validInfo.token, validInfo.authenticate)
-
-              useDefaultSuccess(true)
-
-              close()
-
-              $('#register-yunpian-captcha').fadeOut(1000, function() {
-
-                $('#register-yunpian-captcha').css({'order': '1', 'display' : 'block', 'visibility': 'hidden'})
-
-                maintainingFlags.YpCaptchaButtonShownFlag = false
-
-              })
-
-              releaseYpCaptcha()
-
-              clearRepeater({
-
-                maintainingObjectsInfo: {
-
-                  objectsContainer:maintainingObjects,
-
-                  objectName: 'puzzleShowUpWatcher'
-
-                }
-
-              })
-
-              stopProcessingLock({
-
-                maintainingFlagsInfo: {
-
-                  flagsContainer:maintainingFlags,
-
-                  flagName: 'YpCaptchaProcessingFlag'
-
-                }
-
-              })
-
-          },
-
-          onFail: function (code, message, retry) {
-
-              retry()
-
-              stopProcessingLock({
-
-                maintainingFlagsInfo: {
-
-                  flagsContainer:maintainingFlags,
-
-                  flagName: 'YpCaptchaProcessingFlag'
-
-                }
-
-              })
-
-          },
-
-          onError: function (param) {
-
-            changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证')
-
-            if (param.code == 429) {
-
-                showErrorBox({
-
-                  tabName: '.account-register',
-
-                  errorsBag: [['请求过于频繁，请稍后再试']],
-
-                  formBox: {
-
-                    marginTopDistance: '0'
-
-                  }
-
-                })
-
-                clearRepeater({
-
-                  maintainingObjectsInfo: {
-
-                    objectsContainer:maintainingObjects,
-
-                    objectName: 'puzzleShowUpWatcher'
-
-                  }
-
-                })
-
-                stopProcessingLock({
-
-                  maintainingFlagsInfo: {
-
-                    flagsContainer:maintainingFlags,
-
-                    flagName: 'YpCaptchaProcessingFlag'
-
-                  }
-
-                })
-
-                return
-
-            }
-
-            showErrorBox({
-
-              tabName: '.account-register',
-
-              errorsBag: [['验证服务异常，请稍后再试']],
-
-              formBox: {
-
-                marginTopDistance: '0'
-
-              }
-
-            })
-
-            clearRepeater({
-
-              maintainingObjectsInfo: {
-
-                objectsContainer:maintainingObjects,
-
-                objectName: 'puzzleShowUpWatcher'
-
-              }
-
-            })
-
-            stopProcessingLock({
-
-              maintainingFlagsInfo: {
-
-                flagsContainer:maintainingFlags,
-
-                flagName: 'YpCaptchaProcessingFlag'
-
-              }
-
-            })
-
-          }
-
-      })
+    let YpCaptcha =  new YpRiddler(YpCaptchaInitializingOptions)
 
     return YpCaptcha
 
@@ -893,117 +807,6 @@ function initializingYpCaptcha(captcha_mode) {
     return undefined
 
   }
-
-}
-
-function extendHandleTime(extend_options){
-
-  setTimeout(extend_options.extendCallback, extend_options.extendTime)
-
-}
-
-/*************************************************************
-
-       assignValueToMaintainingObjects OPTIONS EXAMPLE
-
-**************************************************************
-
-{
-
-  maintainingObjectsInfo: {
-
-    objectsContainer: maintainingObjects,
-
-    objectName: 'YpCaptchaInstance'
-
-  },
-
-  assginValueFunc: () => {
-
-    return instantiateYpCaptcha('dialog')
-
-  }
-
-}
-
-**************************************************************/
-
-function assignValueToMaintainingObjects(assign_options){
-
-    assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc()
-
-}
-
-/* only when the value of the object is undefined, this function can assign value to this object */
-function assignValueToMaintainingObjectsOnce(assign_options){
-
-  if (assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] == undefined) {
-
-    assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc()
-
-  }
-
-}
-
-function unsetMaintainingObjects(unset_options){
-
-  if (unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] != undefined) {
-
-    unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] = undefined
-
-  }
-
-}
-
-/*************************************************************
-
-                 startRepeater OPTIONS EXAMPLE
-
-**************************************************************
-
-{
-
-  maintainingObjectsInfo: {
-
-    objectsContainer:maintainingObjects,
-
-    objectName: 'puzzleShowUpWatcher'
-
-  },
-
-  intervalCallback: () => {},
-
-  frequency: 100
-
-}
-
-**************************************************************/
-
-function startRepeater(repeat_options) {
-
-  assignValueToMaintainingObjects({
-
-    maintainingObjectsInfo: repeat_options.maintainingObjectsInfo,
-
-    assginValueFunc: () => {
-
-      return setInterval(
-
-        repeat_options.intervalCallback,
-
-        repeat_options.frequency
-
-      )
-
-    }
-
-  })
-
-}
-
-function clearRepeater(repeat_options) {
-
-  clearInterval(repeat_options.maintainingObjectsInfo.objectsContainer[repeat_options.maintainingObjectsInfo.objectName])
 
 }
 
@@ -1021,7 +824,7 @@ function instantiateYpCaptcha(){
 
     assginValueFunc: () => {
 
-      return initializingYpCaptcha('dialog')
+      return initializingYpCaptcha()
 
     }
 
@@ -1045,9 +848,196 @@ function releaseYpCaptcha(){
 
 }
 
-function disableActionsOnAccountModal() {
+/*************************************************************
 
-  $('#account_modal').css('pointer-events', 'none')
+             showYpCaptchaButton OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  YpCaptchaButtonID: '#register-yunpian-captcha',
+
+  showingTime: 1000,
+
+  shownCallback: () => {
+
+    stopProcessingLock({
+
+      maintainingFlagsInfo: {
+
+        flagsContainer:maintainingFlags,
+
+        flagName: 'YpCaptchaButtonShowingFlag'
+
+      }
+
+    })
+
+  }
+
+}
+
+**************************************************************/
+
+function showYpCaptchaButton(show_button_options){
+
+  //showing the YpCaptchaButton
+  $(show_button_options.YpCaptchaButtonID).css({'order': '0','display':'none', 'visibility': 'visible'})
+
+  $(show_button_options.YpCaptchaButtonID).fadeIn(show_button_options.showingTime, show_button_options.shownCallback)
+
+}
+
+/*************************************************************
+
+             hideYpCaptchaButton OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  YpCaptchaButtonID: '#register-yunpian-captcha',
+
+  hidingTime: 1000,
+
+  hiddenCallback: () => {
+
+    stopProcessingLock({
+
+      maintainingFlagsInfo: {
+
+        flagsContainer:maintainingFlags,
+
+        flagName: 'YpCaptchaButtonShowingFlag'
+
+      }
+
+    })
+
+  }
+
+}
+
+**************************************************************/
+
+function hideYpCaptchaButton(hide_button_options){
+
+  //hiding the YpCaptchaButton
+  $(hide_button_options.YpCaptchaButtonID).fadeOut(hide_button_options.hidingTime, () => {
+
+    $(hide_button_options.YpCaptchaButtonID).css({'order': '1', 'display' : 'block', 'visibility': 'hidden'})
+
+    hide_button_options.hiddenCallback()
+
+  })
+
+}
+
+function changeYpCaptchaButtonText(tabName, text){
+
+  $(`#account_modal .login-register-box ${tabName} .form-box .yunpian-captcha .yp-riddler-button .yp-riddler-button_text`).text(text)
+
+}
+
+/*************************************************************
+
+       makeYpCaptchaButtonTextFlash OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  YpCaptchaButtonID: '#register-yunpian-captcha',
+
+  effectDuration: 800,
+
+  callbacks : {
+
+    beforeEffect: () => {
+
+    },
+
+    afterEffect: () => {
+
+    }
+
+  }
+
+}
+
+**************************************************************/
+
+function makeYpCaptchaButtonTextFlash(flash_effect_options){
+
+  //prevent multiple request before get the result
+  if (startProcessingLock({
+
+      maintainingFlagsInfo: {
+
+        flagsContainer:maintainingFlags,
+
+        flagName: 'YpCaptchaButtonTextFlashingFlag'
+
+      }
+
+    })) {
+
+    //except for 'glow' option, other options in transition in Semantic UI will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+    //so we do not use transition in SUI and we realize the same function by ourselves
+    enableFlashEffect({
+
+        targetElement: $(`${flash_effect_options.YpCaptchaButtonID} .yp-riddler-button .yp-riddler-button_text`),
+
+        effectDuration: flash_effect_options.effectDuration,
+
+        targetOriginalDisplayType: 'inline-block',
+
+        flashTimes: 2,
+
+        callbacks: {
+
+          beforeEffect: () => {
+
+            flash_effect_options.callbacks.beforeEffect()
+
+          },
+
+          afterEffect: () => {
+
+            flash_effect_options.callbacks.afterEffect()
+
+            stopProcessingLock({
+
+              maintainingFlagsInfo: {
+
+                flagsContainer:maintainingFlags,
+
+                flagName: 'YpCaptchaButtonTextFlashingFlag'
+
+              }
+
+            })
+
+          }
+
+        }
+
+      })
+
+  }
+
+}
+
+function isYpCaptchaButtonShown() {
+
+  if (maintainingFlags.YpCaptchaButtonShowingFlag == false && maintainingFlags.YpCaptchaButtonShownFlag == true && maintainingFlags.YpCaptchaSuccessButtonShownFlag == false) {
+
+    return true
+
+  }
+
+  return false
 
 }
 
@@ -1136,114 +1126,79 @@ $('#account_modal .account-login .password.login.form').submit((event) => {
 
         //start the remote processing lock, preventing over-executing the codes before the remote returns the result
         //Only when remote processing flag is true, the codes inside will be executed
+        if (startProcessingLock({
 
-        closeErrorBox({
+          maintainingFlagsInfo: {
 
-          tabName: '.password-login',
+            flagsContainer:maintainingFlags,
 
-          formBox: {
-
-            marginTopDistance: '2.5rem'
+            flagName: 'remoteProcessingFlag'
 
           }
 
-        })
+        })) {
 
-        changeSubmitButtonText('.password-login', '登录中...')
+          closeErrorBox({
 
-        sendPostRequest({
+            tabName: '.password-login',
 
-          postUrl: getPostUrl('.password-login'),
+            formBox: {
 
-          targetForm: $('#account_modal .account-login .password-login'),
-
-          postFields: {
-
-            email: {
-
-              type: 'element',
-
-              literalValue: 'input[name=email_name]'
-
-            },
-
-            password: {
-
-              type: 'element',
-
-              literalValue: 'input[name=password]'
-
-            },
-
-            _token: {
-
-              type: 'element',
-
-              literalValue: 'input[name=_token]'
+              marginTopDistance: '2.5rem'
 
             }
 
-          },
+          })
 
-          postTimeout: 8000,
+          changeSubmitButtonText('.password-login', '登录中...')
 
-          callbacks: {
+          sendPostRequest({
 
-            failed: (error) => {
+            postUrl: getPostUrl('.password-login'),
 
-              let errorsBag = getFilledNetworkErrorsBag(error)
+            targetForm: $('#account_modal .account-login .password-login'),
 
-              showErrorBox({
+            postFields: {
 
-                tabName: '.password-login',
+              email: {
 
-                errorsBag: errorsBag,
+                type: 'element',
 
-                formBox: {
+                literalValue: 'input[name=email_name]'
 
-                  marginTopDistance: '1rem'
+              },
 
-                }
+              password: {
 
-              })
+                type: 'element',
 
-              changeSubmitButtonText('.password-login', '登录')
+                literalValue: 'input[name=password]'
 
-            },
+              },
 
-            succeeded: (response) => {
+              _token: {
 
-              if (response.data.success) {
+                type: 'element',
 
-                disableActionsOnAccountModal()
-
-                location.reload()
-
-                setTimeout(
-
-                  () => {
-
-                  alert('reload')
-
-                  location.reload()
-
-                  //showingErrorBox('.password-login', [['登录卡住了？请刷新此页面。']])
-
-                  },
-
-                  4000
-
-                )
+                literalValue: 'input[name=_token]'
 
               }
 
-              else {
+            },
+
+            postTimeout: 8000,
+
+            callbacks: {
+
+              failed: (error) => {
+
+                let errorsBag = getNetworkRelatedErrorsBag(error)
 
                 showErrorBox({
 
                   tabName: '.password-login',
 
-                  errorsBag: response.data.errors,
+                  errorsBag: errorsBag,
 
                   formBox: {
 
@@ -1255,13 +1210,81 @@ $('#account_modal .account-login .password.login.form').submit((event) => {
 
                 changeSubmitButtonText('.password-login', '登录')
 
+                stopProcessingLock({
+
+                  maintainingFlagsInfo: {
+
+                    flagsContainer:maintainingFlags,
+
+                    flagName: 'remoteProcessingFlag'
+
+                  }
+
+                })
+
+              },
+
+              succeeded: (response) => {
+
+                if (response.data.success) {
+
+                  disableAllActionsOnAccountModal()
+
+                  refreshCurrentUrl()
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:maintainingFlags,
+
+                      flagName: 'remoteProcessingFlag'
+
+                    }
+
+                  })
+
+                }
+
+                else {
+
+                  showErrorBox({
+
+                    tabName: '.password-login',
+
+                    errorsBag: response.data.errors,
+
+                    formBox: {
+
+                      marginTopDistance: '1rem'
+
+                    }
+
+                  })
+
+                  changeSubmitButtonText('.password-login', '登录')
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:maintainingFlags,
+
+                      flagName: 'remoteProcessingFlag'
+
+                    }
+
+                  })
+
+                }
+
               }
 
             }
 
-          }
+          })
 
-        })
+        }
 
       }
 
@@ -1387,110 +1410,79 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
         //start the remote processing lock, preventing over-executing the codes before the remote returns the result
         //Only when remote processing flag is true, the codes inside will be executed
+        if (startProcessingLock({
 
-        closeErrorBox({
+          maintainingFlagsInfo: {
 
-          tabName: '.account-register',
+            flagsContainer:maintainingFlags,
 
-          formBox: {
-
-            marginTopDistance: '2.5rem'
+            flagName: 'remoteProcessingFlag'
 
           }
 
-        })
+        })){
 
-        changeSubmitButtonText('.password-login', '登录中...')
+          closeErrorBox({
 
-        sendPostRequest({
+            tabName: '.account-register',
 
-          postUrl: getPostUrl('.password-login'),
+            formBox: {
 
-          targetForm: $('#account_modal .account-login .password-login'),
-
-          postFields: {
-
-            email: {
-
-              type: 'element',
-
-              literalValue: 'input[name=email_name]'
-
-            },
-
-            password: {
-
-              type: 'element',
-
-              literalValue: 'input[name=password]'
-
-            },
-
-            _token: {
-
-              type: 'element',
-
-              literalValue: 'input[name=_token]'
+              marginTopDistance: '2.5rem'
 
             }
 
-          },
+          })
 
-          postTimeout: 8000,
+          changeSubmitButtonText('.password-login', '登录中...')
 
-          callbacks: {
+          sendPostRequest({
 
-            failed: (error) => {
+            postUrl: getPostUrl('.password-login'),
 
-              let errorsBag = getFilledNetworkErrorsBag(error)
+            targetForm: $('#account_modal .account-login .password-login'),
 
-              showErrorBox({
+            postFields: {
 
-                tabName: '.password-login',
+              email: {
 
-                errorsBag: errorsBag,
+                type: 'element',
 
-                formBox: {
+                literalValue: 'input[name=email_name]'
 
-                  marginTopDistance: '1rem'
+              },
 
-                }
+              password: {
 
-              })
+                type: 'element',
 
-              changeSubmitButtonText('.password-login', '登录')
+                literalValue: 'input[name=password]'
 
-            },
+              },
 
-            succeeded: (response) => {
+              _token: {
 
-              if (response.data.success) {
+                type: 'element',
 
-                location.reload()
-
-                setTimeout(
-
-                  () => {
-
-                  alert('reload')
-
-                  location.reload()
-
-                  },
-
-                  4000
-
-                )
+                literalValue: 'input[name=_token]'
 
               }
 
-              else {
+            },
+
+            postTimeout: 8000,
+
+            callbacks: {
+
+              failed: (error) => {
+
+                let errorsBag = getNetworkRelatedErrorsBag(error)
 
                 showErrorBox({
 
                   tabName: '.password-login',
 
-                  errorsBag: response.data.errors,
+                  errorsBag: errorsBag,
 
                   formBox: {
 
@@ -1502,13 +1494,79 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
                 changeSubmitButtonText('.password-login', '登录')
 
+                stopProcessingLock({
+
+                  maintainingFlagsInfo: {
+
+                    flagsContainer:maintainingFlags,
+
+                    flagName: 'remoteProcessingFlag'
+
+                  }
+
+                })
+
+              },
+
+              succeeded: (response) => {
+
+                if (response.data.success) {
+
+                  refreshCurrentUrl()
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:maintainingFlags,
+
+                      flagName: 'remoteProcessingFlag'
+
+                    }
+
+                  })
+
+                }
+
+                else {
+
+                  showErrorBox({
+
+                    tabName: '.password-login',
+
+                    errorsBag: response.data.errors,
+
+                    formBox: {
+
+                      marginTopDistance: '1rem'
+
+                    }
+
+                  })
+
+                  changeSubmitButtonText('.password-login', '登录')
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:maintainingFlags,
+
+                      flagName: 'remoteProcessingFlag'
+
+                    }
+
+                  })
+
+                }
+
               }
 
             }
 
-          }
+          })
 
-        })
+        }
 
       }
 
@@ -1520,7 +1578,7 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
 
 
-//click event for the ‘get phone code’ button on AccountRegisterTab
+//click event for the 'get phone code' button on AccountRegisterTab
 $('#account_modal .account-register .get-phone-code .link').click((event) => {
 
   validateForm({
@@ -1576,101 +1634,100 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
 
       succeeded: () => {
 
-        closeErrorBox({
+        //prevent multiple requests before get the result
+        //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
+        //the YpCaptchButton can be instantiated and showed up
+        if (startDoubleProcessingLock({
 
-          tabName: '.account-register',
+          //indicating if the YpCaptchaButton is showing
+          firstMaintainingFlagsInfo: {
 
-          formBox: {
+            flagsContainer:maintainingFlags,
 
-            marginTopDistance: '1.5rem'
-
-          }
-
-        })
-
-        instantiateYpCaptcha()
-
-        //prevent multiple remote requests before get the result
-        if (startProcessingLock({
-
-            maintainingFlagsInfo: {
-
-              flagsContainer:maintainingFlags,
-
-              flagName: 'YpCaptchaButtonShowingFlag'
-
-            }
-
-           })
-
-           && !maintainingFlags.YpCaptchaButtonShownFlag) {
-
-              //显示云片验证码提示框
-              $('#register-yunpian-captcha').css({'order': '0','display':'none', 'visibility': 'visible'})
-
-              $('#register-yunpian-captcha').fadeIn(1000, () => {
-
-                maintainingFlags.YpCaptchaButtonShownFlag = true
-
-                stopProcessingLock({
-
-                  maintainingFlagsInfo: {
-
-                    flagsContainer:maintainingFlags,
-
-                    flagName: 'YpCaptchaButtonShowingFlag'
-
-                  }
-
-                })
-
-              })
-
-            }
-
-        //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
-        let transitionMode
-
-        if (isiOS || isSafari) {
-
-          transitionMode = 'glow'
-
-        }
-
-        else {
-
-          transitionMode = 'flash'
-
-        }
-
-        //adding animation effects
-        $('#register-yunpian-captcha .yp-riddler .yp-riddler-button_text')
-
-        .transition({
-
-          animation  : transitionMode,
-
-          duration   : '0.5s',
-
-          onStart : () => {
-
-            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
-            //unless display is set to block or inline-block, or position is set to absolute or fixed
-            //prevent the animation repeats before it ends
-            $(event.currentTarget).css('pointer-events', 'none')
+            flagName: 'YpCaptchaButtonShowingFlag'
 
           },
 
-          onComplete : () => {
+          //indicating if the YpCaptchaButton is shown
+          secondMaintainingFlagsInfo: {
 
-            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
-            //unless display is set to block or inline-block, or position is set to absolute or fixed
-            //prevent the animation repeats before it ends
-            $(event.currentTarget).css('pointer-events', 'all')
+            flagsContainer:maintainingFlags,
+
+            flagName: 'YpCaptchaButtonShownFlag'
 
           }
 
-        })
+        })) {
+
+             closeErrorBox({
+
+               tabName: '.account-register',
+
+               formBox: {
+
+                 marginTopDistance: '1.5rem'
+
+               }
+
+             })
+
+             instantiateYpCaptcha()
+
+             //show up the YpCaptchaButton
+             showYpCaptchaButton({
+
+               YpCaptchaButtonID: '#register-yunpian-captcha',
+
+               showingTime: 1000,
+
+               shownCallback: () => {
+
+                 stopProcessingLock({
+
+                   maintainingFlagsInfo: {
+
+                     flagsContainer:maintainingFlags,
+
+                     flagName: 'YpCaptchaButtonShowingFlag'
+
+                   }
+
+                 })
+
+               }
+
+             })
+
+            }
+
+        //make the text of YpCaptchaButton flash
+        if (isYpCaptchaButtonShown()) {
+
+          makeYpCaptchaButtonTextFlash({
+
+            YpCaptchaButtonID: '#register-yunpian-captcha',
+
+            effectDuration: 800,
+
+            callbacks : {
+
+              beforeEffect: () => {
+
+                //console.log('before the effect')
+
+              },
+
+              afterEffect: () => {
+
+                //console.log('after the effect')
+
+              }
+
+            }
+
+          })
+
+        }
 
       }
 

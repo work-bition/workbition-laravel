@@ -75,8 +75,6 @@ function isDigitsWithIncorrectLength(digits_strs, input){
 
 }
 
-
-
 function getFormValidationErrorsBag (targetForm, fields){
 
   let errorsBag = []

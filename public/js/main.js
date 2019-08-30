@@ -5166,8 +5166,8 @@ var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MO
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony import */ var _formValidation__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./formValidation */ "./resources/js/index/formValidation.js");
 /* harmony import */ var _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./detectBrowsers */ "./resources/js/index/detectBrowsers.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _effects__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./effects */ "./resources/js/index/effects.js");
+/* harmony import */ var _network__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./network */ "./resources/js/index/network.js");
 /*****************************************************************************************************************************
 
                                                         Header
@@ -5176,9 +5176,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 /*****************************************************************************************************************************
 
-                        header - account modal
+                                            Initializing Account Modal
 
 *****************************************************************************************************************************/
 
@@ -5262,47 +5263,190 @@ var maintainingFlags = {
   remoteProcessingFlag: false,
   YpCaptchaProcessingFlag: false,
   YpCaptchaButtonShowingFlag: false,
-  YpCaptchaButtonShownFlag: false
+  YpCaptchaButtonShownFlag: false,
+  YpCaptchaButtonTextFlashingFlag: false,
+  YpCaptchaSuccessButtonShownFlag: false
 };
 var maintainingObjects = {
   YpCaptchaInstance: undefined,
   puzzleShowUpWatcher: undefined
-  /*************************************************************
-  
-               startProcessingLock OPTIONS EXAMPLE
-  
-  **************************************************************
-  
-  {
-  
-    maintainingFlagsInfo: {
-  
-      flagsContainer:maintainingFlags,
-  
-      flagName: 'YpCaptchaProcessingFlag'
-  
-    }
-  
-  }
-  
-  **************************************************************/
-
 };
+var YpCaptchaInitializingOptions = {
+  //过期时间不宜设置过短，不然容易引发异常，单位：秒
+  expired: 5,
+  mode: 'dialog',
+  winWidth: 334,
+  noButton: false,
+  lang: 'zh-cn',
+  // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
+  // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
+  langPack: {
+    'YPcaptcha_01': '请点击按钮开始验证',
+    'YPcaptcha_02': '请按顺序点击:',
+    'YPcaptcha_03': '向右拖动滑块填充拼图',
+    'YPcaptcha_04': '验证失败，请重试',
+    'YPcaptcha_05': '验证成功'
+  },
+  container: document.getElementById('register-yunpian-captcha'),
+  appId: '2d797943d96348c8922e375c7c4fbdaa',
+  version: 'v1',
+  //when the user clicks on the YpCaptcha button
+  beforeStart: function beforeStart(next) {
+    //Prevent multiple requests before get the result
+    if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaProcessingFlag'
+      }
+    })) {
+      closeErrorBox({
+        tabName: '.account-register',
+        formBox: {
+          marginTopDistance: '1.5rem'
+        }
+      });
+      changeYpCaptchaButtonText('.account-register', '正在获取拼图...');
+      Object(_network__WEBPACK_IMPORTED_MODULE_3__["startRepeater"])({
+        maintainingObjectsInfo: {
+          objectsContainer: maintainingObjects,
+          objectName: 'puzzleShowUpWatcher'
+        },
+        intervalCallback: function intervalCallback() {
+          //make sure only when the puzzle shows up, the text can be changed
+          if ($('#register-yunpian-captcha .yp-riddler-win-masker').css('display') == 'block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0) {
+            changeYpCaptchaButtonText('.account-register', '请完成拼图');
+            console.log('hello');
+          }
+        },
+        frequency: 100
+      }); //prevent frequent requests in a very short period by the users
 
-function startProcessingLock(lock_options) {
-  if (!lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
-    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = true;
-    return true;
+      Object(_network__WEBPACK_IMPORTED_MODULE_3__["extendHandleTime"])({
+        extendTime: 1000,
+        extendCallback: function extendCallback() {
+          next();
+        }
+      });
+    }
+  },
+  //when the user clicks on the other areas on the register tab, which makes the puzzle disappear, it's only in effect when the mode is set to 'dialog'
+  onExit: function onExit() {
+    changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
+      maintainingObjectsInfo: {
+        objectsContainer: maintainingObjects,
+        objectName: 'puzzleShowUpWatcher'
+      }
+    });
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaProcessingFlag'
+      }
+    });
+  },
+  //when the user successfully finishes the puzzle
+  onSuccess: function onSuccess(validInfo, close, useDefaultSuccess) {
+    getVerificationCode(validInfo.token, validInfo.authenticate);
+    useDefaultSuccess(true);
+    close(); //flagName: 'YpCaptchaSuccessButtonShownFlag'
+
+    if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaSuccessButtonShownFlag'
+      }
+    })) {
+      hideYpCaptchaButton({
+        YpCaptchaButtonID: '#register-yunpian-captcha',
+        hidingTime: 1000,
+        hiddenCallback: function hiddenCallback() {
+          Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+            maintainingFlagsInfo: {
+              flagsContainer: maintainingFlags,
+              flagName: 'YpCaptchaSuccessButtonShownFlag'
+            }
+          });
+          Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+            maintainingFlagsInfo: {
+              flagsContainer: maintainingFlags,
+              flagName: 'YpCaptchaButtonShownFlag'
+            }
+          });
+        }
+      });
+    }
+
+    releaseYpCaptcha();
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
+      maintainingObjectsInfo: {
+        objectsContainer: maintainingObjects,
+        objectName: 'puzzleShowUpWatcher'
+      }
+    });
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaProcessingFlag'
+      }
+    });
+  },
+  onFail: function onFail(code, message, retry) {
+    retry();
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaProcessingFlag'
+      }
+    });
+  },
+  onError: function onError(param) {
+    changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
+
+    if (param.code == 429) {
+      showErrorBox({
+        tabName: '.account-register',
+        errorsBag: [['请求过于频繁，请稍后再试']],
+        formBox: {
+          marginTopDistance: '0'
+        }
+      });
+      Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
+        maintainingObjectsInfo: {
+          objectsContainer: maintainingObjects,
+          objectName: 'puzzleShowUpWatcher'
+        }
+      });
+      Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+        maintainingFlagsInfo: {
+          flagsContainer: maintainingFlags,
+          flagName: 'YpCaptchaProcessingFlag'
+        }
+      });
+      return;
+    }
+
+    showErrorBox({
+      tabName: '.account-register',
+      errorsBag: [['验证服务异常，请稍后再试']],
+      formBox: {
+        marginTopDistance: '0'
+      }
+    });
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
+      maintainingObjectsInfo: {
+        objectsContainer: maintainingObjects,
+        objectName: 'puzzleShowUpWatcher'
+      }
+    });
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaProcessingFlag'
+      }
+    });
   }
-
-  return false;
-}
-
-function stopProcessingLock(lock_options) {
-  if (lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
-    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = false;
-  }
-}
+};
 
 function error_box_toggler(formName, benifits_bar_style, error_box_style) {
   $("#account_modal .login-register-box ".concat(formName, " .benifits_bar")).css('display', benifits_bar_style);
@@ -5316,7 +5460,8 @@ function createErrorItems(errors, itemElement, container) {
     item.innerHTML = el[0];
     $(container)[0].appendChild(item);
   });
-}
+} //errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
+
 
 function showingErrorBox(tabName, errorsBag) {
   error_box_toggler(tabName, 'none', 'block');
@@ -5367,453 +5512,293 @@ function changeSubmitButtonText(tabName, text) {
   $("#account_modal .login-register-box ".concat(tabName, " .form-box .button")).text(text);
 }
 
-function changeYpCaptchaButtonText(tabName, text) {
-  $("#account_modal .login-register-box ".concat(tabName, " .form-box .yunpian-captcha .yp-riddler-button .yp-riddler-button_text")).text(text);
-}
-
-function getFilledNetworkErrorsBag(error) {
-  var errorsBag = [];
-  var globalErrors = [];
-
-  if (error.response) {
-    // The request was made and the server responded with a status code
-    globalErrors.push("\u670D\u52A1\u5668\u8FD4\u56DE ".concat(error.response.status, " \u9519\u8BEF\uFF0C\u8BF7\u7A0D\u540E\u518D\u8BD5"));
-  } else if (error.request) {
-    // The request was made but no response was received
-    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
-    // http.ClientRequest in node.js
-    globalErrors.push('网络连接错误，请稍后再试');
-  } else {
-    // Something happened in setting up the request that triggered an Error
-    globalErrors.push('在发起请求时出现错误，请稍后再试');
-  }
-
-  errorsBag.push(globalErrors);
-  return errorsBag;
+function disableAllActionsOnAccountModal() {
+  $('#account_modal').css('pointer-events', 'none');
 }
 
 function getPostUrl(formName) {
   return $("#account_modal .login-register-box ".concat(formName, " .form-box .ui.form")).attr("action");
 }
-/*************************************************************
 
-            sendPostRequest OPTIONS EXAMPLE
-
-**************************************************************
-
-{
-
-  postUrl: getPostUrl('.account-register'),
-
-  targetForm: $('#account_modal .account-login .password-login'),
-
-  postFields: {
-
-    phone:  {
-
-      type: 'element',
-
-      literalValue: 'input[name=phone]'
-
-    },
-
-    captcha_token: {
-
-      type: 'parameter',
-
-      literalValue:  captcha_token
-
-    },
-
-    captcha_authenticate: {
-
-      type: 'parameter',
-
-      literalValue:  captcha_authenticate
-
-    },
-
-  },
-
-  postTimeout: 8000
-
-  callbacks: {
-
-    failed: (error) => {},
-
-    succeeded: (response) =>{}
-
-  }
-
-}
-
-**************************************************************/
-
-
-function sendPostRequest(post_options) {
-  var computed_field_value = {}; //prevent multiple remote requests before get the result
-
-  if (startProcessingLock({
+function getVerificationCode(captcha_token, captcha_authenticate) {
+  if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
     maintainingFlagsInfo: {
       flagsContainer: maintainingFlags,
       flagName: 'remoteProcessingFlag'
     }
   })) {
-    $.each(post_options.postFields, function (key, field) {
-      var field_input_value;
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["sendPostRequest"])({
+      postUrl: getPostUrl('.account-register'),
+      targetForm: $('#account_modal .account-register'),
+      postFields: {
+        phone: {
+          type: 'element',
+          literalValue: 'input[name=phone]'
+        },
+        captcha_token: {
+          type: 'parameter',
+          literalValue: captcha_token
+        },
+        captcha_authenticate: {
+          type: 'parameter',
+          literalValue: captcha_authenticate
+        }
+      },
+      postTimeout: 8000,
+      callbacks: {
+        failed: function failed(error) {
+          var errorsBag = Object(_network__WEBPACK_IMPORTED_MODULE_3__["getNetworkRelatedErrorsBag"])(error);
+          showErrorBox({
+            tabName: '.account-register',
+            errorsBag: errorsBag,
+            formBox: {
+              marginTopDistance: '0'
+            }
+          });
+          Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+            maintainingFlagsInfo: {
+              flagsContainer: maintainingFlags,
+              flagName: 'remoteProcessingFlag'
+            }
+          });
+        },
+        succeeded: function succeeded(response) {
+          if (response.data.success) {
+            console.log(response.data); //window.location.href = location.href
 
-      if (field.type == 'element') {
-        field_input_value = post_options.targetForm.find(field.literalValue).val();
-      } else if (field.type == 'parameter') {
-        field_input_value = field.literalValue;
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+              maintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'remoteProcessingFlag'
+              }
+            });
+          } else {
+            showErrorBox({
+              tabName: '.account-register',
+              errorsBag: response.data.errors,
+              formBox: {
+                marginTopDistance: '0'
+              }
+            });
+            console.log(response.data.code);
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+              maintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'remoteProcessingFlag'
+              }
+            });
+          }
+        }
       }
-
-      computed_field_value[key] = field_input_value;
-    });
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(post_options.postUrl, computed_field_value, {
-      timeout: post_options.postTimeout
-    }).then(function (response) {
-      post_options.callbacks.succeeded(response);
-      stopProcessingLock({
-        maintainingFlagsInfo: {
-          flagsContainer: maintainingFlags,
-          flagName: 'remoteProcessingFlag'
-        }
-      });
-    })["catch"](function (error) {
-      post_options.callbacks.failed(error);
-      stopProcessingLock({
-        maintainingFlagsInfo: {
-          flagsContainer: maintainingFlags,
-          flagName: 'remoteProcessingFlag'
-        }
-      });
     });
   }
 }
 
-function getVerificationCode(captcha_token, captcha_authenticate) {
-  sendPostRequest({
-    postUrl: getPostUrl('.account-register'),
-    targetForm: $('#account_modal .account-register'),
-    postFields: {
-      phone: {
-        type: 'element',
-        literalValue: 'input[name=phone]'
-      },
-      captcha_token: {
-        type: 'parameter',
-        literalValue: captcha_token
-      },
-      captcha_authenticate: {
-        type: 'parameter',
-        literalValue: captcha_authenticate
-      }
-    },
-    postTimeout: 8000,
-    callbacks: {
-      failed: function failed(error) {
-        var errorsBag = getFilledNetworkErrorsBag(error);
-        showErrorBox({
-          tabName: '.account-register',
-          errorsBag: errorsBag,
-          formBox: {
-            marginTopDistance: '0'
-          }
-        });
-      },
-      succeeded: function succeeded(response) {
-        if (response.data.success) {
-          console.log(response.data); //window.location.href = location.href
-        } else {
-          showErrorBox({
-            tabName: '.account-register',
-            errorsBag: response.data.errors,
-            formBox: {
-              marginTopDistance: '0'
-            }
-          });
-          console.log(response.data.code);
-        }
-      }
+function refreshCurrentUrl() {
+  location.reload();
+  Object(_network__WEBPACK_IMPORTED_MODULE_3__["extendHandleTime"])({
+    extendTime: 4000,
+    extendCallback: function extendCallback() {
+      alert('reload');
+      location.reload();
     }
   });
 }
+/*****************************************************************************************************************************
 
-function initializingYpCaptcha(captcha_mode) {
+                                YpCaptcha Related - AJAX Login and Register
+
+******************************************************************************************************************************/
+
+
+function initializingYpCaptcha() {
   if (YpRiddler != undefined) {
     // 初始化云片图片验证码
-    var YpCaptcha = new YpRiddler({
-      //过期时间不宜设置过短，不然容易引发异常，单位：秒
-      expired: 2,
-      mode: captcha_mode,
-      winWidth: 334,
-      noButton: false,
-      lang: 'zh-cn',
-      // 界面语言, 目前支持: 中文简体 zh-cn, 英语 en
-      // langPack: LANG_OTHER, // 你可以通过该参数自定义语言包, 其优先级高于lang
-      langPack: {
-        'YPcaptcha_01': '请点击按钮开始验证',
-        'YPcaptcha_02': '请按顺序点击:',
-        'YPcaptcha_03': '向右拖动滑块填充拼图',
-        'YPcaptcha_04': '验证失败，请重试',
-        'YPcaptcha_05': '验证成功'
-      },
-      container: document.getElementById('register-yunpian-captcha'),
-      appId: '2d797943d96348c8922e375c7c4fbdaa',
-      version: 'v1',
-      //when the user clicks on the YpCaptcha button
-      beforeStart: function beforeStart(next) {
-        //Prevent multiple requests before get the result
-        if (startProcessingLock({
-          maintainingFlagsInfo: {
-            flagsContainer: maintainingFlags,
-            flagName: 'YpCaptchaProcessingFlag'
-          }
-        })) {
-          closeErrorBox({
-            tabName: '.account-register',
-            formBox: {
-              marginTopDistance: '1.5rem'
-            }
-          });
-          changeYpCaptchaButtonText('.account-register', '正在获取拼图...');
-          startRepeater({
-            maintainingObjectsInfo: {
-              objectsContainer: maintainingObjects,
-              objectName: 'puzzleShowUpWatcher'
-            },
-            intervalCallback: function intervalCallback() {
-              //make sure only when the puzzle shows up, the text can be changed
-              if ($('#register-yunpian-captcha .yp-riddler-win-masker').css('display') == 'block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0) {
-                changeYpCaptchaButtonText('.account-register', '请完成拼图');
-                console.log('hello');
-              }
-            },
-            frequency: 100
-          }); //prevent frequent requests in a very short period by the users
-
-          extendHandleTime({
-            extendTime: 1000,
-            extendCallback: function extendCallback() {
-              next();
-            }
-          });
-        }
-      },
-      //when the user clicks on the other areas on the register tab, which makes the puzzle disappear, it's only in effect when the mode is set to 'dialog'
-      onExit: function onExit() {
-        changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
-        clearRepeater({
-          maintainingObjectsInfo: {
-            objectsContainer: maintainingObjects,
-            objectName: 'puzzleShowUpWatcher'
-          }
-        });
-        stopProcessingLock({
-          maintainingFlagsInfo: {
-            flagsContainer: maintainingFlags,
-            flagName: 'YpCaptchaProcessingFlag'
-          }
-        });
-      },
-      //when the user successfully finishes the puzzle
-      onSuccess: function onSuccess(validInfo, close, useDefaultSuccess) {
-        getVerificationCode(validInfo.token, validInfo.authenticate);
-        useDefaultSuccess(true);
-        close();
-        $('#register-yunpian-captcha').fadeOut(1000, function () {
-          $('#register-yunpian-captcha').css({
-            'order': '1',
-            'display': 'block',
-            'visibility': 'hidden'
-          });
-          maintainingFlags.YpCaptchaButtonShownFlag = false;
-        });
-        releaseYpCaptcha();
-        clearRepeater({
-          maintainingObjectsInfo: {
-            objectsContainer: maintainingObjects,
-            objectName: 'puzzleShowUpWatcher'
-          }
-        });
-        stopProcessingLock({
-          maintainingFlagsInfo: {
-            flagsContainer: maintainingFlags,
-            flagName: 'YpCaptchaProcessingFlag'
-          }
-        });
-      },
-      onFail: function onFail(code, message, retry) {
-        retry();
-        stopProcessingLock({
-          maintainingFlagsInfo: {
-            flagsContainer: maintainingFlags,
-            flagName: 'YpCaptchaProcessingFlag'
-          }
-        });
-      },
-      onError: function onError(param) {
-        changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
-
-        if (param.code == 429) {
-          showErrorBox({
-            tabName: '.account-register',
-            errorsBag: [['请求过于频繁，请稍后再试']],
-            formBox: {
-              marginTopDistance: '0'
-            }
-          });
-          clearRepeater({
-            maintainingObjectsInfo: {
-              objectsContainer: maintainingObjects,
-              objectName: 'puzzleShowUpWatcher'
-            }
-          });
-          stopProcessingLock({
-            maintainingFlagsInfo: {
-              flagsContainer: maintainingFlags,
-              flagName: 'YpCaptchaProcessingFlag'
-            }
-          });
-          return;
-        }
-
-        showErrorBox({
-          tabName: '.account-register',
-          errorsBag: [['验证服务异常，请稍后再试']],
-          formBox: {
-            marginTopDistance: '0'
-          }
-        });
-        clearRepeater({
-          maintainingObjectsInfo: {
-            objectsContainer: maintainingObjects,
-            objectName: 'puzzleShowUpWatcher'
-          }
-        });
-        stopProcessingLock({
-          maintainingFlagsInfo: {
-            flagsContainer: maintainingFlags,
-            flagName: 'YpCaptchaProcessingFlag'
-          }
-        });
-      }
-    });
+    var YpCaptcha = new YpRiddler(YpCaptchaInitializingOptions);
     return YpCaptcha;
   } else {
     return undefined;
   }
 }
 
-function extendHandleTime(extend_options) {
-  setTimeout(extend_options.extendCallback, extend_options.extendTime);
-}
-/*************************************************************
-
-       assignValueToMaintainingObjects OPTIONS EXAMPLE
-
-**************************************************************
-
-{
-
-  maintainingObjectsInfo: {
-
-    objectsContainer: maintainingObjects,
-
-    objectName: 'YpCaptchaInstance'
-
-  },
-
-  assginValueFunc: () => {
-
-    return instantiateYpCaptcha('dialog')
-
-  }
-
-}
-
-**************************************************************/
-
-
-function assignValueToMaintainingObjects(assign_options) {
-  assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc();
-}
-/* only when the value of the object is undefined, this function can assign value to this object */
-
-
-function assignValueToMaintainingObjectsOnce(assign_options) {
-  if (assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] == undefined) {
-    assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc();
-  }
-}
-
-function unsetMaintainingObjects(unset_options) {
-  if (unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] != undefined) {
-    unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] = undefined;
-  }
-}
-/*************************************************************
-
-                 startRepeater OPTIONS EXAMPLE
-
-**************************************************************
-
-{
-
-  maintainingObjectsInfo: {
-
-    objectsContainer:maintainingObjects,
-
-    objectName: 'puzzleShowUpWatcher'
-
-  },
-
-  intervalCallback: () => {},
-
-  frequency: 100
-
-}
-
-**************************************************************/
-
-
-function startRepeater(repeat_options) {
-  assignValueToMaintainingObjects({
-    maintainingObjectsInfo: repeat_options.maintainingObjectsInfo,
-    assginValueFunc: function assginValueFunc() {
-      return setInterval(repeat_options.intervalCallback, repeat_options.frequency);
-    }
-  });
-}
-
-function clearRepeater(repeat_options) {
-  clearInterval(repeat_options.maintainingObjectsInfo.objectsContainer[repeat_options.maintainingObjectsInfo.objectName]);
-}
-
 function instantiateYpCaptcha() {
-  assignValueToMaintainingObjectsOnce({
+  Object(_network__WEBPACK_IMPORTED_MODULE_3__["assignValueToMaintainingObjectsOnce"])({
     maintainingObjectsInfo: {
       objectsContainer: maintainingObjects,
       objectName: 'YpCaptchaInstance'
     },
     assginValueFunc: function assginValueFunc() {
-      return initializingYpCaptcha('dialog');
+      return initializingYpCaptcha();
     }
   });
 }
 
 function releaseYpCaptcha() {
-  unsetMaintainingObjects({
+  Object(_network__WEBPACK_IMPORTED_MODULE_3__["unsetMaintainingObjects"])({
     maintainingObjectsInfo: {
       objectsContainer: maintainingObjects,
       objectName: 'YpCaptchaInstance'
     }
   });
 }
+/*************************************************************
 
-function disableActionsOnAccountModal() {
-  $('#account_modal').css('pointer-events', 'none');
+             showYpCaptchaButton OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  YpCaptchaButtonID: '#register-yunpian-captcha',
+
+  showingTime: 1000,
+
+  shownCallback: () => {
+
+    stopProcessingLock({
+
+      maintainingFlagsInfo: {
+
+        flagsContainer:maintainingFlags,
+
+        flagName: 'YpCaptchaButtonShowingFlag'
+
+      }
+
+    })
+
+  }
+
+}
+
+**************************************************************/
+
+
+function showYpCaptchaButton(show_button_options) {
+  //showing the YpCaptchaButton
+  $(show_button_options.YpCaptchaButtonID).css({
+    'order': '0',
+    'display': 'none',
+    'visibility': 'visible'
+  });
+  $(show_button_options.YpCaptchaButtonID).fadeIn(show_button_options.showingTime, show_button_options.shownCallback);
+}
+/*************************************************************
+
+             hideYpCaptchaButton OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  YpCaptchaButtonID: '#register-yunpian-captcha',
+
+  hidingTime: 1000,
+
+  hiddenCallback: () => {
+
+    stopProcessingLock({
+
+      maintainingFlagsInfo: {
+
+        flagsContainer:maintainingFlags,
+
+        flagName: 'YpCaptchaButtonShowingFlag'
+
+      }
+
+    })
+
+  }
+
+}
+
+**************************************************************/
+
+
+function hideYpCaptchaButton(hide_button_options) {
+  //hiding the YpCaptchaButton
+  $(hide_button_options.YpCaptchaButtonID).fadeOut(hide_button_options.hidingTime, function () {
+    $(hide_button_options.YpCaptchaButtonID).css({
+      'order': '1',
+      'display': 'block',
+      'visibility': 'hidden'
+    });
+    hide_button_options.hiddenCallback();
+  });
+}
+
+function changeYpCaptchaButtonText(tabName, text) {
+  $("#account_modal .login-register-box ".concat(tabName, " .form-box .yunpian-captcha .yp-riddler-button .yp-riddler-button_text")).text(text);
+}
+/*************************************************************
+
+       makeYpCaptchaButtonTextFlash OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  YpCaptchaButtonID: '#register-yunpian-captcha',
+
+  effectDuration: 800,
+
+  callbacks : {
+
+    beforeEffect: () => {
+
+    },
+
+    afterEffect: () => {
+
+    }
+
+  }
+
+}
+
+**************************************************************/
+
+
+function makeYpCaptchaButtonTextFlash(flash_effect_options) {
+  //prevent multiple request before get the result
+  if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+    maintainingFlagsInfo: {
+      flagsContainer: maintainingFlags,
+      flagName: 'YpCaptchaButtonTextFlashingFlag'
+    }
+  })) {
+    //except for 'glow' option, other options in transition in Semantic UI will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
+    //so we do not use transition in SUI and we realize the same function by ourselves
+    Object(_effects__WEBPACK_IMPORTED_MODULE_2__["enableFlashEffect"])({
+      targetElement: $("".concat(flash_effect_options.YpCaptchaButtonID, " .yp-riddler-button .yp-riddler-button_text")),
+      effectDuration: flash_effect_options.effectDuration,
+      targetOriginalDisplayType: 'inline-block',
+      flashTimes: 2,
+      callbacks: {
+        beforeEffect: function beforeEffect() {
+          flash_effect_options.callbacks.beforeEffect();
+        },
+        afterEffect: function afterEffect() {
+          flash_effect_options.callbacks.afterEffect();
+          Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+            maintainingFlagsInfo: {
+              flagsContainer: maintainingFlags,
+              flagName: 'YpCaptchaButtonTextFlashingFlag'
+            }
+          });
+        }
+      }
+    });
+  }
+}
+
+function isYpCaptchaButtonShown() {
+  if (maintainingFlags.YpCaptchaButtonShowingFlag == false && maintainingFlags.YpCaptchaButtonShownFlag == true && maintainingFlags.YpCaptchaSuccessButtonShownFlag == false) {
+    return true;
+  }
+
+  return false;
 } //submit event for the form on PasswordLoginTab
 
 
@@ -5854,64 +5839,85 @@ $('#account_modal .account-login .password.login.form').submit(function (event) 
       succeeded: function succeeded() {
         //start the remote processing lock, preventing over-executing the codes before the remote returns the result
         //Only when remote processing flag is true, the codes inside will be executed
-        closeErrorBox({
-          tabName: '.password-login',
-          formBox: {
-            marginTopDistance: '2.5rem'
+        if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'remoteProcessingFlag'
           }
-        });
-        changeSubmitButtonText('.password-login', '登录中...');
-        sendPostRequest({
-          postUrl: getPostUrl('.password-login'),
-          targetForm: $('#account_modal .account-login .password-login'),
-          postFields: {
-            email: {
-              type: 'element',
-              literalValue: 'input[name=email_name]'
-            },
-            password: {
-              type: 'element',
-              literalValue: 'input[name=password]'
-            },
-            _token: {
-              type: 'element',
-              literalValue: 'input[name=_token]'
+        })) {
+          closeErrorBox({
+            tabName: '.password-login',
+            formBox: {
+              marginTopDistance: '2.5rem'
             }
-          },
-          postTimeout: 8000,
-          callbacks: {
-            failed: function failed(error) {
-              var errorsBag = getFilledNetworkErrorsBag(error);
-              showErrorBox({
-                tabName: '.password-login',
-                errorsBag: errorsBag,
-                formBox: {
-                  marginTopDistance: '1rem'
-                }
-              });
-              changeSubmitButtonText('.password-login', '登录');
+          });
+          changeSubmitButtonText('.password-login', '登录中...');
+          Object(_network__WEBPACK_IMPORTED_MODULE_3__["sendPostRequest"])({
+            postUrl: getPostUrl('.password-login'),
+            targetForm: $('#account_modal .account-login .password-login'),
+            postFields: {
+              email: {
+                type: 'element',
+                literalValue: 'input[name=email_name]'
+              },
+              password: {
+                type: 'element',
+                literalValue: 'input[name=password]'
+              },
+              _token: {
+                type: 'element',
+                literalValue: 'input[name=_token]'
+              }
             },
-            succeeded: function succeeded(response) {
-              if (response.data.success) {
-                disableActionsOnAccountModal();
-                location.reload();
-                setTimeout(function () {
-                  alert('reload');
-                  location.reload(); //showingErrorBox('.password-login', [['登录卡住了？请刷新此页面。']])
-                }, 4000);
-              } else {
+            postTimeout: 8000,
+            callbacks: {
+              failed: function failed(error) {
+                var errorsBag = Object(_network__WEBPACK_IMPORTED_MODULE_3__["getNetworkRelatedErrorsBag"])(error);
                 showErrorBox({
                   tabName: '.password-login',
-                  errorsBag: response.data.errors,
+                  errorsBag: errorsBag,
                   formBox: {
                     marginTopDistance: '1rem'
                   }
                 });
                 changeSubmitButtonText('.password-login', '登录');
+                Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                  maintainingFlagsInfo: {
+                    flagsContainer: maintainingFlags,
+                    flagName: 'remoteProcessingFlag'
+                  }
+                });
+              },
+              succeeded: function succeeded(response) {
+                if (response.data.success) {
+                  disableAllActionsOnAccountModal();
+                  refreshCurrentUrl();
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: maintainingFlags,
+                      flagName: 'remoteProcessingFlag'
+                    }
+                  });
+                } else {
+                  showErrorBox({
+                    tabName: '.password-login',
+                    errorsBag: response.data.errors,
+                    formBox: {
+                      marginTopDistance: '1rem'
+                    }
+                  });
+                  changeSubmitButtonText('.password-login', '登录');
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: maintainingFlags,
+                      flagName: 'remoteProcessingFlag'
+                    }
+                  });
+                }
               }
             }
-          }
-        });
+          });
+        }
       }
     }
   });
@@ -5968,67 +5974,88 @@ $('#account_modal .account-register .register.form').submit(function (event) {
       succeeded: function succeeded() {
         //start the remote processing lock, preventing over-executing the codes before the remote returns the result
         //Only when remote processing flag is true, the codes inside will be executed
-        closeErrorBox({
-          tabName: '.account-register',
-          formBox: {
-            marginTopDistance: '2.5rem'
+        if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+          maintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'remoteProcessingFlag'
           }
-        });
-        changeSubmitButtonText('.password-login', '登录中...');
-        sendPostRequest({
-          postUrl: getPostUrl('.password-login'),
-          targetForm: $('#account_modal .account-login .password-login'),
-          postFields: {
-            email: {
-              type: 'element',
-              literalValue: 'input[name=email_name]'
-            },
-            password: {
-              type: 'element',
-              literalValue: 'input[name=password]'
-            },
-            _token: {
-              type: 'element',
-              literalValue: 'input[name=_token]'
+        })) {
+          closeErrorBox({
+            tabName: '.account-register',
+            formBox: {
+              marginTopDistance: '2.5rem'
             }
-          },
-          postTimeout: 8000,
-          callbacks: {
-            failed: function failed(error) {
-              var errorsBag = getFilledNetworkErrorsBag(error);
-              showErrorBox({
-                tabName: '.password-login',
-                errorsBag: errorsBag,
-                formBox: {
-                  marginTopDistance: '1rem'
-                }
-              });
-              changeSubmitButtonText('.password-login', '登录');
+          });
+          changeSubmitButtonText('.password-login', '登录中...');
+          Object(_network__WEBPACK_IMPORTED_MODULE_3__["sendPostRequest"])({
+            postUrl: getPostUrl('.password-login'),
+            targetForm: $('#account_modal .account-login .password-login'),
+            postFields: {
+              email: {
+                type: 'element',
+                literalValue: 'input[name=email_name]'
+              },
+              password: {
+                type: 'element',
+                literalValue: 'input[name=password]'
+              },
+              _token: {
+                type: 'element',
+                literalValue: 'input[name=_token]'
+              }
             },
-            succeeded: function succeeded(response) {
-              if (response.data.success) {
-                location.reload();
-                setTimeout(function () {
-                  alert('reload');
-                  location.reload();
-                }, 4000);
-              } else {
+            postTimeout: 8000,
+            callbacks: {
+              failed: function failed(error) {
+                var errorsBag = Object(_network__WEBPACK_IMPORTED_MODULE_3__["getNetworkRelatedErrorsBag"])(error);
                 showErrorBox({
                   tabName: '.password-login',
-                  errorsBag: response.data.errors,
+                  errorsBag: errorsBag,
                   formBox: {
                     marginTopDistance: '1rem'
                   }
                 });
                 changeSubmitButtonText('.password-login', '登录');
+                Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                  maintainingFlagsInfo: {
+                    flagsContainer: maintainingFlags,
+                    flagName: 'remoteProcessingFlag'
+                  }
+                });
+              },
+              succeeded: function succeeded(response) {
+                if (response.data.success) {
+                  refreshCurrentUrl();
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: maintainingFlags,
+                      flagName: 'remoteProcessingFlag'
+                    }
+                  });
+                } else {
+                  showErrorBox({
+                    tabName: '.password-login',
+                    errorsBag: response.data.errors,
+                    formBox: {
+                      marginTopDistance: '1rem'
+                    }
+                  });
+                  changeSubmitButtonText('.password-login', '登录');
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: maintainingFlags,
+                      flagName: 'remoteProcessingFlag'
+                    }
+                  });
+                }
               }
             }
-          }
-        });
+          });
+        }
       }
     }
   });
-}); //click event for the ‘get phone code’ button on AccountRegisterTab
+}); //click event for the 'get phone code' button on AccountRegisterTab
 
 $('#account_modal .account-register .get-phone-code .link').click(function (event) {
   Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["validateForm"])({
@@ -6055,63 +6082,56 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
         });
       },
       succeeded: function succeeded() {
-        closeErrorBox({
-          tabName: '.account-register',
-          formBox: {
-            marginTopDistance: '1.5rem'
-          }
-        });
-        instantiateYpCaptcha(); //prevent multiple remote requests before get the result
-
-        if (startProcessingLock({
-          maintainingFlagsInfo: {
+        //prevent multiple requests before get the result
+        //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
+        //the YpCaptchButton can be instantiated and showed up
+        if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startDoubleProcessingLock"])({
+          //indicating if the YpCaptchaButton is showing
+          firstMaintainingFlagsInfo: {
             flagsContainer: maintainingFlags,
             flagName: 'YpCaptchaButtonShowingFlag'
-          }
-        }) && !maintainingFlags.YpCaptchaButtonShownFlag) {
-          //显示云片验证码提示框
-          $('#register-yunpian-captcha').css({
-            'order': '0',
-            'display': 'none',
-            'visibility': 'visible'
-          });
-          $('#register-yunpian-captcha').fadeIn(1000, function () {
-            maintainingFlags.YpCaptchaButtonShownFlag = true;
-            stopProcessingLock({
-              maintainingFlagsInfo: {
-                flagsContainer: maintainingFlags,
-                flagName: 'YpCaptchaButtonShowingFlag'
-              }
-            });
-          });
-        } //except for 'glow' option, other options will cause svg icons move while animation effects are on progress in Safari on Mac computer or in the browsers on iOS devices
-
-
-        var transitionMode;
-
-        if (_detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isiOS"] || _detectBrowsers__WEBPACK_IMPORTED_MODULE_1__["isSafari"]) {
-          transitionMode = 'glow';
-        } else {
-          transitionMode = 'flash';
-        } //adding animation effects
-
-
-        $('#register-yunpian-captcha .yp-riddler .yp-riddler-button_text').transition({
-          animation: transitionMode,
-          duration: '0.5s',
-          onStart: function onStart() {
-            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
-            //unless display is set to block or inline-block, or position is set to absolute or fixed
-            //prevent the animation repeats before it ends
-            $(event.currentTarget).css('pointer-events', 'none');
           },
-          onComplete: function onComplete() {
-            //CSS3 pointer-events does not work on links in IE11 and Edge 17 and below
-            //unless display is set to block or inline-block, or position is set to absolute or fixed
-            //prevent the animation repeats before it ends
-            $(event.currentTarget).css('pointer-events', 'all');
+          //indicating if the YpCaptchaButton is shown
+          secondMaintainingFlagsInfo: {
+            flagsContainer: maintainingFlags,
+            flagName: 'YpCaptchaButtonShownFlag'
           }
-        });
+        })) {
+          closeErrorBox({
+            tabName: '.account-register',
+            formBox: {
+              marginTopDistance: '1.5rem'
+            }
+          });
+          instantiateYpCaptcha(); //show up the YpCaptchaButton
+
+          showYpCaptchaButton({
+            YpCaptchaButtonID: '#register-yunpian-captcha',
+            showingTime: 1000,
+            shownCallback: function shownCallback() {
+              Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                maintainingFlagsInfo: {
+                  flagsContainer: maintainingFlags,
+                  flagName: 'YpCaptchaButtonShowingFlag'
+                }
+              });
+            }
+          });
+        } //make the text of YpCaptchaButton flash
+
+
+        if (isYpCaptchaButtonShown()) {
+          makeYpCaptchaButtonTextFlash({
+            YpCaptchaButtonID: '#register-yunpian-captcha',
+            effectDuration: 800,
+            callbacks: {
+              beforeEffect: function beforeEffect() {//console.log('before the effect')
+              },
+              afterEffect: function afterEffect() {//console.log('after the effect')
+              }
+            }
+          });
+        }
       }
     }
   });
@@ -6309,6 +6329,77 @@ var isIE11 = false;
 
 if (window.matchMedia("screen and (-ms-high-contrast: active), (-ms-high-contrast: none)").matches) {
   isIE11 = true;
+}
+
+
+
+/***/ }),
+
+/***/ "./resources/js/index/effects.js":
+/*!***************************************!*\
+  !*** ./resources/js/index/effects.js ***!
+  \***************************************/
+/*! exports provided: enableFlashEffect */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableFlashEffect", function() { return enableFlashEffect; });
+/*************************************************************
+
+             enableFlashEffect OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
+
+  effectDuration: 800,
+
+  targetOriginalDisplayType: 'inline-block',
+
+  flashTimes: 2,
+
+  callbacks: {
+
+    beforeEffect: () => {},
+
+    afterEffect: () => {}
+
+  }
+
+}
+
+**************************************************************/
+function enableFlashEffect(effect_options) {
+  if (effect_options.callbacks.beforeEffect.isCalled == undefined) {
+    effect_options.callbacks.beforeEffect();
+    effect_options.callbacks.beforeEffect.isCalled = true;
+  }
+
+  effect_options.targetElement.fadeOut(effect_options.effectDuration / 4, function () {
+    // this makes sure that the target element will still occupy its original space and makes the fade out effect function normally
+    effect_options.targetElement.css({
+      'display': effect_options.targetOriginalDisplayType,
+      'visibility': 'hidden'
+    }); // this makes sure that the target element will still occupy its original space and makes the fade in effect function normally
+
+    effect_options.targetElement.css({
+      'display': 'none',
+      'visibility': 'visible'
+    });
+    effect_options.targetElement.fadeIn(effect_options.effectDuration / 4, function () {
+      effect_options.flashTimes -= 1;
+
+      if (effect_options.flashTimes > 0) {
+        enableFlashEffect(effect_options);
+      } else {
+        effect_options.callbacks.afterEffect();
+        return;
+      }
+    });
+  });
 }
 
 
@@ -6662,6 +6753,292 @@ $('#main_nav .left.menu a').hover(function (event) {
 }, function (event) {
   $(event.currentTarget.children[0]).transition('stop');
 });
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
+
+/***/ }),
+
+/***/ "./resources/js/index/network.js":
+/*!***************************************!*\
+  !*** ./resources/js/index/network.js ***!
+  \***************************************/
+/*! exports provided: startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest, getNetworkRelatedErrorsBag, extendHandleTime, assignValueToMaintainingObjects, assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater, clearRepeater */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startProcessingLock", function() { return startProcessingLock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startDoubleProcessingLock", function() { return startDoubleProcessingLock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stopProcessingLock", function() { return stopProcessingLock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendPostRequest", function() { return sendPostRequest; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNetworkRelatedErrorsBag", function() { return getNetworkRelatedErrorsBag; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "extendHandleTime", function() { return extendHandleTime; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "assignValueToMaintainingObjects", function() { return assignValueToMaintainingObjects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "assignValueToMaintainingObjectsOnce", function() { return assignValueToMaintainingObjectsOnce; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unsetMaintainingObjects", function() { return unsetMaintainingObjects; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startRepeater", function() { return startRepeater; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearRepeater", function() { return clearRepeater; });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/*************************************************************
+
+             startProcessingLock OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  maintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  }
+
+}
+
+**************************************************************/
+
+function startProcessingLock(lock_options) {
+  if (!lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
+    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = true;
+    return true;
+  }
+
+  return false;
+}
+/*************************************************************
+
+             startDoubleProcessingLock OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  firstMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+  secondMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  }
+
+}
+
+**************************************************************/
+
+
+function startDoubleProcessingLock(lock_options) {
+  if (!lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] && !lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName]) {
+    lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] = true;
+    lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName] = true;
+    return true;
+  }
+
+  return false;
+}
+
+function stopProcessingLock(lock_options) {
+  if (lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
+    lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = false;
+  }
+}
+/*************************************************************
+
+            sendPostRequest OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  postUrl: getPostUrl('.account-register'),
+
+  targetForm: $('#account_modal .account-login .password-login'),
+
+  postFields: {
+
+    phone:  {
+
+      type: 'element',
+
+      literalValue: 'input[name=phone]'
+
+    },
+
+    captcha_token: {
+
+      type: 'parameter',
+
+      literalValue:  captcha_token
+
+    },
+
+    captcha_authenticate: {
+
+      type: 'parameter',
+
+      literalValue:  captcha_authenticate
+
+    },
+
+  },
+
+  postTimeout: 8000
+
+  callbacks: {
+
+    failed: (error) => {},
+
+    succeeded: (response) =>{}
+
+  }
+
+
+}
+
+**************************************************************/
+
+
+function sendPostRequest(post_options) {
+  var computed_field_value = {};
+  $.each(post_options.postFields, function (key, field) {
+    var field_input_value;
+
+    if (field.type == 'element') {
+      field_input_value = post_options.targetForm.find(field.literalValue).val();
+    } else if (field.type == 'parameter') {
+      field_input_value = field.literalValue;
+    }
+
+    computed_field_value[key] = field_input_value;
+  });
+  axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(post_options.postUrl, computed_field_value, {
+    timeout: post_options.postTimeout
+  }).then(function (response) {
+    post_options.callbacks.succeeded(response);
+  })["catch"](function (error) {
+    post_options.callbacks.failed(error);
+  });
+}
+
+function getNetworkRelatedErrorsBag(error) {
+  var errorsBag = [];
+  var globalErrors = [];
+
+  if (error.response) {
+    ////in Laravel, the command like 'throw new \Symfony\Component\HttpKernel\Exception\ConflictHttpException('User was updated prior to your request.');'
+    // will return error information from error.response
+    // The request was made and the server responded with a status code
+    globalErrors.push("\u670D\u52A1\u5668\u8FD4\u56DE ".concat(error.response.status, " \u9519\u8BEF\uFF0C\u8BF7\u7A0D\u540E\u518D\u8BD5"));
+  } else if (error.request) {
+    // The request was made but no response was received
+    // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+    // http.ClientRequest in node.js
+    globalErrors.push('网络连接错误，请稍后再试');
+  } else {
+    // Something happened in setting up the request that triggered an Error
+    globalErrors.push('在发起请求时出现错误，请稍后再试');
+  }
+
+  errorsBag.push(globalErrors);
+  return errorsBag;
+}
+
+function extendHandleTime(extend_options) {
+  setTimeout(extend_options.extendCallback, extend_options.extendTime);
+}
+/*************************************************************
+
+       assignValueToMaintainingObjects OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  maintainingObjectsInfo: {
+
+    objectsContainer: maintainingObjects,
+
+    objectName: 'YpCaptchaInstance'
+
+  },
+
+  assginValueFunc: () => {
+
+    return instantiateYpCaptcha()
+
+  }
+
+}
+
+**************************************************************/
+
+
+function assignValueToMaintainingObjects(assign_options) {
+  assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc();
+}
+/* only when the value of the object is undefined, this function can assign value to this object */
+
+
+function assignValueToMaintainingObjectsOnce(assign_options) {
+  if (assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] == undefined) {
+    assign_options.maintainingObjectsInfo.objectsContainer[assign_options.maintainingObjectsInfo.objectName] = assign_options.assginValueFunc();
+  }
+}
+
+function unsetMaintainingObjects(unset_options) {
+  if (unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] != undefined) {
+    unset_options.maintainingObjectsInfo.objectsContainer[unset_options.maintainingObjectsInfo.objectName] = undefined;
+  }
+}
+/*************************************************************
+
+                 startRepeater OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  maintainingObjectsInfo: {
+
+    objectsContainer:maintainingObjects,
+
+    objectName: 'puzzleShowUpWatcher'
+
+  },
+
+  intervalCallback: () => {},
+
+  frequency: 100
+
+}
+
+**************************************************************/
+
+
+function startRepeater(repeat_options) {
+  assignValueToMaintainingObjects({
+    maintainingObjectsInfo: repeat_options.maintainingObjectsInfo,
+    assginValueFunc: function assginValueFunc() {
+      return setInterval(repeat_options.intervalCallback, repeat_options.frequency);
+    }
+  });
+}
+
+function clearRepeater(repeat_options) {
+  clearInterval(repeat_options.maintainingObjectsInfo.objectsContainer[repeat_options.maintainingObjectsInfo.objectName]);
+}
+
+
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.js")))
 
 /***/ }),
