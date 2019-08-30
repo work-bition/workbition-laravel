@@ -765,7 +765,7 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
 }
 
-function refreshPageWithCurrentUrl() {
+function refreshPageUsingCurrentUrl() {
 
   location.reload()
 
@@ -1230,7 +1230,7 @@ $('#account_modal .account-login .password.login.form').submit((event) => {
 
                   disableAllActionsOnAccountModal()
 
-                  refreshPageWithCurrentUrl()
+                  refreshPageUsingCurrentUrl()
 
                   stopProcessingLock({
 
@@ -1512,7 +1512,7 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
                 if (response.data.success) {
 
-                  refreshPageWithCurrentUrl()
+                  refreshPageUsingCurrentUrl()
 
                   stopProcessingLock({
 
