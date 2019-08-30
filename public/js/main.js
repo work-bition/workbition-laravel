@@ -5594,7 +5594,7 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
   }
 }
 
-function refreshCurrentUrl() {
+function refreshPageWithCurrentUrl() {
   location.reload();
   Object(_network__WEBPACK_IMPORTED_MODULE_3__["extendHandleTime"])({
     extendTime: 4000,
@@ -5891,7 +5891,7 @@ $('#account_modal .account-login .password.login.form').submit(function (event) 
               succeeded: function succeeded(response) {
                 if (response.data.success) {
                   disableAllActionsOnAccountModal();
-                  refreshCurrentUrl();
+                  refreshPageWithCurrentUrl();
                   Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
                     maintainingFlagsInfo: {
                       flagsContainer: maintainingFlags,
@@ -6025,7 +6025,7 @@ $('#account_modal .account-register .register.form').submit(function (event) {
               },
               succeeded: function succeeded(response) {
                 if (response.data.success) {
-                  refreshCurrentUrl();
+                  refreshPageWithCurrentUrl();
                   Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
                     maintainingFlagsInfo: {
                       flagsContainer: maintainingFlags,
