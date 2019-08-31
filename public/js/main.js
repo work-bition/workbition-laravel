@@ -5267,6 +5267,11 @@ var maintainingFlags = {
   YpCaptchaButtonTextFlashingFlag: false,
   YpCaptchaSuccessButtonShownFlag: false
 };
+var errorBoxMaintainingFlags = {
+  registerAccountTabErrorBoxShowingFlag: false,
+  passwordLoginTabErrorBoxShowingFlag: false,
+  phoneCodeLoginTabErrorBoxShowingFlag: false
+};
 var maintainingObjects = {
   YpCaptchaInstance: undefined,
   puzzleShowUpWatcher: undefined
@@ -5448,9 +5453,18 @@ var YpCaptchaInitializingOptions = {
   }
 };
 
-function error_box_toggler(formName, benifits_bar_style, error_box_style) {
+function error_box_toggler(formName, benifits_bar_style, error_box_style, error_box_callback) {
   $("#account_modal .login-register-box ".concat(formName, " .benifits_bar")).css('display', benifits_bar_style);
   $("#account_modal .login-register-box ".concat(formName, " .error-box")).css('display', error_box_style);
+
+  if (error_box_style == 'block') {
+    Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
+      targetElement: $("#account_modal .login-register-box ".concat(formName, " .error-box")),
+      callbacks: {
+        shown: error_box_callback
+      }
+    });
+  }
 }
 
 function createErrorItems(errors, itemElement, container) {
@@ -5463,8 +5477,8 @@ function createErrorItems(errors, itemElement, container) {
 } //errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
 
 
-function showingErrorBox(tabName, errorsBag) {
-  error_box_toggler(tabName, 'none', 'block');
+function showingErrorBox(tabName, errorsBag, error_box_callback) {
+  error_box_toggler(tabName, 'none', 'block', error_box_callback);
   createErrorItems(errorsBag, 'li', "#account_modal .login-register-box ".concat(tabName, " .error-box .list"));
 }
 
@@ -5499,8 +5513,38 @@ function adjustFormBoxTopMargin(formName, marginDistance) {
 
 
 function showErrorBox(options) {
-  showingErrorBox(options.tabName, options.errorsBag);
-  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+  var flagName;
+
+  switch (options.tabName) {
+    case '.password-login':
+      flagName = 'passwordLoginTabErrorBoxShowingFlag';
+      break;
+
+    case '.phone-code-login':
+      flagName = 'phoneCodeLoginTabErrorBoxShowingFlag';
+      break;
+
+    case '.account-register':
+      flagName = 'registerAccountTabErrorBoxShowingFlag';
+      break;
+  }
+
+  if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+    maintainingFlagsInfo: {
+      flagsContainer: errorBoxMaintainingFlags,
+      flagName: flagName
+    }
+  })) {
+    showingErrorBox(options.tabName, options.errorsBag, function () {
+      Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+        maintainingFlagsInfo: {
+          flagsContainer: errorBoxMaintainingFlags,
+          flagName: flagName
+        }
+      });
+    });
+    adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+  }
 }
 
 function closeErrorBox(options) {
@@ -6082,9 +6126,15 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
         });
       },
       succeeded: function succeeded() {
-        //prevent multiple requests before get the result
+        closeErrorBox({
+          tabName: '.account-register',
+          formBox: {
+            marginTopDistance: '1.5rem'
+          }
+        }); //prevent multiple requests before get the result
         //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
         //the YpCaptchButton can be instantiated and showed up
+
         if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startDoubleProcessingLock"])({
           //indicating if the YpCaptchaButton is showing
           firstMaintainingFlagsInfo: {
@@ -6339,12 +6389,40 @@ if (window.matchMedia("screen and (-ms-high-contrast: active), (-ms-high-contras
 /*!***************************************!*\
   !*** ./resources/js/index/effects.js ***!
   \***************************************/
-/*! exports provided: enableFlashEffect */
+/*! exports provided: fadeIn, enableFlashEffect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeIn", function() { return fadeIn; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableFlashEffect", function() { return enableFlashEffect; });
+/*************************************************************
+
+                    fadeIn OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
+
+  callbacks: {
+
+    shown: () => {}
+
+  }
+
+}
+
+**************************************************************/
+function fadeIn(fade_in_options) {
+  fade_in_options.targetElement.css({
+    'order': '0',
+    'display': 'none',
+    'visibility': 'visible'
+  });
+  fade_in_options.targetElement.fadeIn(1000, fade_in_options.callbacks.shown);
+}
 /*************************************************************
 
              enableFlashEffect OPTIONS EXAMPLE
@@ -6372,6 +6450,8 @@ __webpack_require__.r(__webpack_exports__);
 }
 
 **************************************************************/
+
+
 function enableFlashEffect(effect_options) {
   if (effect_options.callbacks.beforeEffect.isCalled == undefined) {
     effect_options.callbacks.beforeEffect();

@@ -1,5 +1,32 @@
 /*************************************************************
 
+                    fadeIn OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
+
+  callbacks: {
+
+    shown: () => {}
+
+  }
+
+}
+
+**************************************************************/
+function fadeIn(fade_in_options){
+
+  fade_in_options.targetElement.css({'order': '0','display':'none', 'visibility': 'visible'})
+
+  fade_in_options.targetElement.fadeIn(1000, fade_in_options.callbacks.shown)
+
+}
+
+/*************************************************************
+
              enableFlashEffect OPTIONS EXAMPLE
 
 **************************************************************
@@ -67,4 +94,4 @@ function enableFlashEffect(effect_options){
 
 }
 
-export { enableFlashEffect }
+export { fadeIn, enableFlashEffect }

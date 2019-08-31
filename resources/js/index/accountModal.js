@@ -9,7 +9,7 @@ import { validateForm } from './formValidation'
 
 import { isiOS, isSafari, isIE11 } from './detectBrowsers'
 
-import { enableFlashEffect } from './effects'
+import { fadeIn, enableFlashEffect } from './effects'
 
 import { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
 
@@ -171,6 +171,16 @@ let maintainingFlags = {
   YpCaptchaButtonTextFlashingFlag: false,
 
   YpCaptchaSuccessButtonShownFlag: false
+
+}
+
+let errorBoxMaintainingFlags = {
+
+  registerAccountTabErrorBoxShowingFlag : false,
+
+  passwordLoginTabErrorBoxShowingFlag : false,
+
+  phoneCodeLoginTabErrorBoxShowingFlag : false
 
 }
 
@@ -516,11 +526,27 @@ let YpCaptchaInitializingOptions = {
 
   }
 
-function error_box_toggler(formName, benifits_bar_style, error_box_style){
+function error_box_toggler(formName, benifits_bar_style, error_box_style, error_box_callback){
 
   $(`#account_modal .login-register-box ${formName} .benifits_bar`).css('display', benifits_bar_style)
 
   $(`#account_modal .login-register-box ${formName} .error-box`).css('display', error_box_style)
+
+  if (error_box_style == 'block') {
+
+    fadeIn({
+
+      targetElement: $(`#account_modal .login-register-box ${formName} .error-box`),
+
+      callbacks: {
+
+        shown: error_box_callback
+
+      }
+
+    })
+
+  }
 
 }
 
@@ -541,9 +567,9 @@ function createErrorItems(errors, itemElement, container){
 }
 
 //errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
-function showingErrorBox(tabName, errorsBag){
+function showingErrorBox(tabName, errorsBag, error_box_callback){
 
-  error_box_toggler(tabName, 'none', 'block')
+  error_box_toggler(tabName, 'none', 'block', error_box_callback)
 
   createErrorItems(errorsBag, 'li', `#account_modal .login-register-box ${tabName} .error-box .list`)
 
@@ -585,9 +611,61 @@ function adjustFormBoxTopMargin (formName, marginDistance){
 
 function showErrorBox (options){
 
-  showingErrorBox(options.tabName, options.errorsBag)
+  let flagName
 
-  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+  switch (options.tabName) {
+
+    case '.password-login':
+
+      flagName = 'passwordLoginTabErrorBoxShowingFlag'
+
+      break;
+
+    case '.phone-code-login':
+
+      flagName = 'phoneCodeLoginTabErrorBoxShowingFlag'
+
+      break;
+
+    case '.account-register':
+
+      flagName = 'registerAccountTabErrorBoxShowingFlag'
+
+      break;
+
+  }
+
+  if (startProcessingLock({
+
+    maintainingFlagsInfo: {
+
+      flagsContainer:errorBoxMaintainingFlags,
+
+      flagName: flagName
+
+    }
+
+  })) {
+
+    showingErrorBox(options.tabName, options.errorsBag, () => {
+
+      stopProcessingLock({
+
+        maintainingFlagsInfo: {
+
+          flagsContainer:errorBoxMaintainingFlags,
+
+          flagName: flagName
+
+        }
+
+      })
+
+    })
+
+    adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+
+  }
 
 }
 
@@ -1633,6 +1711,18 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
       },
 
       succeeded: () => {
+
+        closeErrorBox({
+
+          tabName: '.account-register',
+
+          formBox: {
+
+            marginTopDistance: '1.5rem'
+
+          }
+
+        })
 
         //prevent multiple requests before get the result
         //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
