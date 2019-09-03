@@ -624,6 +624,8 @@ function showErrorBox (options){
 
         targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
 
+        effectDuration: 250,
+
         targetOriginalDisplayType: 'none',
 
         callbacks: {
@@ -648,6 +650,8 @@ function showErrorBox (options){
             fadeIn({
 
               targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
+
+              effectDuration: 250,
 
               callbacks: {
 
@@ -685,6 +689,8 @@ function showErrorBox (options){
 
         targetElement: $(`#account_modal .login-register-box ${options.tabName} .benifits_bar`),
 
+        effectDuration: 250,
+
         targetOriginalDisplayType: 'none',
 
         callbacks: {
@@ -709,6 +715,8 @@ function showErrorBox (options){
             fadeIn({
 
               targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
+
+              effectDuration: 250,
 
               callbacks: {
 
@@ -791,6 +799,8 @@ function closeErrorBox (options){
 
           targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
 
+          effectDuration: 250,
+
           targetOriginalDisplayType: 'none',
 
           callbacks: {
@@ -802,6 +812,8 @@ function closeErrorBox (options){
               fadeIn({
 
                 targetElement: $(`#account_modal .login-register-box ${options.tabName} .benifits_bar`),
+
+                effectDuration: 250,
 
                 callbacks: {
 
@@ -1147,10 +1159,23 @@ function releaseYpCaptcha(){
 
 function showYpCaptchaButton(show_button_options){
 
-  //showing the YpCaptchaButton
-  $(show_button_options.YpCaptchaButtonID).css({'order': '0','display':'none', 'visibility': 'visible'})
+  //changing the position of YpCaptchaButton
+  $(show_button_options.YpCaptchaButtonID).css('order', '0')
 
-  $(show_button_options.YpCaptchaButtonID).fadeIn(show_button_options.showingTime, show_button_options.shownCallback)
+  //showing the YpCaptchaButton
+  fadeIn({
+
+    targetElement:  $(show_button_options.YpCaptchaButtonID),
+
+    effectDuration: show_button_options.showingTime,
+
+    callbacks: {
+
+      shown: show_button_options.shownCallback
+
+    }
+
+  })
 
 }
 
@@ -1189,13 +1214,32 @@ function showYpCaptchaButton(show_button_options){
 function hideYpCaptchaButton(hide_button_options){
 
   //hiding the YpCaptchaButton
-  $(hide_button_options.YpCaptchaButtonID).fadeOut(hide_button_options.hidingTime, () => {
 
-    $(hide_button_options.YpCaptchaButtonID).css({'order': '1', 'display' : 'block', 'visibility': 'hidden'})
+  fadeOut({
 
-    hide_button_options.hiddenCallback()
+    targetElement: $(hide_button_options.YpCaptchaButtonID),
+
+    effectDuration: hide_button_options.hidingTime,
+
+    targetOriginalDisplayType: 'block',
+
+    callbacks: {
+
+      disappeared: () => {
+
+        hide_button_options.hiddenCallback()
+
+        //changing the position of YpCaptchaButton
+
+        $(hide_button_options.YpCaptchaButtonID).css('order', '1')
+
+      }
+
+    }
 
   })
+
+
 
 }
 

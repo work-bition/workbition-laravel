@@ -8,6 +8,8 @@
 
   targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
 
+  effectDuration: 250,
+
   callbacks: {
 
     shown: () => {}
@@ -21,7 +23,7 @@ function fadeIn(fade_in_options){
 
   fade_in_options.targetElement.css({'display':'none', 'visibility': 'visible'})
 
-  fade_in_options.targetElement.fadeIn(250, fade_in_options.callbacks.shown)
+  fade_in_options.targetElement.fadeIn(fade_in_options.effectDuration, fade_in_options.callbacks.shown)
 
 }
 
@@ -34,6 +36,8 @@ function fadeIn(fade_in_options){
 {
 
   targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
+
+  effectDuration: 250,
 
   targetOriginalDisplayType: 'block',
 
@@ -48,7 +52,7 @@ function fadeIn(fade_in_options){
 **************************************************************/
 function fadeOut(fade_out_options){
 
-  fade_out_options.targetElement.fadeOut(250, () => {
+  fade_out_options.targetElement.fadeOut(fade_out_options.effectDuration, () => {
 
     fade_out_options.targetElement.css({'display' : fade_out_options.targetOriginalDisplayType, 'visibility': 'hidden'})
 
@@ -87,41 +91,64 @@ function fadeOut(fade_out_options){
 **************************************************************/
 function enableFlashEffect(effect_options){
 
+  //here will only be called once
   if (effect_options.callbacks.beforeEffect.isCalled == undefined) {
 
     effect_options.callbacks.beforeEffect()
 
     effect_options.callbacks.beforeEffect.isCalled = true
 
+    effect_options.partDuration = effect_options.effectDuration / ( effect_options.flashTimes * 2 )
+
   }
 
-  effect_options.targetElement.fadeOut(effect_options.effectDuration/4, () => {
+  fadeOut({
 
-    // this makes sure that the target element will still occupy its original space and makes the fade out effect function normally
-    effect_options.targetElement.css({'display':effect_options.targetOriginalDisplayType, 'visibility': 'hidden'})
+    targetElement: effect_options.targetElement,
 
-    // this makes sure that the target element will still occupy its original space and makes the fade in effect function normally
-    effect_options.targetElement.css({'display':'none', 'visibility': 'visible'})
+    effectDuration: effect_options.partDuration,
 
-    effect_options.targetElement.fadeIn(effect_options.effectDuration/4, () => {
+    targetOriginalDisplayType: effect_options.targetOriginalDisplayType,
 
-      effect_options.flashTimes -= 1
+    callbacks: {
 
-      if (effect_options.flashTimes > 0) {
+      disappeared: () => {
 
-        enableFlashEffect(effect_options)
+        fadeIn({
+
+          targetElement: effect_options.targetElement,
+
+          effectDuration: effect_options.partDuration,
+
+          callbacks: {
+
+            shown: () => {
+
+              effect_options.flashTimes -= 1
+
+              if (effect_options.flashTimes > 0) {
+
+                enableFlashEffect(effect_options)
+
+              }
+
+              else {
+
+                effect_options.callbacks.afterEffect()
+
+                return
+
+              }
+
+            }
+
+          }
+
+        })
 
       }
 
-      else {
-
-        effect_options.callbacks.afterEffect()
-
-        return
-
-      }
-
-    })
+    }
 
   })
 

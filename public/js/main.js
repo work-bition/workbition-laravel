@@ -5522,6 +5522,7 @@ function showErrorBox(options) {
     if ($("#account_modal .login-register-box ".concat(options.tabName, " .error-box")).css('display') == 'block') {
       Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
         targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+        effectDuration: 250,
         targetOriginalDisplayType: 'none',
         callbacks: {
           disappeared: function disappeared() {
@@ -5536,6 +5537,7 @@ function showErrorBox(options) {
 
             Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
               targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+              effectDuration: 250,
               callbacks: {
                 shown: function shown() {
                   Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5553,6 +5555,7 @@ function showErrorBox(options) {
     } else {
       Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
         targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .benifits_bar")),
+        effectDuration: 250,
         targetOriginalDisplayType: 'none',
         callbacks: {
           disappeared: function disappeared() {
@@ -5567,6 +5570,7 @@ function showErrorBox(options) {
 
             Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
               targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+              effectDuration: 250,
               callbacks: {
                 shown: function shown() {
                   Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5622,12 +5626,14 @@ function closeErrorBox(options) {
     if ($("#account_modal .login-register-box ".concat(options.tabName, " .error-box")).css('display') != 'none') {
       Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
         targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+        effectDuration: 250,
         targetOriginalDisplayType: 'none',
         callbacks: {
           disappeared: function disappeared() {
             adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
             Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
               targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .benifits_bar")),
+              effectDuration: 250,
               callbacks: {
                 shown: function shown() {
                   Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5828,13 +5834,16 @@ function releaseYpCaptcha() {
 
 
 function showYpCaptchaButton(show_button_options) {
-  //showing the YpCaptchaButton
-  $(show_button_options.YpCaptchaButtonID).css({
-    'order': '0',
-    'display': 'none',
-    'visibility': 'visible'
+  //changing the position of YpCaptchaButton
+  $(show_button_options.YpCaptchaButtonID).css('order', '0'); //showing the YpCaptchaButton
+
+  Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
+    targetElement: $(show_button_options.YpCaptchaButtonID),
+    effectDuration: show_button_options.showingTime,
+    callbacks: {
+      shown: show_button_options.shownCallback
+    }
   });
-  $(show_button_options.YpCaptchaButtonID).fadeIn(show_button_options.showingTime, show_button_options.shownCallback);
 }
 /*************************************************************
 
@@ -5871,13 +5880,17 @@ function showYpCaptchaButton(show_button_options) {
 
 function hideYpCaptchaButton(hide_button_options) {
   //hiding the YpCaptchaButton
-  $(hide_button_options.YpCaptchaButtonID).fadeOut(hide_button_options.hidingTime, function () {
-    $(hide_button_options.YpCaptchaButtonID).css({
-      'order': '1',
-      'display': 'block',
-      'visibility': 'hidden'
-    });
-    hide_button_options.hiddenCallback();
+  Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
+    targetElement: $(hide_button_options.YpCaptchaButtonID),
+    effectDuration: hide_button_options.hidingTime,
+    targetOriginalDisplayType: 'block',
+    callbacks: {
+      disappeared: function disappeared() {
+        hide_button_options.hiddenCallback(); //changing the position of YpCaptchaButton
+
+        $(hide_button_options.YpCaptchaButtonID).css('order', '1');
+      }
+    }
   });
 }
 
@@ -6511,6 +6524,8 @@ __webpack_require__.r(__webpack_exports__);
 
   targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
 
+  effectDuration: 250,
+
   callbacks: {
 
     shown: () => {}
@@ -6525,7 +6540,7 @@ function fadeIn(fade_in_options) {
     'display': 'none',
     'visibility': 'visible'
   });
-  fade_in_options.targetElement.fadeIn(250, fade_in_options.callbacks.shown);
+  fade_in_options.targetElement.fadeIn(fade_in_options.effectDuration, fade_in_options.callbacks.shown);
 }
 /*************************************************************
 
@@ -6536,6 +6551,8 @@ function fadeIn(fade_in_options) {
 {
 
   targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
+
+  effectDuration: 250,
 
   targetOriginalDisplayType: 'block',
 
@@ -6551,7 +6568,7 @@ function fadeIn(fade_in_options) {
 
 
 function fadeOut(fade_out_options) {
-  fade_out_options.targetElement.fadeOut(250, function () {
+  fade_out_options.targetElement.fadeOut(fade_out_options.effectDuration, function () {
     fade_out_options.targetElement.css({
       'display': fade_out_options.targetOriginalDisplayType,
       'visibility': 'hidden'
@@ -6589,32 +6606,37 @@ function fadeOut(fade_out_options) {
 
 
 function enableFlashEffect(effect_options) {
+  //here will only be called once
   if (effect_options.callbacks.beforeEffect.isCalled == undefined) {
     effect_options.callbacks.beforeEffect();
     effect_options.callbacks.beforeEffect.isCalled = true;
+    effect_options.partDuration = effect_options.effectDuration / (effect_options.flashTimes * 2);
   }
 
-  effect_options.targetElement.fadeOut(effect_options.effectDuration / 4, function () {
-    // this makes sure that the target element will still occupy its original space and makes the fade out effect function normally
-    effect_options.targetElement.css({
-      'display': effect_options.targetOriginalDisplayType,
-      'visibility': 'hidden'
-    }); // this makes sure that the target element will still occupy its original space and makes the fade in effect function normally
+  fadeOut({
+    targetElement: effect_options.targetElement,
+    effectDuration: effect_options.partDuration,
+    targetOriginalDisplayType: effect_options.targetOriginalDisplayType,
+    callbacks: {
+      disappeared: function disappeared() {
+        fadeIn({
+          targetElement: effect_options.targetElement,
+          effectDuration: effect_options.partDuration,
+          callbacks: {
+            shown: function shown() {
+              effect_options.flashTimes -= 1;
 
-    effect_options.targetElement.css({
-      'display': 'none',
-      'visibility': 'visible'
-    });
-    effect_options.targetElement.fadeIn(effect_options.effectDuration / 4, function () {
-      effect_options.flashTimes -= 1;
-
-      if (effect_options.flashTimes > 0) {
-        enableFlashEffect(effect_options);
-      } else {
-        effect_options.callbacks.afterEffect();
-        return;
+              if (effect_options.flashTimes > 0) {
+                enableFlashEffect(effect_options);
+              } else {
+                effect_options.callbacks.afterEffect();
+                return;
+              }
+            }
+          }
+        });
       }
-    });
+    }
   });
 }
 
