@@ -274,6 +274,12 @@ $avatarDropdownHorizontalOffset: -140%;
 
                     transform: translateY(1px);
 
+                    &.icon-logout {
+
+                      margin-right: 0.2rem;
+
+                    }
+
                   }
 
                 }

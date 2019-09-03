@@ -19,9 +19,42 @@
 **************************************************************/
 function fadeIn(fade_in_options){
 
-  fade_in_options.targetElement.css({'order': '0','display':'none', 'visibility': 'visible'})
+  fade_in_options.targetElement.css({'display':'none', 'visibility': 'visible'})
 
-  fade_in_options.targetElement.fadeIn(1000, fade_in_options.callbacks.shown)
+  fade_in_options.targetElement.fadeIn(250, fade_in_options.callbacks.shown)
+
+}
+
+/*************************************************************
+
+                    fadeOut OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
+
+  targetOriginalDisplayType: 'block',
+
+  callbacks: {
+
+    disappeared: () => {}
+
+  }
+
+}
+
+**************************************************************/
+function fadeOut(fade_out_options){
+
+  fade_out_options.targetElement.fadeOut(250, () => {
+
+    fade_out_options.targetElement.css({'display' : fade_out_options.targetOriginalDisplayType, 'visibility': 'hidden'})
+
+    fade_out_options.callbacks.disappeared()
+
+  })
 
 }
 
@@ -94,4 +127,4 @@ function enableFlashEffect(effect_options){
 
 }
 
-export { fadeIn, enableFlashEffect }
+export { fadeIn, fadeOut, enableFlashEffect }

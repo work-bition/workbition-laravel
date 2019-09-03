@@ -1264,6 +1264,10 @@ element in order to prevent the background layer from moving **/
   width: 1.5rem;
 }
 
+#header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu .item .icon.icon-logout {
+  margin-right: 0.2rem;
+}
+
 #header .header_content .right_wrap .right.menu .authentication-links .avatar-container .avatar.dropdown .menu::after {
   top: -0.21em;
 }

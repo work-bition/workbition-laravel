@@ -9,7 +9,7 @@ import { validateForm } from './formValidation'
 
 import { isiOS, isSafari, isIE11 } from './detectBrowsers'
 
-import { fadeIn, enableFlashEffect } from './effects'
+import { fadeIn, fadeOut, enableFlashEffect } from './effects'
 
 import { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
 
@@ -17,7 +17,7 @@ import { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sen
 
          assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater,
 
-         clearRepeater } from './network'
+         clearRepeater, wait } from './network'
 
 /*****************************************************************************************************************************
 
@@ -526,30 +526,6 @@ let YpCaptchaInitializingOptions = {
 
   }
 
-function error_box_toggler(formName, benifits_bar_style, error_box_style, error_box_callback){
-
-  $(`#account_modal .login-register-box ${formName} .benifits_bar`).css('display', benifits_bar_style)
-
-  $(`#account_modal .login-register-box ${formName} .error-box`).css('display', error_box_style)
-
-  if (error_box_style == 'block') {
-
-    fadeIn({
-
-      targetElement: $(`#account_modal .login-register-box ${formName} .error-box`),
-
-      callbacks: {
-
-        shown: error_box_callback
-
-      }
-
-    })
-
-  }
-
-}
-
 function createErrorItems(errors, itemElement, container){
 
   $(container).empty()
@@ -566,54 +542,17 @@ function createErrorItems(errors, itemElement, container){
 
 }
 
-//errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
-function showingErrorBox(tabName, errorsBag, error_box_callback){
-
-  error_box_toggler(tabName, 'none', 'block', error_box_callback)
-
-  createErrorItems(errorsBag, 'li', `#account_modal .login-register-box ${tabName} .error-box .list`)
-
-}
-
-function closingErrorBox(tabName){
-
-  error_box_toggler(tabName, 'flex', 'none')
-
-}
-
 function adjustFormBoxTopMargin (formName, marginDistance){
 
   $(`#account_modal .login-register-box ${formName} .form-box`).css('margin-top', marginDistance)
 
 }
 
-/*************************************************************
-
-        showErrorBox and closeErrorBox OPTIONS EXAMPLE
-
-**************************************************************
-
-{
-
-  tabName: '.password-login',
-
-  errorsBag[optional]: errorsBag,
-
-  formBox: {
-
-    marginTopDistance: '1.5rem'
-
-  }
-
-}
-
-**************************************************************/
-
-function showErrorBox (options){
+function getErrorBoxFlagName(tabName) {
 
   let flagName
 
-  switch (options.tabName) {
+  switch (tabName) {
 
     case '.password-login':
 
@@ -635,6 +574,38 @@ function showErrorBox (options){
 
   }
 
+  return flagName
+
+}
+
+/*************************************************************
+
+              showErrorBox OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  tabName: '.password-login',
+
+  errorsBag[optional]: errorsBag,
+
+  formBox: {
+
+    marginTopDistance: '1.5rem'
+
+  }
+
+}
+
+//errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
+
+**************************************************************/
+
+function showErrorBox (options){
+
+  let flagName = getErrorBoxFlagName(options.tabName)
+
   if (startProcessingLock({
 
     maintainingFlagsInfo: {
@@ -647,7 +618,227 @@ function showErrorBox (options){
 
   })) {
 
-    showingErrorBox(options.tabName, options.errorsBag, () => {
+    if ($(`#account_modal .login-register-box ${options.tabName} .error-box`).css('display') == 'block') {
+
+      fadeOut({
+
+        targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
+
+        targetOriginalDisplayType: 'none',
+
+        callbacks: {
+
+          disappeared: () => {
+
+            adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+
+            createErrorItems(options.errorsBag, 'li', `#account_modal .login-register-box ${options.tabName} .error-box .list`)
+
+            //there's no enough room for the 3rd message in the error box, so when there are 3 messages needed to show, we have to make the 3rd one disappear,
+            // the error box can show two messages to the maximum
+            if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
+
+              //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
+              $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove()
+
+              //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
+
+            }
+
+            fadeIn({
+
+              targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
+
+              callbacks: {
+
+                shown: () => {
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:errorBoxMaintainingFlags,
+
+                      flagName: flagName
+
+                    }
+
+                  })
+
+                }
+
+              }
+
+            })
+
+          }
+
+        }
+
+      })
+
+    }
+
+    else {
+
+      fadeOut({
+
+        targetElement: $(`#account_modal .login-register-box ${options.tabName} .benifits_bar`),
+
+        targetOriginalDisplayType: 'none',
+
+        callbacks: {
+
+          disappeared: () => {
+
+            adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+
+            createErrorItems(options.errorsBag, 'li', `#account_modal .login-register-box ${options.tabName} .error-box .list`)
+
+            //there's no enough room for the 3rd message in the error box, so when there are 3 messages needed to show, we have to make the 3rd one disappear,
+            // the error box can show two messages to the maximum
+            if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
+
+              //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
+              $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove()
+
+              //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
+
+            }
+
+            fadeIn({
+
+              targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
+
+              callbacks: {
+
+                shown: () => {
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:errorBoxMaintainingFlags,
+
+                      flagName: flagName
+
+                    }
+
+                  })
+
+                }
+
+              }
+
+            })
+
+          }
+
+        }
+
+      })
+
+    }
+
+  }
+
+}
+
+/*************************************************************
+
+              closeErrorBox OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  tabName: '.password-login',
+
+  formBox: {
+
+    marginTopDistance: '1.5rem'
+
+  },
+
+
+  resolve[optional]: resolve
+
+}
+
+resolve is used with promise functionality
+
+**************************************************************/
+
+function closeErrorBox (options){
+
+  let flagName = getErrorBoxFlagName(options.tabName)
+
+  if (startProcessingLock({
+
+    maintainingFlagsInfo: {
+
+      flagsContainer:errorBoxMaintainingFlags,
+
+      flagName: flagName
+
+    }
+
+  })) {
+
+    if ($(`#account_modal .login-register-box ${options.tabName} .error-box`).css('display') != 'none') {
+
+        fadeOut({
+
+          targetElement: $(`#account_modal .login-register-box ${options.tabName} .error-box`),
+
+          targetOriginalDisplayType: 'none',
+
+          callbacks: {
+
+            disappeared: () => {
+
+              adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+
+              fadeIn({
+
+                targetElement: $(`#account_modal .login-register-box ${options.tabName} .benifits_bar`),
+
+                callbacks: {
+
+                  shown: () => {
+
+                    stopProcessingLock({
+
+                      maintainingFlagsInfo: {
+
+                        flagsContainer:errorBoxMaintainingFlags,
+
+                        flagName: flagName
+
+                      }
+
+                    })
+
+                    if (options.resolve) {
+
+                      options.resolve()
+
+                    }
+
+                  }
+
+                }
+
+              })
+
+            }
+
+          }
+
+        })
+    }
+
+    else {
 
       stopProcessingLock({
 
@@ -661,19 +852,15 @@ function showErrorBox (options){
 
       })
 
-    })
+      if (options.resolve) {
 
-    adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
+        options.resolve()
+
+      }
+
+    }
 
   }
-
-}
-
-function closeErrorBox (options){
-
-  closingErrorBox(options.tabName)
-
-  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance)
 
 }
 
@@ -683,9 +870,9 @@ function changeSubmitButtonText(tabName, text){
 
 }
 
-function disableAllActionsOnAccountModal() {
+function disableAllActionsOnPage() {
 
-  $('#account_modal').css('pointer-events', 'none')
+  $('body').css('pointer-events', 'none')
 
 }
 
@@ -1216,18 +1403,6 @@ $('#account_modal .account-login .password.login.form').submit((event) => {
 
         })) {
 
-          closeErrorBox({
-
-            tabName: '.password-login',
-
-            formBox: {
-
-              marginTopDistance: '2.5rem'
-
-            }
-
-          })
-
           changeSubmitButtonText('.password-login', '登录中...')
 
           sendPostRequest({
@@ -1306,17 +1481,43 @@ $('#account_modal .account-login .password.login.form').submit((event) => {
 
                 if (response.data.success) {
 
-                  disableAllActionsOnAccountModal()
+                  wait({
 
-                  refreshPageUsingCurrentUrl()
+                    worthWaitingHandler: (resolve) => {
 
-                  stopProcessingLock({
+                      closeErrorBox({
 
-                    maintainingFlagsInfo: {
+                        tabName: '.password-login',
 
-                      flagsContainer:maintainingFlags,
+                        formBox: {
 
-                      flagName: 'remoteProcessingFlag'
+                          marginTopDistance: '2.5rem'
+
+                        },
+
+                        resolve: resolve
+
+                      })
+
+                    },
+
+                    suspendedHandler: () => {
+
+                      disableAllActionsOnPage()
+
+                      refreshPageUsingCurrentUrl()
+
+                      stopProcessingLock({
+
+                        maintainingFlagsInfo: {
+
+                          flagsContainer:maintainingFlags,
+
+                          flagName: 'remoteProcessingFlag'
+
+                        }
+
+                      })
 
                     }
 
@@ -1470,17 +1671,6 @@ $('#account_modal .account-register .register.form').submit((event) => {
           }
 
         })
-
-        //there's no enough room for the 3rd message in the error box, so when there are 3 messages needed to show, we have to make the 3rd one disappear,
-        // the error box can show two messages to the maximum
-        if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
-
-          //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
-          $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove()
-
-          //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
-
-        }
 
       },
 
@@ -1748,18 +1938,6 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
           }
 
         })) {
-
-             closeErrorBox({
-
-               tabName: '.account-register',
-
-               formBox: {
-
-                 marginTopDistance: '1.5rem'
-
-               }
-
-             })
 
              instantiateYpCaptcha()
 

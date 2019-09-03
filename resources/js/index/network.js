@@ -337,8 +337,48 @@ function clearRepeater(repeat_options) {
 
 }
 
+/*************************************************************
+
+                    wait OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  worthWaitingHandler: () => {
+
+
+  },
+
+  suspendedHandler: () => {
+
+  }
+
+}
+
+only when the worthWaitingHandler is finally executed the suspendedHandler
+
+will be called
+
+**************************************************************/
+function wait(wait_options) {
+
+  new Promise((resolve, reject) => {
+
+    wait_options.worthWaitingHandler(resolve)
+
+  }).then(() => {
+
+    wait_options.suspendedHandler()
+
+  })
+
+}
+
 export { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
 
          getNetworkRelatedErrorsBag, extendHandleTime, assignValueToMaintainingObjects,
 
-         assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater, clearRepeater }
+         assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater,
+
+         clearRepeater, wait }

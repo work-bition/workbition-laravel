@@ -4809,8 +4809,8 @@ __webpack_require__.r(__webpack_exports__);
 var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
   "id": "icon-logout",
   "use": "icon-logout-usage",
-  "viewBox": "0 0 1024 1024",
-  "content": "<symbol class=\"icon\" viewBox=\"0 0 1024 1024\" xmlns=\"http://www.w3.org/2000/svg\" id=\"icon-logout\"><path d=\"M938.667 0h-512a85.333 85.333 0 0 0-85.334 85.333v256H512V170.667h341.333v682.666H512V682.667H341.333v256A85.333 85.333 0 0 0 426.667 1024h512A85.333 85.333 0 0 0 1024 938.667V85.333A85.333 85.333 0 0 0 938.667 0z\" fill=\"#db2828\" /><path d=\"M682.667 426.667H256V256L0 512l256 256V597.333h426.667V426.667z\" fill=\"#db2828\" /></symbol>"
+  "viewBox": "0 0 512 512",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" id=\"icon-logout\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M298.668 277.336c-35.285 0-64-28.715-64-64s28.715-64 64-64h42.664V64.004c0-35.285-28.715-64-64-64H48c-7.02 0-13.59 3.453-17.578 9.234-3.969 5.782-4.863 13.145-2.348 19.692l154.668 405.336c3.137 8.277 11.07 13.738 19.926 13.738h74.664c35.285 0 64-28.715 64-64V277.336h-42.664z\" fill=\"#BC061D\" /><path d=\"M397.164 318.383C389.207 315.074 384 307.289 384 298.668v-64h-85.332c-11.777 0-21.336-9.555-21.336-21.332 0-11.777 9.559-21.332 21.336-21.332H384v-64c0-8.621 5.207-16.406 13.164-19.715a21.33 21.33 0 0 1 23.25 4.633l85.336 85.332c8.34 8.34 8.34 21.824 0 30.164l-85.336 85.336a21.335 21.335 0 0 1-23.25 4.629z\" fill=\"#BC061D\" /><path d=\"M184.45 44.844L56.257 2.114C27.328-6.782 0 14.573 0 42.667v384c0 18.242 11.605 34.52 28.887 40.492l128.168 42.73c4.715 1.45 9.047 2.114 13.613 2.114 23.531 0 42.664-19.137 42.664-42.668v-384c0-18.238-11.605-34.516-28.883-40.492z\" fill=\"#F65468\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -5453,20 +5453,6 @@ var YpCaptchaInitializingOptions = {
   }
 };
 
-function error_box_toggler(formName, benifits_bar_style, error_box_style, error_box_callback) {
-  $("#account_modal .login-register-box ".concat(formName, " .benifits_bar")).css('display', benifits_bar_style);
-  $("#account_modal .login-register-box ".concat(formName, " .error-box")).css('display', error_box_style);
-
-  if (error_box_style == 'block') {
-    Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
-      targetElement: $("#account_modal .login-register-box ".concat(formName, " .error-box")),
-      callbacks: {
-        shown: error_box_callback
-      }
-    });
-  }
-}
-
 function createErrorItems(errors, itemElement, container) {
   $(container).empty();
   $.each(errors, function (index, el) {
@@ -5474,24 +5460,34 @@ function createErrorItems(errors, itemElement, container) {
     item.innerHTML = el[0];
     $(container)[0].appendChild(item);
   });
-} //errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
-
-
-function showingErrorBox(tabName, errorsBag, error_box_callback) {
-  error_box_toggler(tabName, 'none', 'block', error_box_callback);
-  createErrorItems(errorsBag, 'li', "#account_modal .login-register-box ".concat(tabName, " .error-box .list"));
-}
-
-function closingErrorBox(tabName) {
-  error_box_toggler(tabName, 'flex', 'none');
 }
 
 function adjustFormBoxTopMargin(formName, marginDistance) {
   $("#account_modal .login-register-box ".concat(formName, " .form-box")).css('margin-top', marginDistance);
 }
+
+function getErrorBoxFlagName(tabName) {
+  var flagName;
+
+  switch (tabName) {
+    case '.password-login':
+      flagName = 'passwordLoginTabErrorBoxShowingFlag';
+      break;
+
+    case '.phone-code-login':
+      flagName = 'phoneCodeLoginTabErrorBoxShowingFlag';
+      break;
+
+    case '.account-register':
+      flagName = 'registerAccountTabErrorBoxShowingFlag';
+      break;
+  }
+
+  return flagName;
+}
 /*************************************************************
 
-        showErrorBox and closeErrorBox OPTIONS EXAMPLE
+              showErrorBox OPTIONS EXAMPLE
 
 **************************************************************
 
@@ -5509,25 +5505,13 @@ function adjustFormBoxTopMargin(formName, marginDistance) {
 
 }
 
+//errorsBag structure: [['First Field First Error'], ['Second Field First Error', 'Second Field Second Error(Not Show)']]
+
 **************************************************************/
 
 
 function showErrorBox(options) {
-  var flagName;
-
-  switch (options.tabName) {
-    case '.password-login':
-      flagName = 'passwordLoginTabErrorBoxShowingFlag';
-      break;
-
-    case '.phone-code-login':
-      flagName = 'phoneCodeLoginTabErrorBoxShowingFlag';
-      break;
-
-    case '.account-register':
-      flagName = 'registerAccountTabErrorBoxShowingFlag';
-      break;
-  }
+  var flagName = getErrorBoxFlagName(options.tabName);
 
   if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
     maintainingFlagsInfo: {
@@ -5535,29 +5519,154 @@ function showErrorBox(options) {
       flagName: flagName
     }
   })) {
-    showingErrorBox(options.tabName, options.errorsBag, function () {
+    if ($("#account_modal .login-register-box ".concat(options.tabName, " .error-box")).css('display') == 'block') {
+      Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
+        targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+        targetOriginalDisplayType: 'none',
+        callbacks: {
+          disappeared: function disappeared() {
+            adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+            createErrorItems(options.errorsBag, 'li', "#account_modal .login-register-box ".concat(options.tabName, " .error-box .list")); //there's no enough room for the 3rd message in the error box, so when there are 3 messages needed to show, we have to make the 3rd one disappear,
+            // the error box can show two messages to the maximum
+
+            if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
+              //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
+              $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove(); //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
+            }
+
+            Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
+              targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+              callbacks: {
+                shown: function shown() {
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: errorBoxMaintainingFlags,
+                      flagName: flagName
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    } else {
+      Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
+        targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .benifits_bar")),
+        targetOriginalDisplayType: 'none',
+        callbacks: {
+          disappeared: function disappeared() {
+            adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+            createErrorItems(options.errorsBag, 'li', "#account_modal .login-register-box ".concat(options.tabName, " .error-box .list")); //there's no enough room for the 3rd message in the error box, so when there are 3 messages needed to show, we have to make the 3rd one disappear,
+            // the error box can show two messages to the maximum
+
+            if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
+              //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
+              $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove(); //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
+            }
+
+            Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
+              targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+              callbacks: {
+                shown: function shown() {
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: errorBoxMaintainingFlags,
+                      flagName: flagName
+                    }
+                  });
+                }
+              }
+            });
+          }
+        }
+      });
+    }
+  }
+}
+/*************************************************************
+
+              closeErrorBox OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  tabName: '.password-login',
+
+  formBox: {
+
+    marginTopDistance: '1.5rem'
+
+  },
+
+
+  resolve[optional]: resolve
+
+}
+
+resolve is used with promise functionality
+
+**************************************************************/
+
+
+function closeErrorBox(options) {
+  var flagName = getErrorBoxFlagName(options.tabName);
+
+  if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+    maintainingFlagsInfo: {
+      flagsContainer: errorBoxMaintainingFlags,
+      flagName: flagName
+    }
+  })) {
+    if ($("#account_modal .login-register-box ".concat(options.tabName, " .error-box")).css('display') != 'none') {
+      Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
+        targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .error-box")),
+        targetOriginalDisplayType: 'none',
+        callbacks: {
+          disappeared: function disappeared() {
+            adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+            Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
+              targetElement: $("#account_modal .login-register-box ".concat(options.tabName, " .benifits_bar")),
+              callbacks: {
+                shown: function shown() {
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: errorBoxMaintainingFlags,
+                      flagName: flagName
+                    }
+                  });
+
+                  if (options.resolve) {
+                    options.resolve();
+                  }
+                }
+              }
+            });
+          }
+        }
+      });
+    } else {
       Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
         maintainingFlagsInfo: {
           flagsContainer: errorBoxMaintainingFlags,
           flagName: flagName
         }
       });
-    });
-    adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
-  }
-}
 
-function closeErrorBox(options) {
-  closingErrorBox(options.tabName);
-  adjustFormBoxTopMargin(options.tabName, options.formBox.marginTopDistance);
+      if (options.resolve) {
+        options.resolve();
+      }
+    }
+  }
 }
 
 function changeSubmitButtonText(tabName, text) {
   $("#account_modal .login-register-box ".concat(tabName, " .form-box .button")).text(text);
 }
 
-function disableAllActionsOnAccountModal() {
-  $('#account_modal').css('pointer-events', 'none');
+function disableAllActionsOnPage() {
+  $('body').css('pointer-events', 'none');
 }
 
 function getPostUrl(formName) {
@@ -5889,12 +5998,6 @@ $('#account_modal .account-login .password.login.form').submit(function (event) 
             flagName: 'remoteProcessingFlag'
           }
         })) {
-          closeErrorBox({
-            tabName: '.password-login',
-            formBox: {
-              marginTopDistance: '2.5rem'
-            }
-          });
           changeSubmitButtonText('.password-login', '登录中...');
           Object(_network__WEBPACK_IMPORTED_MODULE_3__["sendPostRequest"])({
             postUrl: getPostUrl('.password-login'),
@@ -5934,12 +6037,25 @@ $('#account_modal .account-login .password.login.form').submit(function (event) 
               },
               succeeded: function succeeded(response) {
                 if (response.data.success) {
-                  disableAllActionsOnAccountModal();
-                  refreshPageUsingCurrentUrl();
-                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
-                    maintainingFlagsInfo: {
-                      flagsContainer: maintainingFlags,
-                      flagName: 'remoteProcessingFlag'
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["wait"])({
+                    worthWaitingHandler: function worthWaitingHandler(resolve) {
+                      closeErrorBox({
+                        tabName: '.password-login',
+                        formBox: {
+                          marginTopDistance: '2.5rem'
+                        },
+                        resolve: resolve
+                      });
+                    },
+                    suspendedHandler: function suspendedHandler() {
+                      disableAllActionsOnPage();
+                      refreshPageUsingCurrentUrl();
+                      Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                        maintainingFlagsInfo: {
+                          flagsContainer: maintainingFlags,
+                          flagName: 'remoteProcessingFlag'
+                        }
+                      });
                     }
                   });
                 } else {
@@ -6007,13 +6123,7 @@ $('#account_modal .account-register .register.form').submit(function (event) {
           formBox: {
             marginTopDistance: '0'
           }
-        }); //there's no enough room for the 3rd message in the error box, so when there are 3 messages needed to show, we have to make the 3rd one disappear,
-        // the error box can show two messages to the maximum
-
-        if ($('#account_modal .account-register .content .error-box .error.message .list').children('li').length == 3) {
-          //兼容IE11，IE11不兼容js的remove方法，但是可以使用JQuery的remove方法
-          $('#account_modal .account-register .content .error-box .error.message .list').children('li:nth-child(3)').remove(); //$('#account_modal .account-register .content .error-box .error.message .list').children()[2].remove()
-        }
+        });
       },
       succeeded: function succeeded() {
         //start the remote processing lock, preventing over-executing the codes before the remote returns the result
@@ -6147,12 +6257,6 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
             flagName: 'YpCaptchaButtonShownFlag'
           }
         })) {
-          closeErrorBox({
-            tabName: '.account-register',
-            formBox: {
-              marginTopDistance: '1.5rem'
-            }
-          });
           instantiateYpCaptcha(); //show up the YpCaptchaButton
 
           showYpCaptchaButton({
@@ -6389,12 +6493,13 @@ if (window.matchMedia("screen and (-ms-high-contrast: active), (-ms-high-contras
 /*!***************************************!*\
   !*** ./resources/js/index/effects.js ***!
   \***************************************/
-/*! exports provided: fadeIn, enableFlashEffect */
+/*! exports provided: fadeIn, fadeOut, enableFlashEffect */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeIn", function() { return fadeIn; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fadeOut", function() { return fadeOut; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "enableFlashEffect", function() { return enableFlashEffect; });
 /*************************************************************
 
@@ -6417,11 +6522,42 @@ __webpack_require__.r(__webpack_exports__);
 **************************************************************/
 function fadeIn(fade_in_options) {
   fade_in_options.targetElement.css({
-    'order': '0',
     'display': 'none',
     'visibility': 'visible'
   });
-  fade_in_options.targetElement.fadeIn(1000, fade_in_options.callbacks.shown);
+  fade_in_options.targetElement.fadeIn(250, fade_in_options.callbacks.shown);
+}
+/*************************************************************
+
+                    fadeOut OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  targetElement: $('#register-yunpian-captcha .yp-riddler-button .yp-riddler-button_text'),
+
+  targetOriginalDisplayType: 'block',
+
+  callbacks: {
+
+    disappeared: () => {}
+
+  }
+
+}
+
+**************************************************************/
+
+
+function fadeOut(fade_out_options) {
+  fade_out_options.targetElement.fadeOut(250, function () {
+    fade_out_options.targetElement.css({
+      'display': fade_out_options.targetOriginalDisplayType,
+      'visibility': 'hidden'
+    });
+    fade_out_options.callbacks.disappeared();
+  });
 }
 /*************************************************************
 
@@ -6841,7 +6977,7 @@ $('#main_nav .left.menu a').hover(function (event) {
 /*!***************************************!*\
   !*** ./resources/js/index/network.js ***!
   \***************************************/
-/*! exports provided: startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest, getNetworkRelatedErrorsBag, extendHandleTime, assignValueToMaintainingObjects, assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater, clearRepeater */
+/*! exports provided: startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest, getNetworkRelatedErrorsBag, extendHandleTime, assignValueToMaintainingObjects, assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater, clearRepeater, wait */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6857,6 +6993,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "unsetMaintainingObjects", function() { return unsetMaintainingObjects; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startRepeater", function() { return startRepeater; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clearRepeater", function() { return clearRepeater; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "wait", function() { return wait; });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
@@ -7116,6 +7253,39 @@ function startRepeater(repeat_options) {
 
 function clearRepeater(repeat_options) {
   clearInterval(repeat_options.maintainingObjectsInfo.objectsContainer[repeat_options.maintainingObjectsInfo.objectName]);
+}
+/*************************************************************
+
+                    wait OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  worthWaitingHandler: () => {
+
+
+  },
+
+  suspendedHandler: () => {
+
+  }
+
+}
+
+only when the worthWaitingHandler is finally executed the suspendedHandler
+
+will be called
+
+**************************************************************/
+
+
+function wait(wait_options) {
+  new Promise(function (resolve, reject) {
+    wait_options.worthWaitingHandler(resolve);
+  }).then(function () {
+    wait_options.suspendedHandler();
+  });
 }
 
 

@@ -39,7 +39,7 @@ function splitStrsIntoTwoParts(splitStrs,indicator) {
 
 }
 
-function  trimOneCharacterFromEdges(trimmingStrs){
+function trimOneCharacterFromEdges(trimmingStrs){
 
   let trimmedStrs = trimmingStrs.substr(1)
 

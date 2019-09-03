@@ -97,7 +97,7 @@ class LoginController extends Controller
     protected function sendFailedLoginResponse(Request $request)
     {
 
-      return response()->json(['errors' => ['global' => ['邮箱账号和密码不匹配。']], 'success' => false, 'status' => 422]);
+      return response()->json(['errors' => ['global' => ['邮箱账号和密码不匹配']], 'success' => false, 'status' => 422]);
 
     }
 
@@ -112,7 +112,7 @@ class LoginController extends Controller
     protected function sendLockoutResponse(Request $request)
     {
 
-        return response()->json(['errors' => ['global' => ['尝试登录次数过多，请稍后再试。']], 'success' => false, 'status' => 429]);
+        return response()->json(['errors' => ['global' => ['尝试登录次数过多，请稍后再试']], 'success' => false, 'status' => 429]);
 
     }
 
