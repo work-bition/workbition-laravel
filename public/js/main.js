@@ -5267,7 +5267,8 @@ var maintainingFlags = {
   YpCaptchaButtonTextFlashingFlag: false,
   YpCaptchaSuccessButtonShownFlag: false,
   YpCaptchaRefreshButtonInitializedFlag: false,
-  YpCaptchaRefreshButtonShownFlag: false
+  YpCaptchaRefreshButtonShownFlag: false,
+  YpCaptchaRefreshButtonRefreshTimes: 0
 };
 var errorBoxMaintainingFlags = {
   registerAccountTabErrorBoxShowingFlag: false,
@@ -5276,8 +5277,7 @@ var errorBoxMaintainingFlags = {
 };
 var maintainingObjects = {
   YpCaptchaInstance: undefined,
-  puzzleShowUpWatcher: undefined,
-  YpCaptchaRefreshButtonRefreshTimes: 0
+  puzzleShowUpWatcher: undefined
 };
 var YpCaptchaInitializingOptions = {
   //过期时间不宜设置过短，不然容易引发异常，单位：秒
@@ -5325,7 +5325,7 @@ var YpCaptchaInitializingOptions = {
 
             if (!maintainingFlags.YpCaptchaRefreshButtonShownFlag) {
               maintainingFlags.YpCaptchaRefreshButtonShownFlag = true;
-              $('.yp-riddler-refresh').css('transform', 'rotate(' + maintainingObjects.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)');
+              $('.yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)');
               Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
                 suspendingTime: 1500,
                 callbacks: {
@@ -5344,7 +5344,7 @@ var YpCaptchaInitializingOptions = {
                 $('body').css('pointer-events', 'none');
                 $('.yp-riddler-refresh').css('transition-property', 'transform');
                 $('.yp-riddler-refresh').css('pointer-events', 'none');
-                maintainingObjects.YpCaptchaRefreshButtonRefreshTimes += 1;
+                maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1;
                 Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
                   suspendingTime: 250,
                   callbacks: {
@@ -5406,7 +5406,10 @@ var YpCaptchaInitializingOptions = {
   //when the user clicks on the other areas on the register tab, which makes the puzzle disappear, it's only in effect when the mode is set to 'dialog'
   onExit: function onExit() {
     changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
-    releaseYpCaptchaRefreshButtonInfo();
+    releaseYpCaptchaRefreshButtonInfo({
+      infoContainer: maintainingFlags,
+      releasingInfoName: ['YpCaptchaRefreshButtonInitializedFlag', 'YpCaptchaRefreshButtonShownFlag']
+    });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
       maintainingObjectsInfo: {
         objectsContainer: maintainingObjects,
@@ -5452,8 +5455,11 @@ var YpCaptchaInitializingOptions = {
       });
     }
 
-    releaseYpCaptchaRefreshButtonInfo();
-    maintainingObjects.YpCaptchaRefreshButtonRefreshTimes = 0;
+    releaseYpCaptchaRefreshButtonInfo({
+      infoContainer: maintainingFlags,
+      releasingInfoName: ['YpCaptchaRefreshButtonInitializedFlag', 'YpCaptchaRefreshButtonShownFlag'],
+      settingZeroInfoName: ['YpCaptchaRefreshButtonRefreshTimes']
+    });
     releaseYpCaptcha();
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
       maintainingObjectsInfo: {
@@ -6040,10 +6046,35 @@ function isYpCaptchaButtonShown() {
 
   return false;
 }
+/*************************************************************
 
-function releaseYpCaptchaRefreshButtonInfo() {
-  maintainingFlags.YpCaptchaRefreshButtonInitializedFlag = false;
-  maintainingFlags.YpCaptchaRefreshButtonShownFlag = false;
+      releaseYpCaptchaRefreshButtonInfo OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  infoContainer: maintainingFlags,
+
+  releasingInfoName: [],
+
+  settingZeroInfoName[optional] : []
+
+}
+
+**************************************************************/
+
+
+function releaseYpCaptchaRefreshButtonInfo(refresh_button_info_option) {
+  $.each(refresh_button_info_option.releasingInfoName, function (index, infoName) {
+    refresh_button_info_option.infoContainer[infoName] = false;
+  });
+
+  if (refresh_button_info_option.settingZeroInfoName) {
+    $.each(refresh_button_info_option.settingZeroInfoName, function (index, infoName) {
+      refresh_button_info_option.infoContainer[infoName] = 0;
+    });
+  }
 } //submit event for the form on PasswordLoginTab
 
 

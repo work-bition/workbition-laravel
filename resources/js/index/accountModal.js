@@ -174,7 +174,11 @@ let maintainingFlags = {
 
   YpCaptchaRefreshButtonInitializedFlag: false,
 
-  YpCaptchaRefreshButtonShownFlag: false
+  YpCaptchaRefreshButtonShownFlag: false,
+
+  YpCaptchaRefreshButtonRefreshTimes: 0
+
+
 
 }
 
@@ -192,9 +196,7 @@ let maintainingObjects = {
 
   YpCaptchaInstance : undefined,
 
-  puzzleShowUpWatcher : undefined,
-
-  YpCaptchaRefreshButtonRefreshTimes: 0
+  puzzleShowUpWatcher : undefined
 
 }
 
@@ -280,7 +282,7 @@ let YpCaptchaInitializingOptions = {
 
                       maintainingFlags.YpCaptchaRefreshButtonShownFlag = true
 
-                      $('.yp-riddler-refresh').css('transform', 'rotate(' + maintainingObjects.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)')
+                      $('.yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)')
 
                       suspendCurrentProcess({
 
@@ -314,7 +316,7 @@ let YpCaptchaInitializingOptions = {
 
                           $('.yp-riddler-refresh').css('pointer-events', 'none')
 
-                          maintainingObjects.YpCaptchaRefreshButtonRefreshTimes += 1
+                          maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1
 
                           suspendCurrentProcess({
 
@@ -435,7 +437,19 @@ let YpCaptchaInitializingOptions = {
 
           changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证')
 
-          releaseYpCaptchaRefreshButtonInfo()
+          releaseYpCaptchaRefreshButtonInfo({
+
+            infoContainer: maintainingFlags,
+
+            releasingInfoName: [
+
+              'YpCaptchaRefreshButtonInitializedFlag',
+
+              'YpCaptchaRefreshButtonShownFlag'
+
+            ]
+
+          })
 
           clearRepeater({
 
@@ -523,9 +537,25 @@ let YpCaptchaInitializingOptions = {
 
           }
 
-          releaseYpCaptchaRefreshButtonInfo()
+          releaseYpCaptchaRefreshButtonInfo({
 
-          maintainingObjects.YpCaptchaRefreshButtonRefreshTimes = 0
+            infoContainer: maintainingFlags,
+
+            releasingInfoName: [
+
+              'YpCaptchaRefreshButtonInitializedFlag',
+
+              'YpCaptchaRefreshButtonShownFlag'
+
+            ],
+
+            settingZeroInfoName : [
+
+              'YpCaptchaRefreshButtonRefreshTimes'
+
+            ]
+
+          })
 
           releaseYpCaptcha()
 
@@ -1489,11 +1519,41 @@ function isYpCaptchaButtonShown() {
 
 }
 
-function releaseYpCaptchaRefreshButtonInfo() {
+/*************************************************************
 
-  maintainingFlags.YpCaptchaRefreshButtonInitializedFlag = false
+      releaseYpCaptchaRefreshButtonInfo OPTIONS EXAMPLE
 
-  maintainingFlags.YpCaptchaRefreshButtonShownFlag = false
+**************************************************************
+
+{
+
+  infoContainer: maintainingFlags,
+
+  releasingInfoName: [],
+
+  settingZeroInfoName[optional] : []
+
+}
+
+**************************************************************/
+
+function releaseYpCaptchaRefreshButtonInfo(refresh_button_info_option) {
+
+  $.each(refresh_button_info_option.releasingInfoName, (index, infoName) => {
+
+    refresh_button_info_option.infoContainer[infoName] = false
+
+  })
+
+  if (refresh_button_info_option.settingZeroInfoName) {
+
+    $.each(refresh_button_info_option.settingZeroInfoName, (index, infoName) => {
+
+      refresh_button_info_option.infoContainer[infoName] = 0
+
+    })
+
+  }
 
 }
 
