@@ -226,9 +226,19 @@ function getNetworkRelatedErrorsBag(error){
 
 }
 
-function extendHandleTime(extend_options){
+function suspendCurrentProcess(suspend_options){
 
-  setTimeout(extend_options.extendCallback, extend_options.extendTime)
+  wait({
+
+    worthWaitingHandler: (resolve) => {
+
+      setTimeout( () => { resolve() }, suspend_options.suspendingTime)
+
+    },
+
+    suspendedHandler: suspend_options.callbacks.resumed
+
+  })
 
 }
 
@@ -377,7 +387,7 @@ function wait(wait_options) {
 
 export { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
 
-         getNetworkRelatedErrorsBag, extendHandleTime, assignValueToMaintainingObjects,
+         getNetworkRelatedErrorsBag, suspendCurrentProcess, assignValueToMaintainingObjects,
 
          assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater,
 

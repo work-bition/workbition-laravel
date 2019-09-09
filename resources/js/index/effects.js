@@ -23,7 +23,15 @@ function fadeIn(fade_in_options){
 
   fade_in_options.targetElement.css({'display':'none', 'visibility': 'visible'})
 
-  fade_in_options.targetElement.fadeIn(fade_in_options.effectDuration, fade_in_options.callbacks.shown)
+  fade_in_options.targetElement.fadeIn(fade_in_options.effectDuration, () => {
+
+    if (fade_in_options.callbacks) {
+
+      fade_in_options.callbacks.shown()
+
+    }
+
+  })
 
 }
 
@@ -56,7 +64,11 @@ function fadeOut(fade_out_options){
 
     fade_out_options.targetElement.css({'display' : fade_out_options.targetOriginalDisplayType, 'visibility': 'hidden'})
 
-    fade_out_options.callbacks.disappeared()
+    if (fade_out_options.callbacks) {
+
+      fade_out_options.callbacks.disappeared()
+
+    }
 
   })
 

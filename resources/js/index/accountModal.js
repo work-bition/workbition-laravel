@@ -13,7 +13,7 @@ import { fadeIn, fadeOut, enableFlashEffect } from './effects'
 
 import { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
 
-         getNetworkRelatedErrorsBag, extendHandleTime, assignValueToMaintainingObjects,
+         getNetworkRelatedErrorsBag, suspendCurrentProcess, assignValueToMaintainingObjects,
 
          assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater,
 
@@ -170,7 +170,11 @@ let maintainingFlags = {
 
   YpCaptchaButtonTextFlashingFlag: false,
 
-  YpCaptchaSuccessButtonShownFlag: false
+  YpCaptchaSuccessButtonShownFlag: false,
+
+  YpCaptchaRefreshButtonInitializedFlag: false,
+
+  YpCaptchaRefreshButtonShownFlag: false
 
 }
 
@@ -188,7 +192,9 @@ let maintainingObjects = {
 
   YpCaptchaInstance : undefined,
 
-  puzzleShowUpWatcher : undefined
+  puzzleShowUpWatcher : undefined,
+
+  YpCaptchaRefreshButtonRefreshTimes: 0
 
 }
 
@@ -241,18 +247,6 @@ let YpCaptchaInitializingOptions = {
 
           })) {
 
-            closeErrorBox({
-
-              tabName: '.account-register',
-
-              formBox: {
-
-                marginTopDistance: '1.5rem'
-
-              }
-
-            })
-
             changeYpCaptchaButtonText('.account-register', '正在获取拼图...')
 
             startRepeater({
@@ -270,9 +264,141 @@ let YpCaptchaInitializingOptions = {
                   //make sure only when the puzzle shows up, the text can be changed
                   if($('#register-yunpian-captcha .yp-riddler-win-masker').css('display')=='block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0){
 
+                    closeErrorBox({
+
+                      tabName: '.account-register',
+
+                      formBox: {
+
+                        marginTopDistance: '1.5rem'
+
+                      }
+
+                    })
+
+                    if (!maintainingFlags.YpCaptchaRefreshButtonShownFlag) {
+
+                      maintainingFlags.YpCaptchaRefreshButtonShownFlag = true
+
+                      $('.yp-riddler-refresh').css('transform', 'rotate(' + maintainingObjects.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)')
+
+                      suspendCurrentProcess({
+
+                        suspendingTime: 1500,
+
+                        callbacks: {
+
+                          resumed: () => {
+
+                            $('.yp-riddler-refresh').css('visibility', 'visible')
+
+                          }
+
+                        }
+
+                      })
+
+                    }
+
                     changeYpCaptchaButtonText('.account-register', '请完成拼图')
 
-                    console.log('hello')
+                    if($('.yp-riddler-refresh') && !maintainingFlags.YpCaptchaRefreshButtonInitializedFlag) {
+
+                        maintainingFlags.YpCaptchaRefreshButtonInitializedFlag = true
+
+                        $('.yp-riddler-refresh').click((event) => {
+
+                          $('body').css('pointer-events', 'none')
+
+                          $('.yp-riddler-refresh').css('transition-property', 'transform')
+
+                          $('.yp-riddler-refresh').css('pointer-events', 'none')
+
+                          maintainingObjects.YpCaptchaRefreshButtonRefreshTimes += 1
+
+                          suspendCurrentProcess({
+
+                            suspendingTime: 250,
+
+                            callbacks: {
+
+                              resumed: () => {
+
+                                wait({
+
+                                  worthWaitingHandler: (resolve) => {
+
+                                    fadeOut({
+
+                                      targetElement: $('.yp-riddler-refresh'),
+
+                                      effectDuration: 250,
+
+                                      targetOriginalDisplayType: 'none',
+
+                                      callbacks: {
+
+                                        disappeared: () => {
+
+                                          suspendCurrentProcess({
+
+                                            suspendingTime: 200,
+
+                                            callbacks: {
+
+                                              resumed: () => {
+
+                                                resolve()
+
+                                              }
+
+                                            }
+
+                                          })
+
+                                        }
+
+                                      }
+
+                                    })
+
+                                  },
+
+                                  suspendedHandler: () => {
+
+                                    fadeIn({
+
+                                      targetElement: $('.yp-riddler-refresh'),
+
+                                      effectDuration: 250,
+
+                                      callbacks: {
+
+                                        shown: () => {
+
+                                          $('.yp-riddler-refresh').css('pointer-events', 'all')
+
+                                          $('body').css('pointer-events', 'all')
+
+                                        }
+
+                                      }
+
+                                    })
+
+                                  }
+
+                                })
+
+                              }
+
+                            }
+
+                          })
+
+                        })
+
+                    }
 
                   }
 
@@ -283,13 +409,18 @@ let YpCaptchaInitializingOptions = {
             })
 
             //prevent frequent requests in a very short period by the users
-            extendHandleTime({
+            //makes the puzzle show up
+            suspendCurrentProcess({
 
-              extendTime: 1000,
+              suspendingTime: 1000,
 
-              extendCallback: () => {
+              callbacks: {
 
-                next()
+                resumed: () => {
+
+                    next()
+
+                }
 
               }
 
@@ -303,6 +434,8 @@ let YpCaptchaInitializingOptions = {
       onExit: function () {
 
           changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证')
+
+          releaseYpCaptchaRefreshButtonInfo()
 
           clearRepeater({
 
@@ -356,7 +489,7 @@ let YpCaptchaInitializingOptions = {
 
                 YpCaptchaButtonID: '#register-yunpian-captcha',
 
-                hidingTime: 1000,
+                hidingTime: 600,
 
                 hiddenCallback: () => {
 
@@ -389,6 +522,10 @@ let YpCaptchaInitializingOptions = {
               })
 
           }
+
+          releaseYpCaptchaRefreshButtonInfo()
+
+          maintainingObjects.YpCaptchaRefreshButtonRefreshTimes = 0
 
           releaseYpCaptcha()
 
@@ -1046,15 +1183,19 @@ function refreshPageUsingCurrentUrl() {
 
   location.reload()
 
-  extendHandleTime({
+  suspendCurrentProcess({
 
-    extendTime: 4000,
+    suspendingTime: 4000,
 
-    extendCallback: () => {
+    callbacks: {
 
-      alert('reload')
+      resumed: () => {
 
-      location.reload()
+        alert('reload')
+
+        location.reload()
+
+      }
 
     }
 
@@ -1227,19 +1368,17 @@ function hideYpCaptchaButton(hide_button_options){
 
       disappeared: () => {
 
-        hide_button_options.hiddenCallback()
-
         //changing the position of YpCaptchaButton
 
         $(hide_button_options.YpCaptchaButtonID).css('order', '1')
+
+        hide_button_options.hiddenCallback()
 
       }
 
     }
 
   })
-
-
 
 }
 
@@ -1347,6 +1486,14 @@ function isYpCaptchaButtonShown() {
   }
 
   return false
+
+}
+
+function releaseYpCaptchaRefreshButtonInfo() {
+
+  maintainingFlags.YpCaptchaRefreshButtonInitializedFlag = false
+
+  maintainingFlags.YpCaptchaRefreshButtonShownFlag = false
 
 }
 
@@ -1990,7 +2137,7 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
 
                YpCaptchaButtonID: '#register-yunpian-captcha',
 
-               showingTime: 1000,
+               showingTime: 600,
 
                shownCallback: () => {
 

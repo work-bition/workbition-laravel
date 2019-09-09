@@ -657,6 +657,11 @@ body.dimmed.dimmable {
           transform: translateY(-0.5rem);
 }
 
+#account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slide-img-container .yp-riddler-refresh,
+#account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slide-img-container .yp-riddler-refresh {
+  visibility: hidden;
+}
+
 #account_modal .login-register-box .account-login .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slider-area,
 #account_modal .login-register-box .account-register .content .form-box .ui.form .yunpian-captcha .yp-riddler.yp-dialog.yp-riddler-button .yp-riddler-win-masker.dialog .yp-riddler-winbox .yp-riddler-win .yp-riddler-slider-area {
   height: 40px !important;
@@ -3071,8 +3076,8 @@ footer .container .grid .row .left.column .footer-share .share-item {
 }
 
 footer .container .grid .row .left.column .footer-share .share-item .icon {
-  height: 2rem;
-  width: 2rem;
+  height: 2.3rem;
+  width: 2.3rem;
 }
 
 footer .container .grid .row .left.column .declaration {
@@ -3083,7 +3088,7 @@ footer .container .grid .row .left.column .declaration {
 }
 
 footer .container .grid .row .left.column .declaration .company {
-  line-height: 1.5rem;
+  line-height: 2rem;
 }
 
 footer .container .grid .row .right.column .link-item {
