@@ -5322,28 +5322,27 @@ var YpCaptchaInitializingOptions = {
                 marginTopDistance: '1.5rem'
               }
             });
+            changeYpCaptchaButtonText('.account-register', '请完成拼图');
 
             if (!maintainingFlags.YpCaptchaRefreshButtonShownFlag) {
               maintainingFlags.YpCaptchaRefreshButtonShownFlag = true;
-              $('.yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)');
+              $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)');
               Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
                 suspendingTime: 1500,
                 callbacks: {
                   resumed: function resumed() {
-                    $('.yp-riddler-refresh').css('visibility', 'visible');
+                    $('#register-yunpian-captcha .yp-riddler-refresh').css('visibility', 'visible');
                   }
                 }
               });
             }
 
-            changeYpCaptchaButtonText('.account-register', '请完成拼图');
-
-            if ($('.yp-riddler-refresh') && !maintainingFlags.YpCaptchaRefreshButtonInitializedFlag) {
+            if ($('#register-yunpian-captcha .yp-riddler-refresh') && !maintainingFlags.YpCaptchaRefreshButtonInitializedFlag) {
               maintainingFlags.YpCaptchaRefreshButtonInitializedFlag = true;
-              $('.yp-riddler-refresh').click(function (event) {
+              $('#register-yunpian-captcha .yp-riddler-refresh').click(function (event) {
                 $('body').css('pointer-events', 'none');
-                $('.yp-riddler-refresh').css('transition-property', 'transform');
-                $('.yp-riddler-refresh').css('pointer-events', 'none');
+                $('#register-yunpian-captcha .yp-riddler-refresh').css('transition-property', 'transform');
+                $('#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'none');
                 maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1;
                 Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
                   suspendingTime: 250,
@@ -5352,7 +5351,7 @@ var YpCaptchaInitializingOptions = {
                       Object(_network__WEBPACK_IMPORTED_MODULE_3__["wait"])({
                         worthWaitingHandler: function worthWaitingHandler(resolve) {
                           Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
-                            targetElement: $('.yp-riddler-refresh'),
+                            targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
                             effectDuration: 250,
                             targetOriginalDisplayType: 'none',
                             callbacks: {
@@ -5371,11 +5370,11 @@ var YpCaptchaInitializingOptions = {
                         },
                         suspendedHandler: function suspendedHandler() {
                           Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
-                            targetElement: $('.yp-riddler-refresh'),
+                            targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
                             effectDuration: 250,
                             callbacks: {
                               shown: function shown() {
-                                $('.yp-riddler-refresh').css('pointer-events', 'all');
+                                $('#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'all');
                                 $('body').css('pointer-events', 'all');
                               }
                             }

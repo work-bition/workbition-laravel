@@ -278,11 +278,13 @@ let YpCaptchaInitializingOptions = {
 
                     })
 
+                    changeYpCaptchaButtonText('.account-register', '请完成拼图')
+
                     if (!maintainingFlags.YpCaptchaRefreshButtonShownFlag) {
 
                       maintainingFlags.YpCaptchaRefreshButtonShownFlag = true
 
-                      $('.yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)')
+                      $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)')
 
                       suspendCurrentProcess({
 
@@ -292,7 +294,7 @@ let YpCaptchaInitializingOptions = {
 
                           resumed: () => {
 
-                            $('.yp-riddler-refresh').css('visibility', 'visible')
+                            $('#register-yunpian-captcha .yp-riddler-refresh').css('visibility', 'visible')
 
                           }
 
@@ -302,19 +304,17 @@ let YpCaptchaInitializingOptions = {
 
                     }
 
-                    changeYpCaptchaButtonText('.account-register', '请完成拼图')
-
-                    if($('.yp-riddler-refresh') && !maintainingFlags.YpCaptchaRefreshButtonInitializedFlag) {
+                    if($('#register-yunpian-captcha .yp-riddler-refresh') && !maintainingFlags.YpCaptchaRefreshButtonInitializedFlag) {
 
                         maintainingFlags.YpCaptchaRefreshButtonInitializedFlag = true
 
-                        $('.yp-riddler-refresh').click((event) => {
+                        $('#register-yunpian-captcha .yp-riddler-refresh').click((event) => {
 
                           $('body').css('pointer-events', 'none')
 
-                          $('.yp-riddler-refresh').css('transition-property', 'transform')
+                          $('#register-yunpian-captcha .yp-riddler-refresh').css('transition-property', 'transform')
 
-                          $('.yp-riddler-refresh').css('pointer-events', 'none')
+                          $('#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'none')
 
                           maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1
 
@@ -332,7 +332,7 @@ let YpCaptchaInitializingOptions = {
 
                                     fadeOut({
 
-                                      targetElement: $('.yp-riddler-refresh'),
+                                      targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
 
                                       effectDuration: 250,
 
@@ -370,7 +370,7 @@ let YpCaptchaInitializingOptions = {
 
                                     fadeIn({
 
-                                      targetElement: $('.yp-riddler-refresh'),
+                                      targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
 
                                       effectDuration: 250,
 
@@ -378,7 +378,7 @@ let YpCaptchaInitializingOptions = {
 
                                         shown: () => {
 
-                                          $('.yp-riddler-refresh').css('pointer-events', 'all')
+                                          $('#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'all')
 
                                           $('body').css('pointer-events', 'all')
 
