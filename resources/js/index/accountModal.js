@@ -160,7 +160,11 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 let maintainingFlags = {
 
-  remoteProcessingFlag : false,
+  remoteProcessingFlag : false
+
+}
+
+let YpCaptchaMaintainingFlags = {
 
   YpCaptchaProcessingFlag : false,
 
@@ -237,7 +241,7 @@ let YpCaptchaInitializingOptions = {
 
             maintainingFlagsInfo: {
 
-              flagsContainer:maintainingFlags,
+              flagsContainer:YpCaptchaMaintainingFlags,
 
               flagName: 'YpCaptchaProcessingFlag'
 
@@ -332,7 +336,7 @@ let YpCaptchaInitializingOptions = {
 
             maintainingFlagsInfo: {
 
-              flagsContainer:maintainingFlags,
+              flagsContainer:YpCaptchaMaintainingFlags,
 
               flagName: 'YpCaptchaRefreshButtonInitializedFlag'
 
@@ -344,7 +348,7 @@ let YpCaptchaInitializingOptions = {
 
             maintainingFlagsInfo: {
 
-              flagsContainer:maintainingFlags,
+              flagsContainer:YpCaptchaMaintainingFlags,
 
               flagName: 'YpCaptchaProcessingFlag'
 
@@ -369,7 +373,7 @@ let YpCaptchaInitializingOptions = {
 
               maintainingFlagsInfo: {
 
-                flagsContainer:maintainingFlags,
+                flagsContainer:YpCaptchaMaintainingFlags,
 
                 flagName: 'YpCaptchaSuccessButtonShownFlag'
 
@@ -389,7 +393,7 @@ let YpCaptchaInitializingOptions = {
 
                     maintainingFlagsInfo: {
 
-                      flagsContainer:maintainingFlags,
+                      flagsContainer:YpCaptchaMaintainingFlags,
 
                       flagName: 'YpCaptchaSuccessButtonShownFlag'
 
@@ -401,7 +405,7 @@ let YpCaptchaInitializingOptions = {
 
                     maintainingFlagsInfo: {
 
-                      flagsContainer:maintainingFlags,
+                      flagsContainer:YpCaptchaMaintainingFlags,
 
                       flagName: 'YpCaptchaButtonShownFlag'
 
@@ -433,7 +437,7 @@ let YpCaptchaInitializingOptions = {
 
             maintainingFlagsInfo: {
 
-              flagsContainer:maintainingFlags,
+              flagsContainer:YpCaptchaMaintainingFlags,
 
               flagName: 'YpCaptchaRefreshButtonRefreshTimes'
 
@@ -447,7 +451,7 @@ let YpCaptchaInitializingOptions = {
 
             maintainingFlagsInfo: {
 
-              flagsContainer:maintainingFlags,
+              flagsContainer:YpCaptchaMaintainingFlags,
 
               flagName: 'YpCaptchaRefreshButtonInitializedFlag'
 
@@ -459,7 +463,7 @@ let YpCaptchaInitializingOptions = {
 
             maintainingFlagsInfo: {
 
-              flagsContainer:maintainingFlags,
+              flagsContainer:YpCaptchaMaintainingFlags,
 
               flagName: 'YpCaptchaProcessingFlag'
 
@@ -477,7 +481,7 @@ let YpCaptchaInitializingOptions = {
 
             maintainingFlagsInfo: {
 
-              flagsContainer:maintainingFlags,
+              flagsContainer:YpCaptchaMaintainingFlags,
 
               flagName: 'YpCaptchaProcessingFlag'
 
@@ -523,7 +527,7 @@ let YpCaptchaInitializingOptions = {
 
               maintainingFlagsInfo: {
 
-                flagsContainer:maintainingFlags,
+                flagsContainer:YpCaptchaMaintainingFlags,
 
                 flagName: 'YpCaptchaProcessingFlag'
 
@@ -565,7 +569,7 @@ let YpCaptchaInitializingOptions = {
 
           maintainingFlagsInfo: {
 
-            flagsContainer:maintainingFlags,
+            flagsContainer:YpCaptchaMaintainingFlags,
 
             flagName: 'YpCaptchaProcessingFlag'
 
@@ -1198,7 +1202,7 @@ function releaseYpCaptcha(){
 
       maintainingFlagsInfo: {
 
-        flagsContainer:maintainingFlags,
+        flagsContainer:YpCaptchaMaintainingFlags,
 
         flagName: 'YpCaptchaButtonShowingFlag'
 
@@ -1252,7 +1256,7 @@ function showYpCaptchaButton(show_button_options){
 
       maintainingFlagsInfo: {
 
-        flagsContainer:maintainingFlags,
+        flagsContainer:YpCaptchaMaintainingFlags,
 
         flagName: 'YpCaptchaButtonShowingFlag'
 
@@ -1337,7 +1341,7 @@ function makeYpCaptchaButtonTextFlash(flash_effect_options){
 
       maintainingFlagsInfo: {
 
-        flagsContainer:maintainingFlags,
+        flagsContainer:YpCaptchaMaintainingFlags,
 
         flagName: 'YpCaptchaButtonTextFlashingFlag'
 
@@ -1373,7 +1377,7 @@ function makeYpCaptchaButtonTextFlash(flash_effect_options){
 
               maintainingFlagsInfo: {
 
-                flagsContainer:maintainingFlags,
+                flagsContainer:YpCaptchaMaintainingFlags,
 
                 flagName: 'YpCaptchaButtonTextFlashingFlag'
 
@@ -1393,7 +1397,7 @@ function makeYpCaptchaButtonTextFlash(flash_effect_options){
 
 function isYpCaptchaButtonShown() {
 
-  if (maintainingFlags.YpCaptchaButtonShowingFlag == false && maintainingFlags.YpCaptchaButtonShownFlag == true && maintainingFlags.YpCaptchaSuccessButtonShownFlag == false) {
+  if (YpCaptchaMaintainingFlags.YpCaptchaButtonShowingFlag == false && YpCaptchaMaintainingFlags.YpCaptchaButtonShownFlag == true && YpCaptchaMaintainingFlags.YpCaptchaSuccessButtonShownFlag == false) {
 
     return true
 
@@ -1425,7 +1429,7 @@ function initializeYpCaptchaRefreshButton() {
 
       maintainingFlagsInfo: {
 
-        flagsContainer:maintainingFlags,
+        flagsContainer:YpCaptchaMaintainingFlags,
 
         flagName: 'YpCaptchaRefreshButtonInitializedFlag'
 
@@ -1434,7 +1438,7 @@ function initializeYpCaptchaRefreshButton() {
   })) {
 
     //resume the transform rotate degrees counted by YpCaptcha
-    $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)')
+    $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + YpCaptchaMaintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)')
 
     //make the YpCaptcha refresh button visible after 1.5s
     suspendCurrentProcess({
@@ -1463,7 +1467,7 @@ function initializeYpCaptchaRefreshButton() {
       $('body,#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'none')
 
       //count how many times the YpCaptcha refresh button rotates when clicking on it
-      maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1
+      YpCaptchaMaintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1
 
       //fade out and fade in the YpCaptcha refresh button
       //leave 0.25s for YpCaptcha refresh button rotate when clicking on it before it starts fade out
@@ -2180,7 +2184,7 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
               //indicating if the YpCaptchaButton is showing
               firstMaintainingFlagsInfo: {
 
-                flagsContainer:maintainingFlags,
+                flagsContainer:YpCaptchaMaintainingFlags,
 
                 flagName: 'YpCaptchaButtonShowingFlag'
 
@@ -2189,7 +2193,7 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
               //indicating if the YpCaptchaButton is shown
               secondMaintainingFlagsInfo: {
 
-                flagsContainer:maintainingFlags,
+                flagsContainer:YpCaptchaMaintainingFlags,
 
                 flagName: 'YpCaptchaButtonShownFlag'
 
@@ -2212,7 +2216,7 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
 
                        maintainingFlagsInfo: {
 
-                         flagsContainer:maintainingFlags,
+                         flagsContainer:YpCaptchaMaintainingFlags,
 
                          flagName: 'YpCaptchaButtonShowingFlag'
 

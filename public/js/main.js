@@ -5260,7 +5260,9 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 ******************************************************************************************************************************/
 
 var maintainingFlags = {
-  remoteProcessingFlag: false,
+  remoteProcessingFlag: false
+};
+var YpCaptchaMaintainingFlags = {
   YpCaptchaProcessingFlag: false,
   YpCaptchaButtonShowingFlag: false,
   YpCaptchaButtonShownFlag: false,
@@ -5302,7 +5304,7 @@ var YpCaptchaInitializingOptions = {
     //Prevent multiple requests before get the result
     if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaProcessingFlag'
       }
     })) {
@@ -5353,13 +5355,13 @@ var YpCaptchaInitializingOptions = {
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaRefreshButtonInitializedFlag'
       }
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaProcessingFlag'
       }
     });
@@ -5373,7 +5375,7 @@ var YpCaptchaInitializingOptions = {
 
     if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaSuccessButtonShownFlag'
       }
     })) {
@@ -5383,13 +5385,13 @@ var YpCaptchaInitializingOptions = {
         hiddenCallback: function hiddenCallback() {
           Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
             maintainingFlagsInfo: {
-              flagsContainer: maintainingFlags,
+              flagsContainer: YpCaptchaMaintainingFlags,
               flagName: 'YpCaptchaSuccessButtonShownFlag'
             }
           });
           Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
             maintainingFlagsInfo: {
-              flagsContainer: maintainingFlags,
+              flagsContainer: YpCaptchaMaintainingFlags,
               flagName: 'YpCaptchaButtonShownFlag'
             }
           });
@@ -5406,20 +5408,20 @@ var YpCaptchaInitializingOptions = {
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaRefreshButtonRefreshTimes'
       },
       setZero: true
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaRefreshButtonInitializedFlag'
       }
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaProcessingFlag'
       }
     });
@@ -5428,7 +5430,7 @@ var YpCaptchaInitializingOptions = {
     retry();
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaProcessingFlag'
       }
     });
@@ -5452,7 +5454,7 @@ var YpCaptchaInitializingOptions = {
       });
       Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
         maintainingFlagsInfo: {
-          flagsContainer: maintainingFlags,
+          flagsContainer: YpCaptchaMaintainingFlags,
           flagName: 'YpCaptchaProcessingFlag'
         }
       });
@@ -5474,7 +5476,7 @@ var YpCaptchaInitializingOptions = {
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
       maintainingFlagsInfo: {
-        flagsContainer: maintainingFlags,
+        flagsContainer: YpCaptchaMaintainingFlags,
         flagName: 'YpCaptchaProcessingFlag'
       }
     });
@@ -5848,7 +5850,7 @@ function releaseYpCaptcha() {
 
       maintainingFlagsInfo: {
 
-        flagsContainer:maintainingFlags,
+        flagsContainer:YpCaptchaMaintainingFlags,
 
         flagName: 'YpCaptchaButtonShowingFlag'
 
@@ -5893,7 +5895,7 @@ function showYpCaptchaButton(show_button_options) {
 
       maintainingFlagsInfo: {
 
-        flagsContainer:maintainingFlags,
+        flagsContainer:YpCaptchaMaintainingFlags,
 
         flagName: 'YpCaptchaButtonShowingFlag'
 
@@ -5960,7 +5962,7 @@ function makeYpCaptchaButtonTextFlash(flash_effect_options) {
   //prevent multiple request before get the result
   if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
     maintainingFlagsInfo: {
-      flagsContainer: maintainingFlags,
+      flagsContainer: YpCaptchaMaintainingFlags,
       flagName: 'YpCaptchaButtonTextFlashingFlag'
     }
   })) {
@@ -5979,7 +5981,7 @@ function makeYpCaptchaButtonTextFlash(flash_effect_options) {
           flash_effect_options.callbacks.afterEffect();
           Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
             maintainingFlagsInfo: {
-              flagsContainer: maintainingFlags,
+              flagsContainer: YpCaptchaMaintainingFlags,
               flagName: 'YpCaptchaButtonTextFlashingFlag'
             }
           });
@@ -5990,7 +5992,7 @@ function makeYpCaptchaButtonTextFlash(flash_effect_options) {
 }
 
 function isYpCaptchaButtonShown() {
-  if (maintainingFlags.YpCaptchaButtonShowingFlag == false && maintainingFlags.YpCaptchaButtonShownFlag == true && maintainingFlags.YpCaptchaSuccessButtonShownFlag == false) {
+  if (YpCaptchaMaintainingFlags.YpCaptchaButtonShowingFlag == false && YpCaptchaMaintainingFlags.YpCaptchaButtonShownFlag == true && YpCaptchaMaintainingFlags.YpCaptchaSuccessButtonShownFlag == false) {
     return true;
   }
 
@@ -6012,12 +6014,12 @@ function initializeYpCaptchaRefreshButton() {
   //and then can click event be arranged
   if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
     maintainingFlagsInfo: {
-      flagsContainer: maintainingFlags,
+      flagsContainer: YpCaptchaMaintainingFlags,
       flagName: 'YpCaptchaRefreshButtonInitializedFlag'
     }
   })) {
     //resume the transform rotate degrees counted by YpCaptcha
-    $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)'); //make the YpCaptcha refresh button visible after 1.5s
+    $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + YpCaptchaMaintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)'); //make the YpCaptcha refresh button visible after 1.5s
 
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
       suspendingTime: 1500,
@@ -6034,7 +6036,7 @@ function initializeYpCaptchaRefreshButton() {
 
       $('body,#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'none'); //count how many times the YpCaptcha refresh button rotates when clicking on it
 
-      maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1; //fade out and fade in the YpCaptcha refresh button
+      YpCaptchaMaintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1; //fade out and fade in the YpCaptcha refresh button
       //leave 0.25s for YpCaptcha refresh button rotate when clicking on it before it starts fade out
 
       Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
@@ -6382,12 +6384,12 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
             if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startDoubleProcessingLock"])({
               //indicating if the YpCaptchaButton is showing
               firstMaintainingFlagsInfo: {
-                flagsContainer: maintainingFlags,
+                flagsContainer: YpCaptchaMaintainingFlags,
                 flagName: 'YpCaptchaButtonShowingFlag'
               },
               //indicating if the YpCaptchaButton is shown
               secondMaintainingFlagsInfo: {
-                flagsContainer: maintainingFlags,
+                flagsContainer: YpCaptchaMaintainingFlags,
                 flagName: 'YpCaptchaButtonShownFlag'
               }
             })) {
@@ -6399,7 +6401,7 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
                 shownCallback: function shownCallback() {
                   Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
                     maintainingFlagsInfo: {
-                      flagsContainer: maintainingFlags,
+                      flagsContainer: YpCaptchaMaintainingFlags,
                       flagName: 'YpCaptchaButtonShowingFlag'
                     }
                   });
