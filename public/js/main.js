@@ -5267,7 +5267,6 @@ var maintainingFlags = {
   YpCaptchaButtonTextFlashingFlag: false,
   YpCaptchaSuccessButtonShownFlag: false,
   YpCaptchaRefreshButtonInitializedFlag: false,
-  YpCaptchaRefreshButtonShownFlag: false,
   YpCaptchaRefreshButtonRefreshTimes: 0
 };
 var errorBoxMaintainingFlags = {
@@ -5307,15 +5306,18 @@ var YpCaptchaInitializingOptions = {
         flagName: 'YpCaptchaProcessingFlag'
       }
     })) {
-      changeYpCaptchaButtonText('.account-register', '正在获取拼图...');
+      changeYpCaptchaButtonText('.account-register', '正在获取拼图...'); //watch the YpCaptcha puzzle shows up
+
       Object(_network__WEBPACK_IMPORTED_MODULE_3__["startRepeater"])({
         maintainingObjectsInfo: {
           objectsContainer: maintainingObjects,
           objectName: 'puzzleShowUpWatcher'
         },
         intervalCallback: function intervalCallback() {
-          //make sure only when the puzzle shows up, the text can be changed
-          if ($('#register-yunpian-captcha .yp-riddler-win-masker').css('display') == 'block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0) {
+          //observe the puzzle shows up
+          //only when the puzzle dialog shows up can error box be closed, YpCaptcha button text be changed
+          //and YpCaptcha refresh button operations be done
+          if (isYpCaptchaPuzzleDialogShown()) {
             closeErrorBox({
               tabName: '.account-register',
               formBox: {
@@ -5323,69 +5325,7 @@ var YpCaptchaInitializingOptions = {
               }
             });
             changeYpCaptchaButtonText('.account-register', '请完成拼图');
-
-            if (!maintainingFlags.YpCaptchaRefreshButtonShownFlag) {
-              maintainingFlags.YpCaptchaRefreshButtonShownFlag = true;
-              $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)');
-              Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
-                suspendingTime: 1500,
-                callbacks: {
-                  resumed: function resumed() {
-                    $('#register-yunpian-captcha .yp-riddler-refresh').css('visibility', 'visible');
-                  }
-                }
-              });
-            }
-
-            if ($('#register-yunpian-captcha .yp-riddler-refresh') && !maintainingFlags.YpCaptchaRefreshButtonInitializedFlag) {
-              maintainingFlags.YpCaptchaRefreshButtonInitializedFlag = true;
-              $('#register-yunpian-captcha .yp-riddler-refresh').click(function (event) {
-                $('body').css('pointer-events', 'none');
-                $('#register-yunpian-captcha .yp-riddler-refresh').css('transition-property', 'transform');
-                $('#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'none');
-                maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1;
-                Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
-                  suspendingTime: 250,
-                  callbacks: {
-                    resumed: function resumed() {
-                      Object(_network__WEBPACK_IMPORTED_MODULE_3__["wait"])({
-                        worthWaitingHandler: function worthWaitingHandler(resolve) {
-                          Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
-                            targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
-                            effectDuration: 250,
-                            targetOriginalDisplayType: 'none',
-                            callbacks: {
-                              disappeared: function disappeared() {
-                                Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
-                                  suspendingTime: 200,
-                                  callbacks: {
-                                    resumed: function resumed() {
-                                      resolve();
-                                    }
-                                  }
-                                });
-                              }
-                            }
-                          });
-                        },
-                        suspendedHandler: function suspendedHandler() {
-                          Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
-                            targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
-                            effectDuration: 250,
-                            callbacks: {
-                              shown: function shown() {
-                                $('#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'all');
-                                $('body').css('pointer-events', 'all');
-                              }
-                            }
-                          });
-                        }
-                      });
-                    }
-                  }
-                });
-              });
-            }
+            initializeYpCaptchaRefreshButton();
           }
         },
         frequency: 100
@@ -5405,14 +5345,16 @@ var YpCaptchaInitializingOptions = {
   //when the user clicks on the other areas on the register tab, which makes the puzzle disappear, it's only in effect when the mode is set to 'dialog'
   onExit: function onExit() {
     changeYpCaptchaButtonText('.account-register', '请点击按钮开始验证');
-    releaseYpCaptchaRefreshButtonInfo({
-      infoContainer: maintainingFlags,
-      releasingInfoName: ['YpCaptchaRefreshButtonInitializedFlag', 'YpCaptchaRefreshButtonShownFlag']
-    });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
       maintainingObjectsInfo: {
         objectsContainer: maintainingObjects,
         objectName: 'puzzleShowUpWatcher'
+      }
+    });
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaRefreshButtonInitializedFlag'
       }
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5427,6 +5369,7 @@ var YpCaptchaInitializingOptions = {
     getVerificationCode(validInfo.token, validInfo.authenticate);
     useDefaultSuccess(true);
     close(); //flagName: 'YpCaptchaSuccessButtonShownFlag'
+    //hide YpCaptcha button
 
     if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
       maintainingFlagsInfo: {
@@ -5454,16 +5397,24 @@ var YpCaptchaInitializingOptions = {
       });
     }
 
-    releaseYpCaptchaRefreshButtonInfo({
-      infoContainer: maintainingFlags,
-      releasingInfoName: ['YpCaptchaRefreshButtonInitializedFlag', 'YpCaptchaRefreshButtonShownFlag'],
-      settingZeroInfoName: ['YpCaptchaRefreshButtonRefreshTimes']
-    });
     releaseYpCaptcha();
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
       maintainingObjectsInfo: {
         objectsContainer: maintainingObjects,
         objectName: 'puzzleShowUpWatcher'
+      }
+    });
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaRefreshButtonRefreshTimes'
+      },
+      setZero: true
+    });
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+      maintainingFlagsInfo: {
+        flagsContainer: maintainingFlags,
+        flagName: 'YpCaptchaRefreshButtonInitializedFlag'
       }
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -6045,33 +5996,89 @@ function isYpCaptchaButtonShown() {
 
   return false;
 }
-/*************************************************************
 
-      releaseYpCaptchaRefreshButtonInfo OPTIONS EXAMPLE
+function isYpCaptchaPuzzleDialogShown() {
+  if ($('#register-yunpian-captcha .yp-riddler-win-masker').css('display') == 'block' && $('#register-yunpian-captcha .yp-riddler-win-masker').children().length > 0) {
+    return true;
+  }
 
-**************************************************************
-
-{
-
-  infoContainer: maintainingFlags,
-
-  releasingInfoName: [],
-
-  settingZeroInfoName[optional] : []
-
+  return false;
 }
 
-**************************************************************/
+function initializeYpCaptchaRefreshButton() {
+  //only if YpCaptcha refresh button is initialized in the DOM when opening the YpCaptcha puzzle dialog
+  //can its trasnform rotate degrees be synced with YpCaptcha
+  //and then can it be shown after 1.5s
+  //and then can click event be arranged
+  if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startProcessingLock"])({
+    maintainingFlagsInfo: {
+      flagsContainer: maintainingFlags,
+      flagName: 'YpCaptchaRefreshButtonInitializedFlag'
+    }
+  })) {
+    //resume the transform rotate degrees counted by YpCaptcha
+    $('#register-yunpian-captcha .yp-riddler-refresh').css('transform', 'rotate(' + maintainingFlags.YpCaptchaRefreshButtonRefreshTimes * 90 + 'deg)'); //make the YpCaptcha refresh button visible after 1.5s
 
+    Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
+      suspendingTime: 1500,
+      callbacks: {
+        resumed: function resumed() {
+          $('#register-yunpian-captcha .yp-riddler-refresh').css('visibility', 'visible');
+        }
+      }
+    }); //when clicking on the YpCaptcha refresh button...
 
-function releaseYpCaptchaRefreshButtonInfo(refresh_button_info_option) {
-  $.each(refresh_button_info_option.releasingInfoName, function (index, infoName) {
-    refresh_button_info_option.infoContainer[infoName] = false;
-  });
+    $('#register-yunpian-captcha .yp-riddler-refresh').click(function (event) {
+      //correct the animation effect by YpCaptcha's default behaviours
+      $('#register-yunpian-captcha .yp-riddler-refresh').css('transition-property', 'transform'); //freeze all actions, mainly aims for preventing clicking events from being activated
 
-  if (refresh_button_info_option.settingZeroInfoName) {
-    $.each(refresh_button_info_option.settingZeroInfoName, function (index, infoName) {
-      refresh_button_info_option.infoContainer[infoName] = 0;
+      $('body,#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'none'); //count how many times the YpCaptcha refresh button rotates when clicking on it
+
+      maintainingFlags.YpCaptchaRefreshButtonRefreshTimes += 1; //fade out and fade in the YpCaptcha refresh button
+      //leave 0.25s for YpCaptcha refresh button rotate when clicking on it before it starts fade out
+
+      Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
+        suspendingTime: 250,
+        callbacks: {
+          resumed: function resumed() {
+            //fade out and fade in the YpCaptcha refresh button
+            // make it possible that after fade out have finished the fade in then starts
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["wait"])({
+              worthWaitingHandler: function worthWaitingHandler(resolve) {
+                Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeOut"])({
+                  targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
+                  effectDuration: 250,
+                  targetOriginalDisplayType: 'none',
+                  callbacks: {
+                    disappeared: function disappeared() {
+                      Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
+                        suspendingTime: 200,
+                        callbacks: {
+                          resumed: function resumed() {
+                            resolve();
+                          }
+                        }
+                      });
+                    }
+                  }
+                });
+              },
+              suspendedHandler: function suspendedHandler() {
+                Object(_effects__WEBPACK_IMPORTED_MODULE_2__["fadeIn"])({
+                  targetElement: $('#register-yunpian-captcha .yp-riddler-refresh'),
+                  effectDuration: 250,
+                  callbacks: {
+                    shown: function shown() {
+                      //resume all actions, mainly aims for making the click evnets being activated
+                      $('body,#register-yunpian-captcha .yp-riddler-refresh').css('pointer-events', 'all');
+                    }
+                  }
+                });
+              }
+            });
+          }
+        }
+      });
     });
   }
 } //submit event for the form on PasswordLoginTab
@@ -6358,56 +6365,63 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
         });
       },
       succeeded: function succeeded() {
-        closeErrorBox({
-          tabName: '.account-register',
-          formBox: {
-            marginTopDistance: '1.5rem'
-          }
-        }); //prevent multiple requests before get the result
-        //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
-        //the YpCaptchButton can be instantiated and showed up
-
-        if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startDoubleProcessingLock"])({
-          //indicating if the YpCaptchaButton is showing
-          firstMaintainingFlagsInfo: {
-            flagsContainer: maintainingFlags,
-            flagName: 'YpCaptchaButtonShowingFlag'
+        Object(_network__WEBPACK_IMPORTED_MODULE_3__["wait"])({
+          worthWaitingHandler: function worthWaitingHandler(resolve) {
+            closeErrorBox({
+              tabName: '.account-register',
+              formBox: {
+                marginTopDistance: '1.5rem'
+              },
+              resolve: resolve
+            });
           },
-          //indicating if the YpCaptchaButton is shown
-          secondMaintainingFlagsInfo: {
-            flagsContainer: maintainingFlags,
-            flagName: 'YpCaptchaButtonShownFlag'
-          }
-        })) {
-          instantiateYpCaptcha(); //show up the YpCaptchaButton
+          suspendedHandler: function suspendedHandler() {
+            //prevent multiple requests before get the result
+            //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
+            //the YpCaptchButton can be instantiated and showed up
+            if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startDoubleProcessingLock"])({
+              //indicating if the YpCaptchaButton is showing
+              firstMaintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'YpCaptchaButtonShowingFlag'
+              },
+              //indicating if the YpCaptchaButton is shown
+              secondMaintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'YpCaptchaButtonShownFlag'
+              }
+            })) {
+              instantiateYpCaptcha(); //show up the YpCaptchaButton
 
-          showYpCaptchaButton({
-            YpCaptchaButtonID: '#register-yunpian-captcha',
-            showingTime: 600,
-            shownCallback: function shownCallback() {
-              Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
-                maintainingFlagsInfo: {
-                  flagsContainer: maintainingFlags,
-                  flagName: 'YpCaptchaButtonShowingFlag'
+              showYpCaptchaButton({
+                YpCaptchaButtonID: '#register-yunpian-captcha',
+                showingTime: 600,
+                shownCallback: function shownCallback() {
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: maintainingFlags,
+                      flagName: 'YpCaptchaButtonShowingFlag'
+                    }
+                  });
+                }
+              });
+            } //make the text of YpCaptchaButton flash
+
+
+            if (isYpCaptchaButtonShown()) {
+              makeYpCaptchaButtonTextFlash({
+                YpCaptchaButtonID: '#register-yunpian-captcha',
+                effectDuration: 800,
+                callbacks: {
+                  beforeEffect: function beforeEffect() {//console.log('before the effect')
+                  },
+                  afterEffect: function afterEffect() {//console.log('after the effect')
+                  }
                 }
               });
             }
-          });
-        } //make the text of YpCaptchaButton flash
-
-
-        if (isYpCaptchaButtonShown()) {
-          makeYpCaptchaButtonTextFlash({
-            YpCaptchaButtonID: '#register-yunpian-captcha',
-            effectDuration: 800,
-            callbacks: {
-              beforeEffect: function beforeEffect() {//console.log('before the effect')
-              },
-              afterEffect: function afterEffect() {//console.log('after the effect')
-              }
-            }
-          });
-        }
+          }
+        });
       }
     }
   });
@@ -7201,9 +7215,36 @@ function startDoubleProcessingLock(lock_options) {
 
   return false;
 }
+/*************************************************************
+
+             stopProcessingLock OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  maintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+  setZero[optional]: true
+
+}
+
+**************************************************************/
+
 
 function stopProcessingLock(lock_options) {
   if (lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
+    if (lock_options.setZero) {
+      lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = 0;
+      return;
+    }
+
     lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = false;
   }
 }

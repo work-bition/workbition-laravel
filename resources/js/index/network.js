@@ -78,9 +78,39 @@ function startDoubleProcessingLock(lock_options){
 
 }
 
+/*************************************************************
+
+             stopProcessingLock OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  maintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+  setZero[optional]: true
+
+}
+
+**************************************************************/
+
 function stopProcessingLock(lock_options) {
 
   if (lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName]) {
+
+    if (lock_options.setZero) {
+
+      lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = 0
+
+      return
+
+    }
 
     lock_options.maintainingFlagsInfo.flagsContainer[lock_options.maintainingFlagsInfo.flagName] = false
 
