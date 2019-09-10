@@ -73,22 +73,74 @@ class VerificationCodesController extends Controller
         //验证同一手机号短信发送频次限制
         //同一手机号在1分钟内只能发送1次验证码
 
-        if (Cache::has($request->phone)) {
+        if (Cache::has('M' . $request->phone)) {
 
-          Cache::increment($request->phone, 1);
+          Cache::increment('M' . $request->phone);
 
         }
 
         else {
 
           //在Cache中以phone为key，初始值为1，1分钟以后过期
-          Cache::put($request->phone, 1, now()->addMinutes(1));
+          Cache::put('M' . $request->phone, 1, now()->addMinutes(1));
 
         }
 
-        if (Cache::get($request->phone) > 1) {
+        if (Cache::get('M' . $request->phone) > 1) {
 
             return response()->json(['errors' => ['global' => ['同一个手机号1分钟内只能获取 1 条验证码']], 'success' => false, 'status' => 429]);
+
+        }
+
+        //结束验证
+
+
+
+        //验证同一手机号短信发送频次限制
+        //同一手机号在1小时内只能发送3次验证码
+
+        if (Cache::has('H' . $request->phone)) {
+
+          Cache::increment('H' . $request->phone);
+
+        }
+
+        else {
+
+          //在Cache中以phone为key，初始值为1，1分钟以后过期
+          Cache::put('H' . $request->phone, 1, now()->addHours(1));
+
+        }
+
+        if (Cache::get('H' . $request->phone) > 3) {
+
+            return response()->json(['errors' => ['global' => ['同一个手机号1小时内只能获取 3 条验证码']], 'success' => false, 'status' => 429]);
+
+        }
+
+        //结束验证
+
+
+
+        //验证同一手机号短信发送频次限制
+        //同一手机号在24小时内只能发送10次验证码
+
+        if (Cache::has('24H' . $request->phone)) {
+
+          Cache::increment('24H' . $request->phone);
+
+        }
+
+        else {
+
+          //在Cache中以phone为key，初始值为1，1分钟以后过期
+          Cache::put('24H' . $request->phone, 1, now()->addHours(24));
+
+        }
+
+        if (Cache::get('24H' . $request->phone) > 10) {
+
+            return response()->json(['errors' => ['global' => ['同一个手机号24小时内只能获取 10 条验证码']], 'success' => false, 'status' => 429]);
 
         }
 
@@ -133,26 +185,26 @@ class VerificationCodesController extends Controller
 
                   $code = $exception->getException('yunpian')->getCode();
 
-                  Cache::forget($request->phone);
+                  Cache::decrement('M' . $request->phone);
+
+                  Cache::decrement('H' . $request->phone);
+
+                  Cache::decrement('24H' . $request->phone);
 
                   //云片官方设置的错误码
                   switch ($code) {
 
-                    case 22:
+                    //case 22:
 
-                      $message = '同一手机号1小时内只能获取3条验证码';
+                    //  $message = '同一手机号1小时内只能获取3条验证码';
 
-                      break;
+                    //  break;
 
-                    case 17:
+                    //case 17:
 
-                      $message = '同一手机号24小时内只能获取10条验证码';
+                    //  $message = '同一手机号24小时内只能获取10条验证码';
 
-                      break;
-
-                    case 0:
-
-                      break;
+                    //  break;
 
                     default:
 
