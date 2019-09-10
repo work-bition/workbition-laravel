@@ -735,6 +735,13 @@ body.dimmed.dimmable {
   flex-direction: column;
 }
 
+#account_modal .login-register-box .account-login .content .form-box .ui.form.register .get-phone-code a,
+#account_modal .login-register-box .account-login .content .form-box .ui.form.phone-code.login .get-phone-code a,
+#account_modal .login-register-box .account-register .content .form-box .ui.form.register .get-phone-code a,
+#account_modal .login-register-box .account-register .content .form-box .ui.form.phone-code.login .get-phone-code a {
+  text-align: right;
+}
+
 #account_modal .login-register-box .account-login .content .form-box .ui.form .input-box,
 #account_modal .login-register-box .account-register .content .form-box .ui.form .input-box {
   align-items: center;

@@ -80,6 +80,60 @@ function startDoubleProcessingLock(lock_options){
 
 /*************************************************************
 
+         startTripleProcessingLock OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  firstMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+  secondMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+  thirdMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+}
+
+**************************************************************/
+
+function startTripleProcessingLock(lock_options){
+
+  if (!lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] && !lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName] && !lock_options.thirdMaintainingFlagsInfo.flagsContainer[lock_options.thirdMaintainingFlagsInfo.flagName]) {
+
+    lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] = true
+
+    lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName] = true
+
+    lock_options.thirdMaintainingFlagsInfo.flagsContainer[lock_options.thirdMaintainingFlagsInfo.flagName] = true
+
+    return true
+
+  }
+
+  return false
+
+}
+
+/*************************************************************
+
              stopProcessingLock OPTIONS EXAMPLE
 
 **************************************************************
@@ -415,7 +469,7 @@ function wait(wait_options) {
 
 }
 
-export { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
+export { startProcessingLock, startTripleProcessingLock, stopProcessingLock, sendPostRequest,
 
          getNetworkRelatedErrorsBag, suspendCurrentProcess, assignValueToMaintainingObjects,
 

@@ -11,7 +11,7 @@ import { isiOS, isSafari, isIE11 } from './detectBrowsers'
 
 import { fadeIn, fadeOut, enableFlashEffect } from './effects'
 
-import { startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest,
+import { startProcessingLock, startTripleProcessingLock, stopProcessingLock, sendPostRequest,
 
          getNetworkRelatedErrorsBag, suspendCurrentProcess, assignValueToMaintainingObjects,
 
@@ -160,7 +160,9 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 
 let maintainingFlags = {
 
-  remoteProcessingFlag : false
+  remoteProcessingFlag : false,
+
+  resendPhoneCodeCountingDownFlag : false
 
 }
 
@@ -196,7 +198,9 @@ let maintainingObjects = {
 
   YpCaptchaInstance : undefined,
 
-  puzzleShowUpWatcher : undefined
+  YpCaptchaPuzzleDialogShowUpWatcher : undefined,
+
+  resendPhoneCodeCounter: undefined
 
 }
 
@@ -249,61 +253,144 @@ let YpCaptchaInitializingOptions = {
 
           })) {
 
-            changeYpCaptchaButtonText('.account-register', '正在获取拼图...')
+            validateForm({
 
-            //watch the YpCaptcha puzzle shows up
-            startRepeater({
+              targetForm: $('#account_modal .account-register'),
 
-              maintainingObjectsInfo: {
+              fields: {
 
-                objectsContainer:maintainingObjects,
+                phoneField : {
 
-                objectName: 'puzzleShowUpWatcher'
+                  element: 'input[name=phone]',
 
-              },
+                  rules: [
 
-              intervalCallback: () => {
+                    'required',
 
-                  //observe the puzzle shows up
-                  //only when the puzzle dialog shows up can error box be closed, YpCaptcha button text be changed
-                  //and YpCaptcha refresh button operations be done
-                  if(isYpCaptchaPuzzleDialogShown()){
+                    //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+                    'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()
 
-                    closeErrorBox({
+                  ],
 
-                      tabName: '.account-register',
+                  errorMessages : {
 
-                      formBox: {
+                    required : '请输入手机号码',
 
-                        marginTopDistance: '1.5rem'
-
-                      }
-
-                    })
-
-                    changeYpCaptchaButtonText('.account-register', '请完成拼图')
-
-                    initializeYpCaptchaRefreshButton()
+                    regex : '请输入正确的手机号码'
 
                   }
 
+                }
+
               },
-
-              frequency: 100
-
-            })
-
-            //prevent frequent requests in a very short period by the users
-            //makes the puzzle show up
-            suspendCurrentProcess({
-
-              suspendingTime: 1000,
 
               callbacks: {
 
-                resumed: () => {
+                failed : (errorsBag) => {
 
-                    next()
+                  showErrorBox({
+
+                    tabName: '.account-register',
+
+                    errorsBag: errorsBag,
+
+                    formBox: {
+
+                      marginTopDistance: '0'
+
+                    }
+
+                  })
+
+                  stopProcessingLock({
+
+                    maintainingFlagsInfo: {
+
+                      flagsContainer:YpCaptchaMaintainingFlags,
+
+                      flagName: 'YpCaptchaProcessingFlag'
+
+                    }
+
+                  })
+
+                },
+
+                succeeded: () => {
+
+                  closeErrorBox({
+
+                    tabName: '.account-register',
+
+                    formBox: {
+
+                      marginTopDistance: '1.5rem'
+
+                    }
+
+                  })
+
+                  changeYpCaptchaButtonText('.account-register', '正在获取拼图...')
+
+                  //watch the YpCaptcha puzzle shows up
+                  startRepeater({
+
+                    maintainingObjectsInfo: {
+
+                      objectsContainer:maintainingObjects,
+
+                      objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
+
+                    },
+
+                    intervalCallback: () => {
+
+                        //observe the puzzle shows up
+                        //only when the puzzle dialog shows up can error box be closed, YpCaptcha button text be changed
+                        //and YpCaptcha refresh button operations be done
+                        if(isYpCaptchaPuzzleDialogShown()){
+
+                          closeErrorBox({
+
+                            tabName: '.account-register',
+
+                            formBox: {
+
+                              marginTopDistance: '1.5rem'
+
+                            }
+
+                          })
+
+                          changeYpCaptchaButtonText('.account-register', '请完成拼图')
+
+                          initializeYpCaptchaRefreshButton()
+
+                        }
+
+                    },
+
+                    frequency: 100
+
+                  })
+
+                  //prevent frequent requests in a very short period by the users
+                  //makes the puzzle show up
+                  suspendCurrentProcess({
+
+                    suspendingTime: 1000,
+
+                    callbacks: {
+
+                      resumed: () => {
+
+                          next()
+
+                      }
+
+                    }
+
+                  })
 
                 }
 
@@ -326,7 +413,7 @@ let YpCaptchaInitializingOptions = {
 
               objectsContainer:maintainingObjects,
 
-              objectName: 'puzzleShowUpWatcher'
+              objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
 
             }
 
@@ -360,6 +447,8 @@ let YpCaptchaInitializingOptions = {
 
       //when the user successfully finishes the puzzle
       onSuccess: function (validInfo, close, useDefaultSuccess) {
+
+          changeGetPhoneCodeLinkText('.account-register','发送中...')
 
           getVerificationCode(validInfo.token, validInfo.authenticate)
 
@@ -427,7 +516,7 @@ let YpCaptchaInitializingOptions = {
 
               objectsContainer:maintainingObjects,
 
-              objectName: 'puzzleShowUpWatcher'
+              objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
 
             }
 
@@ -517,7 +606,7 @@ let YpCaptchaInitializingOptions = {
 
                 objectsContainer:maintainingObjects,
 
-                objectName: 'puzzleShowUpWatcher'
+                objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
 
               }
 
@@ -559,7 +648,7 @@ let YpCaptchaInitializingOptions = {
 
             objectsContainer:maintainingObjects,
 
-            objectName: 'puzzleShowUpWatcher'
+            objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
 
           }
 
@@ -937,6 +1026,12 @@ function changeSubmitButtonText(tabName, text){
 
 }
 
+function changeGetPhoneCodeLinkText(tabName, text){
+
+  $(`#account_modal .login-register-box ${tabName} .form-box .get-phone-code .link`).text(text)
+
+}
+
 function disableAllActionsOnPage() {
 
   $('body').css('pointer-events', 'none')
@@ -1005,6 +1100,8 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
              let errorsBag = getNetworkRelatedErrorsBag(error)
 
+             changeGetPhoneCodeLinkText('.account-register','获取短信验证码')
+
              showErrorBox({
 
                tabName: '.account-register',
@@ -1014,6 +1111,18 @@ function getVerificationCode(captcha_token, captcha_authenticate){
                formBox: {
 
                  marginTopDistance: '0'
+
+               }
+
+             })
+
+             stopProcessingLock({
+
+               maintainingFlagsInfo: {
+
+                 flagsContainer:maintainingFlags,
+
+                 flagName: 'resendPhoneCodeCountingDownFlag'
 
                }
 
@@ -1041,6 +1150,64 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
                //window.location.href = location.href
 
+               let counter = 60
+
+               startRepeater({
+
+                 maintainingObjectsInfo: {
+
+                   objectsContainer:maintainingObjects,
+
+                   objectName: 'resendPhoneCodeCounter'
+
+                 },
+
+                 intervalCallback: () => {
+
+                   counter -= 1
+
+                   if (counter == 0) {
+
+                     changeGetPhoneCodeLinkText('.account-register', '重新获取验证码')
+
+                     stopProcessingLock({
+
+                       maintainingFlagsInfo: {
+
+                         flagsContainer:maintainingFlags,
+
+                         flagName: 'resendPhoneCodeCountingDownFlag'
+
+                       }
+
+                     })
+
+                     clearRepeater({
+
+                       maintainingObjectsInfo: {
+
+                         objectsContainer:maintainingObjects,
+
+                         objectName: 'resendPhoneCodeCounter'
+
+                       }
+
+                     })
+
+                   }
+
+                   else {
+
+                     changeGetPhoneCodeLinkText('.account-register', `${counter}s后重新获取`)
+
+                   }
+
+                 },
+
+                 frequency: 1000
+
+               })
+
                stopProcessingLock({
 
                  maintainingFlagsInfo: {
@@ -1057,6 +1224,8 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
              else {
 
+               changeGetPhoneCodeLinkText('.account-register','获取短信验证码')
+
                showErrorBox({
 
                  tabName: '.account-register',
@@ -1071,7 +1240,17 @@ function getVerificationCode(captcha_token, captcha_authenticate){
 
                })
 
-               console.log(response.data.code)
+               stopProcessingLock({
+
+                 maintainingFlagsInfo: {
+
+                   flagsContainer:maintainingFlags,
+
+                   flagName: 'resendPhoneCodeCountingDownFlag'
+
+                 }
+
+               })
 
                stopProcessingLock({
 
@@ -2096,8 +2275,6 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
 })
 
-
-
 //click event for the 'get phone code' button on AccountRegisterTab
 $('#account_modal .account-register .get-phone-code .link').click((event) => {
 
@@ -2179,7 +2356,7 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
             //prevent multiple requests before get the result
             //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
             //the YpCaptchButton can be instantiated and showed up
-            if (startDoubleProcessingLock({
+            if (startTripleProcessingLock({
 
               //indicating if the YpCaptchaButton is showing
               firstMaintainingFlagsInfo: {
@@ -2196,6 +2373,15 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
                 flagsContainer:YpCaptchaMaintainingFlags,
 
                 flagName: 'YpCaptchaButtonShownFlag'
+
+              },
+
+                //indicating if the resend phone code is counting down
+              thirdMaintainingFlagsInfo: {
+
+                flagsContainer:maintainingFlags,
+
+                flagName: 'resendPhoneCodeCountingDownFlag'
 
               }
 
@@ -2270,8 +2456,6 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
   })
 
 })
-
-
 
 //click event for close button on ErrorBox on PasswordLoginTab
 $('#account_modal .password-login .error-box .message .close').click((event) => {

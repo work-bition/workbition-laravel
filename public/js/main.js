@@ -5260,7 +5260,8 @@ $('#main_sidebar .login.button, #header .login.button, #account_modal .account-r
 ******************************************************************************************************************************/
 
 var maintainingFlags = {
-  remoteProcessingFlag: false
+  remoteProcessingFlag: false,
+  resendPhoneCodeCountingDownFlag: false
 };
 var YpCaptchaMaintainingFlags = {
   YpCaptchaProcessingFlag: false,
@@ -5278,7 +5279,8 @@ var errorBoxMaintainingFlags = {
 };
 var maintainingObjects = {
   YpCaptchaInstance: undefined,
-  puzzleShowUpWatcher: undefined
+  YpCaptchaPuzzleDialogShowUpWatcher: undefined,
+  resendPhoneCodeCounter: undefined
 };
 var YpCaptchaInitializingOptions = {
   //过期时间不宜设置过短，不然容易引发异常，单位：秒
@@ -5308,37 +5310,76 @@ var YpCaptchaInitializingOptions = {
         flagName: 'YpCaptchaProcessingFlag'
       }
     })) {
-      changeYpCaptchaButtonText('.account-register', '正在获取拼图...'); //watch the YpCaptcha puzzle shows up
-
-      Object(_network__WEBPACK_IMPORTED_MODULE_3__["startRepeater"])({
-        maintainingObjectsInfo: {
-          objectsContainer: maintainingObjects,
-          objectName: 'puzzleShowUpWatcher'
+      Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["validateForm"])({
+        targetForm: $('#account_modal .account-register'),
+        fields: {
+          phoneField: {
+            element: 'input[name=phone]',
+            rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+            'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()],
+            errorMessages: {
+              required: '请输入手机号码',
+              regex: '请输入正确的手机号码'
+            }
+          }
         },
-        intervalCallback: function intervalCallback() {
-          //observe the puzzle shows up
-          //only when the puzzle dialog shows up can error box be closed, YpCaptcha button text be changed
-          //and YpCaptcha refresh button operations be done
-          if (isYpCaptchaPuzzleDialogShown()) {
+        callbacks: {
+          failed: function failed(errorsBag) {
+            showErrorBox({
+              tabName: '.account-register',
+              errorsBag: errorsBag,
+              formBox: {
+                marginTopDistance: '0'
+              }
+            });
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+              maintainingFlagsInfo: {
+                flagsContainer: YpCaptchaMaintainingFlags,
+                flagName: 'YpCaptchaProcessingFlag'
+              }
+            });
+          },
+          succeeded: function succeeded() {
             closeErrorBox({
               tabName: '.account-register',
               formBox: {
                 marginTopDistance: '1.5rem'
               }
             });
-            changeYpCaptchaButtonText('.account-register', '请完成拼图');
-            initializeYpCaptchaRefreshButton();
-          }
-        },
-        frequency: 100
-      }); //prevent frequent requests in a very short period by the users
-      //makes the puzzle show up
+            changeYpCaptchaButtonText('.account-register', '正在获取拼图...'); //watch the YpCaptcha puzzle shows up
 
-      Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
-        suspendingTime: 1000,
-        callbacks: {
-          resumed: function resumed() {
-            next();
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["startRepeater"])({
+              maintainingObjectsInfo: {
+                objectsContainer: maintainingObjects,
+                objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
+              },
+              intervalCallback: function intervalCallback() {
+                //observe the puzzle shows up
+                //only when the puzzle dialog shows up can error box be closed, YpCaptcha button text be changed
+                //and YpCaptcha refresh button operations be done
+                if (isYpCaptchaPuzzleDialogShown()) {
+                  closeErrorBox({
+                    tabName: '.account-register',
+                    formBox: {
+                      marginTopDistance: '1.5rem'
+                    }
+                  });
+                  changeYpCaptchaButtonText('.account-register', '请完成拼图');
+                  initializeYpCaptchaRefreshButton();
+                }
+              },
+              frequency: 100
+            }); //prevent frequent requests in a very short period by the users
+            //makes the puzzle show up
+
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["suspendCurrentProcess"])({
+              suspendingTime: 1000,
+              callbacks: {
+                resumed: function resumed() {
+                  next();
+                }
+              }
+            });
           }
         }
       });
@@ -5350,7 +5391,7 @@ var YpCaptchaInitializingOptions = {
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
       maintainingObjectsInfo: {
         objectsContainer: maintainingObjects,
-        objectName: 'puzzleShowUpWatcher'
+        objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
       }
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5368,6 +5409,7 @@ var YpCaptchaInitializingOptions = {
   },
   //when the user successfully finishes the puzzle
   onSuccess: function onSuccess(validInfo, close, useDefaultSuccess) {
+    changeGetPhoneCodeLinkText('.account-register', '发送中...');
     getVerificationCode(validInfo.token, validInfo.authenticate);
     useDefaultSuccess(true);
     close(); //flagName: 'YpCaptchaSuccessButtonShownFlag'
@@ -5403,7 +5445,7 @@ var YpCaptchaInitializingOptions = {
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
       maintainingObjectsInfo: {
         objectsContainer: maintainingObjects,
-        objectName: 'puzzleShowUpWatcher'
+        objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
       }
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5449,7 +5491,7 @@ var YpCaptchaInitializingOptions = {
       Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
         maintainingObjectsInfo: {
           objectsContainer: maintainingObjects,
-          objectName: 'puzzleShowUpWatcher'
+          objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
         }
       });
       Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5471,7 +5513,7 @@ var YpCaptchaInitializingOptions = {
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
       maintainingObjectsInfo: {
         objectsContainer: maintainingObjects,
-        objectName: 'puzzleShowUpWatcher'
+        objectName: 'YpCaptchaPuzzleDialogShowUpWatcher'
       }
     });
     Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5701,6 +5743,10 @@ function changeSubmitButtonText(tabName, text) {
   $("#account_modal .login-register-box ".concat(tabName, " .form-box .button")).text(text);
 }
 
+function changeGetPhoneCodeLinkText(tabName, text) {
+  $("#account_modal .login-register-box ".concat(tabName, " .form-box .get-phone-code .link")).text(text);
+}
+
 function disableAllActionsOnPage() {
   $('body').css('pointer-events', 'none');
 }
@@ -5737,11 +5783,18 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
       callbacks: {
         failed: function failed(error) {
           var errorsBag = Object(_network__WEBPACK_IMPORTED_MODULE_3__["getNetworkRelatedErrorsBag"])(error);
+          changeGetPhoneCodeLinkText('.account-register', '获取短信验证码');
           showErrorBox({
             tabName: '.account-register',
             errorsBag: errorsBag,
             formBox: {
               marginTopDistance: '0'
+            }
+          });
+          Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+            maintainingFlagsInfo: {
+              flagsContainer: maintainingFlags,
+              flagName: 'resendPhoneCodeCountingDownFlag'
             }
           });
           Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
@@ -5755,6 +5808,35 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
           if (response.data.success) {
             console.log(response.data); //window.location.href = location.href
 
+            var counter = 60;
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["startRepeater"])({
+              maintainingObjectsInfo: {
+                objectsContainer: maintainingObjects,
+                objectName: 'resendPhoneCodeCounter'
+              },
+              intervalCallback: function intervalCallback() {
+                counter -= 1;
+
+                if (counter == 0) {
+                  changeGetPhoneCodeLinkText('.account-register', '重新获取验证码');
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: maintainingFlags,
+                      flagName: 'resendPhoneCodeCountingDownFlag'
+                    }
+                  });
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["clearRepeater"])({
+                    maintainingObjectsInfo: {
+                      objectsContainer: maintainingObjects,
+                      objectName: 'resendPhoneCodeCounter'
+                    }
+                  });
+                } else {
+                  changeGetPhoneCodeLinkText('.account-register', "".concat(counter, "s\u540E\u91CD\u65B0\u83B7\u53D6"));
+                }
+              },
+              frequency: 1000
+            });
             Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
               maintainingFlagsInfo: {
                 flagsContainer: maintainingFlags,
@@ -5762,6 +5844,7 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
               }
             });
           } else {
+            changeGetPhoneCodeLinkText('.account-register', '获取短信验证码');
             showErrorBox({
               tabName: '.account-register',
               errorsBag: response.data.errors,
@@ -5769,7 +5852,12 @@ function getVerificationCode(captcha_token, captcha_authenticate) {
                 marginTopDistance: '0'
               }
             });
-            console.log(response.data.code);
+            Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+              maintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'resendPhoneCodeCountingDownFlag'
+              }
+            });
             Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
               maintainingFlagsInfo: {
                 flagsContainer: maintainingFlags,
@@ -6381,7 +6469,7 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
             //prevent multiple requests before get the result
             //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
             //the YpCaptchButton can be instantiated and showed up
-            if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startDoubleProcessingLock"])({
+            if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startTripleProcessingLock"])({
               //indicating if the YpCaptchaButton is showing
               firstMaintainingFlagsInfo: {
                 flagsContainer: YpCaptchaMaintainingFlags,
@@ -6391,6 +6479,11 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
               secondMaintainingFlagsInfo: {
                 flagsContainer: YpCaptchaMaintainingFlags,
                 flagName: 'YpCaptchaButtonShownFlag'
+              },
+              //indicating if the resend phone code is counting down
+              thirdMaintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'resendPhoneCodeCountingDownFlag'
               }
             })) {
               instantiateYpCaptcha(); //show up the YpCaptchaButton
@@ -7131,13 +7224,13 @@ $('#main_nav .left.menu a').hover(function (event) {
 /*!***************************************!*\
   !*** ./resources/js/index/network.js ***!
   \***************************************/
-/*! exports provided: startProcessingLock, startDoubleProcessingLock, stopProcessingLock, sendPostRequest, getNetworkRelatedErrorsBag, suspendCurrentProcess, assignValueToMaintainingObjects, assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater, clearRepeater, wait */
+/*! exports provided: startProcessingLock, startTripleProcessingLock, stopProcessingLock, sendPostRequest, getNetworkRelatedErrorsBag, suspendCurrentProcess, assignValueToMaintainingObjects, assignValueToMaintainingObjectsOnce, unsetMaintainingObjects, startRepeater, clearRepeater, wait */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function($) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startProcessingLock", function() { return startProcessingLock; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startDoubleProcessingLock", function() { return startDoubleProcessingLock; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "startTripleProcessingLock", function() { return startTripleProcessingLock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "stopProcessingLock", function() { return stopProcessingLock; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sendPostRequest", function() { return sendPostRequest; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNetworkRelatedErrorsBag", function() { return getNetworkRelatedErrorsBag; });
@@ -7212,6 +7305,53 @@ function startDoubleProcessingLock(lock_options) {
   if (!lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] && !lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName]) {
     lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] = true;
     lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName] = true;
+    return true;
+  }
+
+  return false;
+}
+/*************************************************************
+
+         startTripleProcessingLock OPTIONS EXAMPLE
+
+**************************************************************
+
+{
+
+  firstMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+  secondMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+  thirdMaintainingFlagsInfo: {
+
+    flagsContainer:maintainingFlags,
+
+    flagName: 'YpCaptchaProcessingFlag'
+
+  },
+
+}
+
+**************************************************************/
+
+
+function startTripleProcessingLock(lock_options) {
+  if (!lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] && !lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName] && !lock_options.thirdMaintainingFlagsInfo.flagsContainer[lock_options.thirdMaintainingFlagsInfo.flagName]) {
+    lock_options.firstMaintainingFlagsInfo.flagsContainer[lock_options.firstMaintainingFlagsInfo.flagName] = true;
+    lock_options.secondMaintainingFlagsInfo.flagsContainer[lock_options.secondMaintainingFlagsInfo.flagName] = true;
+    lock_options.thirdMaintainingFlagsInfo.flagsContainer[lock_options.thirdMaintainingFlagsInfo.flagName] = true;
     return true;
   }
 
