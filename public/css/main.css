@@ -855,6 +855,26 @@ body.dimmed.dimmable {
   margin-top: 0 !important;
 }
 
+#account_modal .login-register-box .account-login .password-login .content .form-box .password-switch,
+#account_modal .login-register-box .account-register .content .form-box .password-switch {
+  cursor: pointer;
+  height: 1.4rem;
+  -webkit-transform: translateY(0.05rem);
+          transform: translateY(0.05rem);
+  width: 1.4rem;
+}
+
+#account_modal .login-register-box .account-login .password-login .content .form-box .password-switch .icon,
+#account_modal .login-register-box .account-register .content .form-box .password-switch .icon {
+  height: 1.4rem;
+  width: 1.4rem;
+}
+
+#account_modal .login-register-box .account-login .password-login .content .form-box .password-switch .icon.icon-invisible,
+#account_modal .login-register-box .account-register .content .form-box .password-switch .icon.icon-invisible {
+  display: none;
+}
+
 #account_modal .login-register-box .account-login .password-login .content .third-login,
 #account_modal .login-register-box .account-register .content .third-login {
   margin-top: 4.5rem;

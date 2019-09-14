@@ -346,6 +346,36 @@
 
         }
 
+        .form-box {
+
+          .password-switch {
+
+            cursor: pointer;
+
+            transform:translateY(0.05rem);
+
+            width:1.4rem;
+
+            height:1.4rem;
+
+            .icon {
+
+              width:1.4rem;
+
+              height:1.4rem;
+
+              &.icon-invisible {
+
+                display: none;
+
+              }
+
+            }
+
+          }
+
+        }
+
         .third-login {
 
           margin-top: 4.5rem;

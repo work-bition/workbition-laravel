@@ -1032,6 +1032,34 @@ function changeGetPhoneCodeLinkText(tabName, text){
 
 }
 
+function passwordInputStyleAttrChanger(tabName, invisibleIconDisplayStyle, visibleIconDisplayStyle, passwordInputType){
+
+  //toggle icon display
+  $(`#account_modal ${tabName} .password-switch .icon-invisible`).css('display', invisibleIconDisplayStyle)
+
+  $(`#account_modal ${tabName} .password-switch .icon-visible`).css('display', visibleIconDisplayStyle)
+
+  //toggle password visibility
+  $(`#account_modal ${tabName} input[name=password]`).attr('type',passwordInputType)
+
+}
+
+function togglePasswordInputVisibility(tabName){
+
+  if ($(`#account_modal ${tabName} input[name=password]`).attr('type') == 'password') {
+
+    passwordInputStyleAttrChanger(tabName, 'block', 'none', 'text')
+
+  }
+
+  else if ($(`#account_modal ${tabName} input[name=password]`).attr('type') == 'text') {
+
+    passwordInputStyleAttrChanger(tabName, 'none', 'block', 'password')
+
+  }
+
+}
+
 function disableAllActionsOnPage() {
 
   $('body').css('pointer-events', 'none')
@@ -2450,6 +2478,18 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
     }
 
   })
+
+})
+
+$('#account_modal .password-login .password-switch').click((event) => {
+
+  togglePasswordInputVisibility('.password-login')
+
+})
+
+$('#account_modal .account-register .password-switch').click((event) => {
+
+  togglePasswordInputVisibility('.account-register')
 
 })
 

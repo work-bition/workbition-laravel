@@ -96,6 +96,7 @@ class RegisterController extends Controller
 
 
 
+      //从缓存中获取短信验证码，与用户输入进行对比
       $verifyData = \Cache::get($request->phone);
 
       if (!$verifyData) {
@@ -110,6 +111,10 @@ class RegisterController extends Controller
 
       }
 
+      //结束验证
+
+
+      //创建用户
       $user = User::create([
 
           'phone' => $request->phone,

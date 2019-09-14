@@ -67,7 +67,15 @@
 
                   <section class="ui input">
 
-                    <input name="password" type="password" placeholder="密码">
+                    <input name="password" type="password" placeholder="密码" autocomplete="off">
+
+                  </section>
+
+                  <section class="password-switch">
+
+                    <svg class="icon icon-invisible"><use xlink:href="#icon-invisible"></use></svg>
+
+                    <svg class="icon icon-visible"><use xlink:href="#icon-visible"></use></svg>
 
                   </section>
 
@@ -220,7 +228,15 @@
 
               <section class="ui input">
 
-                <input type="password" name="password" placeholder="密码">
+                <input type="password" name="password" placeholder="密码" autocomplete="off">
+
+              </section>
+
+              <section class="password-switch">
+
+                <svg class="icon icon-invisible"><use xlink:href="#icon-invisible"></use></svg>
+
+                <svg class="icon icon-visible"><use xlink:href="#icon-visible"></use></svg>
 
               </section>
 

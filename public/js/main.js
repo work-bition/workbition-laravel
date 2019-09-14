@@ -4437,6 +4437,7 @@ var map = {
 	"./favourite.svg": "./resources/js/icons/svg/favourite.svg",
 	"./hot.svg": "./resources/js/icons/svg/hot.svg",
 	"./instagram.svg": "./resources/js/icons/svg/instagram.svg",
+	"./invisible.svg": "./resources/js/icons/svg/invisible.svg",
 	"./login.svg": "./resources/js/icons/svg/login.svg",
 	"./logo-alternate.svg": "./resources/js/icons/svg/logo-alternate.svg",
 	"./logo-color-reverse.svg": "./resources/js/icons/svg/logo-color-reverse.svg",
@@ -4451,6 +4452,7 @@ var map = {
 	"./settings2.svg": "./resources/js/icons/svg/settings2.svg",
 	"./study.svg": "./resources/js/icons/svg/study.svg",
 	"./sync.svg": "./resources/js/icons/svg/sync.svg",
+	"./visible.svg": "./resources/js/icons/svg/visible.svg",
 	"./wechat-mini-program.svg": "./resources/js/icons/svg/wechat-mini-program.svg",
 	"./wechat.svg": "./resources/js/icons/svg/wechat.svg",
 	"./weibo.svg": "./resources/js/icons/svg/weibo.svg",
@@ -4681,6 +4683,32 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "use": "icon-instagram-usage",
   "viewBox": "0 0 200 200",
   "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 200 200\" id=\"icon-instagram\"><g fill=\"none\" fill-rule=\"evenodd\"><path d=\"M0 100c0 55.228 44.772 100 100 100s100-44.772 100-100S155.228 0 100 0 0 44.772 0 100z\" fill=\"#A97E57\" /><path d=\"M146.371 51.923c-11.948 1.512-24.406 1.46-36.943.266-17.509-1.347-43.098-9.428-52.526 6.734-15.145 25.873-7.675 58.998-4.146 88.311l52.632 52.62c50.933-2.704 91.752-43.518 94.465-94.449l-53.482-53.482z\" fill=\"#7B5E3C\" /><path d=\"M123.136 42.76H76.864c-18.805 0-34.103 15.3-34.103 34.104v46.272c0 18.803 15.298 34.103 34.103 34.103h46.272c18.804 0 34.103-15.299 34.103-34.103V76.864c0-18.805-15.299-34.103-34.103-34.103zm22.587 80.376c0 12.474-10.113 22.587-22.587 22.587H76.864c-12.474 0-22.586-10.113-22.586-22.587V76.864c0-12.474 10.112-22.587 22.586-22.587h46.272c12.474 0 22.587 10.114 22.587 22.587v46.272z\" fill=\"#FFF\" fill-rule=\"nonzero\" /><path d=\"M100 70.391c-16.326 0-29.609 13.283-29.609 29.609 0 16.325 13.283 29.607 29.609 29.607s29.607-13.281 29.607-29.607S116.326 70.391 100 70.391zm0 47.7c-9.992 0-18.092-8.099-18.092-18.091s8.1-18.092 18.092-18.092c9.992 0 18.091 8.1 18.091 18.092 0 9.992-8.1 18.091-18.091 18.091z\" fill=\"#FFF\" fill-rule=\"nonzero\" /><path d=\"M136.759 70.615a7.095 7.095 0 1 1-14.19 0 7.095 7.095 0 0 1 14.19 0z\" fill=\"#D1D1D1\" /><path d=\"M123.136 42.76h-23.36v11.517h23.36c12.474 0 22.587 10.114 22.587 22.587v46.272c0 12.474-10.113 22.587-22.587 22.587h-23.36v11.516h23.36c18.804 0 34.103-15.299 34.103-34.103V76.864c0-18.805-15.299-34.103-34.103-34.103z\" fill=\"#D1D1D1\" /><path d=\"M100 70.391c-.075 0-.149.006-.224.006v11.516c.074 0 .149-.005.224-.005 9.992 0 18.091 8.1 18.091 18.092 0 9.992-8.099 18.091-18.091 18.091-.075 0-.15-.005-.224-.005v11.516c.075 0 .149.005.224.005 16.326 0 29.607-13.282 29.607-29.607 0-16.326-13.281-29.609-29.607-29.609z\" fill=\"#D1D1D1\" /></g></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/invisible.svg":
+/*!**********************************************!*\
+  !*** ./resources/js/icons/svg/invisible.svg ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-invisible",
+  "use": "icon-invisible-usage",
+  "viewBox": "0 0 470 406",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 470 406\" id=\"icon-invisible\"><g fill=\"#8D8C8C\" fill-rule=\"evenodd\"><path d=\"M231.147 128.373l67.2 67.2.32-3.52c0-35.307-28.693-64-64-64l-3.52.32z\" /><path d=\"M234.667 85.387c58.88 0 106.667 47.787 106.667 106.667 0 13.76-2.773 26.88-7.573 38.933l62.4 62.4c32.213-26.88 57.6-61.653 73.28-101.333-37.013-93.653-128-160-234.773-160-29.867 0-58.453 5.333-85.013 14.933l46.08 45.973c12.052-4.693 25.172-7.573 38.932-7.573z\" /><path d=\"M21.333 27.253l48.64 48.64L79.68 85.6C44.48 113.12 16.64 149.707 0 192.053c36.907 93.653 128 160 234.667 160 33.067 0 64.64-6.4 93.547-18.027l9.067 9.067 62.187 62.293 27.2-27.093L48.533.053l-27.2 27.2zM139.307 145.12l32.96 32.96c-.96 4.587-1.6 9.173-1.6 13.973 0 35.307 28.693 64 64 64 4.8 0 9.387-.64 13.867-1.6l32.96 32.96c-14.187 7.04-29.973 11.307-46.827 11.307-58.88 0-106.667-47.787-106.667-106.667 0-16.853 4.267-32.64 11.307-46.933z\" fill-rule=\"nonzero\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -5045,6 +5073,32 @@ var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___d
   "use": "icon-sync-usage",
   "viewBox": "0 0 512 512",
   "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 512\" id=\"icon-sync\"><g fill-rule=\"nonzero\" fill=\"none\"><path d=\"M511.914 256c0-141.387-114.594-256-255.957-256C114.597 0 0 114.613 0 256s114.598 256 255.957 256c141.363 0 255.957-114.613 255.957-256z\" fill=\"#1197CE\" /><path d=\"M410.719 52.098c32.676 42.988 52.086 96.617 52.086 154.785 0 141.383-114.594 256-255.957 256-58.16 0-111.778-19.414-154.758-52.098C98.84 472.285 172.754 512 255.957 512c141.363 0 255.957-114.613 255.957-256 0-83.215-39.707-157.145-101.195-203.902z\" fill=\"#2970AA\" /><path d=\"M137.598 374.184l16.957-16.961C203 400.012 257.199 411.403 316.55 384.75c37.277-16.742 61.59-46.098 75.66-85.422.879-2.453-.95-5.039-3.555-5.031-13.039.031-25.34-.074-37.601.539-2.442.121-5.407 3.71-6.918 6.383-25.52 45.203-76.926 64.988-123.551 46.347-12.145-4.855-23-12.933-35.934-20.386l17.27-17.274c2.121-2.12.617-5.75-2.383-5.75-21.078-.004-41.898-.011-63.273-.015-2.606 0-4.727 2.109-4.723 4.714.016 17.641-.016 48.715.305 63.032.066 2.96 3.652 4.39 5.75 2.297z\" fill=\"#E3FAFF\" /><path d=\"M388.656 294.297c-7.64.02-15.023-.008-22.3.09 2.156.465 3.53 2.754 2.746 4.941-14.067 39.324-38.38 68.684-75.657 85.422-17.382 7.805-34.316 12.324-50.797 13.77 23.645 2.132 48.293-2.27 73.903-13.77 37.277-16.742 61.59-46.098 75.66-85.422.875-2.45-.95-5.039-3.555-5.031z\" fill=\"#CCF4FF\" /><path d=\"M325.352 186.39l-15.375 15.38c-1.961 1.96-.579 5.316 2.199 5.32 20.59.039 41.262.074 61.414.11a4.705 4.705 0 0 0 4.715-4.716c-.028-19.445-.055-40.109-.082-61.011-.004-2.778-3.36-4.164-5.325-2.2l-15.609 15.614c-45.598-40.871-96.691-52.852-153.785-31.614-39.012 14.512-71.09 49.422-83.84 89.067-.773 2.406 1.047 4.863 3.578 4.87 12.762.036 25.332.18 37.88-.304 2.19-.086 4.862-3.527 6.265-6.011 23.773-42.106 69.578-62.301 114.406-50.063 16.316 4.457 30.617 12.59 43.559 25.559z\" fill=\"#E3FAFF\" /><path d=\"M378.223 141.473c-.004-2.778-3.36-4.164-5.325-2.2l-15.609 15.614a202.879 202.879 0 0 0-15.726-12.758v-.008c-.04-.027-.075-.05-.114-.078a7.644 7.644 0 0 0-.215-.16v.004c-31.55-22.969-65.617-32.63-102.355-27.649 20.34 2.875 50.176 18.606 74.926 35.61 17.222 11.836 27.48 31.425 27.511 52.328v.304a4.692 4.692 0 0 1-4.062 4.653c12.21.023 24.367.043 36.336.066a4.699 4.699 0 0 0 4.71-4.71c-.023-19.446-.05-40.11-.077-61.016z\" fill=\"#CCF4FF\" /></g></symbol>"
+});
+var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
+/* harmony default export */ __webpack_exports__["default"] = (symbol);
+
+/***/ }),
+
+/***/ "./resources/js/icons/svg/visible.svg":
+/*!********************************************!*\
+  !*** ./resources/js/icons/svg/visible.svg ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! svg-baker-runtime/browser-symbol */ "./node_modules/svg-baker-runtime/browser-symbol.js");
+/* harmony import */ var svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! svg-sprite-loader/runtime/browser-sprite.build */ "./node_modules/svg-sprite-loader/runtime/browser-sprite.build.js");
+/* harmony import */ var svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var symbol = new svg_baker_runtime_browser_symbol__WEBPACK_IMPORTED_MODULE_0___default.a({
+  "id": "icon-visible",
+  "use": "icon-visible-usage",
+  "viewBox": "0 0 512 342",
+  "content": "<symbol xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 512 342\" id=\"icon-visible\"><g fill=\"#2A70AA\" fill-rule=\"evenodd\"><path d=\"M256 .333C85.333.333 0 171 0 171s85.333 170.667 256 170.667S512 171 512 171 426.667.333 256 .333zM256 299c-70.693 0-128-57.307-128-128S185.307 43 256 43c70.692 0 128 57.307 128 128s-57.308 128-128 128z\" fill-rule=\"nonzero\" /><path d=\"M333.012 134.213c-5.148 5.154-12.262 8.343-20.123 8.343-15.71 0-28.444-12.735-28.444-28.444 0-7.861 3.189-14.976 8.341-20.123-11.139-5.331-23.612-8.321-36.786-8.321-47.128 0-85.333 38.205-85.333 85.333 0 8.749 1.323 17.19 3.769 25.138C181.124 181.32 196.019 171 213.333 171 236.898 171 256 190.102 256 213.667c0 17.314-10.32 32.209-25.138 38.898A85.321 85.321 0 0 0 256 256.334c47.128 0 85.333-38.205 85.333-85.333 0-13.175-2.991-25.648-8.321-36.788z\" /></g></symbol>"
 });
 var result = svg_sprite_loader_runtime_browser_sprite_build__WEBPACK_IMPORTED_MODULE_1___default.a.add(symbol);
 /* harmony default export */ __webpack_exports__["default"] = (symbol);
@@ -5745,6 +5799,22 @@ function changeSubmitButtonText(tabName, text) {
 
 function changeGetPhoneCodeLinkText(tabName, text) {
   $("#account_modal .login-register-box ".concat(tabName, " .form-box .get-phone-code .link")).text(text);
+}
+
+function passwordInputStyleAttrChanger(tabName, invisibleIconDisplayStyle, visibleIconDisplayStyle, passwordInputType) {
+  //toggle icon display
+  $("#account_modal ".concat(tabName, " .password-switch .icon-invisible")).css('display', invisibleIconDisplayStyle);
+  $("#account_modal ".concat(tabName, " .password-switch .icon-visible")).css('display', visibleIconDisplayStyle); //toggle password visibility
+
+  $("#account_modal ".concat(tabName, " input[name=password]")).attr('type', passwordInputType);
+}
+
+function togglePasswordInputVisibility(tabName) {
+  if ($("#account_modal ".concat(tabName, " input[name=password]")).attr('type') == 'password') {
+    passwordInputStyleAttrChanger(tabName, 'block', 'none', 'text');
+  } else if ($("#account_modal ".concat(tabName, " input[name=password]")).attr('type') == 'text') {
+    passwordInputStyleAttrChanger(tabName, 'none', 'block', 'password');
+  }
 }
 
 function disableAllActionsOnPage() {
@@ -6518,6 +6588,12 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
       }
     }
   });
+});
+$('#account_modal .password-login .password-switch').click(function (event) {
+  togglePasswordInputVisibility('.password-login');
+});
+$('#account_modal .account-register .password-switch').click(function (event) {
+  togglePasswordInputVisibility('.account-register');
 }); //click event for close button on ErrorBox on PasswordLoginTab
 
 $('#account_modal .password-login .error-box .message .close').click(function (event) {
