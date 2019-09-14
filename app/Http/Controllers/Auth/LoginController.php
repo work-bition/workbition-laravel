@@ -35,6 +35,12 @@ class LoginController extends Controller
     public function login(Request $request)
     {
 
+      /**
+
+      * $this->username() 输出 'email'
+
+      **/
+
       $rules = [
 
           $this->username() => 'required|email',

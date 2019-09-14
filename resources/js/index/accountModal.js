@@ -2055,7 +2055,7 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
           required : '请输入密码',
 
-          between : '请确保密码的长度在8-16位之间'
+          between : '请确保密码长度在8-16位之间'
 
         }
 
@@ -2121,33 +2121,21 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
         })){
 
-          closeErrorBox({
-
-            tabName: '.account-register',
-
-            formBox: {
-
-              marginTopDistance: '2.5rem'
-
-            }
-
-          })
-
-          changeSubmitButtonText('.password-login', '登录中...')
+          changeSubmitButtonText('.account-register', '注册中...')
 
           sendPostRequest({
 
-            postUrl: getPostUrl('.password-login'),
+            postUrl: window.location.protocol + '//'+ window.location.host + '/register',
 
-            targetForm: $('#account_modal .account-login .password-login'),
+            targetForm: $('#account_modal .account-register'),
 
             postFields: {
 
-              email: {
+              phone: {
 
                 type: 'element',
 
-                literalValue: 'input[name=email_name]'
+                literalValue: 'input[name=phone]'
 
               },
 
@@ -2156,6 +2144,14 @@ $('#account_modal .account-register .register.form').submit((event) => {
                 type: 'element',
 
                 literalValue: 'input[name=password]'
+
+              },
+
+              phoneCode: {
+
+                type: 'element',
+
+                literalValue: 'input[name=phoneCode]'
 
               },
 
@@ -2179,19 +2175,19 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
                 showErrorBox({
 
-                  tabName: '.password-login',
+                  tabName: '.account-register',
 
                   errorsBag: errorsBag,
 
                   formBox: {
 
-                    marginTopDistance: '1rem'
+                    marginTopDistance: '0'
 
                   }
 
                 })
 
-                changeSubmitButtonText('.password-login', '登录')
+                changeSubmitButtonText('.account-register', '注册')
 
                 stopProcessingLock({
 
@@ -2231,19 +2227,19 @@ $('#account_modal .account-register .register.form').submit((event) => {
 
                   showErrorBox({
 
-                    tabName: '.password-login',
+                    tabName: '.account-register',
 
                     errorsBag: response.data.errors,
 
                     formBox: {
 
-                      marginTopDistance: '1rem'
+                      marginTopDistance: '0'
 
                     }
 
                   })
 
-                  changeSubmitButtonText('.password-login', '登录')
+                  changeSubmitButtonText('.account-register', '注册')
 
                   stopProcessingLock({
 

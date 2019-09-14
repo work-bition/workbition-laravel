@@ -27,10 +27,6 @@ class VerificationCodesController extends Controller
 
         //字段验证
 
-        $rules;
-
-        $messages;
-
         $rules = [
 
             //'phone' => ['required', 'regex:/^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199)\d{8}$/', 'unique:users'],
@@ -50,7 +46,7 @@ class VerificationCodesController extends Controller
 
             'phone.regex'    =>  '请输入正确的手机号',
 
-            'phone.unique'   =>  '此手机号已经注册',
+            'phone.unique'   =>  '此手机号已被注册',
 
             'captcha_token.required'  =>  'captcha token的值不能为空',
 
@@ -224,12 +220,14 @@ class VerificationCodesController extends Controller
 
 
 
-          $key = 'verificationCode_'.str_random(15);
+          //$key = 'verificationCode_'.str_random(15);
+
+          $key = $request->phone;
 
           $expiredAt = now()->addMinutes(10);
 
           // 缓存验证码 10分钟过期。
-          Cache::put($key, ['phone' => $request->phone, 'code' => $code], $expiredAt);
+          Cache::put($key, ['code' => $code], $expiredAt);
 
           return $this->response->array([
 

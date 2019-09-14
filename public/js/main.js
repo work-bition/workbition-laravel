@@ -6322,7 +6322,7 @@ $('#account_modal .account-register .register.form').submit(function (event) {
         rules: ['required', 'between:6,16'],
         errorMessages: {
           required: '请输入密码',
-          between: '请确保密码的长度在8-16位之间'
+          between: '请确保密码长度在8-16位之间'
         }
       },
       phoneCodeField: {
@@ -6353,24 +6353,22 @@ $('#account_modal .account-register .register.form').submit(function (event) {
             flagName: 'remoteProcessingFlag'
           }
         })) {
-          closeErrorBox({
-            tabName: '.account-register',
-            formBox: {
-              marginTopDistance: '2.5rem'
-            }
-          });
-          changeSubmitButtonText('.password-login', '登录中...');
+          changeSubmitButtonText('.account-register', '注册中...');
           Object(_network__WEBPACK_IMPORTED_MODULE_3__["sendPostRequest"])({
-            postUrl: getPostUrl('.password-login'),
-            targetForm: $('#account_modal .account-login .password-login'),
+            postUrl: window.location.protocol + '//' + window.location.host + '/register',
+            targetForm: $('#account_modal .account-register'),
             postFields: {
-              email: {
+              phone: {
                 type: 'element',
-                literalValue: 'input[name=email_name]'
+                literalValue: 'input[name=phone]'
               },
               password: {
                 type: 'element',
                 literalValue: 'input[name=password]'
+              },
+              phoneCode: {
+                type: 'element',
+                literalValue: 'input[name=phoneCode]'
               },
               _token: {
                 type: 'element',
@@ -6382,13 +6380,13 @@ $('#account_modal .account-register .register.form').submit(function (event) {
               failed: function failed(error) {
                 var errorsBag = Object(_network__WEBPACK_IMPORTED_MODULE_3__["getNetworkRelatedErrorsBag"])(error);
                 showErrorBox({
-                  tabName: '.password-login',
+                  tabName: '.account-register',
                   errorsBag: errorsBag,
                   formBox: {
-                    marginTopDistance: '1rem'
+                    marginTopDistance: '0'
                   }
                 });
-                changeSubmitButtonText('.password-login', '登录');
+                changeSubmitButtonText('.account-register', '注册');
                 Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
                   maintainingFlagsInfo: {
                     flagsContainer: maintainingFlags,
@@ -6407,13 +6405,13 @@ $('#account_modal .account-register .register.form').submit(function (event) {
                   });
                 } else {
                   showErrorBox({
-                    tabName: '.password-login',
+                    tabName: '.account-register',
                     errorsBag: response.data.errors,
                     formBox: {
-                      marginTopDistance: '1rem'
+                      marginTopDistance: '0'
                     }
                   });
-                  changeSubmitButtonText('.password-login', '登录');
+                  changeSubmitButtonText('.account-register', '注册');
                   Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
                     maintainingFlagsInfo: {
                       flagsContainer: maintainingFlags,
