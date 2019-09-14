@@ -112,8 +112,6 @@ class RegisterController extends Controller
 
       $user = User::create([
 
-          'name' => 'hellomotor',
-
           'phone' => $request->phone,
 
           'password' => Hash::make($request->password)
