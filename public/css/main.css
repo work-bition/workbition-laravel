@@ -722,11 +722,6 @@ body.dimmed.dimmable {
   color: #9B9B9B;
 }
 
-#account_modal .login-register-box .account-login .content .form-box .ui.form.register .get-phone-code a,
-#account_modal .login-register-box .account-register .content .form-box .ui.form.register .get-phone-code a {
-  cursor: pointer;
-}
-
 #account_modal .login-register-box .account-login .content .form-box .ui.form.register,
 #account_modal .login-register-box .account-login .content .form-box .ui.form.phone-code.login,
 #account_modal .login-register-box .account-register .content .form-box .ui.form.register,
@@ -739,6 +734,7 @@ body.dimmed.dimmable {
 #account_modal .login-register-box .account-login .content .form-box .ui.form.phone-code.login .get-phone-code a,
 #account_modal .login-register-box .account-register .content .form-box .ui.form.register .get-phone-code a,
 #account_modal .login-register-box .account-register .content .form-box .ui.form.phone-code.login .get-phone-code a {
+  cursor: pointer;
   text-align: right;
 }
 
@@ -843,20 +839,8 @@ body.dimmed.dimmable {
   margin-left: 0.5rem;
 }
 
-#account_modal .login-register-box .account-login .password-login .content .error-box,
-#account_modal .login-register-box .account-register .content .error-box {
-  display: none;
-  height: 5.5rem;
-  margin-top: -2rem;
-}
-
-#account_modal .login-register-box .account-login .password-login .content .error-box .error.message .list,
-#account_modal .login-register-box .account-register .content .error-box .error.message .list {
-  margin-top: 0 !important;
-}
-
-#account_modal .login-register-box .account-login .password-login .content .form-box .password-switch,
-#account_modal .login-register-box .account-register .content .form-box .password-switch {
+#account_modal .login-register-box .account-login .password-login .form-box .password-switch,
+#account_modal .login-register-box .account-register .form-box .password-switch {
   cursor: pointer;
   height: 1.4rem;
   -webkit-transform: translateY(0.05rem);
@@ -864,18 +848,33 @@ body.dimmed.dimmable {
   width: 1.4rem;
 }
 
-#account_modal .login-register-box .account-login .password-login .content .form-box .password-switch .icon,
-#account_modal .login-register-box .account-register .content .form-box .password-switch .icon {
+#account_modal .login-register-box .account-login .password-login .form-box .password-switch .icon,
+#account_modal .login-register-box .account-register .form-box .password-switch .icon {
   height: 1.4rem;
   width: 1.4rem;
 }
 
-#account_modal .login-register-box .account-login .password-login .content .form-box .password-switch .icon.icon-invisible,
-#account_modal .login-register-box .account-register .content .form-box .password-switch .icon.icon-invisible {
+#account_modal .login-register-box .account-login .password-login .form-box .password-switch .icon.icon-invisible,
+#account_modal .login-register-box .account-register .form-box .password-switch .icon.icon-invisible {
   display: none;
 }
 
+#account_modal .login-register-box .account-login .password-login .content .error-box,
+#account_modal .login-register-box .account-login .phone-code-login .content .error-box,
+#account_modal .login-register-box .account-register .content .error-box {
+  display: none;
+  height: 5.5rem;
+  margin-top: -2rem;
+}
+
+#account_modal .login-register-box .account-login .password-login .content .error-box .error.message .list,
+#account_modal .login-register-box .account-login .phone-code-login .content .error-box .error.message .list,
+#account_modal .login-register-box .account-register .content .error-box .error.message .list {
+  margin-top: 0 !important;
+}
+
 #account_modal .login-register-box .account-login .password-login .content .third-login,
+#account_modal .login-register-box .account-login .phone-code-login .content .third-login,
 #account_modal .login-register-box .account-register .content .third-login {
   margin-top: 4.5rem;
 }

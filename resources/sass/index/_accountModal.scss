@@ -150,20 +150,6 @@
 
             }
 
-            &.register {
-
-              .get-phone-code {
-
-                a {
-
-                  cursor: pointer;
-
-                }
-
-              }
-
-            }
-
             &.register, &.phone-code.login {
 
               display: flex;
@@ -173,6 +159,8 @@
               .get-phone-code {
 
                 a {
+
+                  cursor: pointer;
 
                   text-align: right;
 
@@ -324,6 +312,40 @@
 
     .account-login .password-login, .account-register {
 
+      .form-box {
+
+        .password-switch {
+
+          cursor: pointer;
+
+          transform:translateY(0.05rem);
+
+          width:1.4rem;
+
+          height:1.4rem;
+
+          .icon {
+
+            width:1.4rem;
+
+            height:1.4rem;
+
+            &.icon-invisible {
+
+              display: none;
+
+            }
+
+          }
+
+        }
+
+      }
+
+    }
+
+    .account-login .password-login, .account-login .phone-code-login, .account-register {
+
       .content {
 
         .error-box {
@@ -339,36 +361,6 @@
             .list {
 
               margin-top: 0!important;
-
-            }
-
-          }
-
-        }
-
-        .form-box {
-
-          .password-switch {
-
-            cursor: pointer;
-
-            transform:translateY(0.05rem);
-
-            width:1.4rem;
-
-            height:1.4rem;
-
-            .icon {
-
-              width:1.4rem;
-
-              height:1.4rem;
-
-              &.icon-invisible {
-
-                display: none;
-
-              }
 
             }
 

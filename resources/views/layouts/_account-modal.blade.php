@@ -117,6 +117,20 @@
 
           <section class="content">
 
+            <section class="error-box">
+
+              <div class="ui error message">
+
+                <i class="close icon"></i>
+
+                <ul class="list">
+                  <!-- errors will be shown here  -->
+                </ul>
+
+              </div>
+
+            </section>
+
             <!-- benifits bar section will be cloned here -->
 
             <section class="form-box">

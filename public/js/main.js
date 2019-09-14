@@ -6496,6 +6496,98 @@ $('#account_modal .account-register .register.form').submit(function (event) {
       }
     }
   });
+}); //click event for the 'get phone code' button on PhoneCodeLoginTab
+
+$('#account_modal .phone-code-login .get-phone-code .link').click(function (event) {
+  Object(_formValidation__WEBPACK_IMPORTED_MODULE_0__["validateForm"])({
+    targetForm: $('#account_modal .phone-code-login'),
+    fields: {
+      phoneField: {
+        element: 'input[name=phone]',
+        rules: ['required', //javascript中'\'字符需要被转义，regexp类会自动在正则表达式的开头和末尾加上'/'
+        'regex:' + /^1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[01356789]\d{2}|4(?:0\d|1[0-2]|9\d))|9[189]\d{2}|6[567]\d{2}|4[579]\d{2})\d{6}$/.toString()],
+        errorMessages: {
+          required: '请输入手机号码',
+          regex: '请输入正确的手机号码'
+        }
+      }
+    },
+    callbacks: {
+      failed: function failed(errorsBag) {
+        showErrorBox({
+          tabName: '.phone-code-login',
+          errorsBag: errorsBag,
+          formBox: {
+            marginTopDistance: '1rem'
+          }
+        });
+      },
+      succeeded: function succeeded() {
+        Object(_network__WEBPACK_IMPORTED_MODULE_3__["wait"])({
+          worthWaitingHandler: function worthWaitingHandler(resolve) {
+            closeErrorBox({
+              tabName: '.phone-code-login',
+              formBox: {
+                marginTopDistance: '2.5rem'
+              },
+              resolve: resolve
+            });
+          },
+          suspendedHandler: function suspendedHandler() {
+            //prevent multiple requests before get the result
+            //only when the YpCaptchaButtonShowingFlag is false and the YpCaptchaButtonShownFlag is false
+            //the YpCaptchButton can be instantiated and showed up
+            if (Object(_network__WEBPACK_IMPORTED_MODULE_3__["startTripleProcessingLock"])({
+              //indicating if the YpCaptchaButton is showing
+              firstMaintainingFlagsInfo: {
+                flagsContainer: YpCaptchaMaintainingFlags,
+                flagName: 'YpCaptchaButtonShowingFlag'
+              },
+              //indicating if the YpCaptchaButton is shown
+              secondMaintainingFlagsInfo: {
+                flagsContainer: YpCaptchaMaintainingFlags,
+                flagName: 'YpCaptchaButtonShownFlag'
+              },
+              //indicating if the resend phone code is counting down
+              thirdMaintainingFlagsInfo: {
+                flagsContainer: maintainingFlags,
+                flagName: 'resendPhoneCodeCountingDownFlag'
+              }
+            })) {
+              instantiateYpCaptcha(); //show up the YpCaptchaButton
+
+              showYpCaptchaButton({
+                YpCaptchaButtonID: '#login-yunpian-captcha',
+                showingTime: 600,
+                shownCallback: function shownCallback() {
+                  Object(_network__WEBPACK_IMPORTED_MODULE_3__["stopProcessingLock"])({
+                    maintainingFlagsInfo: {
+                      flagsContainer: YpCaptchaMaintainingFlags,
+                      flagName: 'YpCaptchaButtonShowingFlag'
+                    }
+                  });
+                }
+              });
+            } //make the text of YpCaptchaButton flash
+
+
+            if (isYpCaptchaButtonShown()) {
+              makeYpCaptchaButtonTextFlash({
+                YpCaptchaButtonID: '#login-yunpian-captcha',
+                effectDuration: 800,
+                callbacks: {
+                  beforeEffect: function beforeEffect() {//console.log('before the effect')
+                  },
+                  afterEffect: function afterEffect() {//console.log('after the effect')
+                  }
+                }
+              });
+            }
+          }
+        });
+      }
+    }
+  });
 }); //click event for the 'get phone code' button on AccountRegisterTab
 
 $('#account_modal .account-register .get-phone-code .link').click(function (event) {
@@ -6601,6 +6693,15 @@ $('#account_modal .account-register .password-switch').click(function (event) {
 $('#account_modal .password-login .error-box .message .close').click(function (event) {
   closeErrorBox({
     tabName: '.password-login',
+    formBox: {
+      marginTopDistance: '2.5rem'
+    }
+  });
+}); //click event for close button on ErrorBox on PhoneCodeLoginTab
+
+$('#account_modal .phone-code-login .error-box .message .close').click(function (event) {
+  closeErrorBox({
+    tabName: '.phone-code-login',
     formBox: {
       marginTopDistance: '2.5rem'
     }
