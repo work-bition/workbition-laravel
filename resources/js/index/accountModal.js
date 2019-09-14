@@ -2481,12 +2481,14 @@ $('#account_modal .account-register .get-phone-code .link').click((event) => {
 
 })
 
+//click event for the 'passwowrd switch' button on PasswordLoginTab
 $('#account_modal .password-login .password-switch').click((event) => {
 
   togglePasswordInputVisibility('.password-login')
 
 })
 
+//click event for the 'passwowrd switch' button on AccountRegisterTab
 $('#account_modal .account-register .password-switch').click((event) => {
 
   togglePasswordInputVisibility('.account-register')

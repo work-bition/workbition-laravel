@@ -6588,10 +6588,12 @@ $('#account_modal .account-register .get-phone-code .link').click(function (even
       }
     }
   });
-});
+}); //click event for the 'passwowrd switch' button on PasswordLoginTab
+
 $('#account_modal .password-login .password-switch').click(function (event) {
   togglePasswordInputVisibility('.password-login');
-});
+}); //click event for the 'passwowrd switch' button on AccountRegisterTab
+
 $('#account_modal .account-register .password-switch').click(function (event) {
   togglePasswordInputVisibility('.account-register');
 }); //click event for close button on ErrorBox on PasswordLoginTab
