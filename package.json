@@ -16,7 +16,7 @@
         "browser-sync-webpack-plugin": "2.0.1",
         "cross-env": "^5.1",
         "file-loader": "^3.0.1",
-        "gulp": "^3.9.1",
+        "gulp": "^4.0.2",
         "laravel-mix": "^4.0.15",
         "lodash": "^4.17.5",
         "popper.js": "^1.15.0",
@@ -35,7 +35,7 @@
         "enquire.js": "^2.1.6",
         "jquery": "^3.4.0",
         "objectFitPolyfill": "^2.2.0",
-        "semantic-ui": "^2.4.2",
+        "semantic-ui": "^2.5.0",
         "simditor": "^2.3.22",
         "slick-carousel": "^1.8.1"
     }
